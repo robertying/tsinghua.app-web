@@ -266,7 +266,6 @@ const CourseDetail: React.FC = () => {
               </Tooltip>
             </a>
           </Link>
-
           <Box sx={{ ml: 2 }}>
             <Typography sx={{ fontWeight: "bold" }} variant="h4" component="h1">
               course
@@ -307,7 +306,7 @@ const CourseDetail: React.FC = () => {
             >
               {course.name}
             </Typography>
-            <Typography variant="h5" component="h4">
+            <Typography sx={{ mt: 0.5 }} variant="h5" component="h4">
               {course.teacher.name}
             </Typography>
           </section>
@@ -489,7 +488,7 @@ const CourseDetail: React.FC = () => {
             >
               {course.name}
             </Typography>
-            <Typography variant="h6" component="h2">
+            <Typography sx={{ mt: 0.5 }} variant="h6" component="h2">
               {course.teacher.name}
             </Typography>
             <Typography
