@@ -1,8 +1,13 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
 import { Button, Container, Paper, Typography } from "@material-ui/core";
 
 const NotFound: React.FC = () => {
+  const router = useRouter();
+
+  const courseRelated = router.asPath.startsWith("/courses/");
+
   return (
     <>
       <NextSeo title="404 未找到" noindex />
@@ -26,6 +31,12 @@ const NotFound: React.FC = () => {
           <Typography sx={{ mt: 4 }} variant="body1">
             请求的页面不存在。
           </Typography>
+          {courseRelated && (
+            <Typography sx={{ mt: 2 }} variant="body1">
+              此课程还未被 courseX 课程信息共享计划收录；你可以通过 learnX App
+              加入共享计划以帮助添加此课程的详细信息。
+            </Typography>
+          )}
           <Link href="/">
             <a>
               <Button sx={{ mt: 2 }} variant="contained">
