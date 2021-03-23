@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 import { NextSeo } from "next-seo";
 import {
   Button,
@@ -14,6 +15,8 @@ import axios, { AxiosError } from "axios";
 import { useToast } from "components/Snackbar";
 import { validateEmail } from "lib/validate";
 import { useUser } from "lib/session";
+
+declare const grecaptcha: any;
 
 const Login: React.FC = () => {
   const toast = useToast();
@@ -41,18 +44,27 @@ const Login: React.FC = () => {
     NProgress.start();
     setLoading(true);
 
-    try {
-      await axios.post("/api/auth/login", {
-        email,
-      });
+    grecaptcha.ready(function () {
+      grecaptcha
+        .execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY, {
+          action: "login",
+        })
+        .then(async function (token: string) {
+          try {
+            await axios.post("/api/auth/login", {
+              email,
+              recaptcha: token,
+            });
 
-      router.push(`/auth/verify?email=${email}`);
-    } catch (err) {
-      toast("error", "登录失败：" + (err as AxiosError).message);
-    } finally {
-      setLoading(false);
-      NProgress.done();
-    }
+            router.push(`/auth/verify?email=${email}`);
+          } catch (err) {
+            toast("error", "登录失败：" + (err as AxiosError).message);
+          } finally {
+            setLoading(false);
+            NProgress.done();
+          }
+        });
+    });
   };
 
   useEffect(() => {
@@ -63,6 +75,13 @@ const Login: React.FC = () => {
 
   return (
     <>
+      <Head>
+        <script
+          src={`https://www.recaptcha.net/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+          async
+          defer
+        />
+      </Head>
       <NextSeo title="登录" />
       <Container
         sx={{
