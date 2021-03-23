@@ -13,6 +13,10 @@ export default async function handleProfile(
   const cookies = nookies.get({ req });
   const token = cookies[REFRESH_TOKEN_COOKIE_NAME];
 
+  if (!token) {
+    return res.status(200).send(null);
+  }
+
   try {
     const { id } = await verify(token, "refresh");
 

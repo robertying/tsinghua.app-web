@@ -36,11 +36,11 @@ export const useAccessToken = () => {
 };
 
 export const useUser = () => {
-  const { data, error } = useSWR<User>("/api/auth/profile", {
+  const { data, error } = useSWR<User | null>("/api/auth/profile", {
     shouldRetryOnError: false,
   });
 
   const loading = !data && !error;
 
-  return [data, loading] as [User | undefined, boolean];
+  return [data, loading] as [User | null | undefined, boolean];
 };
