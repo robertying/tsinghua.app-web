@@ -68,7 +68,7 @@ const CourseDetail: React.FC = () => {
   const router = useRouter();
   const courseId = router.query.id as string;
 
-  const [user] = useUser();
+  const [user, authLoading] = useUser();
 
   const { data: courseData, refetch: refetchCourse } = useQuery<
     GetCourseById,
@@ -340,7 +340,9 @@ const CourseDetail: React.FC = () => {
               <Typography variant="h6" component="h5">
                 打分评价
               </Typography>
-              {user?.id ? (
+              {authLoading ? (
+                <CircularProgress size="1.5rem" />
+              ) : user?.id ? (
                 <div>
                   {!noReview && (
                     <>
