@@ -16,7 +16,8 @@ export default async function handleSession(
   res: NextApiResponse
 ) {
   const cookies = nookies.get({ req });
-  const refreshToken = cookies[REFRESH_TOKEN_COOKIE_NAME];
+  const refreshToken =
+    cookies[REFRESH_TOKEN_COOKIE_NAME] ?? req.body.refreshToken;
 
   try {
     const { id } = await verify(refreshToken, "refresh");
