@@ -53,7 +53,7 @@ const Verify: React.FC = () => {
         otp,
       });
 
-      router.push("/auth/login");
+      router.push(`/auth/login?redirect_url=${router.query.redirect_url}`);
     } catch (err) {
       toast("error", "验证失败：" + (err as AxiosError).message);
     } finally {

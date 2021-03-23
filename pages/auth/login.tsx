@@ -56,7 +56,9 @@ const Login: React.FC = () => {
               recaptcha: token,
             });
 
-            router.push(`/auth/verify?email=${email}`);
+            router.push(
+              `/auth/verify?email=${email}&redirect_url=${router.query.redirect_url}`
+            );
           } catch (err) {
             toast("error", "登录失败：" + (err as AxiosError).message);
           } finally {
