@@ -27,7 +27,8 @@ export const CourseXHome: React.FC = ({ children }) => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "100vh",
+        py: 8,
+        minHeight: router.query.query ? "unset" : "100vh",
       }}
     >
       <Typography
