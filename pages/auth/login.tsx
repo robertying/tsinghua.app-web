@@ -106,7 +106,9 @@ const Login: React.FC = () => {
           <Typography sx={{ fontWeight: "bold" }} variant="h4" component="h1">
             星期四 Thursday
           </Typography>
-          {authLoading || user ? (
+          {authLoading ? (
+            <CircularProgress sx={{ mt: 4 }} />
+          ) : user ? (
             <>
               <CircularProgress sx={{ mt: 4 }} />
               <Typography sx={{ mt: 4 }} variant="body1">
