@@ -57,7 +57,11 @@ const Login: React.FC = () => {
             });
 
             router.push(
-              `/auth/verify?email=${email}&redirect_url=${router.query.redirect_url}`
+              `/auth/verify?email=${email}${
+                router.query.redirect_url
+                  ? `&redirect_url=${router.query.redirect_url}`
+                  : ""
+              }`
             );
           } catch (err) {
             toast("error", "登录失败：" + (err as AxiosError).message);
