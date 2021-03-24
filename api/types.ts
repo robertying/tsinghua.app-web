@@ -324,6 +324,7 @@ export interface AddOrUpdateUser {
 export interface AddOrUpdateUserVariables {
   id: string;
   email: string;
+  username: string;
 }
 
 /* tslint:disable */

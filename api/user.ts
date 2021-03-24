@@ -13,9 +13,9 @@ export const GET_USER = gql`
 `;
 
 export const ADD_OR_UPDATE_USER = gql`
-  mutation AddOrUpdateUser($id: String!, $email: String!) {
+  mutation AddOrUpdateUser($id: String!, $email: String!, $username: String!) {
     insert_user_one(
-      object: { id: $id, email: $email, username: $id }
+      object: { id: $id, email: $email, username: $username }
       on_conflict: { constraint: users_pkey, update_columns: [email, username] }
     ) {
       id

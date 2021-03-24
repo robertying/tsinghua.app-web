@@ -64,7 +64,12 @@ const Login: React.FC = () => {
               }`
             );
           } catch (err) {
-            toast("error", "登录失败：" + (err as AxiosError).message);
+            const axiosError = err as AxiosError;
+            if (axiosError.response?.status === 403) {
+              toast("error", "登录失败，请稍后重试");
+            } else {
+              toast("error", "登录失败：" + axiosError.message);
+            }
           } finally {
             setLoading(false);
             NProgress.done();

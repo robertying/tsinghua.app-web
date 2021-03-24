@@ -6,6 +6,7 @@ import { encodeRefreshToken } from "lib/jwt";
 import { graphQLClient } from "lib/client";
 import { ADD_OR_UPDATE_USER } from "api/user";
 import { AddOrUpdateUser, AddOrUpdateUserVariables } from "api/types";
+import usernameBlocklist from "./username_blocklist.json";
 
 export const REFRESH_TOKEN_COOKIE_NAME =
   process.env.NODE_ENV === "production"
@@ -22,6 +23,16 @@ export default async function handleToken(
   }
   if (!validateEmail(email)) {
     return res.status(422).send("Invalid user email");
+  }
+  const username = req.body.username;
+  if (!username) {
+    return res.status(422).send("Missing username");
+  }
+  if (username.length > 16) {
+    return res.status(422).send("Username too long");
+  }
+  if (usernameBlocklist.includes(username)) {
+    return res.status(409).send("Invalid username");
   }
   const otp = req.body.otp;
   if (!otp) {
@@ -47,6 +58,7 @@ export default async function handleToken(
       >(ADD_OR_UPDATE_USER, {
         id,
         email,
+        username,
       });
       const user = data.insert_user_one!;
 
