@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
 import totp from "lib/totp";
 import { validateEmail } from "lib/validate";
-import { sendEmail } from "lib/email";
+import { sendOtpEmail } from "lib/email";
 
 export default async function handleLogin(
   req: NextApiRequest,
@@ -50,7 +50,7 @@ export default async function handleLogin(
   try {
     const otp = await totp.generate(email + process.env.AUTH_TOTP_SECRET!);
 
-    await sendEmail(email, otp);
+    await sendOtpEmail(email, otp);
   } catch (e) {
     console.error(e);
     return res.status(500).end();
