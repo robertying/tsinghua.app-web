@@ -118,10 +118,11 @@ const CourseDetail: React.FC = () => {
   ] = useMutation<DeleteCourseReview, DeleteCourseReviewVariables>(
     DELETE_COURSE_REVIEW
   );
-  const noReview = courseReviewData?.my_course_review.length === 0;
+  const reviewed =
+    courseReviewData && courseReviewData.my_course_review.length !== 0;
 
   const handleReviewDialogOpen = () => {
-    if (!noReview) {
+    if (reviewed) {
       setRating(courseReviewData?.my_course_review?.[0].rating!);
       setContent(courseReviewData?.my_course_review?.[0].content!);
     }
@@ -163,7 +164,7 @@ const CourseDetail: React.FC = () => {
       return;
     }
 
-    if (noReview) {
+    if (!reviewed) {
       addCourseReview({
         variables: {
           courseId: course!.id,
@@ -250,7 +251,7 @@ const CourseDetail: React.FC = () => {
         description="星期四大学课程信息共享计划"
       />
       <Container
-        sx={{ display: "flex", flexDirection: "column", py: 4 }}
+        sx={{ display: "flex", flexDirection: "column", py: 2 }}
         maxWidth="sm"
       >
         <Box
@@ -310,16 +311,18 @@ const CourseDetail: React.FC = () => {
               {course.teacher.name}
             </Typography>
           </section>
-          <section>
-            <Typography variant="h6" component="h5">
-              时间 / 地点
-            </Typography>
-            <ul>
-              {(JSON.parse(course.time_location) as string[]).map((i) => (
-                <li key={i}>{i}</li>
-              ))}
-            </ul>
-          </section>
+          {(JSON.parse(course.time_location) as string[]).length > 0 && (
+            <section>
+              <Typography variant="h6" component="h5">
+                时间 / 地点
+              </Typography>
+              <ul>
+                {(JSON.parse(course.time_location) as string[]).map((i) => (
+                  <li key={i}>{i}</li>
+                ))}
+              </ul>
+            </section>
+          )}
           <Box
             sx={{
               "& > *": {
@@ -343,7 +346,7 @@ const CourseDetail: React.FC = () => {
                 <CircularProgress size="1.5rem" />
               ) : user?.id ? (
                 <div>
-                  {!noReview && (
+                  {reviewed && (
                     <>
                       <Button
                         sx={{ mr: 1 }}
@@ -383,7 +386,7 @@ const CourseDetail: React.FC = () => {
                     size="small"
                     onClick={handleReviewDialogOpen}
                   >
-                    {noReview ? "撰写评价" : "更新评价"}
+                    {reviewed ? "更新评价" : "撰写评价"}
                   </Button>
                 </div>
               ) : (
@@ -474,7 +477,7 @@ const CourseDetail: React.FC = () => {
               <Close />
             </IconButton>
             <Button onClick={handleSubmitReview}>
-              {noReview ? "发布" : "更新"}
+              {reviewed ? "更新" : "发布"}
             </Button>
           </Box>
           <DialogContent>
