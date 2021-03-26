@@ -17,7 +17,7 @@ export default async function handleSession(
 ) {
   const cookies = nookies.get({ req });
   const refreshToken =
-    cookies[REFRESH_TOKEN_COOKIE_NAME] ?? req.body.refreshToken;
+    req.body.refreshToken ?? cookies[REFRESH_TOKEN_COOKIE_NAME];
 
   try {
     const { id } = await verify(refreshToken, "refresh");
