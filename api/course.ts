@@ -41,3 +41,13 @@ export const GET_COURSES = gql`
     }
   }
 `;
+
+export const GET_COURSE_COUNT_BY_SEMESTER = gql`
+  query GetCourseCountBySemester($semesterId: String!) {
+    course_aggregate(where: { semester_id: { _eq: $semesterId } }) {
+      aggregate {
+        count
+      }
+    }
+  }
+`;

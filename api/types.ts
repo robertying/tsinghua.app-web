@@ -273,6 +273,36 @@ export interface GetCoursesVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: GetCourseCountBySemester
+// ====================================================
+
+export interface GetCourseCountBySemester_course_aggregate_aggregate {
+  __typename: "course_aggregate_fields";
+  count: number;
+}
+
+export interface GetCourseCountBySemester_course_aggregate {
+  __typename: "course_aggregate";
+  aggregate: GetCourseCountBySemester_course_aggregate_aggregate | null;
+}
+
+export interface GetCourseCountBySemester {
+  /**
+   * fetch aggregated fields from the table: "course"
+   */
+  course_aggregate: GetCourseCountBySemester_course_aggregate;
+}
+
+export interface GetCourseCountBySemesterVariables {
+  semesterId: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: GetUser
 // ====================================================
 

@@ -1,9 +1,26 @@
 import { useEffect, useState } from "react";
+import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
 import { Button, Container, TextField, Typography } from "@material-ui/core";
+import { initializeApollo } from "lib/client";
+import { getSemesterTextFromId } from "lib/format";
+import {
+  GetCourseCountBySemester,
+  GetCourseCountBySemesterVariables,
+} from "api/types";
+import { GET_COURSE_COUNT_BY_SEMESTER } from "api/course";
 
-export const CourseXHome: React.FC = ({ children }) => {
+const CURRENT_SEMESTER_ID = "2020-2021-2";
+
+interface CourseXHomeProps {
+  courseCount?: number;
+}
+
+export const CourseXHome: React.FC<CourseXHomeProps> = ({
+  children,
+  courseCount,
+}) => {
   const router = useRouter();
 
   const [query, setQuery] = useState(router.query.query ?? "");
@@ -56,8 +73,17 @@ export const CourseXHome: React.FC = ({ children }) => {
       <Typography sx={{ textAlign: "center" }} variant="h4" component="h2">
         课程信息共享计划
       </Typography>
+      {courseCount && (
+        <Typography sx={{ mt: 6, textAlign: "center" }} variant="caption">
+          已收录本学期（{getSemesterTextFromId(CURRENT_SEMESTER_ID)}）课程{" "}
+          <Typography sx={{ fontWeight: "bold" }} variant="caption">
+            {courseCount}
+          </Typography>{" "}
+          门。
+        </Typography>
+      )}
       <Container
-        sx={{ display: "flex", alignItems: "stretch", mt: 8 }}
+        sx={{ display: "flex", alignItems: "stretch", mt: courseCount ? 2 : 8 }}
         maxWidth="sm"
         component="form"
         onSubmit={handleSearch}
@@ -77,14 +103,43 @@ export const CourseXHome: React.FC = ({ children }) => {
   );
 };
 
-const CourseXHomeWithSeo: React.FC = () => (
+const CourseXHomeWithSeo: React.FC<CourseXHomeProps> = (props) => (
   <>
     <NextSeo
       title="课程信息共享计划 courseX"
       description="星期四大学课程信息共享计划"
     />
-    <CourseXHome />
+    <CourseXHome {...props} />
   </>
 );
 
 export default CourseXHomeWithSeo;
+
+export const getStaticProps: GetStaticProps<CourseXHomeProps> = async () => {
+  const client = initializeApollo();
+
+  let courseCount: number | undefined = undefined;
+
+  try {
+    const result = await client.query<
+      GetCourseCountBySemester,
+      GetCourseCountBySemesterVariables
+    >({
+      query: GET_COURSE_COUNT_BY_SEMESTER,
+      variables: {
+        semesterId: CURRENT_SEMESTER_ID,
+      },
+    });
+
+    if (!result.error && !result.errors) {
+      courseCount = result.data.course_aggregate.aggregate?.count;
+    }
+  } catch {}
+
+  return {
+    props: {
+      courseCount,
+    },
+    revalidate: 60,
+  };
+};
