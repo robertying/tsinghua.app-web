@@ -14,7 +14,10 @@ const Learn: React.FC<LearnProps> = ({ content }) => {
         py: 8,
         '& img[alt~="screenshot"]': {
           maxWidth: "100%",
-          height: "auto",
+          height: {
+            xs: "auto",
+            sm: 320,
+          },
         },
       }}
       maxWidth="sm"
