@@ -132,7 +132,7 @@ export const getStaticProps: GetStaticProps<CourseXHomeProps> = async () => {
     });
 
     if (!result.error && !result.errors) {
-      courseCount = result.data.course_aggregate.aggregate?.count;
+      courseCount = result.data.course_aggregate.aggregate?.count ?? null;
     }
   } catch {}
 
