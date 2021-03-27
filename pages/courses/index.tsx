@@ -14,7 +14,7 @@ import { GET_COURSE_COUNT_BY_SEMESTER } from "api/course";
 const CURRENT_SEMESTER_ID = "2020-2021-2";
 
 interface CourseXHomeProps {
-  courseCount?: number;
+  courseCount: null;
 }
 
 export const CourseXHome: React.FC<CourseXHomeProps> = ({
@@ -118,7 +118,7 @@ export default CourseXHomeWithSeo;
 export const getStaticProps: GetStaticProps<CourseXHomeProps> = async () => {
   const client = initializeApollo();
 
-  let courseCount: number | undefined = undefined;
+  let courseCount: number | null = null;
 
   try {
     const result = await client.query<
