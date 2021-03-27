@@ -14,7 +14,7 @@ import { GET_COURSE_COUNT_BY_SEMESTER } from "api/course";
 const CURRENT_SEMESTER_ID = "2020-2021-2";
 
 interface CourseXHomeProps {
-  courseCount: null;
+  courseCount: number | null;
 }
 
 export const CourseXHome: React.FC<CourseXHomeProps> = ({
