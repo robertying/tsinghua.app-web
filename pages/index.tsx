@@ -25,7 +25,7 @@ const FeatureCard = ({
   icon: React.ReactNode;
 }) => (
   <Link href={url} passHref>
-    <Card component="a" sx={{ textDecoration: "none" }}>
+    <Card sx={{ textDecoration: "none" }}>
       <CardActionArea>
         <CardContent>
           <Box
