@@ -28,7 +28,12 @@ export const GET_COURSE_BY_ID = gql`
 export const GET_COURSES = gql`
   query GetCourses($query: String!) {
     course(
-      where: { name: { _ilike: $query } }
+      where: {
+        _or: [
+          { name: { _ilike: $query } }
+          { teacher: { name: { _ilike: $query } } }
+        ]
+      }
       order_by: { semester_id: desc, updated_at: desc }
     ) {
       id

@@ -90,7 +90,7 @@ export const CourseXHome: React.FC<CourseXHomeProps> = ({
       >
         <TextField
           sx={{ flex: 7 }}
-          placeholder="课程名"
+          placeholder="课程名 / 教师名"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
