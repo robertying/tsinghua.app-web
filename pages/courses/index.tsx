@@ -94,7 +94,12 @@ export const CourseXHome: React.FC<CourseXHomeProps> = ({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <Button sx={{ flex: 1, ml: 2 }} variant="contained" disabled={!query}>
+        <Button
+          sx={{ flex: 1, ml: 2 }}
+          type="submit"
+          variant="contained"
+          disabled={!query}
+        >
           搜索
         </Button>
       </Container>
