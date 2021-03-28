@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
 
+env:
+  GRAPHQL_API_URL: https://api.tsinghua.app
+  GRAPHQL_ADMIN_SECRET: ${{ secrets.GRAPHQL_ADMIN_SECRET }}
+
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -34,6 +38,6 @@ jobs:
       - name: Login into registry
         run: echo $GITHUB_TOKEN | docker login docker.pkg.github.com -u $USERNAME --password-stdin
       - name: Build Docker image
-        run: docker build -t docker.pkg.github.com/$GITHUB_REPOSITORY/$CONTAINER_NAME:latest .
+        run: docker build --build-arg GRAPHQL_API_URL=$GRAPHQL_API_URL --build-arg GRAPHQL_ADMIN_SECRET=$GRAPHQL_ADMIN_SECRET -t docker.pkg.github.com/$GITHUB_REPOSITORY/$CONTAINER_NAME:latest .
       - name: Push to registry
         run: docker push docker.pkg.github.com/$GITHUB_REPOSITORY/$CONTAINER_NAME:latest

@@ -8,6 +8,10 @@ RUN yarn install --frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM node:alpine AS builder
+ARG GRAPHQL_API_URL
+ENV GRAPHQL_API_URL=$GRAPHQL_API_URL
+ARG GRAPHQL_ADMIN_SECRET
+ENV GRAPHQL_ADMIN_SECRET=$GRAPHQL_ADMIN_SECRET
 WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
