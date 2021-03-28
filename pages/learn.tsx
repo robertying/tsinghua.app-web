@@ -39,7 +39,7 @@ export const getStaticProps: GetStaticProps<LearnProps> = async () => {
 
   const content = html.replace(
     /(src|href)="(?!https:|http:)(.*?)"/gi,
-    `$1="https://raw.githubusercontent.com/robertying/learnX/main/$2"`
+    `$1="https://cdn.jsdelivr.net/gh/robertying/learnX@main/$2"`
   );
 
   return {
