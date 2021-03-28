@@ -74,7 +74,7 @@ export const CourseXHome: React.FC<CourseXHomeProps> = ({
         课程信息共享计划
       </Typography>
       {courseCount && (
-        <Typography sx={{ mt: 6, textAlign: "center" }} variant="caption">
+        <Typography sx={{ mt: 5, textAlign: "center" }} variant="caption">
           已收录本学期（{getSemesterTextFromId(CURRENT_SEMESTER_ID)}）课程{" "}
           <Typography sx={{ fontWeight: "bold" }} variant="caption">
             {courseCount}
@@ -83,9 +83,10 @@ export const CourseXHome: React.FC<CourseXHomeProps> = ({
         </Typography>
       )}
       <Container
-        sx={{ display: "flex", alignItems: "stretch", mt: courseCount ? 2 : 8 }}
+        sx={{ display: "flex", alignItems: "stretch", mt: courseCount ? 3 : 8 }}
         maxWidth="sm"
         component="form"
+        action=""
         onSubmit={handleSearch}
       >
         <TextField

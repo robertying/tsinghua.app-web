@@ -147,8 +147,11 @@ const Verify: React.FC = () => {
               type="number"
               autoComplete="one-time-code"
               placeholder="XXXXXX"
+              inputProps={{
+                pattern: "[0-9]*",
+              }}
               value={otp}
-              onChange={(e) => setOtp(e.target.value)}
+              onChange={(e) => setOtp(e.target.value.substr(0, 6))}
             />
           </Box>
           <Box sx={{ mt: 4, display: "flex", flexDirection: "row" }}>
