@@ -10,7 +10,7 @@ const NotFound: React.FC = () => {
 
   return (
     <>
-      <NextSeo title="404 未找到" noindex />
+      <NextSeo title="404 Not Found" noindex />
       <Container
         sx={{
           display: "flex",

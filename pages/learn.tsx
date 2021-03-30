@@ -1,35 +1,42 @@
 import { GetStaticProps } from "next";
+import { NextSeo } from "next-seo";
 import { Container } from "@material-ui/core";
 import axios from "axios";
 import { markdownToHtml } from "lib/markdown";
 
-interface LearnProps {
+interface LearnXProps {
   content: string;
 }
 
-const Learn: React.FC<LearnProps> = ({ content }) => {
+const LearnX: React.FC<LearnXProps> = ({ content }) => {
   return (
-    <Container
-      sx={{
-        py: 8,
-        '& img[alt~="screenshot"]': {
-          maxWidth: "100%",
-          height: {
-            xs: "auto",
-            sm: 320,
+    <>
+      <NextSeo
+        title="learnX - 清华大学网络学堂 App"
+        description="清华大学网络学堂 App，以 React Native 构建"
+      />
+      <Container
+        sx={{
+          py: 8,
+          '& img[alt~="screenshot"]': {
+            maxWidth: "100%",
+            height: {
+              xs: "auto",
+              sm: 320,
+            },
           },
-        },
-      }}
-      maxWidth="sm"
-    >
-      <div dangerouslySetInnerHTML={{ __html: content }} />
-    </Container>
+        }}
+        maxWidth="sm"
+      >
+        <div dangerouslySetInnerHTML={{ __html: content }} />
+      </Container>
+    </>
   );
 };
 
-export default Learn;
+export default LearnX;
 
-export const getStaticProps: GetStaticProps<LearnProps> = async () => {
+export const getStaticProps: GetStaticProps<LearnXProps> = async () => {
   const response = await axios.get(
     "https://raw.githubusercontent.com/robertying/learnX/main/README.md"
   );
