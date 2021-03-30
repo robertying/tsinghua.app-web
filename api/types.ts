@@ -354,6 +354,35 @@ export interface AddOrUpdateUser {
 export interface AddOrUpdateUserVariables {
   id: string;
   email: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: UpdateUsername
+// ====================================================
+
+export interface UpdateUsername_update_user_by_pk {
+  __typename: "user";
+  id: string;
+  username: string;
+  email: string;
+  role: string;
+  avatar_url: string | null;
+}
+
+export interface UpdateUsername {
+  /**
+   * update single row of the table: "user"
+   */
+  update_user_by_pk: UpdateUsername_update_user_by_pk | null;
+}
+
+export interface UpdateUsernameVariables {
+  id: string;
   username: string;
 }
 

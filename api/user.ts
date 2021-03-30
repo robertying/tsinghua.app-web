@@ -13,11 +13,23 @@ export const GET_USER = gql`
 `;
 
 export const ADD_OR_UPDATE_USER = gql`
-  mutation AddOrUpdateUser($id: String!, $email: String!, $username: String!) {
+  mutation AddOrUpdateUser($id: String!, $email: String!) {
     insert_user_one(
-      object: { id: $id, email: $email, username: $username }
-      on_conflict: { constraint: users_pkey, update_columns: [email, username] }
+      object: { id: $id, email: $email, username: $id }
+      on_conflict: { constraint: users_pkey, update_columns: [email] }
     ) {
+      id
+      username
+      email
+      role
+      avatar_url
+    }
+  }
+`;
+
+export const UPDATE_USERNAME = gql`
+  mutation UpdateUsername($id: String!, $username: String!) {
+    update_user_by_pk(pk_columns: { id: $id }, _set: { username: $username }) {
       id
       username
       email

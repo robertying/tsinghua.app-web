@@ -27,9 +27,10 @@ const Login: React.FC = () => {
   const [user, authLoading] = useUser();
 
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit: React.FormEventHandler<HTMLElement> = async (e) => {
+  const handleEmailSubmit: React.FormEventHandler<HTMLElement> = async (e) => {
     e.preventDefault();
 
     if (!email) {
@@ -78,11 +79,45 @@ const Login: React.FC = () => {
     });
   };
 
+  const handleUsernameSubmit: React.FormEventHandler<HTMLElement> = async (
+    e
+  ) => {
+    e.preventDefault();
+
+    if (!username) {
+      toast("info", "请设置用户名");
+      return;
+    }
+
+    NProgress.start();
+    setLoading(true);
+
+    try {
+      await axios.post("/api/auth/profile", {
+        username,
+      });
+
+      router.reload();
+    } catch (err) {
+      const axiosError = err as AxiosError;
+      if (axiosError.response?.status === 409) {
+        toast("error", "设置失败：用户名已被占用或不允许被使用");
+      } else {
+        toast("error", "设置失败：" + axiosError.message);
+      }
+    } finally {
+      setLoading(false);
+      NProgress.done();
+    }
+  };
+
+  const usernameUpdateRequired = user && user.username === user.id;
+
   useEffect(() => {
-    if (user) {
+    if (user && !usernameUpdateRequired) {
       router.push(redirectUrl ?? "/");
     }
-  }, [redirectUrl, router, user]);
+  }, [redirectUrl, router, user, usernameUpdateRequired]);
 
   return (
     <>
@@ -104,19 +139,49 @@ const Login: React.FC = () => {
         maxWidth="sm"
       >
         <Paper
-          component="form"
-          noValidate
           sx={{
             p: 4,
             textAlign: "center",
           }}
-          onSubmit={handleSubmit}
+          component="form"
+          noValidate
+          onSubmit={
+            usernameUpdateRequired ? handleUsernameSubmit : handleEmailSubmit
+          }
         >
           <Typography sx={{ fontWeight: "bold" }} variant="h4" component="h1">
             星期四 Thursday
           </Typography>
           {authLoading ? (
             <CircularProgress sx={{ mt: 4 }} />
+          ) : usernameUpdateRequired ? (
+            <>
+              <Typography sx={{ mt: 4, textAlign: "left" }} variant="body1">
+                请设置你的用户名
+              </Typography>
+              <TextField
+                sx={{ mt: 2 }}
+                name="username"
+                autoComplete="username"
+                fullWidth
+                autoFocus
+                label="用户名"
+                value={username}
+                onChange={(e) =>
+                  setUsername(
+                    e.target.value.trim().replaceAll(" ", "").substr(0, 16)
+                  )
+                }
+              />
+              <Button
+                sx={{ mt: 4 }}
+                type="submit"
+                variant="contained"
+                disabled={loading}
+              >
+                确定
+              </Button>
+            </>
           ) : user ? (
             <>
               <CircularProgress sx={{ mt: 4 }} />

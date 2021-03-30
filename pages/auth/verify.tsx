@@ -23,7 +23,6 @@ const Verify: React.FC = () => {
   const [email, setEmail] = useState(
     (router.query.email as string | undefined) ?? ""
   );
-  const [username, setUsername] = useState("");
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -34,10 +33,6 @@ const Verify: React.FC = () => {
     }
     if (!validateEmail(email)) {
       toast("warning", "请输入需要验证的清华邮箱");
-      return;
-    }
-    if (!username) {
-      toast("info", "请设置用户名");
       return;
     }
     if (!otp) {
@@ -55,7 +50,6 @@ const Verify: React.FC = () => {
     try {
       await axios.post("/api/auth/token", {
         email,
-        username,
         otp,
       });
 
@@ -68,8 +62,6 @@ const Verify: React.FC = () => {
       const axiosError = err as AxiosError;
       if (axiosError.response?.status === 401) {
         toast("error", "验证失败：验证码无效");
-      } else if (axiosError.response?.status === 409) {
-        toast("error", "验证失败：用户名已被占用");
       } else {
         toast("error", "验证失败：" + axiosError.message);
       }
@@ -108,9 +100,6 @@ const Verify: React.FC = () => {
           <Typography sx={{ mt: 4 }} variant="body1">
             包含 6 位验证码的邮件已发送到你的邮箱，有效期 15 分钟。
           </Typography>
-          <Typography sx={{ mt: 1 }} variant="body1">
-            请同时设置你的用户名。
-          </Typography>
           <Box
             sx={{
               mt: 4,
@@ -125,20 +114,6 @@ const Verify: React.FC = () => {
               disabled
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-              sx={{ mt: 2 }}
-              label="用户名"
-              fullWidth
-              autoComplete="username"
-              placeholder="请设置用户名"
-              autoFocus
-              value={username}
-              onChange={(e) =>
-                setUsername(
-                  e.target.value.trim().replaceAll(" ", "").substr(0, 16)
-                )
-              }
             />
             <TextField
               sx={{ mt: 2 }}
