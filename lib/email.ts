@@ -15,10 +15,10 @@ export const sendOtpEmail = async (to: string, otp: string) => {
     from: process.env.EMAIL_FROM,
     to,
     subject: "你的星期四验证码",
-    text: `你的星期四验证码是 ${otp}，验证码有效期 15 分钟。`,
+    text: `你的星期四验证码是 ${otp}，验证码有效期 30 分钟。`,
     html: `
       <div>
-        你的星期四验证码是 <span style="font-weight: bold; font-size: 32px;">${otp}</span>，验证码有效期 15 分钟。
+        你的星期四验证码是 <span style="font-weight: bold; font-size: 32px;">${otp}</span>，验证码有效期 30 分钟。
       </div>
       <br>
       <div>

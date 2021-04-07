@@ -98,7 +98,7 @@ const Verify: React.FC = () => {
             检查你的邮箱
           </Typography>
           <Typography sx={{ mt: 4 }} variant="body1">
-            包含 6 位验证码的邮件已发送到你的邮箱，有效期 15 分钟。
+            包含 6 位验证码的邮件已发送到你的邮箱，有效期 30 分钟。
           </Typography>
           <Box
             sx={{
