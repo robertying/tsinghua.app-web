@@ -390,7 +390,6 @@ export interface GetUser_user_by_pk {
   email: string;
   role: string;
   avatar_url: string | null;
-  created_at: timestamptz;
 }
 
 export interface GetUser {
@@ -420,7 +419,6 @@ export interface AddOrUpdateUser_insert_user_one {
   email: string;
   role: string;
   avatar_url: string | null;
-  created_at: timestamptz;
 }
 
 export interface AddOrUpdateUser {
@@ -451,7 +449,6 @@ export interface UpdateUsername_update_user_by_pk {
   email: string;
   role: string;
   avatar_url: string | null;
-  created_at: timestamptz;
 }
 
 export interface UpdateUsername {
@@ -472,29 +469,90 @@ export interface UpdateUsernameVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: UpdateAvatar
+// GraphQL query operation: GetUserDetail
 // ====================================================
 
-export interface UpdateAvatar_update_user_by_pk {
+export interface GetUserDetail_user_by_pk {
   __typename: "user";
   id: string;
   username: string;
   email: string;
   role: string;
   avatar_url: string | null;
+  status: string | null;
   created_at: timestamptz;
 }
 
-export interface UpdateAvatar {
+export interface GetUserDetail {
+  /**
+   * fetch data from the table: "user" using primary key columns
+   */
+  user_by_pk: GetUserDetail_user_by_pk | null;
+}
+
+export interface GetUserDetailVariables {
+  id: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: UpdateUserAvatar
+// ====================================================
+
+export interface UpdateUserAvatar_update_user_by_pk {
+  __typename: "user";
+  id: string;
+  username: string;
+  email: string;
+  role: string;
+  avatar_url: string | null;
+}
+
+export interface UpdateUserAvatar {
   /**
    * update single row of the table: "user"
    */
-  update_user_by_pk: UpdateAvatar_update_user_by_pk | null;
+  update_user_by_pk: UpdateUserAvatar_update_user_by_pk | null;
 }
 
-export interface UpdateAvatarVariables {
+export interface UpdateUserAvatarVariables {
   id: string;
   avatarUrl: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: UpdateUserStatus
+// ====================================================
+
+export interface UpdateUserStatus_update_user_by_pk {
+  __typename: "user";
+  id: string;
+  username: string;
+  email: string;
+  role: string;
+  avatar_url: string | null;
+  status: string | null;
+}
+
+export interface UpdateUserStatus {
+  /**
+   * update single row of the table: "user"
+   */
+  update_user_by_pk: UpdateUserStatus_update_user_by_pk | null;
+}
+
+export interface UpdateUserStatusVariables {
+  id: string;
+  status: string;
 }
 
 /* tslint:disable */

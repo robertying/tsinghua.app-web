@@ -1,7 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { GetServerSideProps } from "next";
 import { NextSeo } from "next-seo";
-import { Box, Button, Container, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { useMutation } from "@apollo/client";
 import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
@@ -14,16 +24,22 @@ import { getOSS } from "lib/oss";
 import { authenticate } from "lib/auth";
 import { graphQLClient } from "lib/client";
 import {
-  GetUser,
-  GetUserVariables,
-  GetUser_user_by_pk,
-  UpdateAvatar,
-  UpdateAvatarVariables,
+  GetUserDetail,
+  GetUserDetail_user_by_pk,
+  GetUserDetailVariables,
+  UpdateUserAvatar,
+  UpdateUserAvatarVariables,
+  UpdateUserStatus,
+  UpdateUserStatusVariables,
 } from "api/types";
-import { GET_USER, UPDATE_AVATAR } from "api/user";
+import {
+  GET_USER_DETAIL,
+  UPDATE_USER_AVATAR,
+  UPDATE_USER_STATUS,
+} from "api/user";
 
 interface ProfileProps {
-  user: GetUser_user_by_pk;
+  user: GetUserDetail_user_by_pk;
 }
 
 const initialCrop: ReactCrop.Crop = {
@@ -47,10 +63,17 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
     null
   );
   const [uploadLoading, setUploadLoading] = useState(false);
+  const [statusDialogOpen, setStatusDialogOpen] = useState(false);
+  const [status, setStatus] = useState("");
 
-  const [updateAvatar] = useMutation<UpdateAvatar, UpdateAvatarVariables>(
-    UPDATE_AVATAR
-  );
+  const [updateAvatar] = useMutation<
+    UpdateUserAvatar,
+    UpdateUserAvatarVariables
+  >(UPDATE_USER_AVATAR);
+  const [updateStatus] = useMutation<
+    UpdateUserStatus,
+    UpdateUserStatusVariables
+  >(UPDATE_USER_STATUS);
 
   const handleUploadDialogOpen = () => {
     setUploadDialogOpen(true);
@@ -60,6 +83,15 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
     setUploadDialogOpen(false);
     setCrop(initialCrop);
     setImageFile(null);
+  };
+
+  const handleStatusDialogOpen = () => {
+    setStatusDialogOpen(true);
+  };
+
+  const handleStatusDialogClose = () => {
+    setStatusDialogOpen(false);
+    setStatus("");
   };
 
   const handleImageSelect: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -111,7 +143,7 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
           if (result.errors) {
             toast("error", "上传失败");
           } else {
-            setUser(result.data!.update_user_by_pk!);
+            setUser({ ...user, ...result.data!.update_user_by_pk! });
             handleUploadDialogClose();
             toast("success", "上传成功");
           }
@@ -124,6 +156,28 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
       "image/png",
       1
     );
+  };
+
+  const handleSetStatus = async () => {
+    if (!status) {
+      toast("info", "请设置新状态");
+      return;
+    }
+
+    try {
+      const result = await updateStatus({
+        variables: {
+          id: user.id,
+          status: status.trim(),
+        },
+      });
+
+      setUser({ ...user, ...result.data!.update_user_by_pk! });
+      handleStatusDialogClose();
+      toast("success", "状态设置成功");
+    } catch {
+      toast("error", "状态设置失败");
+    }
   };
 
   useEffect(() => {
@@ -199,6 +253,18 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
           {user.avatar_url ? "更新头像" : "上传头像"}
         </Button>
         <Typography variant="h5" component="h2">
+          状态
+        </Typography>
+        <Typography variant="body1">{user.status || "未设置状态"}</Typography>
+        <Button
+          sx={{ mt: 2 }}
+          variant="outlined"
+          component="span"
+          onClick={handleStatusDialogOpen}
+        >
+          更新状态
+        </Button>
+        <Typography variant="h5" component="h2">
           用户名
         </Typography>
         <Typography variant="body1">{user.username}</Typography>
@@ -266,6 +332,30 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
             </Button>
           </label>
         </MyDialog>
+        <Dialog
+          fullWidth
+          open={statusDialogOpen}
+          onClose={handleStatusDialogClose}
+        >
+          <DialogTitle>更新状态</DialogTitle>
+          <DialogContent>
+            <TextField
+              autoFocus
+              fullWidth
+              placeholder="新状态"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleStatusDialogClose} color="primary">
+              取消
+            </Button>
+            <Button onClick={handleSetStatus} color="primary">
+              确定
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Container>
     </>
   );
@@ -286,10 +376,10 @@ export const getServerSideProps: GetServerSideProps<ProfileProps> = async ({
       },
     };
   } else {
-    const response = await graphQLClient.request<GetUser, GetUserVariables>(
-      GET_USER,
-      { id: auth.id }
-    );
+    const response = await graphQLClient.request<
+      GetUserDetail,
+      GetUserDetailVariables
+    >(GET_USER_DETAIL, { id: auth.id });
     const user = response.user_by_pk!;
 
     return {

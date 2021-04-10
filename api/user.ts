@@ -8,7 +8,6 @@ export const GET_USER = gql`
       email
       role
       avatar_url
-      created_at
     }
   }
 `;
@@ -24,7 +23,6 @@ export const ADD_OR_UPDATE_USER = gql`
       email
       role
       avatar_url
-      created_at
     }
   }
 `;
@@ -37,13 +35,26 @@ export const UPDATE_USERNAME = gql`
       email
       role
       avatar_url
+    }
+  }
+`;
+
+export const GET_USER_DETAIL = gql`
+  query GetUserDetail($id: String!) {
+    user_by_pk(id: $id) {
+      id
+      username
+      email
+      role
+      avatar_url
+      status
       created_at
     }
   }
 `;
 
-export const UPDATE_AVATAR = gql`
-  mutation UpdateAvatar($id: String!, $avatarUrl: String!) {
+export const UPDATE_USER_AVATAR = gql`
+  mutation UpdateUserAvatar($id: String!, $avatarUrl: String!) {
     update_user_by_pk(
       pk_columns: { id: $id }
       _set: { avatar_url: $avatarUrl }
@@ -53,7 +64,19 @@ export const UPDATE_AVATAR = gql`
       email
       role
       avatar_url
-      created_at
+    }
+  }
+`;
+
+export const UPDATE_USER_STATUS = gql`
+  mutation UpdateUserStatus($id: String!, $status: String!) {
+    update_user_by_pk(pk_columns: { id: $id }, _set: { status: $status }) {
+      id
+      username
+      email
+      role
+      avatar_url
+      status
     }
   }
 `;
