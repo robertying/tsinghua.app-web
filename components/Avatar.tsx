@@ -1,10 +1,10 @@
 import Image, { ImageLoader, ImageProps } from "next/image";
-import { Avatar } from "@material-ui/core";
+import { Avatar, AvatarProps } from "@material-ui/core";
 
-export type MyAvatarProps = Omit<ImageProps, "src"> & {
-  src?: string | null;
+export interface MyAvatarProps extends AvatarProps {
+  imageProps?: Omit<ImageProps, "layout">;
   size?: number;
-};
+}
 
 const loader: ImageLoader = ({ src, width, quality }) => {
   return `${
@@ -16,18 +16,25 @@ const loader: ImageLoader = ({ src, width, quality }) => {
 
 const MyAvatar: React.FC<MyAvatarProps> = ({
   src,
-  size = 50,
+  alt,
+  size = 40,
+  imageProps,
+  children,
   ...restProps
 }) => (
-  <Avatar>
-    {src && (
+  <Avatar {...restProps}>
+    {src ? (
       <Image
         loader={loader}
         src={src}
         width={size}
         height={size}
-        {...restProps}
+        {...imageProps}
       />
+    ) : alt ? (
+      alt[0].toUpperCase()
+    ) : (
+      children
     )}
   </Avatar>
 );

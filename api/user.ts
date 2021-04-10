@@ -8,6 +8,7 @@ export const GET_USER = gql`
       email
       role
       avatar_url
+      created_at
     }
   }
 `;
@@ -23,6 +24,7 @@ export const ADD_OR_UPDATE_USER = gql`
       email
       role
       avatar_url
+      created_at
     }
   }
 `;
@@ -35,6 +37,23 @@ export const UPDATE_USERNAME = gql`
       email
       role
       avatar_url
+      created_at
+    }
+  }
+`;
+
+export const UPDATE_AVATAR = gql`
+  mutation UpdateAvatar($id: String!, $avatarUrl: String!) {
+    update_user_by_pk(
+      pk_columns: { id: $id }
+      _set: { avatar_url: $avatarUrl }
+    ) {
+      id
+      username
+      email
+      role
+      avatar_url
+      created_at
     }
   }
 `;

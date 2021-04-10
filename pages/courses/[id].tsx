@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -12,18 +12,14 @@ import {
   DialogContentText,
   DialogTitle,
   IconButton,
-  Slide,
   Rating,
   Container,
   Box,
   Typography,
-  useMediaQuery,
   TextField,
   Tooltip,
 } from "@material-ui/core";
-import { Close, Home } from "@material-ui/icons";
-import { useTheme } from "@material-ui/core/styles";
-import { TransitionProps } from "@material-ui/core/transitions";
+import { Home } from "@material-ui/icons";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_COURSE_BY_ID } from "api/course";
 import {
@@ -47,23 +43,14 @@ import {
 import Review from "components/Review";
 import Splash from "components/Splash";
 import { useToast } from "components/Snackbar";
+import MyDialog from "components/Dialog";
 import { addApolloState, initializeApollo } from "lib/client";
 import { getSemesterTextFromId } from "lib/format";
 import { useUser } from "lib/session";
 import NotFound from "pages/404";
 
-const DialogTransition = forwardRef(function DialogTransition(
-  props: TransitionProps & { children?: React.ReactElement },
-  ref: React.Ref<unknown>
-) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
-
 const CourseDetail: React.FC = () => {
   const toast = useToast();
-
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const router = useRouter();
   const courseId = router.query.id as string;
@@ -456,71 +443,47 @@ const CourseDetail: React.FC = () => {
             </Box>
           </Box>
         </Box>
-        <Dialog
-          fullScreen={fullScreen}
-          fullWidth
+        <MyDialog
           open={reviewDialogOpen}
           onClose={handleReviewDialogClose}
-          TransitionComponent={fullScreen ? DialogTransition : undefined}
+          okText={reviewed ? "更新" : "发布"}
+          onOk={handleSubmitReview}
         >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              p: 1,
-            }}
-            component="nav"
+          <Typography variant="subtitle1" component="p">
+            {getSemesterTextFromId(course.semester_id)}
+          </Typography>
+          <Typography
+            sx={{ fontWeight: "bold", mt: 1 }}
+            variant="h5"
+            component="h1"
           >
-            <IconButton onClick={handleReviewDialogClose}>
-              <Close />
-            </IconButton>
-            <Button onClick={handleSubmitReview}>
-              {reviewed ? "更新" : "发布"}
-            </Button>
-          </Box>
-          <DialogContent>
-            <Typography variant="subtitle1" component="p">
-              {getSemesterTextFromId(course.semester_id)}
-            </Typography>
-            <Typography
-              sx={{ fontWeight: "bold", mt: 1 }}
-              variant="h5"
-              component="h1"
-            >
-              {course.name}
-            </Typography>
-            <Typography sx={{ mt: 0.5 }} variant="h6" component="h2">
-              {course.teacher.name}
-            </Typography>
-            <Typography
-              sx={{ mt: 4, mb: 2 }}
-              variant="subtitle1"
-              component="h3"
-            >
-              打分
-            </Typography>
-            <Rating
-              value={rating}
-              onChange={(e, r) => {
-                setRating(r);
-              }}
-            />
-            <Typography sx={{ mt: 4 }} variant="subtitle1" component="h3">
-              评价
-            </Typography>
-            <TextField
-              sx={{ my: 2 }}
-              minRows={5}
-              fullWidth
-              multiline
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              placeholder="可选"
-            />
-          </DialogContent>
-        </Dialog>
+            {course.name}
+          </Typography>
+          <Typography sx={{ mt: 0.5 }} variant="h6" component="h2">
+            {course.teacher.name}
+          </Typography>
+          <Typography sx={{ mt: 4, mb: 2 }} variant="subtitle1" component="h3">
+            打分
+          </Typography>
+          <Rating
+            value={rating}
+            onChange={(e, r) => {
+              setRating(r);
+            }}
+          />
+          <Typography sx={{ mt: 4 }} variant="subtitle1" component="h3">
+            评价
+          </Typography>
+          <TextField
+            sx={{ my: 2 }}
+            minRows={5}
+            fullWidth
+            multiline
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="可选"
+          />
+        </MyDialog>
       </Container>
     </>
   );

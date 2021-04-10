@@ -1,6 +1,9 @@
 import { Box, CircularProgress } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
 
 const Splash: React.FC = () => {
+  const theme = useTheme();
+
   return (
     <Box
       sx={{
@@ -10,6 +13,9 @@ const Splash: React.FC = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        position: "relative",
+        zIndex: 999,
+        backgroundColor: theme.palette.background.default,
       }}
     >
       <CircularProgress size="2rem" />

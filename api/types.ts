@@ -303,6 +303,83 @@ export interface GetCourseCountBySemesterVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: GetRealmById
+// ====================================================
+
+export interface GetRealmById_realm_by_pk_topics {
+  __typename: "topic";
+  id: number;
+  name: string;
+}
+
+export interface GetRealmById_realm_by_pk_threads_topic {
+  __typename: "topic";
+  id: number;
+  name: string;
+}
+
+export interface GetRealmById_realm_by_pk_threads_posts_user {
+  __typename: "user";
+  username: string;
+  avatar_url: string | null;
+}
+
+export interface GetRealmById_realm_by_pk_threads_posts {
+  __typename: "post";
+  /**
+   * An object relationship
+   */
+  user: GetRealmById_realm_by_pk_threads_posts_user;
+}
+
+export interface GetRealmById_realm_by_pk_threads {
+  __typename: "thread";
+  id: number;
+  /**
+   * An object relationship
+   */
+  topic: GetRealmById_realm_by_pk_threads_topic | null;
+  title: string;
+  updated_at: timestamptz;
+  /**
+   * An array relationship
+   */
+  posts: GetRealmById_realm_by_pk_threads_posts[];
+}
+
+export interface GetRealmById_realm_by_pk {
+  __typename: "realm";
+  id: number;
+  name: string;
+  description: string;
+  private: boolean;
+  /**
+   * An array relationship
+   */
+  topics: GetRealmById_realm_by_pk_topics[];
+  /**
+   * An array relationship
+   */
+  threads: GetRealmById_realm_by_pk_threads[];
+}
+
+export interface GetRealmById {
+  /**
+   * fetch data from the table: "realm" using primary key columns
+   */
+  realm_by_pk: GetRealmById_realm_by_pk | null;
+}
+
+export interface GetRealmByIdVariables {
+  id: number;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: GetUser
 // ====================================================
 
@@ -313,6 +390,7 @@ export interface GetUser_user_by_pk {
   email: string;
   role: string;
   avatar_url: string | null;
+  created_at: timestamptz;
 }
 
 export interface GetUser {
@@ -342,6 +420,7 @@ export interface AddOrUpdateUser_insert_user_one {
   email: string;
   role: string;
   avatar_url: string | null;
+  created_at: timestamptz;
 }
 
 export interface AddOrUpdateUser {
@@ -372,6 +451,7 @@ export interface UpdateUsername_update_user_by_pk {
   email: string;
   role: string;
   avatar_url: string | null;
+  created_at: timestamptz;
 }
 
 export interface UpdateUsername {
@@ -384,6 +464,37 @@ export interface UpdateUsername {
 export interface UpdateUsernameVariables {
   id: string;
   username: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: UpdateAvatar
+// ====================================================
+
+export interface UpdateAvatar_update_user_by_pk {
+  __typename: "user";
+  id: string;
+  username: string;
+  email: string;
+  role: string;
+  avatar_url: string | null;
+  created_at: timestamptz;
+}
+
+export interface UpdateAvatar {
+  /**
+   * update single row of the table: "user"
+   */
+  update_user_by_pk: UpdateAvatar_update_user_by_pk | null;
+}
+
+export interface UpdateAvatarVariables {
+  id: string;
+  avatarUrl: string;
 }
 
 /* tslint:disable */

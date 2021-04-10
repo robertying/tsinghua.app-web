@@ -65,6 +65,7 @@ const Home: React.FC = () => {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
+        py: 8,
       }}
     >
       <Typography
