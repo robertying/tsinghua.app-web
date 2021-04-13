@@ -1,36 +1,29 @@
-import Image, { ImageLoader, ImageProps } from "next/image";
 import { Avatar, AvatarProps } from "@material-ui/core";
 
 export interface MyAvatarProps extends AvatarProps {
-  imageProps?: Omit<ImageProps, "layout">;
-  size?: number;
+  size: "small" | "medium" | "large";
 }
-
-const loader: ImageLoader = ({ src, width, quality }) => {
-  return `${
-    process.env.NEXT_PUBLIC_IMAGE_URL
-  }/${src}?x-oss-process=image/auto-orient,1/interlace,1/resize,m_fill,w_${width},h_${width}/quality,q_${
-    quality ?? 75
-  }`;
-};
 
 const MyAvatar: React.FC<MyAvatarProps> = ({
   src,
   alt,
-  size = 40,
-  imageProps,
+  size,
   children,
   ...restProps
 }) => (
   <Avatar {...restProps}>
     {src ? (
-      <Image
-        loader={loader}
-        src={src}
-        width={size}
-        height={size}
-        {...imageProps}
-      />
+      <picture css={{ width: "100%", height: "100%" }}>
+        <source
+          type="image/webp"
+          srcSet={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${src}/avatar-webp-${size}`}
+        />
+        <img
+          css={{ width: "100%", height: "100%" }}
+          src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${src}/avatar-${size}`}
+          alt={alt}
+        />
+      </picture>
     ) : alt ? (
       alt[0].toUpperCase()
     ) : (
