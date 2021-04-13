@@ -31,7 +31,7 @@ export default async function handleSession(
     const accessToken = await encodeAccessToken(user);
     res.send({
       accessToken,
-      expireAt: Math.floor(new Date().getTime() / 1000),
+      expireAt: Math.floor(new Date().getTime() / 1000) + 1 * 60 * 60,
     } as Session);
   } catch (e) {
     return res.status(401).send("Unauthorized");
