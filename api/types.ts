@@ -330,6 +330,425 @@ export interface AddPostVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: UpdatePost
+// ====================================================
+
+export interface UpdatePost_update_post_by_pk {
+  __typename: "post";
+  id: number;
+}
+
+export interface UpdatePost {
+  /**
+   * update single row of the table: "post"
+   */
+  update_post_by_pk: UpdatePost_update_post_by_pk | null;
+}
+
+export interface UpdatePostVariables {
+  postId: number;
+  content: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: GetThreadReactions
+// ====================================================
+
+export interface GetThreadReactions_thread_public_my_reactions {
+  __typename: "thread_reaction";
+  name: reaction_emoji_enum;
+}
+
+export interface GetThreadReactions_thread_public_confused_face_reactions_aggregate {
+  __typename: "thread_reaction_aggregate_fields";
+  count: number;
+}
+
+export interface GetThreadReactions_thread_public_confused_face_reactions {
+  __typename: "thread_reaction_aggregate";
+  aggregate: GetThreadReactions_thread_public_confused_face_reactions_aggregate | null;
+}
+
+export interface GetThreadReactions_thread_public_eyes_reactions_aggregate {
+  __typename: "thread_reaction_aggregate_fields";
+  count: number;
+}
+
+export interface GetThreadReactions_thread_public_eyes_reactions {
+  __typename: "thread_reaction_aggregate";
+  aggregate: GetThreadReactions_thread_public_eyes_reactions_aggregate | null;
+}
+
+export interface GetThreadReactions_thread_public_grinning_face_with_smiling_eyes_reactions_aggregate {
+  __typename: "thread_reaction_aggregate_fields";
+  count: number;
+}
+
+export interface GetThreadReactions_thread_public_grinning_face_with_smiling_eyes_reactions {
+  __typename: "thread_reaction_aggregate";
+  aggregate: GetThreadReactions_thread_public_grinning_face_with_smiling_eyes_reactions_aggregate | null;
+}
+
+export interface GetThreadReactions_thread_public_party_popper_reactions_aggregate {
+  __typename: "thread_reaction_aggregate_fields";
+  count: number;
+}
+
+export interface GetThreadReactions_thread_public_party_popper_reactions {
+  __typename: "thread_reaction_aggregate";
+  aggregate: GetThreadReactions_thread_public_party_popper_reactions_aggregate | null;
+}
+
+export interface GetThreadReactions_thread_public_red_heart_reactions_aggregate {
+  __typename: "thread_reaction_aggregate_fields";
+  count: number;
+}
+
+export interface GetThreadReactions_thread_public_red_heart_reactions {
+  __typename: "thread_reaction_aggregate";
+  aggregate: GetThreadReactions_thread_public_red_heart_reactions_aggregate | null;
+}
+
+export interface GetThreadReactions_thread_public_rocket_reactions_aggregate {
+  __typename: "thread_reaction_aggregate_fields";
+  count: number;
+}
+
+export interface GetThreadReactions_thread_public_rocket_reactions {
+  __typename: "thread_reaction_aggregate";
+  aggregate: GetThreadReactions_thread_public_rocket_reactions_aggregate | null;
+}
+
+export interface GetThreadReactions_thread_public_thumbs_down_reactions_aggregate {
+  __typename: "thread_reaction_aggregate_fields";
+  count: number;
+}
+
+export interface GetThreadReactions_thread_public_thumbs_down_reactions {
+  __typename: "thread_reaction_aggregate";
+  aggregate: GetThreadReactions_thread_public_thumbs_down_reactions_aggregate | null;
+}
+
+export interface GetThreadReactions_thread_public_thumbs_up_reactions_aggregate {
+  __typename: "thread_reaction_aggregate_fields";
+  count: number;
+}
+
+export interface GetThreadReactions_thread_public_thumbs_up_reactions {
+  __typename: "thread_reaction_aggregate";
+  aggregate: GetThreadReactions_thread_public_thumbs_up_reactions_aggregate | null;
+}
+
+export interface GetThreadReactions_thread_public_posts_my_reactions {
+  __typename: "post_reaction";
+  name: reaction_emoji_enum;
+}
+
+export interface GetThreadReactions_thread_public_posts_confused_face_reactions_aggregate {
+  __typename: "post_reaction_aggregate_fields";
+  count: number;
+}
+
+export interface GetThreadReactions_thread_public_posts_confused_face_reactions {
+  __typename: "post_reaction_aggregate";
+  aggregate: GetThreadReactions_thread_public_posts_confused_face_reactions_aggregate | null;
+}
+
+export interface GetThreadReactions_thread_public_posts_eyes_reactions_aggregate {
+  __typename: "post_reaction_aggregate_fields";
+  count: number;
+}
+
+export interface GetThreadReactions_thread_public_posts_eyes_reactions {
+  __typename: "post_reaction_aggregate";
+  aggregate: GetThreadReactions_thread_public_posts_eyes_reactions_aggregate | null;
+}
+
+export interface GetThreadReactions_thread_public_posts_grinning_face_with_smiling_eyes_reactions_aggregate {
+  __typename: "post_reaction_aggregate_fields";
+  count: number;
+}
+
+export interface GetThreadReactions_thread_public_posts_grinning_face_with_smiling_eyes_reactions {
+  __typename: "post_reaction_aggregate";
+  aggregate: GetThreadReactions_thread_public_posts_grinning_face_with_smiling_eyes_reactions_aggregate | null;
+}
+
+export interface GetThreadReactions_thread_public_posts_party_popper_reactions_aggregate {
+  __typename: "post_reaction_aggregate_fields";
+  count: number;
+}
+
+export interface GetThreadReactions_thread_public_posts_party_popper_reactions {
+  __typename: "post_reaction_aggregate";
+  aggregate: GetThreadReactions_thread_public_posts_party_popper_reactions_aggregate | null;
+}
+
+export interface GetThreadReactions_thread_public_posts_red_heart_reactions_aggregate {
+  __typename: "post_reaction_aggregate_fields";
+  count: number;
+}
+
+export interface GetThreadReactions_thread_public_posts_red_heart_reactions {
+  __typename: "post_reaction_aggregate";
+  aggregate: GetThreadReactions_thread_public_posts_red_heart_reactions_aggregate | null;
+}
+
+export interface GetThreadReactions_thread_public_posts_rocket_reactions_aggregate {
+  __typename: "post_reaction_aggregate_fields";
+  count: number;
+}
+
+export interface GetThreadReactions_thread_public_posts_rocket_reactions {
+  __typename: "post_reaction_aggregate";
+  aggregate: GetThreadReactions_thread_public_posts_rocket_reactions_aggregate | null;
+}
+
+export interface GetThreadReactions_thread_public_posts_thumbs_down_reactions_aggregate {
+  __typename: "post_reaction_aggregate_fields";
+  count: number;
+}
+
+export interface GetThreadReactions_thread_public_posts_thumbs_down_reactions {
+  __typename: "post_reaction_aggregate";
+  aggregate: GetThreadReactions_thread_public_posts_thumbs_down_reactions_aggregate | null;
+}
+
+export interface GetThreadReactions_thread_public_posts_thumbs_up_reactions_aggregate {
+  __typename: "post_reaction_aggregate_fields";
+  count: number;
+}
+
+export interface GetThreadReactions_thread_public_posts_thumbs_up_reactions {
+  __typename: "post_reaction_aggregate";
+  aggregate: GetThreadReactions_thread_public_posts_thumbs_up_reactions_aggregate | null;
+}
+
+export interface GetThreadReactions_thread_public_posts {
+  __typename: "post_public";
+  id: number | null;
+  /**
+   * An array relationship
+   */
+  my_reactions: GetThreadReactions_thread_public_posts_my_reactions[];
+  /**
+   * An aggregate relationship
+   */
+  confused_face_reactions: GetThreadReactions_thread_public_posts_confused_face_reactions;
+  /**
+   * An aggregate relationship
+   */
+  eyes_reactions: GetThreadReactions_thread_public_posts_eyes_reactions;
+  /**
+   * An aggregate relationship
+   */
+  grinning_face_with_smiling_eyes_reactions: GetThreadReactions_thread_public_posts_grinning_face_with_smiling_eyes_reactions;
+  /**
+   * An aggregate relationship
+   */
+  party_popper_reactions: GetThreadReactions_thread_public_posts_party_popper_reactions;
+  /**
+   * An aggregate relationship
+   */
+  red_heart_reactions: GetThreadReactions_thread_public_posts_red_heart_reactions;
+  /**
+   * An aggregate relationship
+   */
+  rocket_reactions: GetThreadReactions_thread_public_posts_rocket_reactions;
+  /**
+   * An aggregate relationship
+   */
+  thumbs_down_reactions: GetThreadReactions_thread_public_posts_thumbs_down_reactions;
+  /**
+   * An aggregate relationship
+   */
+  thumbs_up_reactions: GetThreadReactions_thread_public_posts_thumbs_up_reactions;
+}
+
+export interface GetThreadReactions_thread_public {
+  __typename: "thread_public";
+  id: number | null;
+  /**
+   * An array relationship
+   */
+  my_reactions: GetThreadReactions_thread_public_my_reactions[];
+  /**
+   * An aggregate relationship
+   */
+  confused_face_reactions: GetThreadReactions_thread_public_confused_face_reactions;
+  /**
+   * An aggregate relationship
+   */
+  eyes_reactions: GetThreadReactions_thread_public_eyes_reactions;
+  /**
+   * An aggregate relationship
+   */
+  grinning_face_with_smiling_eyes_reactions: GetThreadReactions_thread_public_grinning_face_with_smiling_eyes_reactions;
+  /**
+   * An aggregate relationship
+   */
+  party_popper_reactions: GetThreadReactions_thread_public_party_popper_reactions;
+  /**
+   * An aggregate relationship
+   */
+  red_heart_reactions: GetThreadReactions_thread_public_red_heart_reactions;
+  /**
+   * An aggregate relationship
+   */
+  rocket_reactions: GetThreadReactions_thread_public_rocket_reactions;
+  /**
+   * An aggregate relationship
+   */
+  thumbs_down_reactions: GetThreadReactions_thread_public_thumbs_down_reactions;
+  /**
+   * An aggregate relationship
+   */
+  thumbs_up_reactions: GetThreadReactions_thread_public_thumbs_up_reactions;
+  /**
+   * An array relationship
+   */
+  posts: GetThreadReactions_thread_public_posts[];
+}
+
+export interface GetThreadReactions {
+  /**
+   * fetch data from the table: "thread_public"
+   */
+  thread_public: GetThreadReactions_thread_public[];
+}
+
+export interface GetThreadReactionsVariables {
+  threadId: number;
+  userId: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: AddThreadReaction
+// ====================================================
+
+export interface AddThreadReaction_insert_thread_reaction_one {
+  __typename: "thread_reaction";
+  user_id: string;
+  thread_id: number;
+  name: reaction_emoji_enum;
+}
+
+export interface AddThreadReaction {
+  /**
+   * insert a single row into the table: "thread_reaction"
+   */
+  insert_thread_reaction_one: AddThreadReaction_insert_thread_reaction_one | null;
+}
+
+export interface AddThreadReactionVariables {
+  name: reaction_emoji_enum;
+  threadId: number;
+  userId: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: DeleteThreadReaction
+// ====================================================
+
+export interface DeleteThreadReaction_delete_thread_reaction_by_pk {
+  __typename: "thread_reaction";
+  user_id: string;
+  thread_id: number;
+  name: reaction_emoji_enum;
+}
+
+export interface DeleteThreadReaction {
+  /**
+   * delete single row from the table: "thread_reaction"
+   */
+  delete_thread_reaction_by_pk: DeleteThreadReaction_delete_thread_reaction_by_pk | null;
+}
+
+export interface DeleteThreadReactionVariables {
+  name: reaction_emoji_enum;
+  threadId: number;
+  userId: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: AddPostReaction
+// ====================================================
+
+export interface AddPostReaction_insert_post_reaction_one {
+  __typename: "post_reaction";
+  user_id: string;
+  post_id: number;
+  name: reaction_emoji_enum;
+}
+
+export interface AddPostReaction {
+  /**
+   * insert a single row into the table: "post_reaction"
+   */
+  insert_post_reaction_one: AddPostReaction_insert_post_reaction_one | null;
+}
+
+export interface AddPostReactionVariables {
+  name: reaction_emoji_enum;
+  postId: number;
+  userId: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: DeletePostReaction
+// ====================================================
+
+export interface DeletePostReaction_delete_post_reaction_by_pk {
+  __typename: "post_reaction";
+  user_id: string;
+  post_id: number;
+  name: reaction_emoji_enum;
+}
+
+export interface DeletePostReaction {
+  /**
+   * delete single row from the table: "post_reaction"
+   */
+  delete_post_reaction_by_pk: DeletePostReaction_delete_post_reaction_by_pk | null;
+}
+
+export interface DeletePostReactionVariables {
+  name: reaction_emoji_enum;
+  postId: number;
+  userId: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: GetRealmById
 // ====================================================
 
@@ -521,6 +940,33 @@ export interface AddThreadVariables {
   realmId: number;
   userId: string;
   topicId: number;
+  title: string;
+  content: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: UpdateThread
+// ====================================================
+
+export interface UpdateThread_update_thread_by_pk {
+  __typename: "thread";
+  id: number;
+}
+
+export interface UpdateThread {
+  /**
+   * update single row of the table: "thread"
+   */
+  update_thread_by_pk: UpdateThread_update_thread_by_pk | null;
+}
+
+export interface UpdateThreadVariables {
+  threadId: number;
   title: string;
   content: string;
 }
@@ -723,6 +1169,17 @@ export interface UpdateUserStatusVariables {
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
+
+export enum reaction_emoji_enum {
+  confused_face = "confused_face",
+  eyes = "eyes",
+  grinning_face_with_smiling_eyes = "grinning_face_with_smiling_eyes",
+  party_popper = "party_popper",
+  red_heart = "red_heart",
+  rocket = "rocket",
+  thumbs_down = "thumbs_down",
+  thumbs_up = "thumbs_up",
+}
 
 //==============================================================
 // END Enums and Input Objects

@@ -1,5 +1,6 @@
 import "styles/index.css";
 import "styles/nprogress.css";
+import "styles/markdown.css";
 import { useMemo } from "react";
 import { AppProps } from "next/app";
 import Head from "next/head";

@@ -8,6 +8,9 @@ export const GET_USER = gql`
       email
       role
       avatar_url
+      realm_users {
+        realm_id
+      }
     }
   }
 `;

@@ -1,0 +1,143 @@
+import { useState } from "react";
+import {
+  IconButton,
+  Popover,
+  Chip,
+  useMediaQuery,
+  Box,
+} from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
+import { AddReactionOutlined } from "@material-ui/icons";
+import { reaction_emoji_enum } from "api/types";
+
+const emojis = {
+  thumbs_up: "👍",
+  thumbs_down: "👎",
+  grinning_face_with_smiling_eyes: "😄",
+  party_popper: "🎉",
+  confused_face: "😕",
+  red_heart: "❤️",
+  rocket: "🚀",
+  eyes: "👀",
+};
+
+export interface ReactionSelectProps {
+  reactions?: {
+    [_ in keyof typeof emojis]?: number | null;
+  };
+  myReactions?: {
+    [_ in keyof typeof emojis]?: boolean;
+  };
+  onReact?: (emojiName: reaction_emoji_enum, action: "add" | "delete") => void;
+}
+
+const ReactionSelect: React.FC<ReactionSelectProps> = ({
+  reactions,
+  myReactions,
+  onReact,
+}) => {
+  const theme = useTheme();
+  const sm = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const [anchorEl, setAnchorEl] = useState<Element | null>(null);
+
+  const handleClick = (e: React.MouseEvent<Element, MouseEvent>) => {
+    setAnchorEl(e.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          flexWrap: "wrap",
+        }}
+      >
+        {reactions &&
+          (Object.entries(emojis) as [reaction_emoji_enum, string][]).map(
+            ([name, emoji]) =>
+              reactions[name] ? (
+                <Chip
+                  key={name}
+                  sx={{
+                    fontSize: "1rem",
+                    mt: 0.5,
+                    mx: 0.5,
+                  }}
+                  variant={myReactions?.[name] ? "filled" : "outlined"}
+                  onClick={() =>
+                    onReact?.(name, myReactions?.[name] ? "delete" : "add")
+                  }
+                  label={`${emoji} ${reactions[name]}`}
+                />
+              ) : null
+          )}
+        <IconButton sx={{ mt: 0.5, mr: 0.5 }} onClick={handleClick}>
+          <AddReactionOutlined />
+        </IconButton>
+      </Box>
+      <Popover
+        open={anchorEl ? true : false}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={
+          sm
+            ? {
+                vertical: "bottom",
+                horizontal: "left",
+              }
+            : {
+                vertical: "center",
+                horizontal: "left",
+              }
+        }
+        transformOrigin={
+          sm
+            ? {
+                vertical: "top",
+                horizontal: "left",
+              }
+            : {
+                vertical: "center",
+                horizontal: "left",
+              }
+        }
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            px: 0.5,
+            py: 1,
+          }}
+        >
+          {Object.entries(emojis).map(([name, emoji]) => (
+            <IconButton
+              sx={{
+                margin: "0 0.25rem",
+                width: "2.5rem",
+                height: "2.5rem",
+                "& > .MuiIconButton-label": {
+                  color: "initial",
+                },
+              }}
+              key={emoji}
+              onClick={() => onReact?.(name as reaction_emoji_enum, "add")}
+            >
+              {emoji}
+            </IconButton>
+          ))}
+        </Box>
+      </Popover>
+    </>
+  );
+};
+
+export default ReactionSelect;

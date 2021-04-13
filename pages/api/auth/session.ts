@@ -28,7 +28,10 @@ export default async function handleSession(
     );
     const user = response.user_by_pk!;
 
-    const accessToken = await encodeAccessToken(user);
+    const accessToken = await encodeAccessToken({
+      ...user,
+      realmIds: user.realm_users.map((u) => u.realm_id),
+    });
     res.send({
       accessToken,
       expireAt: Math.floor(new Date().getTime() / 1000) + 1 * 60 * 60,

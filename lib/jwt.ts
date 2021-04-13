@@ -6,6 +6,7 @@ export interface User {
   email: string;
   role: string;
   avatar_url?: string | null;
+  realmIds?: number[];
 }
 
 export interface UserJwt extends User {
@@ -49,6 +50,9 @@ export const encodeAccessToken = (user: User) => {
           "x-hasura-default-role": user.role,
           "x-hasura-user-id": user.id,
           "x-hasura-user-username": user.username,
+          "x-hasura-user-realms": `{${[1, ...(user.realmIds ?? [])].join(
+            ","
+          )}}`,
         },
       },
       process.env.AUTH_ACCESS_TOKEN_SECRET!,
