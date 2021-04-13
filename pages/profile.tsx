@@ -148,7 +148,7 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
         try {
           const { oss, tempFolder } = await getOSS();
 
-          const name = `avatars/${tempFolder}/${uuid()}.png`;
+          const name = `avatars/${tempFolder}/${uuid()}`;
           await oss.put(name, blob);
 
           const result = await updateAvatar({

@@ -20,7 +20,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import { v4 as uuid } from "uuid";
-import mimeTypes from "mime-types";
 import { GET_REALM_BY_ID } from "api/realm";
 import {
   AddThread,
@@ -128,8 +127,7 @@ const Realm: React.FC = () => {
       try {
         const { oss, tempFolder } = await getOSS();
 
-        const ext = mimeTypes.extension(file.type);
-        const name = `images/${tempFolder}/${uuid()}.${ext || "png"}`;
+        const name = `images/${tempFolder}/${uuid()}`;
         await oss.put(name, file);
 
         setContent(content + `\n![上传图片](${name})\n`);

@@ -25,7 +25,6 @@ import {
 import { AddComment } from "@material-ui/icons";
 import { useMutation, useQuery } from "@apollo/client";
 import { v4 as uuid } from "uuid";
-import mimeTypes from "mime-types";
 import Post from "components/Post";
 import { useToast } from "components/Snackbar";
 import Splash from "components/Splash";
@@ -218,8 +217,7 @@ const Thread: React.FC = () => {
       try {
         const { oss, tempFolder } = await getOSS();
 
-        const ext = mimeTypes.extension(file.type);
-        const name = `images/${tempFolder}/${uuid()}.${ext || "png"}`;
+        const name = `images/${tempFolder}/${uuid()}`;
         await oss.put(name, file);
 
         setContent(content + `\n![上传图片](${name})\n`);
