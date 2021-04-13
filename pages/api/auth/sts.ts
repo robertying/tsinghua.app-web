@@ -13,12 +13,8 @@ const generatePolicy = (tempFolder: string) => ({
       Action: ["oss:PutObject"],
       Resource: [
         `acs:oss:*:*:${process.env.NEXT_PUBLIC_OSS_BUCKET}/avatars/${tempFolder}/*`,
+        `acs:oss:*:*:${process.env.NEXT_PUBLIC_OSS_BUCKET}/images/${tempFolder}/*`,
       ],
-    },
-    {
-      Effect: "Allow",
-      Action: ["oss:GetObject"],
-      Resource: [`acs:oss:*:*:${process.env.NEXT_PUBLIC_OSS_BUCKET}/*`],
     },
   ],
 });
