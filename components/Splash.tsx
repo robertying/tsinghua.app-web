@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 
 const Splash: React.FC = () => {
@@ -18,7 +18,15 @@ const Splash: React.FC = () => {
         backgroundColor: theme.palette.background.default,
       }}
     >
-      <CircularProgress size="2rem" />
+      <Typography
+        sx={{
+          fontWeight: "300",
+          fontSize: "8rem",
+          color: theme.palette.primary.main,
+        }}
+      >
+        X
+      </Typography>
     </Box>
   );
 };
