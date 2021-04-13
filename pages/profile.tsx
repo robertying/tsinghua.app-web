@@ -1,8 +1,8 @@
+import "react-image-crop/dist/ReactCrop.css";
 import React, { useEffect, useRef, useState } from "react";
 import { GetServerSideProps } from "next";
 import { NextSeo } from "next-seo";
 import {
-  Box,
   Button,
   Container,
   Dialog,
@@ -16,7 +16,6 @@ import { useMutation } from "@apollo/client";
 import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
 import ReactCrop from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
 import MyAvatar from "components/Avatar";
 import MyDialog from "components/Dialog";
 import { useToast } from "components/Snackbar";
@@ -44,9 +43,8 @@ interface ProfileProps {
 
 const initialCrop: ReactCrop.Crop = {
   aspect: 1,
-  unit: "%",
-  width: 100,
-  height: 100,
+  x: 0,
+  y: 0,
 };
 
 const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
@@ -59,8 +57,8 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
   const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
   const [imageFile, setImageFile] = useState<string | null>(null);
   const [crop, setCrop] = useState<ReactCrop.Crop>(initialCrop);
-  const [completedCrop, setCompletedCrop] = useState<ReactCrop.Crop | null>(
-    null
+  const [completedCrop, setCompletedCrop] = useState<ReactCrop.Crop>(
+    initialCrop
   );
   const [uploadLoading, setUploadLoading] = useState(false);
   const [statusDialogOpen, setStatusDialogOpen] = useState(false);
@@ -79,7 +77,14 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
     setUploadDialogOpen(true);
   };
 
-  const handleUploadDialogClose = () => {
+  const handleUploadDialogClose = (
+    e: {},
+    reason?: "backdropClick" | "escapeKeyDown"
+  ) => {
+    if (reason) {
+      return;
+    }
+
     setUploadDialogOpen(false);
     setCrop(initialCrop);
     setImageFile(null);
@@ -102,10 +107,22 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
       );
       reader.readAsDataURL(e.target.files[0]);
     }
+
+    e.target.value = "";
   };
 
   const handleImageLoad = (img: HTMLImageElement) => {
     imageRef.current = img;
+
+    const min = Math.min(img.height, img.width);
+    setCrop({
+      aspect: 1,
+      x: 0,
+      y: 0,
+      width: min,
+      height: min,
+    });
+    return false;
   };
 
   const handleUpload = async () => {
@@ -144,7 +161,7 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
             toast("error", "上传失败");
           } else {
             setUser({ ...user, ...result.data!.update_user_by_pk! });
-            handleUploadDialogClose();
+            handleUploadDialogClose({});
             toast("success", "上传成功");
           }
         } catch (e) {
@@ -242,7 +259,7 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
           sx={{ width: 150, height: 150, mt: 2, fontSize: "4rem" }}
           src={user.avatar_url ?? undefined}
           alt={user.username}
-          size={150}
+          size="large"
         />
         <Button
           sx={{ mt: 2 }}
@@ -285,11 +302,23 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
           okLoading={uploadLoading}
           onOk={handleUpload}
         >
-          {imageFile ? (
+          {imageFile && (
             <>
               <ReactCrop
-                css={{ width: "100%", height: 0, paddingBottom: "100%" }}
+                css={{
+                  width: "100%",
+                  "& > div:first-of-type, & > div:first-of-type > img": {
+                    pointerEvents: "none",
+                    userSelect: "none",
+                  },
+                }}
+                imageStyle={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                }}
                 src={imageFile}
+                imageAlt="待裁剪的头像图片"
                 onImageLoaded={handleImageLoad}
                 crop={crop}
                 minHeight={250}
@@ -297,8 +326,8 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
                 keepSelection
                 ruleOfThirds
                 circularCrop
-                onChange={(c) => setCrop(c)}
-                onComplete={(c) => setCompletedCrop(c)}
+                onChange={setCrop}
+                onComplete={setCompletedCrop}
               />
               <canvas
                 ref={previewCanvasRef}
@@ -309,15 +338,6 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
                 }}
               />
             </>
-          ) : (
-            <Box
-              sx={{
-                width: "100%",
-                height: 0,
-                pb: "100%",
-                border: "dashed #9e9e9e",
-              }}
-            />
           )}
           <label htmlFor="upload-button">
             <input
