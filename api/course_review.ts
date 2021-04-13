@@ -6,10 +6,10 @@ export const GET_COURSE_REVIEWS = gql`
       where: { course_id: { _eq: $courseId }, username: { _eq: $username } }
     ) {
       user {
+        username
         avatar_url
       }
       course_id
-      username
       rating
       content
       created_at
@@ -20,10 +20,10 @@ export const GET_COURSE_REVIEWS = gql`
       where: { course_id: { _eq: $courseId }, username: { _neq: $username } }
     ) {
       user {
+        username
         avatar_url
       }
       course_id
-      username
       rating
       content
       created_at

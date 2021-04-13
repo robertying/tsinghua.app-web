@@ -18,6 +18,7 @@ import {
   Typography,
   TextField,
   Tooltip,
+  Stack,
 } from "@material-ui/core";
 import { Home } from "@material-ui/icons";
 import { useMutation, useQuery } from "@apollo/client";
@@ -422,9 +423,9 @@ const CourseDetail: React.FC = () => {
               {courseReviewLoading ? (
                 <CircularProgress sx={{ alignSelf: "center" }} size="2rem" />
               ) : (
-                <>
+                <Stack direction="column" spacing={1}>
                   {courseReviewData?.my_course_review.map((review) => (
-                    <Review key={review.username} {...review} />
+                    <Review key={review.user!.username} {...review} />
                   ))}
                   {courseReviewData?.course_review_public.length === 0 ? (
                     <Typography
@@ -435,10 +436,10 @@ const CourseDetail: React.FC = () => {
                     </Typography>
                   ) : (
                     courseReviewData?.course_review_public.map((review) => (
-                      <Review key={review.username} {...review} />
+                      <Review key={review.user!.username} {...review} />
                     ))
                   )}
-                </>
+                </Stack>
               )}
             </Box>
           </Box>

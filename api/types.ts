@@ -9,6 +9,7 @@
 
 export interface GetCourseReviews_my_course_review_user {
   __typename: "user_public";
+  username: string | null;
   avatar_url: string | null;
 }
 
@@ -19,7 +20,6 @@ export interface GetCourseReviews_my_course_review {
    */
   user: GetCourseReviews_my_course_review_user | null;
   course_id: string | null;
-  username: string | null;
   rating: number | null;
   content: string | null;
   created_at: timestamptz | null;
@@ -28,6 +28,7 @@ export interface GetCourseReviews_my_course_review {
 
 export interface GetCourseReviews_course_review_public_user {
   __typename: "user_public";
+  username: string | null;
   avatar_url: string | null;
 }
 
@@ -38,7 +39,6 @@ export interface GetCourseReviews_course_review_public {
    */
   user: GetCourseReviews_course_review_public_user | null;
   course_id: string | null;
-  username: string | null;
   rating: number | null;
   content: string | null;
   created_at: timestamptz | null;
@@ -303,6 +303,33 @@ export interface GetCourseCountBySemesterVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: AddPost
+// ====================================================
+
+export interface AddPost_insert_post_one {
+  __typename: "post";
+  id: number;
+}
+
+export interface AddPost {
+  /**
+   * insert a single row into the table: "post"
+   */
+  insert_post_one: AddPost_insert_post_one | null;
+}
+
+export interface AddPostVariables {
+  userId: string;
+  threadId: number;
+  content: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: GetRealmById
 // ====================================================
 
@@ -312,39 +339,51 @@ export interface GetRealmById_realm_by_pk_topics {
   name: string;
 }
 
-export interface GetRealmById_realm_by_pk_threads_topic {
+export interface GetRealmById_realm_by_pk_threads_public_topic {
   __typename: "topic";
   id: number;
   name: string;
 }
 
-export interface GetRealmById_realm_by_pk_threads_posts_user {
-  __typename: "user";
-  username: string;
+export interface GetRealmById_realm_by_pk_threads_public_user {
+  __typename: "realm_user_public";
+  username: string | null;
   avatar_url: string | null;
 }
 
-export interface GetRealmById_realm_by_pk_threads_posts {
-  __typename: "post";
-  /**
-   * An object relationship
-   */
-  user: GetRealmById_realm_by_pk_threads_posts_user;
+export interface GetRealmById_realm_by_pk_threads_public_posts_user {
+  __typename: "realm_user_public";
+  username: string | null;
+  avatar_url: string | null;
 }
 
-export interface GetRealmById_realm_by_pk_threads {
-  __typename: "thread";
-  id: number;
+export interface GetRealmById_realm_by_pk_threads_public_posts {
+  __typename: "post_public";
+  id: number | null;
   /**
    * An object relationship
    */
-  topic: GetRealmById_realm_by_pk_threads_topic | null;
-  title: string;
-  updated_at: timestamptz;
+  user: GetRealmById_realm_by_pk_threads_public_posts_user | null;
+}
+
+export interface GetRealmById_realm_by_pk_threads_public {
+  __typename: "thread_public";
+  id: number | null;
+  realm_id: number | null;
+  /**
+   * An object relationship
+   */
+  topic: GetRealmById_realm_by_pk_threads_public_topic | null;
+  /**
+   * An object relationship
+   */
+  user: GetRealmById_realm_by_pk_threads_public_user | null;
+  title: string | null;
+  updated_at: timestamptz | null;
   /**
    * An array relationship
    */
-  posts: GetRealmById_realm_by_pk_threads_posts[];
+  posts: GetRealmById_realm_by_pk_threads_public_posts[];
 }
 
 export interface GetRealmById_realm_by_pk {
@@ -360,7 +399,7 @@ export interface GetRealmById_realm_by_pk {
   /**
    * An array relationship
    */
-  threads: GetRealmById_realm_by_pk_threads[];
+  threads_public: GetRealmById_realm_by_pk_threads_public[];
 }
 
 export interface GetRealmById {
@@ -380,8 +419,125 @@ export interface GetRealmByIdVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: GetThreadById
+// ====================================================
+
+export interface GetThreadById_thread_public_realm {
+  __typename: "realm";
+  id: number;
+  name: string;
+}
+
+export interface GetThreadById_thread_public_topic {
+  __typename: "topic";
+  id: number;
+  name: string;
+}
+
+export interface GetThreadById_thread_public_user {
+  __typename: "realm_user_public";
+  username: string | null;
+  status: string | null;
+  avatar_url: string | null;
+}
+
+export interface GetThreadById_thread_public_posts_user {
+  __typename: "realm_user_public";
+  username: string | null;
+  status: string | null;
+  avatar_url: string | null;
+}
+
+export interface GetThreadById_thread_public_posts {
+  __typename: "post_public";
+  id: number | null;
+  /**
+   * An object relationship
+   */
+  user: GetThreadById_thread_public_posts_user | null;
+  content: string | null;
+  created_at: timestamptz | null;
+  updated_at: timestamptz | null;
+}
+
+export interface GetThreadById_thread_public {
+  __typename: "thread_public";
+  id: number | null;
+  /**
+   * An object relationship
+   */
+  realm: GetThreadById_thread_public_realm | null;
+  /**
+   * An object relationship
+   */
+  topic: GetThreadById_thread_public_topic | null;
+  title: string | null;
+  content: string | null;
+  /**
+   * An object relationship
+   */
+  user: GetThreadById_thread_public_user | null;
+  created_at: timestamptz | null;
+  updated_at: timestamptz | null;
+  /**
+   * An array relationship
+   */
+  posts: GetThreadById_thread_public_posts[];
+}
+
+export interface GetThreadById {
+  /**
+   * fetch data from the table: "thread_public"
+   */
+  thread_public: GetThreadById_thread_public[];
+}
+
+export interface GetThreadByIdVariables {
+  id: number;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: AddThread
+// ====================================================
+
+export interface AddThread_insert_thread_one {
+  __typename: "thread";
+  id: number;
+}
+
+export interface AddThread {
+  /**
+   * insert a single row into the table: "thread"
+   */
+  insert_thread_one: AddThread_insert_thread_one | null;
+}
+
+export interface AddThreadVariables {
+  realmId: number;
+  userId: string;
+  topicId: number;
+  title: string;
+  content: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: GetUser
 // ====================================================
+
+export interface GetUser_user_by_pk_realm_users {
+  __typename: "realm_user";
+  realm_id: number;
+}
 
 export interface GetUser_user_by_pk {
   __typename: "user";
@@ -390,6 +546,10 @@ export interface GetUser_user_by_pk {
   email: string;
   role: string;
   avatar_url: string | null;
+  /**
+   * An array relationship
+   */
+  realm_users: GetUser_user_by_pk_realm_users[];
 }
 
 export interface GetUser {

@@ -16,11 +16,11 @@ const Review: React.FC<ReviewProps> = (review) => (
         }}
       >
         <Avatar
-          size={40}
-          alt={review.username ?? "用户头像"}
+          size="medium"
+          alt={review.user?.username ?? "用户头像"}
           src={review.user?.avatar_url ?? undefined}
         />
-        <Typography sx={{ mx: 2 }}>{review.username}</Typography>
+        <Typography sx={{ mx: 2 }}>{review.user?.username}</Typography>
         <Box sx={{ ml: "auto" }} clone>
           <Rating value={review.rating} readOnly />
         </Box>
