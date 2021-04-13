@@ -8,12 +8,16 @@
   }
 }
 
-a {
-  color: var(--primary-color);
+a,
+a:hover {
   text-decoration: none;
 }
 
-a:hover {
+a:not(.MuiButtonBase-root),
+a:not(.MuiButtonBase-root):hover {
   color: var(--primary-color);
-  text-decoration: none;
+}
+
+a:not(.MuiButtonBase-root):hover {
+  text-decoration: underline;
 }
