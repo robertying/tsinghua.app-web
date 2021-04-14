@@ -57,9 +57,6 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
   const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
   const [imageFile, setImageFile] = useState<string | null>(null);
   const [crop, setCrop] = useState<ReactCrop.Crop>(initialCrop);
-  const [completedCrop, setCompletedCrop] = useState<ReactCrop.Crop>(
-    initialCrop
-  );
   const [uploadLoading, setUploadLoading] = useState(false);
   const [statusDialogOpen, setStatusDialogOpen] = useState(false);
   const [status, setStatus] = useState("");
@@ -126,7 +123,7 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
   };
 
   const handleUpload = async () => {
-    if (!completedCrop || !previewCanvasRef.current || !imageRef.current) {
+    if (!previewCanvasRef.current || !imageRef.current) {
       toast("info", "请先选择图片");
       return;
     }
@@ -198,13 +195,12 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
   };
 
   useEffect(() => {
-    if (!completedCrop || !previewCanvasRef.current || !imageRef.current) {
+    if (!previewCanvasRef.current || !imageRef.current) {
       return;
     }
 
     const image = imageRef.current;
     const canvas = previewCanvasRef.current;
-    const crop = completedCrop;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) {
@@ -232,7 +228,7 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
       crop.width!,
       crop.height!
     );
-  }, [completedCrop]);
+  }, [crop]);
 
   return (
     <>
@@ -327,14 +323,13 @@ const Profile: React.FC<ProfileProps> = ({ user: ssrUser }) => {
                 ruleOfThirds
                 circularCrop
                 onChange={setCrop}
-                onComplete={setCompletedCrop}
               />
               <canvas
                 ref={previewCanvasRef}
-                css={{ display: "none" }}
                 style={{
-                  width: Math.round(completedCrop?.width ?? 0),
-                  height: Math.round(completedCrop?.height ?? 0),
+                  display: "none",
+                  width: Math.round(crop.width ?? 0),
+                  height: Math.round(crop.height ?? 0),
                 }}
               />
             </>
