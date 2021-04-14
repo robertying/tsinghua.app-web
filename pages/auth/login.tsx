@@ -204,8 +204,32 @@ const Login: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 error={email ? !validateEmail(email) : false}
               />
+              <Typography
+                sx={{ mt: 2, textAlign: "left" }}
+                component="div"
+                variant="caption"
+                color="text.disabled"
+              >
+                This site is protected by reCAPTCHA and the Google{" "}
+                <a
+                  href="https://policies.google.com/privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Privacy Policy
+                </a>{" "}
+                and{" "}
+                <a
+                  href="https://policies.google.com/terms"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Terms of Service
+                </a>{" "}
+                apply.
+              </Typography>
               <Button
-                sx={{ mt: 4 }}
+                sx={{ mt: 2 }}
                 type="submit"
                 variant="contained"
                 disabled={loading}
