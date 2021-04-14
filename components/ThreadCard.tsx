@@ -20,9 +20,9 @@ const ThreadCard: React.FC<ThreadCardProps> = (props) => {
     <Card>
       <Link href={`/bbs/realms/${props.realm_id}/threads/${props.id}`} passHref>
         <CardActionArea sx={{ p: 2, pb: 1.5 }}>
-          <Stack direction="row" alignItems="center" spacing={1}>
+          <Stack direction="row" alignItems="center">
             {props.topic && <Chip label={props.topic.name} />}
-            <Typography variant="subtitle1" component="span">
+            <Typography sx={{ ml: 1 }} variant="subtitle1" component="span">
               {props.title}
             </Typography>
           </Stack>
