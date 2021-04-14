@@ -1,3 +1,4 @@
+import "@primer/css/dist/markdown.css";
 import { GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
 import { Container } from "@material-ui/core";
@@ -28,7 +29,10 @@ const LearnX: React.FC<LearnXProps> = ({ content }) => {
         }}
         maxWidth="sm"
       >
-        <div dangerouslySetInnerHTML={{ __html: content }} />
+        <div
+          className="markdown-body"
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
       </Container>
     </>
   );
