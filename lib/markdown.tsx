@@ -12,7 +12,7 @@ import MyImage from "components/Image";
 export const markdownToHtml = async (markdownString: string) => {
   const file = await unified()
     .use(markdown)
-    .use(externalLinks, { target: "_blank", rel: ["noopener"] })
+    .use(externalLinks, { target: "_blank", rel: ["noopener", "noreferrer"] })
     .use(remark2rehype, { allowDangerousHtml: true })
     .use(raw)
     .use(stringify)
@@ -31,7 +31,7 @@ export const markdownToReact = async (markdownString: string) => {
       Fragment: Fragment,
       components: {
         a: (props: React.HTMLProps<HTMLAnchorElement>) => (
-          <a {...props} target="_blank" rel="noopener">
+          <a {...props} target="_blank" rel="noopener noreferrer">
             {props.children}
           </a>
         ),
