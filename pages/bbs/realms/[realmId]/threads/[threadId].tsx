@@ -451,7 +451,7 @@ const Thread: React.FC = () => {
         >
           <Post
             {...{ ...thread, ...threadReactions }}
-            onReact={handleReaction}
+            onReact={user ? handleReaction : undefined}
             onEdit={
               thread.user?.username === user?.username
                 ? () => handleEditThread()
@@ -462,7 +462,9 @@ const Thread: React.FC = () => {
             <Post
               key={post.id}
               {...{ ...post, ...threadReactions?.posts[index] }}
-              onReact={(...args) => handleReaction(...args, post.id)}
+              onReact={
+                user ? (...args) => handleReaction(...args, post.id) : undefined
+              }
               onEdit={
                 post.user?.username === user?.username
                   ? () => handleEditPost(post)

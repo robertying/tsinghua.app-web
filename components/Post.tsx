@@ -154,17 +154,19 @@ const Post: React.FC<PostProps> = (props) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <ReactionSelect
-          reactions={getReactions(props)}
-          myReactions={getMyReactions(props)}
-          onReact={(name, action) =>
-            props.onReact?.(
-              props.__typename === "thread_public" ? "thread" : "post",
-              name,
-              action
-            )
-          }
-        />
+        {props.onReact && (
+          <ReactionSelect
+            reactions={getReactions(props)}
+            myReactions={getMyReactions(props)}
+            onReact={(name, action) =>
+              props.onReact?.(
+                props.__typename === "thread_public" ? "thread" : "post",
+                name,
+                action
+              )
+            }
+          />
+        )}
       </CardActions>
     </Card>
   );
