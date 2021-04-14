@@ -7,6 +7,7 @@ import MyAvatar from "./Avatar";
 
 const Layout: React.FC = ({ children }) => {
   const router = useRouter();
+  const isAuth = router.pathname.startsWith("/auth");
   const isProfile = router.pathname === "/profile";
 
   const [user, authLoading] = useUser();
@@ -26,12 +27,7 @@ const Layout: React.FC = ({ children }) => {
         justifyContent="flex-end"
         spacing={1}
       >
-        {isProfile && (
-          <MyFab onClick={() => router.back()}>
-            <ArrowBack />
-          </MyFab>
-        )}
-        {!isProfile && !authLoading && (
+        {!isProfile && !authLoading && user && (
           <MyFab
             sx={{
               "& > .MuiFab-label": {
@@ -41,19 +37,25 @@ const Layout: React.FC = ({ children }) => {
             }}
             onClick={() => router.push("/profile")}
           >
-            {user ? (
-              <MyAvatar
-                sx={{
-                  width: "90%",
-                  height: "90%",
-                }}
-                src={user.avatar_url ?? undefined}
-                alt={user.username}
-                size="medium"
-              />
-            ) : (
-              <PersonAdd />
-            )}
+            <MyAvatar
+              sx={{
+                width: "90%",
+                height: "90%",
+              }}
+              src={user.avatar_url ?? undefined}
+              alt={user.username}
+              size="medium"
+            />
+          </MyFab>
+        )}
+        {!isProfile && !isAuth && !authLoading && !user && (
+          <MyFab onClick={() => router.push("/auth/login")}>
+            <PersonAdd />
+          </MyFab>
+        )}
+        {(isProfile || isAuth) && (
+          <MyFab onClick={() => router.back()}>
+            <ArrowBack />
           </MyFab>
         )}
       </Stack>
