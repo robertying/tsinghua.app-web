@@ -227,9 +227,11 @@ const Realm: React.FC = () => {
         }}
         maxWidth="sm"
       >
-        <MyFab onClick={handleThreadDialogOpen}>
-          <PostAdd />
-        </MyFab>
+        {user && (
+          <MyFab onClick={handleThreadDialogOpen}>
+            <PostAdd />
+          </MyFab>
+        )}
         <Typography sx={{ fontWeight: 500 }} variant="h3" component="h1">
           {realm.name}
         </Typography>

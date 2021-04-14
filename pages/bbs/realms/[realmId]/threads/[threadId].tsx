@@ -410,9 +410,11 @@ const Thread: React.FC = () => {
         }`}
       />
       <Container sx={{ py: 8 }} maxWidth="sm">
-        <MyFab onClick={handlePostDialogOpen}>
-          <AddComment />
-        </MyFab>
+        {user && (
+          <MyFab onClick={handlePostDialogOpen}>
+            <AddComment />
+          </MyFab>
+        )}
         <Breadcrumbs>
           <Link href="/" passHref>
             <Typography sx={{ color: "inherit !important" }} component="a">
