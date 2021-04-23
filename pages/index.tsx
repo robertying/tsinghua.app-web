@@ -25,7 +25,7 @@ const FeatureCard = ({
   icon: React.ReactNode;
 }) => (
   <Link href={url} passHref>
-    <Card sx={{ textDecoration: "none" }}>
+    <Card component="a">
       <CardActionArea>
         <CardContent>
           <Box
@@ -134,7 +134,7 @@ const Home: React.FC = () => {
       >
         <FeatureCard
           title="星期四"
-          description="建设中……"
+          description="多功能社区"
           url="/bbs"
           icon={<ForumOutlined />}
         />
