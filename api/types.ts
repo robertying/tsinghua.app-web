@@ -939,7 +939,7 @@ export interface AddThread {
 export interface AddThreadVariables {
   realmId: number;
   userId: string;
-  topicId: number;
+  topicId?: number | null;
   title: string;
   content: string;
 }

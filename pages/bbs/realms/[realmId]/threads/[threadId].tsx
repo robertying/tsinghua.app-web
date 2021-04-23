@@ -406,9 +406,11 @@ const Thread: React.FC = () => {
   return (
     <>
       <NextSeo
-        title={`${thread.title} - ${thread.topic!.name} - ${
-          thread.realm!.name
-        }`}
+        title={
+          thread.topic
+            ? `${thread.title} - ${thread.topic!.name} - ${thread.realm!.name}`
+            : `${thread.title} - ${thread.realm!.name}`
+        }
       />
       <Container sx={{ py: 8 }} maxWidth="sm">
         {user && (
@@ -434,8 +436,8 @@ const Thread: React.FC = () => {
             alignItems: "center",
           }}
         >
-          <Chip label={thread.topic?.name} />
-          <Typography sx={{ ml: 1 }} variant="h5" component="h1">
+          {thread.topic && <Chip sx={{ mr: 1 }} label={thread.topic!.name} />}
+          <Typography variant="h5" component="h1">
             {thread.title}
           </Typography>
         </Box>

@@ -40,7 +40,7 @@ export const ADD_THREAD = gql`
   mutation AddThread(
     $realmId: Int!
     $userId: String!
-    $topicId: Int!
+    $topicId: Int
     $title: String!
     $content: String!
   ) {

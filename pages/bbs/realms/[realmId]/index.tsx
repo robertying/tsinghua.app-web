@@ -192,7 +192,7 @@ const Realm: React.FC = () => {
       variables: {
         userId: user!.id,
         realmId: realm!.id,
-        topicId: parseInt(topic, 10),
+        topicId: topic === "null" ? null : parseInt(topic, 10),
         title: title.trim(),
         content: content.trim(),
       },
@@ -324,6 +324,7 @@ const Realm: React.FC = () => {
               <MenuItem disabled value="">
                 选择话题
               </MenuItem>
+              <MenuItem value="null">无</MenuItem>
               {realm.topics.map((topic) => (
                 <MenuItem key={topic.id} value={topic.id}>
                   {topic.name}
