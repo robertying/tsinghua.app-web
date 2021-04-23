@@ -1,4 +1,5 @@
 import "@primer/css/dist/markdown.css";
+import "katex/dist/katex.css";
 import React, { useEffect, useState } from "react";
 import { NextSeo } from "next-seo";
 import { useMutation, useQuery } from "@apollo/client";
