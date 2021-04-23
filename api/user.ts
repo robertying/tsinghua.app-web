@@ -6,6 +6,7 @@ export const GET_USER = gql`
       id
       email
       role
+      created_at
       realm_ids: realm_users {
         realm_id
       }
@@ -64,9 +65,9 @@ export const UPDATE_REALM_USERNAME = gql`
     $realmId: Int!
     $username: String!
   ) {
-    update_realm_user_by_pk(
-      pk_columns: { user_id: $userId, realm_id: $realmId }
-      _set: { username: $username }
+    insert_realm_user_one(
+      object: { user_id: $userId, realm_id: $realmId, username: $username }
+      on_conflict: { constraint: realm_user_pkey, update_columns: [username] }
     ) {
       user_id
       realm_id
@@ -93,9 +94,9 @@ export const UPDATE_REALM_USER_AVATAR = gql`
     $realmId: Int!
     $avatarUrl: String!
   ) {
-    update_realm_user_by_pk(
-      pk_columns: { user_id: $userId, realm_id: $realmId }
-      _set: { avatar_url: $avatarUrl }
+    insert_realm_user_one(
+      object: { user_id: $userId, realm_id: $realmId, avatar_url: $avatarUrl }
+      on_conflict: { constraint: realm_user_pkey, update_columns: [avatar_url] }
     ) {
       user_id
       realm_id
@@ -126,6 +127,14 @@ export const UPDATE_REALM_USER_STATUS = gql`
       user_id
       realm_id
       status
+    }
+  }
+`;
+
+export const GET_REALM_USER_BY_USERNAME = gql`
+  query GetRealmUserByUsername($username: String!) {
+    realm_user_union(where: { username: { _eq: $username } }, limit: 1) {
+      username
     }
   }
 `;

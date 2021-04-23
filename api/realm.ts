@@ -39,3 +39,26 @@ export const GET_REALM_BY_ID = gql`
     }
   }
 `;
+
+export const GET_REALM_DETAILS = gql`
+  query GetRealmDetails($id: Int!) {
+    realm_by_pk(id: $id) {
+      id
+      name
+      description
+      private
+    }
+  }
+`;
+
+export const GET_REALM_DETAILS_INVITATION_CODE = gql`
+  query GetRealmDetailsInvitationCode($id: Int!) {
+    realm_by_pk(id: $id) {
+      id
+      name
+      description
+      private
+      invitation_code
+    }
+  }
+`;

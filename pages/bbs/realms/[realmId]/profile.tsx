@@ -166,7 +166,7 @@ const RealmProfile: React.FC = () => {
               : await updateRealmAvatar({
                   variables: {
                     userId: user!.id,
-                    realmId: user!.realmId,
+                    realmId: user!.realmId!,
                     avatarUrl: name,
                   },
                 });
@@ -205,7 +205,7 @@ const RealmProfile: React.FC = () => {
         : await updateRealmStatus({
             variables: {
               userId: user!.id,
-              realmId: user!.realmId,
+              realmId: user!.realmId!,
               status: status.trim(),
             },
           });

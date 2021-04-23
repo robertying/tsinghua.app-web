@@ -40,7 +40,6 @@ import Splash from "components/Splash";
 import ThreadCard from "components/ThreadCard";
 import MyDialog from "components/Dialog";
 import MyFab from "components/Fab";
-import { addApolloState, initializeApollo } from "lib/client";
 import { getOSS } from "lib/oss";
 import { markdownToReact } from "lib/markdown";
 import { useUser } from "lib/session";
@@ -49,7 +48,7 @@ import NotFound from "pages/404";
 const Realm: React.FC = () => {
   const toast = useToast();
   const router = useRouter();
-  const [user] = useUser();
+  const [user, authLoading] = useUser();
 
   const realmId = router.query.realmId as string | undefined;
 
@@ -69,6 +68,7 @@ const Realm: React.FC = () => {
   const {
     data: realmData,
     error: realmError,
+    loading: realmLoading,
     refetch: refetchRealm,
   } = useQuery<GetRealmById, GetRealmByIdVariables>(GET_REALM_BY_ID, {
     variables: {
@@ -76,7 +76,7 @@ const Realm: React.FC = () => {
     },
     skip: !realmId,
   });
-  const realm = realmData?.realm_by_pk;
+  const realm = realmData?.realm_by_pk!;
 
   const { data: userRealmData } = useQuery<
     GetUserRealms,
@@ -206,6 +206,18 @@ const Realm: React.FC = () => {
   };
 
   useEffect(() => {
+    if (!authLoading && realm?.private) {
+      if (!user) {
+        router.push(`/auth/login?redirect_url=${router.asPath}`);
+        return;
+      }
+      if (!user.username) {
+        router.replace(`${router.asPath}/enter`);
+      }
+    }
+  }, [authLoading, router, user, realm]);
+
+  useEffect(() => {
     if (realmError) {
       toast("error", "领域加载失败");
     }
@@ -228,11 +240,11 @@ const Realm: React.FC = () => {
     }
   }, [content, tab]);
 
-  if (router.isFallback) {
+  if (router.isFallback || realmLoading) {
     return <Splash />;
   }
 
-  if (!realm) {
+  if (!realmLoading && !realm) {
     return <NotFound />;
   }
 
@@ -436,20 +448,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const client = initializeApollo();
-
-  if (params?.realmId) {
-    await client.query<GetRealmById, GetRealmByIdVariables>({
-      query: GET_REALM_BY_ID,
-      variables: {
-        id: parseInt(params?.realmId as string, 10),
-      },
-    });
-  }
-
-  return addApolloState(client, {
+export const getStaticProps: GetStaticProps = async () => {
+  return {
     props: {},
     revalidate: 1,
-  });
+  };
 };

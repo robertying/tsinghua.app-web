@@ -31,7 +31,6 @@ import { useToast } from "components/Snackbar";
 import Splash from "components/Splash";
 import MyFab from "components/Fab";
 import MyDialog from "components/Dialog";
-import { addApolloState, initializeApollo } from "lib/client";
 import { useUser } from "lib/session";
 import { getOSS } from "lib/oss";
 import { markdownToReact } from "lib/markdown";
@@ -95,6 +94,7 @@ const Thread: React.FC = () => {
   const {
     data: threadData,
     error: threadError,
+    loading: threadLoading,
     refetch: refetchThread,
   } = useQuery<GetThreadById, GetThreadByIdVariables>(GET_THREAD_BY_ID, {
     variables: {
@@ -102,7 +102,7 @@ const Thread: React.FC = () => {
     },
     skip: !threadId,
   });
-  const thread = threadData?.thread_public[0];
+  const thread = threadData?.thread_public[0]!;
 
   const {
     data: threadReactionData,
@@ -112,9 +112,9 @@ const Thread: React.FC = () => {
     {
       variables: {
         threadId: threadId ? parseInt(threadId, 10) : 0,
-        userId: user?.id ?? "",
+        userId: user?.id!,
       },
-      skip: !threadId,
+      skip: !threadId || !user?.id,
     }
   );
   const threadReactions = threadReactionData?.thread_public[0];
@@ -395,11 +395,11 @@ const Thread: React.FC = () => {
     }
   }, [content, tab]);
 
-  if (router.isFallback) {
+  if (router.isFallback || threadLoading) {
     return <Splash />;
   }
 
-  if (!thread) {
+  if (!threadLoading && !thread) {
     return <NotFound />;
   }
 
@@ -701,27 +701,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const client = initializeApollo();
-
-  if (params?.threadId) {
-    await client.query<GetThreadById, GetThreadByIdVariables>({
-      query: GET_THREAD_BY_ID,
-      variables: {
-        id: parseInt(params?.threadId as string, 10),
-      },
-    });
-    await client.query<GetThreadReactions, GetThreadReactionsVariables>({
-      query: GET_THREAD_REACTIONS,
-      variables: {
-        threadId: parseInt(params?.threadId as string, 10),
-        userId: "",
-      },
-    });
-  }
-
-  return addApolloState(client, {
+export const getStaticProps: GetStaticProps = async () => {
+  return {
     props: {},
     revalidate: 1,
-  });
+  };
 };
