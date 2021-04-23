@@ -1,6 +1,8 @@
 import "@primer/css/dist/markdown.css";
 import "katex/dist/katex.css";
 import React, { useEffect, useState } from "react";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
 import { useMutation, useQuery } from "@apollo/client";
 import {
@@ -20,28 +22,29 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import { Add } from "@material-ui/icons";
 import { v4 as uuid } from "uuid";
 import { GET_REALM_BY_ID } from "api/realm";
+import { ADD_THREAD } from "api/thread";
+import { GET_USER_REALMS } from "api/user";
 import {
   AddThread,
   AddThreadVariables,
   GetRealmById,
   GetRealmByIdVariables,
+  GetUserRealms,
+  GetUserRealmsVariables,
 } from "api/types";
 import { useToast } from "components/Snackbar";
 import Splash from "components/Splash";
 import ThreadCard from "components/ThreadCard";
-import { addApolloState, initializeApollo } from "lib/client";
-import { GetStaticPaths, GetStaticProps } from "next";
-import { useRouter } from "next/router";
-import NotFound from "pages/404";
 import MyDialog from "components/Dialog";
+import MyFab from "components/Fab";
+import { addApolloState, initializeApollo } from "lib/client";
 import { getOSS } from "lib/oss";
 import { markdownToReact } from "lib/markdown";
-import { ADD_THREAD } from "api/thread";
 import { useUser } from "lib/session";
-import MyFab from "components/Fab";
-import { PostAdd } from "@material-ui/icons";
+import NotFound from "pages/404";
 
 const Realm: React.FC = () => {
   const toast = useToast();
@@ -50,6 +53,7 @@ const Realm: React.FC = () => {
 
   const realmId = router.query.realmId as string | undefined;
 
+  const [selectedRealmId, setSelectedRealmId] = useState("");
   const [threadDialogOpen, setThreadDialogOpen] = useState(false);
   const [topic, setTopic] = useState("");
   const [title, setTitle] = useState("");
@@ -74,10 +78,26 @@ const Realm: React.FC = () => {
   });
   const realm = realmData?.realm_by_pk;
 
+  const { data: userRealmData } = useQuery<
+    GetUserRealms,
+    GetUserRealmsVariables
+  >(GET_USER_REALMS, {
+    variables: {
+      id: user?.id ?? "",
+    },
+    skip: !user,
+  });
+
   const [
     addThread,
     { error: addThreadError, loading: addThreadLoading },
   ] = useMutation<AddThread, AddThreadVariables>(ADD_THREAD);
+
+  const handleChangeRealm = (e: React.ChangeEvent<{ value: string }>) => {
+    setSelectedRealmId("");
+
+    router.push(`/bbs/realms/${e.target.value}`);
+  };
 
   const handleThreadDialogOpen = () => {
     setThreadDialogOpen(true);
@@ -230,7 +250,7 @@ const Realm: React.FC = () => {
       >
         {user && (
           <MyFab onClick={handleThreadDialogOpen}>
-            <PostAdd />
+            <Add />
           </MyFab>
         )}
         <Typography sx={{ fontWeight: 500 }} variant="h3" component="h1">
@@ -241,14 +261,19 @@ const Realm: React.FC = () => {
         </Typography>
         <Select
           sx={{ mt: 2 }}
-          variant="outlined"
           size="small"
           displayEmpty
-          value=""
+          value={selectedRealmId}
+          onChange={handleChangeRealm}
         >
           <MenuItem disabled value="">
             切换领域
           </MenuItem>
+          {userRealmData?.user_by_pk?.realm_users.map((r) => (
+            <MenuItem key={r.realm!.id} value={r.realm!.id}>
+              {r.realm!.name}
+            </MenuItem>
+          ))}
         </Select>
         <Stack
           sx={{ width: "100%", mt: 6 }}

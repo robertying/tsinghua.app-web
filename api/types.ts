@@ -980,18 +980,38 @@ export interface UpdateThreadVariables {
 // GraphQL query operation: GetUser
 // ====================================================
 
+export interface GetUser_user_by_pk_realm_ids {
+  __typename: "realm_user_union";
+  realm_id: number | null;
+}
+
+export interface GetUser_user_by_pk_realm_users_realm {
+  __typename: "realm";
+  id: number;
+  name: string;
+}
+
 export interface GetUser_user_by_pk_realm_users {
-  __typename: "realm_user";
-  realm_id: number;
+  __typename: "realm_user_union";
+  /**
+   * An object relationship
+   */
+  realm: GetUser_user_by_pk_realm_users_realm | null;
+  username: string | null;
+  status: string | null;
+  avatar_url: string | null;
+  created_at: timestamptz | null;
 }
 
 export interface GetUser_user_by_pk {
   __typename: "user";
   id: string;
-  username: string;
   email: string;
   role: string;
-  avatar_url: string | null;
+  /**
+   * An array relationship
+   */
+  realm_ids: GetUser_user_by_pk_realm_ids[];
   /**
    * An array relationship
    */
@@ -1006,6 +1026,50 @@ export interface GetUser {
 }
 
 export interface GetUserVariables {
+  userId: string;
+  realmId: number;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: GetUserRealms
+// ====================================================
+
+export interface GetUserRealms_user_by_pk_realm_users_realm {
+  __typename: "realm";
+  id: number;
+  name: string;
+}
+
+export interface GetUserRealms_user_by_pk_realm_users {
+  __typename: "realm_user_union";
+  /**
+   * An object relationship
+   */
+  realm: GetUserRealms_user_by_pk_realm_users_realm | null;
+}
+
+export interface GetUserRealms_user_by_pk {
+  __typename: "user";
+  id: string;
+  /**
+   * An array relationship
+   */
+  realm_users: GetUserRealms_user_by_pk_realm_users[];
+}
+
+export interface GetUserRealms {
+  /**
+   * fetch data from the table: "user" using primary key columns
+   */
+  user_by_pk: GetUserRealms_user_by_pk | null;
+}
+
+export interface GetUserRealmsVariables {
   id: string;
 }
 
@@ -1021,10 +1085,7 @@ export interface GetUserVariables {
 export interface AddOrUpdateUser_insert_user_one {
   __typename: "user";
   id: string;
-  username: string;
   email: string;
-  role: string;
-  avatar_url: string | null;
 }
 
 export interface AddOrUpdateUser {
@@ -1052,9 +1113,6 @@ export interface UpdateUsername_update_user_by_pk {
   __typename: "user";
   id: string;
   username: string;
-  email: string;
-  role: string;
-  avatar_url: string | null;
 }
 
 export interface UpdateUsername {
@@ -1075,29 +1133,27 @@ export interface UpdateUsernameVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetUserDetail
+// GraphQL mutation operation: UpdateRealmUsername
 // ====================================================
 
-export interface GetUserDetail_user_by_pk {
-  __typename: "user";
-  id: string;
+export interface UpdateRealmUsername_update_realm_user_by_pk {
+  __typename: "realm_user";
+  user_id: string;
+  realm_id: number;
   username: string;
-  email: string;
-  role: string;
-  avatar_url: string | null;
-  status: string | null;
-  created_at: timestamptz;
 }
 
-export interface GetUserDetail {
+export interface UpdateRealmUsername {
   /**
-   * fetch data from the table: "user" using primary key columns
+   * update single row of the table: "realm_user"
    */
-  user_by_pk: GetUserDetail_user_by_pk | null;
+  update_realm_user_by_pk: UpdateRealmUsername_update_realm_user_by_pk | null;
 }
 
-export interface GetUserDetailVariables {
-  id: string;
+export interface UpdateRealmUsernameVariables {
+  userId: string;
+  realmId: number;
+  username: string;
 }
 
 /* tslint:disable */
@@ -1112,9 +1168,6 @@ export interface GetUserDetailVariables {
 export interface UpdateUserAvatar_update_user_by_pk {
   __typename: "user";
   id: string;
-  username: string;
-  email: string;
-  role: string;
   avatar_url: string | null;
 }
 
@@ -1136,16 +1189,41 @@ export interface UpdateUserAvatarVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: UpdateRealmUserAvatar
+// ====================================================
+
+export interface UpdateRealmUserAvatar_update_realm_user_by_pk {
+  __typename: "realm_user";
+  user_id: string;
+  realm_id: number;
+  avatar_url: string | null;
+}
+
+export interface UpdateRealmUserAvatar {
+  /**
+   * update single row of the table: "realm_user"
+   */
+  update_realm_user_by_pk: UpdateRealmUserAvatar_update_realm_user_by_pk | null;
+}
+
+export interface UpdateRealmUserAvatarVariables {
+  userId: string;
+  realmId: number;
+  avatarUrl: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: UpdateUserStatus
 // ====================================================
 
 export interface UpdateUserStatus_update_user_by_pk {
   __typename: "user";
   id: string;
-  username: string;
-  email: string;
-  role: string;
-  avatar_url: string | null;
   status: string | null;
 }
 
@@ -1158,6 +1236,35 @@ export interface UpdateUserStatus {
 
 export interface UpdateUserStatusVariables {
   id: string;
+  status: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: UpdateRealmUserStatus
+// ====================================================
+
+export interface UpdateRealmUserStatus_update_realm_user_by_pk {
+  __typename: "realm_user";
+  user_id: string;
+  realm_id: number;
+  status: string | null;
+}
+
+export interface UpdateRealmUserStatus {
+  /**
+   * update single row of the table: "realm_user"
+   */
+  update_realm_user_by_pk: UpdateRealmUserStatus_update_realm_user_by_pk | null;
+}
+
+export interface UpdateRealmUserStatusVariables {
+  userId: string;
+  realmId: number;
   status: string;
 }
 

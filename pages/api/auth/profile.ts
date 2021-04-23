@@ -2,15 +2,28 @@ import { NextApiRequest, NextApiResponse } from "next";
 import nookies from "nookies";
 import { verify } from "lib/jwt";
 import { graphQLClient } from "lib/client";
-import { GET_USER, UPDATE_USERNAME } from "api/user";
+import { GET_USER, UPDATE_REALM_USERNAME, UPDATE_USERNAME } from "api/user";
 import {
   GetUser,
   GetUserVariables,
+  UpdateRealmUsername,
+  UpdateRealmUsernameVariables,
   UpdateUsername,
   UpdateUsernameVariables,
 } from "api/types";
 import { REFRESH_TOKEN_COOKIE_NAME } from "./token";
 import usernameBlocklist from "./username_blocklist.json";
+
+export interface UserProfile {
+  id: string;
+  email: string;
+  realmId: number;
+  realmName: string;
+  username: string;
+  avatarUrl: string | null;
+  status: string | null;
+  createdAt: timestamptz;
+}
 
 export default async function handleProfile(
   req: NextApiRequest,
@@ -18,6 +31,8 @@ export default async function handleProfile(
 ) {
   const cookies = nookies.get({ req });
   const token = cookies[REFRESH_TOKEN_COOKIE_NAME];
+  const realmIdString = req.query.realmId as string | undefined;
+  const realmId = realmIdString ? parseInt(realmIdString, 10) : 1;
 
   if (req.method === "GET") {
     if (!token) {
@@ -25,15 +40,29 @@ export default async function handleProfile(
     }
 
     try {
-      const { id } = await verify(token, "refresh");
+      const { id: userId } = await verify(token, "refresh");
 
       const response = await graphQLClient.request<GetUser, GetUserVariables>(
         GET_USER,
-        { id }
+        { userId, realmId }
       );
       const user = response.user_by_pk!;
 
-      res.send(user);
+      const realmUser = user.realm_users[0];
+      if (!realmUser) {
+        return res.status(403).send("Access denied");
+      }
+
+      res.send({
+        id: user.id,
+        email: user.email,
+        realmId: realmUser.realm!.id,
+        realmName: realmUser.realm!.name,
+        username: realmUser.username,
+        avatarUrl: realmUser.avatar_url,
+        status: realmUser.status,
+        createdAt: realmUser.created_at,
+      } as UserProfile);
     } catch (e) {
       return res.status(403).send("Access denied");
     }
@@ -56,31 +85,39 @@ export default async function handleProfile(
     }
 
     try {
-      const { id } = await verify(token, "refresh");
+      const { id: userId } = await verify(token, "refresh");
 
-      if (id === username) {
+      if (userId === username) {
         return res.status(409).send("Invalid username");
       }
 
       try {
-        const data = await graphQLClient.request<
-          UpdateUsername,
-          UpdateUsernameVariables
-        >(UPDATE_USERNAME, {
-          id,
-          username,
-        });
-        const user = data.update_user_by_pk!;
+        if (realmId === 1) {
+          await graphQLClient.request<UpdateUsername, UpdateUsernameVariables>(
+            UPDATE_USERNAME,
+            {
+              id: userId,
+              username,
+            }
+          );
+        } else {
+          await graphQLClient.request<
+            UpdateRealmUsername,
+            UpdateRealmUsernameVariables
+          >(UPDATE_REALM_USERNAME, {
+            userId,
+            realmId,
+            username,
+          });
+        }
 
-        res.send(user);
+        res.status(200).end();
       } catch (e) {
         return res.status(409).send("Invalid username");
       }
     } catch (e) {
       return res.status(403).send("Access denied");
     }
-
-    res.status(200).end();
   } else {
     res.status(405).end();
   }

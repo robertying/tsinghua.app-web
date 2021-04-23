@@ -20,17 +20,17 @@ export default async function handleSession(
     req.body.refreshToken ?? cookies[REFRESH_TOKEN_COOKIE_NAME];
 
   try {
-    const { id } = await verify(refreshToken, "refresh");
+    const { id: userId } = await verify(refreshToken, "refresh");
 
     const response = await graphQLClient.request<GetUser, GetUserVariables>(
       GET_USER,
-      { id }
+      { userId, realmId: 1 }
     );
     const user = response.user_by_pk!;
 
     const accessToken = await encodeAccessToken({
       ...user,
-      realmIds: user.realm_users.map((u) => u.realm_id),
+      realmIds: user.realm_ids.map((u) => u.realm_id!),
     });
     res.send({
       accessToken,

@@ -7,8 +7,9 @@ import MyAvatar from "./Avatar";
 
 const Layout: React.FC = ({ children }) => {
   const router = useRouter();
+  const realmId = router.query.realmId ?? 1;
   const isAuth = router.pathname.startsWith("/auth");
-  const isProfile = router.pathname === "/profile";
+  const isProfile = router.pathname.endsWith("/profile");
 
   const [user, authLoading] = useUser();
 
@@ -35,14 +36,14 @@ const Layout: React.FC = ({ children }) => {
                 height: "100%",
               },
             }}
-            onClick={() => router.push("/profile")}
+            onClick={() => router.push(`/bbs/realms/${realmId}/profile`)}
           >
             <MyAvatar
               sx={{
                 width: "90%",
                 height: "90%",
               }}
-              src={user.avatar_url ?? undefined}
+              src={user.avatarUrl ?? undefined}
               alt={user.username}
               size="medium"
             />

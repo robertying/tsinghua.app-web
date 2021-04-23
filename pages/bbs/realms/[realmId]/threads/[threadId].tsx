@@ -23,7 +23,7 @@ import {
   Select,
   MenuItem,
 } from "@material-ui/core";
-import { AddComment } from "@material-ui/icons";
+import { Add } from "@material-ui/icons";
 import { useMutation, useQuery } from "@apollo/client";
 import { v4 as uuid } from "uuid";
 import Post from "components/Post";
@@ -413,7 +413,7 @@ const Thread: React.FC = () => {
       <Container sx={{ py: 8 }} maxWidth="sm">
         {user && (
           <MyFab onClick={handlePostDialogOpen}>
-            <AddComment />
+            <Add />
           </MyFab>
         )}
         <Breadcrumbs>

@@ -1,7 +1,8 @@
-import useSWR from "swr";
+import { useRouter } from "next/router";
+import useSWR, { mutate } from "swr";
 import axios from "axios";
 import type { Session } from "pages/api/auth/session";
-import { User } from "./jwt";
+import type { UserProfile } from "pages/api/auth/profile";
 
 let expireAt = 0;
 let accessToken: string | null = null;
@@ -25,22 +26,24 @@ export const getAccessToken = async () => {
   return accessToken;
 };
 
-export const useAccessToken = () => {
-  const { data, error } = useSWR<Session>("/api/auth/session", {
-    refreshInterval: 45 * 60 * 1000,
-  });
-
-  const loading = !data && !error;
-
-  return [data?.accessToken, loading] as [string | undefined, boolean];
-};
-
 export const useUser = () => {
-  const { data, error } = useSWR<User | null>("/api/auth/profile", {
-    shouldRetryOnError: false,
-  });
+  const router = useRouter();
+  const realmId = router.query.realmId ?? 1;
+
+  const { data, error } = useSWR<UserProfile | null>(
+    `/api/auth/profile?realmId=${realmId}`,
+    {
+      shouldRetryOnError: false,
+    }
+  );
 
   const loading = !data && !error;
 
-  return [data, loading] as [User | null | undefined, boolean];
+  const refetch = () => mutate(`/api/auth/profile?realmId=${realmId}`);
+
+  return [data, loading, refetch] as [
+    UserProfile | null | undefined,
+    boolean,
+    typeof refetch
+  ];
 };

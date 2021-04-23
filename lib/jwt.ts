@@ -1,20 +1,13 @@
 import jwt from "jsonwebtoken";
 
-export interface User {
+export interface JwtPayload {
   id: string;
-  username: string;
   email: string;
-  role: string;
-  avatar_url?: string | null;
-  realmIds?: number[];
-}
-
-export interface UserJwt extends User {
   iat: number;
   exp: number;
 }
 
-export const encodeRefreshToken = (user: User) => {
+export const encodeRefreshToken = (user: { id: string; email: string }) => {
   return new Promise<string>((resolve, reject) => {
     jwt.sign(
       {
@@ -37,22 +30,22 @@ export const encodeRefreshToken = (user: User) => {
   });
 };
 
-export const encodeAccessToken = (user: User) => {
+export const encodeAccessToken = (user: {
+  id: string;
+  email: string;
+  role: string;
+  realmIds: number[];
+}) => {
   return new Promise<string>((resolve, reject) => {
     jwt.sign(
       {
         id: user.id,
         email: user.email,
-        username: user.username,
-        role: user.role,
         "https://hasura.io/jwt/claims": {
           "x-hasura-allowed-roles": [user.role],
           "x-hasura-default-role": user.role,
           "x-hasura-user-id": user.id,
-          "x-hasura-user-username": user.username,
-          "x-hasura-user-realms": `{${[1, ...(user.realmIds ?? [])].join(
-            ","
-          )}}`,
+          "x-hasura-user-realms": `{${[1, ...user.realmIds].join(",")}}`,
         },
       },
       process.env.AUTH_ACCESS_TOKEN_SECRET!,
@@ -72,7 +65,7 @@ export const encodeAccessToken = (user: User) => {
 };
 
 export const verify = (token: string | null, type: "refresh" | "access") => {
-  return new Promise<UserJwt>((resolve, reject) => {
+  return new Promise<JwtPayload>((resolve, reject) => {
     if (!token) {
       return reject();
     }
@@ -86,7 +79,7 @@ export const verify = (token: string | null, type: "refresh" | "access") => {
         if (err || !decoded) {
           return reject(err);
         } else {
-          return resolve(decoded as UserJwt);
+          return resolve(decoded as JwtPayload);
         }
       }
     );
