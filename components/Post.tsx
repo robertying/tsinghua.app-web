@@ -147,13 +147,13 @@ const Post: React.FC<PostProps> = (props) => {
         <Typography component="article" className="markdown-body">
           {loading ? "加载中……" : renderedContent}
         </Typography>
-        <Typography sx={{ mt: 1 }} variant="caption" component="div">
+        <Typography sx={{ mt: 2 }} variant="caption" component="div">
           {dayjs(props.updated_at!).isSame(props.created_at!)
             ? dayjs(props.created_at!).fromNow()
             : "编辑于 " + dayjs(props.updated_at!).fromNow()}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions sx={{ pt: 0 }}>
         {props.onReact && (
           <ReactionSelect
             reactions={getReactions(props)}
