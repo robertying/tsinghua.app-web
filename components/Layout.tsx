@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Stack, Typography } from "@material-ui/core";
+import { Stack, Tooltip, Typography } from "@material-ui/core";
 import { ArrowBack, PersonAdd } from "@material-ui/icons";
 import { useUser } from "lib/session";
 import MyFab from "./Fab";
@@ -29,35 +29,41 @@ const Layout: React.FC = ({ children }) => {
         spacing={1}
       >
         {!isProfile && !authLoading && user && (
-          <MyFab
-            sx={{
-              "& > .MuiFab-label": {
-                width: "100%",
-                height: "100%",
-              },
-            }}
-            onClick={() => router.push(`/bbs/realms/${realmId}/profile`)}
-          >
-            <MyAvatar
+          <Tooltip title="用户信息">
+            <MyFab
               sx={{
-                width: "90%",
-                height: "90%",
+                "& > .MuiFab-label": {
+                  width: "100%",
+                  height: "100%",
+                },
               }}
-              src={user.avatarUrl ?? undefined}
-              alt={user.username}
-              size="medium"
-            />
-          </MyFab>
+              onClick={() => router.push(`/bbs/realms/${realmId}/profile`)}
+            >
+              <MyAvatar
+                sx={{
+                  width: "90%",
+                  height: "90%",
+                }}
+                src={user.avatarUrl ?? undefined}
+                alt={user.username}
+                size="medium"
+              />
+            </MyFab>
+          </Tooltip>
         )}
         {!isProfile && !isAuth && !authLoading && !user && (
-          <MyFab onClick={() => router.push("/auth/login")}>
-            <PersonAdd />
-          </MyFab>
+          <Tooltip title="登录">
+            <MyFab onClick={() => router.push("/auth/login")}>
+              <PersonAdd />
+            </MyFab>
+          </Tooltip>
         )}
         {(isProfile || isAuth) && (
-          <MyFab onClick={() => router.back()}>
-            <ArrowBack />
-          </MyFab>
+          <Tooltip title="返回">
+            <MyFab onClick={() => router.back()}>
+              <ArrowBack />
+            </MyFab>
+          </Tooltip>
         )}
       </Stack>
       {children}

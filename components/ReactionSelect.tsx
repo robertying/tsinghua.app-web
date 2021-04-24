@@ -5,6 +5,7 @@ import {
   Chip,
   useMediaQuery,
   Box,
+  Tooltip,
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import { AddReactionOutlined } from "@material-ui/icons";
@@ -78,9 +79,11 @@ const ReactionSelect: React.FC<ReactionSelectProps> = ({
                 />
               ) : null
           )}
-        <IconButton sx={{ mt: 0.5, mr: 0.5 }} onClick={handleClick}>
-          <AddReactionOutlined />
-        </IconButton>
+        <Tooltip title="添加回应" placement="right">
+          <IconButton sx={{ mt: 0.5, mr: 0.5 }} onClick={handleClick}>
+            <AddReactionOutlined />
+          </IconButton>
+        </Tooltip>
       </Box>
       <Popover
         open={anchorEl ? true : false}

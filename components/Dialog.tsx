@@ -9,6 +9,7 @@ import {
   useMediaQuery,
   DialogProps,
   CircularProgress,
+  Tooltip,
 } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import { useTheme } from "@material-ui/core/styles";
@@ -54,9 +55,11 @@ const MyDialog: React.FC<MyDialogProps> = ({
         }}
         component="nav"
       >
-        <IconButton onClick={restProps.onClose}>
-          <Close />
-        </IconButton>
+        <Tooltip title="关闭" placement="right">
+          <IconButton onClick={restProps.onClose}>
+            <Close />
+          </IconButton>
+        </Tooltip>
         {okLoading ? (
           <CircularProgress size="2rem" />
         ) : (

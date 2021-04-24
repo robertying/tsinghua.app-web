@@ -22,6 +22,7 @@ import {
   DialogActions,
   Select,
   MenuItem,
+  Tooltip,
 } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { useMutation, useQuery } from "@apollo/client";
@@ -414,9 +415,11 @@ const Thread: React.FC = () => {
       />
       <Container sx={{ py: 8 }} maxWidth="sm">
         {user && (
-          <MyFab onClick={handlePostDialogOpen}>
-            <Add />
-          </MyFab>
+          <Tooltip title="新回复">
+            <MyFab onClick={handlePostDialogOpen}>
+              <Add />
+            </MyFab>
+          </Tooltip>
         )}
         <Breadcrumbs>
           <Link href="/" passHref>

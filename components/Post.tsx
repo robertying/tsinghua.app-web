@@ -7,6 +7,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Tooltip,
   Typography,
 } from "@material-ui/core";
 import { Edit, MoreVert } from "@material-ui/icons";
@@ -116,9 +117,11 @@ const Post: React.FC<PostProps> = (props) => {
         action={
           props.onEdit && (
             <>
-              <IconButton onClick={handleMoreMenuOpen}>
-                <MoreVert />
-              </IconButton>
+              <Tooltip title="更多操作" placement="left">
+                <IconButton onClick={handleMoreMenuOpen}>
+                  <MoreVert />
+                </IconButton>
+              </Tooltip>
               <Menu
                 anchorEl={menuButton}
                 anchorOrigin={{

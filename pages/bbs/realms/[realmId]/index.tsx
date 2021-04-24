@@ -20,6 +20,7 @@ import {
   Tab,
   Tabs,
   TextField,
+  Tooltip,
   Typography,
 } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
@@ -261,9 +262,11 @@ const Realm: React.FC = () => {
         maxWidth="sm"
       >
         {user && (
-          <MyFab onClick={handleThreadDialogOpen}>
-            <Add />
-          </MyFab>
+          <Tooltip title="新帖子">
+            <MyFab onClick={handleThreadDialogOpen}>
+              <Add />
+            </MyFab>
+          </Tooltip>
         )}
         <Typography sx={{ fontWeight: 500 }} variant="h3" component="h1">
           {realm.name}
