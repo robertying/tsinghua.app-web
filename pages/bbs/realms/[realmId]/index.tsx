@@ -324,6 +324,7 @@ const Realm: React.FC = () => {
           open={threadDialogOpen}
           scroll={tab === 0 ? "paper" : "body"}
           onClose={handleThreadDialogClose}
+          title="新帖子"
           okText="发布"
           okLoading={addThreadLoading}
           onOk={handleThreadSubmit}

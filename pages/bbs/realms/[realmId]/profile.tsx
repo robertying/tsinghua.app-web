@@ -325,6 +325,7 @@ const RealmProfile: React.FC = () => {
         <MyDialog
           open={uploadDialogOpen}
           onClose={handleUploadDialogClose}
+          title={user.avatarUrl ? "更新头像" : "上传头像"}
           okText={user.avatarUrl ? "更新" : "上传"}
           okLoading={uploadLoading}
           onOk={handleUpload}

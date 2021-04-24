@@ -447,6 +447,7 @@ const CourseDetail: React.FC = () => {
         <MyDialog
           open={reviewDialogOpen}
           onClose={handleReviewDialogClose}
+          title={reviewed ? "更新评价" : "新评价"}
           okText={reviewed ? "更新" : "发布"}
           onOk={handleSubmitReview}
         >

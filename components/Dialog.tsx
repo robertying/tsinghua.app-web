@@ -10,6 +10,7 @@ import {
   DialogProps,
   CircularProgress,
   Tooltip,
+  Typography,
 } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import { useTheme } from "@material-ui/core/styles";
@@ -27,12 +28,14 @@ export interface MyDialogProps extends DialogProps {
   onOk?: () => void;
   okText: string;
   okLoading?: boolean;
+  title?: string;
 }
 
 const MyDialog: React.FC<MyDialogProps> = ({
   onOk,
   okText,
   okLoading,
+  title,
   ...restProps
 }) => {
   const theme = useTheme();
@@ -60,6 +63,7 @@ const MyDialog: React.FC<MyDialogProps> = ({
             <Close />
           </IconButton>
         </Tooltip>
+        <Typography sx={{ fontWeight: "bold" }}>{title}</Typography>
         {okLoading ? (
           <CircularProgress size="2rem" />
         ) : (

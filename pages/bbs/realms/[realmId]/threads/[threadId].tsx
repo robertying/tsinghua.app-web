@@ -485,6 +485,7 @@ const Thread: React.FC = () => {
           open={threadDialogOpen}
           scroll={tab === 0 ? "paper" : "body"}
           onClose={handleThreadDialogClose}
+          title="编辑帖子"
           okText="发布"
           okLoading={updateThreadLoading}
           onOk={handleThreadSubmit}
@@ -598,6 +599,7 @@ const Thread: React.FC = () => {
           open={postDialogOpen}
           scroll={tab === 0 ? "paper" : "body"}
           onClose={handlePostDialogClose}
+          title={editingPostId ? "编辑回复" : "新回复"}
           okText="发布"
           okLoading={addPostLoading || updatePostLoading}
           onOk={handlePostSubmit}
