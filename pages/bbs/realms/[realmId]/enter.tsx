@@ -5,7 +5,9 @@ import { NextSeo } from "next-seo";
 import {
   Button,
   Container,
+  FormControlLabel,
   Paper,
+  Switch,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -28,6 +30,7 @@ const RealmEnter: React.FC = () => {
 
   const [code, setCode] = useState("");
   const [username, setUsername] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const { data } = useQuery<GetRealmDetails, GetRealmDetailsVariables>(
@@ -44,7 +47,7 @@ const RealmEnter: React.FC = () => {
   const handleEnterRealm: React.FormEventHandler<HTMLElement> = async (e) => {
     e.preventDefault();
 
-    if (realm.private && !code) {
+    if (!isAdmin && realm.private && !code) {
       toast("info", "请填写邀请码");
       return;
     }
@@ -85,6 +88,12 @@ const RealmEnter: React.FC = () => {
     }
   }, [realm, router, user]);
 
+  useEffect(() => {
+    if (router.query.admin === "true") {
+      setIsAdmin(true);
+    }
+  }, [router]);
+
   if (router.isFallback) {
     return <Splash />;
   }
@@ -95,7 +104,10 @@ const RealmEnter: React.FC = () => {
 
   return (
     <>
-      <NextSeo title={`加入 - ${realm.name}`} description={realm.description} />
+      <NextSeo
+        title={`加入 - ${realm.name}`}
+        description={realm.description!}
+      />
       <Container
         sx={{
           display: "flex",
@@ -120,7 +132,18 @@ const RealmEnter: React.FC = () => {
           <Typography sx={{ mt: 2 }} variant="body1" component="h2">
             {realm.description}
           </Typography>
-          {realm.private && (
+          <FormControlLabel
+            sx={{ mt: 2, display: "block" }}
+            control={
+              <Switch
+                color="primary"
+                checked={isAdmin}
+                onChange={(e, checked) => setIsAdmin(checked)}
+              />
+            }
+            label="我是管理员"
+          />
+          {!isAdmin && realm.private && (
             <>
               <Typography sx={{ mt: 4 }} variant="caption">
                 此为私有领域，需要邀请码才能加入

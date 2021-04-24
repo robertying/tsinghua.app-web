@@ -14,27 +14,41 @@ import {
   Dialog,
   DialogActions,
   DialogTitle,
+  FormControlLabel,
+  IconButton,
   MenuItem,
   Select,
   Stack,
+  Switch,
   Tab,
   Tabs,
   TextField,
   Tooltip,
   Typography,
 } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
+import { Add, Refresh, Settings } from "@material-ui/icons";
 import { v4 as uuid } from "uuid";
-import { GET_REALM_BY_ID } from "api/realm";
+import {
+  ADD_REALM,
+  GET_REALM_BY_ID,
+  GET_REALM_DETAILS_INVITATION_CODE,
+  UPDATE_REALM,
+} from "api/realm";
 import { ADD_THREAD } from "api/thread";
 import { GET_USER_REALMS } from "api/user";
 import {
+  AddRealm,
+  AddRealmVariables,
   AddThread,
   AddThreadVariables,
   GetRealmById,
   GetRealmByIdVariables,
+  GetRealmDetailsInvitationCode,
+  GetRealmDetailsInvitationCodeVariables,
   GetUserRealms,
   GetUserRealmsVariables,
+  UpdateRealm,
+  UpdateRealmVariables,
 } from "api/types";
 import { useToast } from "components/Snackbar";
 import Splash from "components/Splash";
@@ -45,6 +59,12 @@ import { getOSS } from "lib/oss";
 import { markdownToReact } from "lib/markdown";
 import { useUser } from "lib/session";
 import NotFound from "pages/404";
+
+const generateRealmCode = () => {
+  return Math.floor(1000 + Math.random() * 9000)
+    .toString()
+    .substr(0, 4);
+};
 
 const Realm: React.FC = () => {
   const toast = useToast();
@@ -65,6 +85,15 @@ const Realm: React.FC = () => {
   const [tab, setTab] = useState(0);
   const [html, setHtml] = useState<React.ReactElement | null>(null);
   const [htmlLoading, setHtmlLoading] = useState(false);
+  const [realmDialogOpen, setRealmDialogOpen] = useState(false);
+  const [realmName, setRealmName] = useState("");
+  const [realmDescription, setRealmDescription] = useState("");
+  const [realmTopics, setRealmTopics] = useState<Set<string>>(new Set());
+  const [realmPrivate, setRealmPrivate] = useState(false);
+  const [realmCode, setRealmCode] = useState(generateRealmCode());
+  const [editingRealm, setEditingRealm] = useState(false);
+  const [topicDialogOpen, setTopicDialogOpen] = useState(false);
+  const [newTopic, setNewTopic] = useState("");
 
   const {
     data: realmData,
@@ -77,7 +106,17 @@ const Realm: React.FC = () => {
     },
     skip: !realmId,
   });
-  const realm = realmData?.realm_by_pk!;
+  const realm = realmData?.realm_public?.[0]!;
+  const { data: realmDetailsData, refetch: refetchRealmDetails } = useQuery<
+    GetRealmDetailsInvitationCode,
+    GetRealmDetailsInvitationCodeVariables
+  >(GET_REALM_DETAILS_INVITATION_CODE, {
+    variables: {
+      id: realmId ? parseInt(realmId, 10) : 0,
+    },
+    skip: !realmId,
+  });
+  const realmDetails = realmDetailsData?.realm_by_pk;
 
   const { data: userRealmData } = useQuery<
     GetUserRealms,
@@ -93,6 +132,14 @@ const Realm: React.FC = () => {
     addThread,
     { error: addThreadError, loading: addThreadLoading },
   ] = useMutation<AddThread, AddThreadVariables>(ADD_THREAD);
+  const [
+    addRealm,
+    { error: addRealmError, loading: addRealmLoading },
+  ] = useMutation<AddRealm, AddRealmVariables>(ADD_REALM);
+  const [
+    updateRealm,
+    { error: updateRealmError, loading: updateRealmLoading },
+  ] = useMutation<UpdateRealm, UpdateRealmVariables>(UPDATE_REALM);
 
   const handleChangeRealm = (e: React.ChangeEvent<{ value: string }>) => {
     setSelectedRealmId("");
@@ -192,7 +239,7 @@ const Realm: React.FC = () => {
     await addThread({
       variables: {
         userId: user!.id,
-        realmId: realm!.id,
+        realmId: realm!.id!,
         topicId: topic === "null" ? null : parseInt(topic, 10),
         title: title.trim(),
         content: content.trim(),
@@ -202,8 +249,119 @@ const Realm: React.FC = () => {
     handleThreadDialogClose({});
     toast("success", "帖子发表成功");
     await refetchRealm({
-      id: realm!.id,
+      id: realm!.id!,
     });
+  };
+
+  const handleRealmDialogOpen = () => {
+    setRealmDialogOpen(true);
+  };
+
+  const handleRealmDialogClose = (
+    event: {},
+    reason?: "backdropClick" | "escapeKeyDown"
+  ) => {
+    if (reason) {
+      return;
+    }
+
+    setRealmDialogOpen(false);
+    setRealmName("");
+    setRealmDescription("");
+    setRealmPrivate(false);
+    setRealmCode(generateRealmCode());
+    setEditingRealm(false);
+  };
+
+  const handleTopicDialogOpen = () => {
+    setTopicDialogOpen(true);
+  };
+
+  const handleTopicDialogClose = (
+    event: {},
+    reason?: "backdropClick" | "escapeKeyDown"
+  ) => {
+    if (reason) {
+      return;
+    }
+
+    setTopicDialogOpen(false);
+    setNewTopic("");
+  };
+
+  const handleTopicAdd = () => {
+    if (!newTopic.trim()) {
+      toast("info", "请输入话题名");
+      return;
+    }
+
+    setRealmTopics(realmTopics.add(newTopic.trim()));
+    handleTopicDialogClose({});
+  };
+
+  const handleRealmEdit = () => {
+    if (!realmDetails) {
+      return;
+    }
+
+    setEditingRealm(true);
+    setRealmName(realm.name!);
+    setRealmDescription(realm.description!);
+    setRealmPrivate(realm.private!);
+    setRealmCode(realmDetails!.invitation_code ?? generateRealmCode());
+    setRealmTopics(new Set(realmDetails.topics.map((t) => t.name)));
+
+    handleRealmDialogOpen();
+  };
+
+  const handleRealmSubmit = async () => {
+    if (!realmName.trim()) {
+      toast("info", "请填写领域名");
+      return;
+    }
+    if (!realmDescription.trim()) {
+      toast("info", "请填写领域简介");
+      return;
+    }
+
+    if (editingRealm) {
+      await updateRealm({
+        variables: {
+          id: realm.id!,
+          description: realmDescription.trim(),
+          private: realmPrivate,
+          invitationCode: realmPrivate ? realmCode : null,
+          topics: Array.from(realmTopics).map((t) => ({
+            realm_id: realm.id,
+            name: t,
+          })),
+        },
+      });
+
+      toast("success", "领域更新成功");
+      refetchRealm();
+      refetchRealmDetails();
+    } else {
+      const { data: newRealmData } = await addRealm({
+        variables: {
+          adminId: user!.id,
+          name: realmName.trim(),
+          description: realmDescription.trim(),
+          private: realmPrivate,
+          invitationCode: realmPrivate ? realmCode : null,
+        },
+      });
+
+      toast("success", "领域创建成功，跳转中……");
+
+      setTimeout(() => {
+        router.push(
+          `/bbs/realms/${newRealmData?.insert_realm_one?.id}/enter?admin=true`
+        );
+      }, 1000);
+    }
+
+    handleRealmDialogClose({});
   };
 
   useEffect(() => {
@@ -231,6 +389,18 @@ const Realm: React.FC = () => {
   }, [addThreadError, toast]);
 
   useEffect(() => {
+    if (addRealmError) {
+      toast("error", "领域创建失败");
+    }
+  }, [addRealmError, toast]);
+
+  useEffect(() => {
+    if (updateRealmError) {
+      toast("error", "领域更新失败");
+    }
+  }, [updateRealmError, toast]);
+
+  useEffect(() => {
     if (tab === 1) {
       (async () => {
         setHtmlLoading(true);
@@ -251,7 +421,7 @@ const Realm: React.FC = () => {
 
   return (
     <>
-      <NextSeo title={realm.name} description={realm.description} />
+      <NextSeo title={realm.name!} description={realm.description!} />
       <Container
         sx={{
           py: 8,
@@ -268,28 +438,43 @@ const Realm: React.FC = () => {
             </MyFab>
           </Tooltip>
         )}
-        <Typography sx={{ fontWeight: 500 }} variant="h3" component="h1">
-          {realm.name}
-        </Typography>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <Typography sx={{ fontWeight: 500 }} variant="h3" component="h1">
+            {realm.name}
+          </Typography>
+          {realmDetails?.admin_id === user?.id && (
+            <Tooltip title="领域设置" placement="right">
+              <IconButton onClick={handleRealmEdit}>
+                <Settings />
+              </IconButton>
+            </Tooltip>
+          )}
+        </Stack>
         <Typography sx={{ mt: 1 }} variant="body1" component="h2">
           {realm.description}
         </Typography>
-        <Select
-          sx={{ mt: 2 }}
-          size="small"
-          displayEmpty
-          value={selectedRealmId}
-          onChange={handleChangeRealm}
-        >
-          <MenuItem disabled value="">
-            切换领域
-          </MenuItem>
-          {userRealmData?.user_by_pk?.realm_users.map((r) => (
-            <MenuItem key={r.realm!.id} value={r.realm!.id}>
-              {r.realm!.name}
+        <Stack sx={{ mt: 2 }} direction="row" alignItems="center">
+          <Select
+            size="small"
+            displayEmpty
+            value={selectedRealmId}
+            onChange={handleChangeRealm}
+          >
+            <MenuItem disabled value="">
+              切换领域
             </MenuItem>
-          ))}
-        </Select>
+            {userRealmData?.user_by_pk?.realm_users.map((r) => (
+              <MenuItem key={r.realm!.id} value={r.realm!.id!}>
+                {r.realm!.name}
+              </MenuItem>
+            ))}
+          </Select>
+          <Tooltip sx={{ ml: 1 }} title="新领域" placement="right">
+            <IconButton size="small" onClick={handleRealmDialogOpen}>
+              <Add />
+            </IconButton>
+          </Tooltip>
+        </Stack>
         <Stack
           sx={{ width: "100%", mt: 6 }}
           direction="row"
@@ -433,6 +618,97 @@ const Realm: React.FC = () => {
                 取消
               </Button>
               <Button onClick={handleInsertLink} color="primary">
+                确定
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </MyDialog>
+        <MyDialog
+          open={realmDialogOpen}
+          onClose={handleRealmDialogClose}
+          title={editingRealm ? "更新领域" : "新领域"}
+          okText={editingRealm ? "更新" : "创建"}
+          okLoading={addRealmLoading || updateRealmLoading}
+          onOk={handleRealmSubmit}
+        >
+          <Stack sx={{ mb: 3 }} direction="column" spacing={2}>
+            <TextField
+              label="领域名"
+              fullWidth
+              disabled={editingRealm}
+              value={realmName}
+              onChange={(e) => setRealmName(e.target.value)}
+            />
+            <TextField
+              label="领域简介"
+              fullWidth
+              value={realmDescription}
+              multiline
+              minRows={3}
+              onChange={(e) => setRealmDescription(e.target.value)}
+            />
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    color="primary"
+                    checked={realmPrivate}
+                    onChange={(e, checked) => setRealmPrivate(checked)}
+                  />
+                }
+                label="私有领域"
+              />
+              {realmPrivate && (
+                <>
+                  <TextField
+                    sx={{ "& > div": { letterSpacing: "0.25rem" } }}
+                    size="small"
+                    label="邀请码"
+                    value={realmCode}
+                    onChange={() => {}}
+                  />
+                  <Tooltip title="更换邀请码" placement="right">
+                    <IconButton
+                      size="small"
+                      onClick={() => setRealmCode(generateRealmCode())}
+                    >
+                      <Refresh />
+                    </IconButton>
+                  </Tooltip>
+                </>
+              )}
+            </Stack>
+            <Stack direction="row" spacing={1}>
+              {Array.from(realmTopics).map((topic) => (
+                <Chip key={topic} label={topic} />
+              ))}
+              <Chip
+                icon={<Add />}
+                label="新话题"
+                onClick={handleTopicDialogOpen}
+              />
+            </Stack>
+          </Stack>
+          <Dialog
+            fullWidth
+            open={topicDialogOpen}
+            onClose={handleTopicDialogClose}
+          >
+            <DialogTitle>新话题</DialogTitle>
+            <Box sx={{ py: 1, px: 3 }}>
+              <TextField
+                autoFocus
+                fullWidth
+                label="话题名"
+                value={newTopic}
+                onChange={(e) => setNewTopic(e.target.value)}
+              />
+            </Box>
+            <DialogActions>
+              <Button onClick={handleTopicDialogClose} color="primary">
+                取消
+              </Button>
+              <Button onClick={handleTopicAdd} color="primary">
                 确定
               </Button>
             </DialogActions>

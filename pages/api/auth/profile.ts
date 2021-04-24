@@ -137,6 +137,7 @@ export default async function handleProfile(
           const realm = realmData.realm_by_pk!;
 
           if (
+            realm.admin_id !== userId &&
             realm.private &&
             (!req.body.code || req.body.code !== realm.invitation_code)
           ) {

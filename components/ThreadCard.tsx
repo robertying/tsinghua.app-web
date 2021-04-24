@@ -9,11 +9,11 @@ import {
   Typography,
 } from "@material-ui/core";
 import dayjs from "dayjs";
-import { GetRealmById_realm_by_pk_threads_public } from "api/types";
+import { GetRealmById_realm_public_threads_public } from "api/types";
 import MyAvatar from "./Avatar";
 
 export interface ThreadCardProps
-  extends GetRealmById_realm_by_pk_threads_public {}
+  extends GetRealmById_realm_public_threads_public {}
 
 const ThreadCard: React.FC<ThreadCardProps> = (props) => {
   return (
