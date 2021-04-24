@@ -442,7 +442,7 @@ const Realm: React.FC = () => {
           <Typography sx={{ fontWeight: 500 }} variant="h3" component="h1">
             {realm.name}
           </Typography>
-          {realmDetails?.admin_id === user?.id && (
+          {realmDetails?.admin_id && realmDetails?.admin_id === user?.id && (
             <Tooltip title="领域设置" placement="right">
               <IconButton onClick={handleRealmEdit}>
                 <Settings />
@@ -453,6 +453,7 @@ const Realm: React.FC = () => {
         <Typography sx={{ mt: 1 }} variant="body1" component="h2">
           {realm.description}
         </Typography>
+        {user && (
         <Stack sx={{ mt: 2 }} direction="row" alignItems="center">
           <Select
             size="small"
@@ -475,6 +476,7 @@ const Realm: React.FC = () => {
             </IconButton>
           </Tooltip>
         </Stack>
+        )}
         <Stack
           sx={{ width: "100%", mt: 6 }}
           direction="row"
