@@ -37,6 +37,23 @@ const getAppTheme = (dark?: boolean) =>
           typography: {
             fontFamily,
           },
+          components: {
+            MuiCssBaseline: {
+              styleOverrides: `
+                @media (prefers-color-scheme: dark) {
+                  body {
+                    color: #fff;
+                    background-color: #121212;
+                  }
+
+                  [class^='Mui'], [class*=' Mui']{
+                    color: #fff;
+                    background-color: #121212;
+                  }
+                }
+              `,
+            },
+          },
         },
         zhCN
       );
