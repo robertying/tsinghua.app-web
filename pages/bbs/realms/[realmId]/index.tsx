@@ -8,6 +8,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import {
   Box,
   Button,
+  Card,
   Chip,
   CircularProgress,
   Container,
@@ -454,28 +455,28 @@ const Realm: React.FC = () => {
           {realm.description}
         </Typography>
         {user && (
-        <Stack sx={{ mt: 2 }} direction="row" alignItems="center">
-          <Select
-            size="small"
-            displayEmpty
-            value={selectedRealmId}
-            onChange={handleChangeRealm}
-          >
-            <MenuItem disabled value="">
-              切换领域
-            </MenuItem>
-            {userRealmData?.user_by_pk?.realm_users.map((r) => (
-              <MenuItem key={r.realm!.id} value={r.realm!.id!}>
-                {r.realm!.name}
+          <Stack sx={{ mt: 2 }} direction="row" alignItems="center">
+            <Select
+              size="small"
+              displayEmpty
+              value={selectedRealmId}
+              onChange={handleChangeRealm}
+            >
+              <MenuItem disabled value="">
+                切换领域
               </MenuItem>
-            ))}
-          </Select>
-          <Tooltip sx={{ ml: 1 }} title="新领域" placement="right">
-            <IconButton size="small" onClick={handleRealmDialogOpen}>
-              <Add />
-            </IconButton>
-          </Tooltip>
-        </Stack>
+              {userRealmData?.user_by_pk?.realm_users.map((r) => (
+                <MenuItem key={r.realm!.id} value={r.realm!.id!}>
+                  {r.realm!.name}
+                </MenuItem>
+              ))}
+            </Select>
+            <Tooltip sx={{ ml: 1 }} title="新领域" placement="right">
+              <IconButton size="small" onClick={handleRealmDialogOpen}>
+                <Add />
+              </IconButton>
+            </Tooltip>
+          </Stack>
         )}
         <Stack
           sx={{ width: "100%", mt: 6 }}
@@ -498,9 +499,15 @@ const Realm: React.FC = () => {
           spacing={1}
         >
           {realm.threads_public.length === 0 ? (
-            <Typography sx={{ alignSelf: "center" }} variant="body1">
-              未找到相关帖子
-            </Typography>
+            <Card sx={{ textAlign: "center", p: 6 }}>
+              <Typography
+                sx={{ fontStyle: "italic" }}
+                variant="subtitle1"
+                component="div"
+              >
+                未找到相关帖子
+              </Typography>
+            </Card>
           ) : (
             realm.threads_public.map((thread) => (
               <ThreadCard key={thread.id} {...thread} />
