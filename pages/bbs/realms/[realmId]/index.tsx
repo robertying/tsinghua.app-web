@@ -687,16 +687,18 @@ const Realm: React.FC = () => {
                 </>
               )}
             </Stack>
-            <Stack direction="row" spacing={1}>
-              {Array.from(realmTopics).map((topic) => (
-                <Chip key={topic} label={topic} />
-              ))}
-              <Chip
-                icon={<Add />}
-                label="新话题"
-                onClick={handleTopicDialogOpen}
-              />
-            </Stack>
+            {editingRealm && (
+              <Stack direction="row" spacing={1}>
+                {Array.from(realmTopics).map((topic) => (
+                  <Chip key={topic} label={topic} />
+                ))}
+                <Chip
+                  icon={<Add />}
+                  label="新话题"
+                  onClick={handleTopicDialogOpen}
+                />
+              </Stack>
+            )}
           </Stack>
           <Dialog
             fullWidth
