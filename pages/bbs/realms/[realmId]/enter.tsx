@@ -14,7 +14,6 @@ import {
 import { useQuery } from "@apollo/client";
 import NProgress from "nprogress";
 import axios, { AxiosError } from "axios";
-import { addApolloState, initializeApollo } from "lib/client";
 import { useUser } from "lib/session";
 import { GET_REALM_DETAILS } from "api/realm";
 import { GetRealmDetails, GetRealmDetailsVariables } from "api/types";
@@ -24,7 +23,7 @@ import Splash from "components/Splash";
 
 const RealmEnter: React.FC = () => {
   const toast = useToast();
-  const [user] = useUser();
+  const [user, authLoading] = useUser();
   const router = useRouter();
   const realmId = router.query.realmId as string | undefined;
 
@@ -98,7 +97,7 @@ const RealmEnter: React.FC = () => {
     return <Splash />;
   }
 
-  if (!realm) {
+  if (!realm || (!authLoading && !user)) {
     return <NotFound />;
   }
 
@@ -199,20 +198,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const client = initializeApollo();
-
-  if (params?.realmId) {
-    await client.query<GetRealmDetails, GetRealmDetailsVariables>({
-      query: GET_REALM_DETAILS,
-      variables: {
-        id: parseInt(params?.realmId as string, 10),
-      },
-    });
-  }
-
-  return addApolloState(client, {
+export const getStaticProps: GetStaticProps = async () => {
+  return {
     props: {},
     revalidate: 1,
-  });
+  };
 };
