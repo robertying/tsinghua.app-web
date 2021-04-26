@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
-export const GET_THREAD_BY_ID = gql`
-  query GetThreadById($id: Int!) {
-    thread_public(where: { id: { _eq: $id } }, limit: 1) {
+export const GET_THREAD = gql`
+  query GetThread($id: Int!) {
+    thread_by_pk(id: $id) {
       id
       realm {
         id
@@ -15,6 +15,8 @@ export const GET_THREAD_BY_ID = gql`
       title
       content
       user {
+        realm_id
+        user_id
         username
         status
         avatar_url
@@ -24,6 +26,8 @@ export const GET_THREAD_BY_ID = gql`
       posts(order_by: { created_at: asc }) {
         id
         user {
+          realm_id
+          user_id
           username
           status
           avatar_url
@@ -39,7 +43,7 @@ export const GET_THREAD_BY_ID = gql`
 export const ADD_THREAD = gql`
   mutation AddThread(
     $realmId: Int!
-    $userId: String!
+    $userId: uuid!
     $topicId: Int
     $title: String!
     $content: String!

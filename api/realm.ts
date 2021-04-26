@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
-export const GET_REALM_BY_ID = gql`
-  query GetRealmById($id: Int!) {
-    realm_public(where: { id: { _eq: $id } }, limit: 1) {
+export const GET_REALM = gql`
+  query GetRealm($id: Int!) {
+    realm_by_pk(id: $id) {
       id
       name
       description
@@ -11,7 +11,7 @@ export const GET_REALM_BY_ID = gql`
         id
         name
       }
-      threads_public(order_by: { updated_at: desc }) {
+      threads(order_by: { updated_at: desc }) {
         id
         realm_id
         topic {
@@ -19,18 +19,22 @@ export const GET_REALM_BY_ID = gql`
           name
         }
         user {
+          realm_id
+          user_id
           username
           avatar_url
         }
         title
         updated_at
         posts(
-          order_by: [{ username: asc }, { created_at: desc }]
-          distinct_on: [username]
+          order_by: [{ id: asc }, { created_at: desc }]
+          distinct_on: [id]
           limit: 4
         ) {
           id
           user {
+            realm_id
+            user_id
             username
             avatar_url
           }
@@ -70,7 +74,7 @@ export const GET_REALM_DETAILS_INVITATION_CODE = gql`
 
 export const ADD_REALM = gql`
   mutation AddRealm(
-    $adminId: String!
+    $adminId: uuid!
     $name: String!
     $description: String!
     $private: Boolean!

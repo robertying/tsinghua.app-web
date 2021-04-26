@@ -1,9 +1,9 @@
 import { Box, Card, CardContent, Rating, Typography } from "@material-ui/core";
 import dayjs from "dayjs";
-import { GetCourseReviews_course_review_public } from "api/types";
+import { GetCourseReviews_course_review } from "api/types";
 import Avatar from "./Avatar";
 
-export interface ReviewProps extends GetCourseReviews_course_review_public {}
+export interface ReviewProps extends GetCourseReviews_course_review {}
 
 const Review: React.FC<ReviewProps> = (review) => (
   <Card>

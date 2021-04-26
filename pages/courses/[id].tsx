@@ -22,7 +22,7 @@ import {
 } from "@material-ui/core";
 import { Home } from "@material-ui/icons";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_COURSE_BY_ID } from "api/course";
+import { GET_COURSE } from "api/course";
 import {
   ADD_COURSE_REVIEW,
   DELETE_COURSE_REVIEW,
@@ -30,8 +30,8 @@ import {
   UPDATE_COURSE_REVIEW,
 } from "api/course_review";
 import {
-  GetCourseById,
-  GetCourseByIdVariables,
+  GetCourse,
+  GetCourseVariables,
   AddCourseReview,
   AddCourseReviewVariables,
   GetCourseReviewsVariables,
@@ -59,9 +59,9 @@ const CourseDetail: React.FC = () => {
   const [user, authLoading] = useUser();
 
   const { data: courseData, refetch: refetchCourse } = useQuery<
-    GetCourseById,
-    GetCourseByIdVariables
-  >(GET_COURSE_BY_ID, {
+    GetCourse,
+    GetCourseVariables
+  >(GET_COURSE, {
     variables: {
       id: courseId,
     },
@@ -84,7 +84,7 @@ const CourseDetail: React.FC = () => {
     {
       variables: {
         courseId: courseId,
-        username: user?.username ?? "",
+        userId: user?.id ?? "",
       },
       skip: !courseId,
     }
@@ -106,13 +106,12 @@ const CourseDetail: React.FC = () => {
   ] = useMutation<DeleteCourseReview, DeleteCourseReviewVariables>(
     DELETE_COURSE_REVIEW
   );
-  const reviewed =
-    courseReviewData && courseReviewData.my_course_review.length !== 0;
+  const reviewed = courseReviewData && courseReviewData.my_course_review;
 
   const handleReviewDialogOpen = () => {
     if (reviewed) {
-      setRating(courseReviewData?.my_course_review?.[0].rating!);
-      setContent(courseReviewData?.my_course_review?.[0].content!);
+      setRating(courseReviewData!.my_course_review!.rating);
+      setContent(courseReviewData!.my_course_review!.content);
     }
     setReviewDialogOpen(true);
   };
@@ -400,14 +399,12 @@ const CourseDetail: React.FC = () => {
               }}
             >
               <Rating
-                value={
-                  course.course_reviews_public_aggregate.aggregate?.avg?.rating
-                }
+                value={course.course_reviews_aggregate.aggregate?.avg?.rating}
                 precision={0.1}
                 readOnly
               />
               <Typography sx={{ ml: 2 }} component="span">
-                {course.course_reviews_public_aggregate.aggregate?.avg?.rating?.toFixed(
+                {course.course_reviews_aggregate.aggregate?.avg?.rating?.toFixed(
                   1
                 )}
               </Typography>
@@ -424,10 +421,10 @@ const CourseDetail: React.FC = () => {
                 <CircularProgress sx={{ alignSelf: "center" }} size="2rem" />
               ) : (
                 <Stack direction="column" spacing={1}>
-                  {courseReviewData?.my_course_review.map((review) => (
-                    <Review key={review.user!.username} {...review} />
-                  ))}
-                  {courseReviewData?.course_review_public.length === 0 ? (
+                  {reviewed && (
+                    <Review {...courseReviewData!.my_course_review!} />
+                  )}
+                  {courseReviewData?.course_review.length === 0 ? (
                     <Typography
                       sx={{ mt: 4, textAlign: "center" }}
                       variant="body2"
@@ -435,7 +432,7 @@ const CourseDetail: React.FC = () => {
                       无更多评价
                     </Typography>
                   ) : (
-                    courseReviewData?.course_review_public.map((review) => (
+                    courseReviewData?.course_review.map((review) => (
                       <Review key={review.user!.username} {...review} />
                     ))
                   )}
@@ -504,8 +501,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const client = initializeApollo();
 
   if (params?.id) {
-    await client.query<GetCourseById, GetCourseByIdVariables>({
-      query: GET_COURSE_BY_ID,
+    await client.query<GetCourse, GetCourseVariables>({
+      query: GET_COURSE,
       variables: {
         id: params.id as string,
       },
@@ -515,7 +512,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       query: GET_COURSE_REVIEWS,
       variables: {
         courseId: params.id as string,
-        username: "",
+        userId: "00000000-0000-0000-0000-000000000000",
       },
     });
   }

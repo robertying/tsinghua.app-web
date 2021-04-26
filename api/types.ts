@@ -9,56 +9,58 @@
 
 export interface GetCourseReviews_my_course_review_user {
   __typename: "user_public";
+  id: uuid | null;
   username: string | null;
   avatar_url: string | null;
 }
 
 export interface GetCourseReviews_my_course_review {
-  __typename: "course_review_public";
+  __typename: "course_review";
+  id: number;
   /**
    * An object relationship
    */
   user: GetCourseReviews_my_course_review_user | null;
-  course_id: string | null;
-  rating: number | null;
-  content: string | null;
-  created_at: timestamptz | null;
-  updated_at: timestamptz | null;
+  rating: number;
+  content: string;
+  created_at: timestamptz;
+  updated_at: timestamptz;
 }
 
-export interface GetCourseReviews_course_review_public_user {
+export interface GetCourseReviews_course_review_user {
   __typename: "user_public";
+  id: uuid | null;
   username: string | null;
   avatar_url: string | null;
 }
 
-export interface GetCourseReviews_course_review_public {
-  __typename: "course_review_public";
+export interface GetCourseReviews_course_review {
+  __typename: "course_review";
+  id: number;
   /**
    * An object relationship
    */
-  user: GetCourseReviews_course_review_public_user | null;
-  course_id: string | null;
-  rating: number | null;
-  content: string | null;
-  created_at: timestamptz | null;
-  updated_at: timestamptz | null;
+  user: GetCourseReviews_course_review_user | null;
+  rating: number;
+  content: string;
+  created_at: timestamptz;
+  updated_at: timestamptz;
 }
 
 export interface GetCourseReviews {
   /**
-   * fetch data from the table: "course_review_public"
+   * fetch data from the table: "course_review" using primary key columns
    */
-  my_course_review: GetCourseReviews_my_course_review[];
+  my_course_review: GetCourseReviews_my_course_review | null;
   /**
-   * fetch data from the table: "course_review_public"
+   * fetch data from the table: "course_review"
    */
-  course_review_public: GetCourseReviews_course_review_public[];
+  course_review: GetCourseReviews_course_review[];
 }
 
 export interface GetCourseReviewsVariables {
   courseId: string;
-  username: string;
+  userId: uuid;
 }
 
 /* tslint:disable */
@@ -70,18 +72,9 @@ export interface GetCourseReviewsVariables {
 // GraphQL mutation operation: AddCourseReview
 // ====================================================
 
-export interface AddCourseReview_insert_course_review_one_user {
-  __typename: "user";
-  username: string;
-}
-
 export interface AddCourseReview_insert_course_review_one {
   __typename: "course_review";
-  /**
-   * An object relationship
-   */
-  user: AddCourseReview_insert_course_review_one_user;
-  course_id: string;
+  id: number;
 }
 
 export interface AddCourseReview {
@@ -92,7 +85,7 @@ export interface AddCourseReview {
 }
 
 export interface AddCourseReviewVariables {
-  userId: string;
+  userId: uuid;
   courseId: string;
   rating: number;
   content: string;
@@ -107,18 +100,9 @@ export interface AddCourseReviewVariables {
 // GraphQL mutation operation: UpdateCourseReview
 // ====================================================
 
-export interface UpdateCourseReview_update_course_review_by_pk_user {
-  __typename: "user";
-  username: string;
-}
-
 export interface UpdateCourseReview_update_course_review_by_pk {
   __typename: "course_review";
-  /**
-   * An object relationship
-   */
-  user: UpdateCourseReview_update_course_review_by_pk_user;
-  course_id: string;
+  id: number;
 }
 
 export interface UpdateCourseReview {
@@ -129,7 +113,7 @@ export interface UpdateCourseReview {
 }
 
 export interface UpdateCourseReviewVariables {
-  userId: string;
+  userId: uuid;
   courseId: string;
   rating: number;
   content: string;
@@ -144,18 +128,9 @@ export interface UpdateCourseReviewVariables {
 // GraphQL mutation operation: DeleteCourseReview
 // ====================================================
 
-export interface DeleteCourseReview_delete_course_review_by_pk_user {
-  __typename: "user";
-  username: string;
-}
-
 export interface DeleteCourseReview_delete_course_review_by_pk {
   __typename: "course_review";
-  /**
-   * An object relationship
-   */
-  user: DeleteCourseReview_delete_course_review_by_pk_user;
-  course_id: string;
+  id: number;
 }
 
 export interface DeleteCourseReview {
@@ -166,7 +141,7 @@ export interface DeleteCourseReview {
 }
 
 export interface DeleteCourseReviewVariables {
-  userId: string;
+  userId: uuid;
   courseId: string;
 }
 
@@ -176,39 +151,39 @@ export interface DeleteCourseReviewVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetCourseById
+// GraphQL query operation: GetCourse
 // ====================================================
 
-export interface GetCourseById_course_by_pk_teacher {
+export interface GetCourse_course_by_pk_teacher {
   __typename: "teacher";
   id: string;
   name: string;
 }
 
-export interface GetCourseById_course_by_pk_course_reviews_public_aggregate_aggregate_avg {
-  __typename: "course_review_public_avg_fields";
+export interface GetCourse_course_by_pk_course_reviews_aggregate_aggregate_avg {
+  __typename: "course_review_avg_fields";
   rating: number | null;
 }
 
-export interface GetCourseById_course_by_pk_course_reviews_public_aggregate_aggregate {
-  __typename: "course_review_public_aggregate_fields";
+export interface GetCourse_course_by_pk_course_reviews_aggregate_aggregate {
+  __typename: "course_review_aggregate_fields";
   count: number;
-  avg: GetCourseById_course_by_pk_course_reviews_public_aggregate_aggregate_avg | null;
+  avg: GetCourse_course_by_pk_course_reviews_aggregate_aggregate_avg | null;
 }
 
-export interface GetCourseById_course_by_pk_course_reviews_public_aggregate {
-  __typename: "course_review_public_aggregate";
-  aggregate: GetCourseById_course_by_pk_course_reviews_public_aggregate_aggregate | null;
+export interface GetCourse_course_by_pk_course_reviews_aggregate {
+  __typename: "course_review_aggregate";
+  aggregate: GetCourse_course_by_pk_course_reviews_aggregate_aggregate | null;
 }
 
-export interface GetCourseById_course_by_pk {
+export interface GetCourse_course_by_pk {
   __typename: "course";
   id: string;
   name: string;
   /**
    * An object relationship
    */
-  teacher: GetCourseById_course_by_pk_teacher;
+  teacher: GetCourse_course_by_pk_teacher;
   time_location: string;
   semester_id: string;
   number: string;
@@ -216,17 +191,17 @@ export interface GetCourseById_course_by_pk {
   /**
    * An aggregate relationship
    */
-  course_reviews_public_aggregate: GetCourseById_course_by_pk_course_reviews_public_aggregate;
+  course_reviews_aggregate: GetCourse_course_by_pk_course_reviews_aggregate;
 }
 
-export interface GetCourseById {
+export interface GetCourse {
   /**
    * fetch data from the table: "course" using primary key columns
    */
-  course_by_pk: GetCourseById_course_by_pk | null;
+  course_by_pk: GetCourse_course_by_pk | null;
 }
 
-export interface GetCourseByIdVariables {
+export interface GetCourseVariables {
   id: string;
 }
 
@@ -273,27 +248,27 @@ export interface GetCoursesVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetCourseCountBySemester
+// GraphQL query operation: GetCourseCount
 // ====================================================
 
-export interface GetCourseCountBySemester_course_aggregate_aggregate {
+export interface GetCourseCount_course_aggregate_aggregate {
   __typename: "course_aggregate_fields";
   count: number;
 }
 
-export interface GetCourseCountBySemester_course_aggregate {
+export interface GetCourseCount_course_aggregate {
   __typename: "course_aggregate";
-  aggregate: GetCourseCountBySemester_course_aggregate_aggregate | null;
+  aggregate: GetCourseCount_course_aggregate_aggregate | null;
 }
 
-export interface GetCourseCountBySemester {
+export interface GetCourseCount {
   /**
    * fetch aggregated fields from the table: "course"
    */
-  course_aggregate: GetCourseCountBySemester_course_aggregate;
+  course_aggregate: GetCourseCount_course_aggregate;
 }
 
-export interface GetCourseCountBySemesterVariables {
+export interface GetCourseCountVariables {
   semesterId: string;
 }
 
@@ -319,7 +294,7 @@ export interface AddPost {
 }
 
 export interface AddPostVariables {
-  userId: string;
+  userId: uuid;
   threadId: number;
   content: string;
 }
@@ -359,272 +334,272 @@ export interface UpdatePostVariables {
 // GraphQL query operation: GetThreadReactions
 // ====================================================
 
-export interface GetThreadReactions_thread_public_my_reactions {
+export interface GetThreadReactions_thread_by_pk_my_reactions {
   __typename: "thread_reaction";
   name: reaction_emoji_enum;
 }
 
-export interface GetThreadReactions_thread_public_confused_face_reactions_aggregate {
+export interface GetThreadReactions_thread_by_pk_confused_face_reactions_aggregate {
   __typename: "thread_reaction_aggregate_fields";
   count: number;
 }
 
-export interface GetThreadReactions_thread_public_confused_face_reactions {
+export interface GetThreadReactions_thread_by_pk_confused_face_reactions {
   __typename: "thread_reaction_aggregate";
-  aggregate: GetThreadReactions_thread_public_confused_face_reactions_aggregate | null;
+  aggregate: GetThreadReactions_thread_by_pk_confused_face_reactions_aggregate | null;
 }
 
-export interface GetThreadReactions_thread_public_eyes_reactions_aggregate {
+export interface GetThreadReactions_thread_by_pk_eyes_reactions_aggregate {
   __typename: "thread_reaction_aggregate_fields";
   count: number;
 }
 
-export interface GetThreadReactions_thread_public_eyes_reactions {
+export interface GetThreadReactions_thread_by_pk_eyes_reactions {
   __typename: "thread_reaction_aggregate";
-  aggregate: GetThreadReactions_thread_public_eyes_reactions_aggregate | null;
+  aggregate: GetThreadReactions_thread_by_pk_eyes_reactions_aggregate | null;
 }
 
-export interface GetThreadReactions_thread_public_grinning_face_with_smiling_eyes_reactions_aggregate {
+export interface GetThreadReactions_thread_by_pk_grinning_face_with_smiling_eyes_reactions_aggregate {
   __typename: "thread_reaction_aggregate_fields";
   count: number;
 }
 
-export interface GetThreadReactions_thread_public_grinning_face_with_smiling_eyes_reactions {
+export interface GetThreadReactions_thread_by_pk_grinning_face_with_smiling_eyes_reactions {
   __typename: "thread_reaction_aggregate";
-  aggregate: GetThreadReactions_thread_public_grinning_face_with_smiling_eyes_reactions_aggregate | null;
+  aggregate: GetThreadReactions_thread_by_pk_grinning_face_with_smiling_eyes_reactions_aggregate | null;
 }
 
-export interface GetThreadReactions_thread_public_party_popper_reactions_aggregate {
+export interface GetThreadReactions_thread_by_pk_party_popper_reactions_aggregate {
   __typename: "thread_reaction_aggregate_fields";
   count: number;
 }
 
-export interface GetThreadReactions_thread_public_party_popper_reactions {
+export interface GetThreadReactions_thread_by_pk_party_popper_reactions {
   __typename: "thread_reaction_aggregate";
-  aggregate: GetThreadReactions_thread_public_party_popper_reactions_aggregate | null;
+  aggregate: GetThreadReactions_thread_by_pk_party_popper_reactions_aggregate | null;
 }
 
-export interface GetThreadReactions_thread_public_red_heart_reactions_aggregate {
+export interface GetThreadReactions_thread_by_pk_red_heart_reactions_aggregate {
   __typename: "thread_reaction_aggregate_fields";
   count: number;
 }
 
-export interface GetThreadReactions_thread_public_red_heart_reactions {
+export interface GetThreadReactions_thread_by_pk_red_heart_reactions {
   __typename: "thread_reaction_aggregate";
-  aggregate: GetThreadReactions_thread_public_red_heart_reactions_aggregate | null;
+  aggregate: GetThreadReactions_thread_by_pk_red_heart_reactions_aggregate | null;
 }
 
-export interface GetThreadReactions_thread_public_rocket_reactions_aggregate {
+export interface GetThreadReactions_thread_by_pk_rocket_reactions_aggregate {
   __typename: "thread_reaction_aggregate_fields";
   count: number;
 }
 
-export interface GetThreadReactions_thread_public_rocket_reactions {
+export interface GetThreadReactions_thread_by_pk_rocket_reactions {
   __typename: "thread_reaction_aggregate";
-  aggregate: GetThreadReactions_thread_public_rocket_reactions_aggregate | null;
+  aggregate: GetThreadReactions_thread_by_pk_rocket_reactions_aggregate | null;
 }
 
-export interface GetThreadReactions_thread_public_thumbs_down_reactions_aggregate {
+export interface GetThreadReactions_thread_by_pk_thumbs_down_reactions_aggregate {
   __typename: "thread_reaction_aggregate_fields";
   count: number;
 }
 
-export interface GetThreadReactions_thread_public_thumbs_down_reactions {
+export interface GetThreadReactions_thread_by_pk_thumbs_down_reactions {
   __typename: "thread_reaction_aggregate";
-  aggregate: GetThreadReactions_thread_public_thumbs_down_reactions_aggregate | null;
+  aggregate: GetThreadReactions_thread_by_pk_thumbs_down_reactions_aggregate | null;
 }
 
-export interface GetThreadReactions_thread_public_thumbs_up_reactions_aggregate {
+export interface GetThreadReactions_thread_by_pk_thumbs_up_reactions_aggregate {
   __typename: "thread_reaction_aggregate_fields";
   count: number;
 }
 
-export interface GetThreadReactions_thread_public_thumbs_up_reactions {
+export interface GetThreadReactions_thread_by_pk_thumbs_up_reactions {
   __typename: "thread_reaction_aggregate";
-  aggregate: GetThreadReactions_thread_public_thumbs_up_reactions_aggregate | null;
+  aggregate: GetThreadReactions_thread_by_pk_thumbs_up_reactions_aggregate | null;
 }
 
-export interface GetThreadReactions_thread_public_posts_my_reactions {
+export interface GetThreadReactions_thread_by_pk_posts_my_reactions {
   __typename: "post_reaction";
   name: reaction_emoji_enum;
 }
 
-export interface GetThreadReactions_thread_public_posts_confused_face_reactions_aggregate {
+export interface GetThreadReactions_thread_by_pk_posts_confused_face_reactions_aggregate {
   __typename: "post_reaction_aggregate_fields";
   count: number;
 }
 
-export interface GetThreadReactions_thread_public_posts_confused_face_reactions {
+export interface GetThreadReactions_thread_by_pk_posts_confused_face_reactions {
   __typename: "post_reaction_aggregate";
-  aggregate: GetThreadReactions_thread_public_posts_confused_face_reactions_aggregate | null;
+  aggregate: GetThreadReactions_thread_by_pk_posts_confused_face_reactions_aggregate | null;
 }
 
-export interface GetThreadReactions_thread_public_posts_eyes_reactions_aggregate {
+export interface GetThreadReactions_thread_by_pk_posts_eyes_reactions_aggregate {
   __typename: "post_reaction_aggregate_fields";
   count: number;
 }
 
-export interface GetThreadReactions_thread_public_posts_eyes_reactions {
+export interface GetThreadReactions_thread_by_pk_posts_eyes_reactions {
   __typename: "post_reaction_aggregate";
-  aggregate: GetThreadReactions_thread_public_posts_eyes_reactions_aggregate | null;
+  aggregate: GetThreadReactions_thread_by_pk_posts_eyes_reactions_aggregate | null;
 }
 
-export interface GetThreadReactions_thread_public_posts_grinning_face_with_smiling_eyes_reactions_aggregate {
+export interface GetThreadReactions_thread_by_pk_posts_grinning_face_with_smiling_eyes_reactions_aggregate {
   __typename: "post_reaction_aggregate_fields";
   count: number;
 }
 
-export interface GetThreadReactions_thread_public_posts_grinning_face_with_smiling_eyes_reactions {
+export interface GetThreadReactions_thread_by_pk_posts_grinning_face_with_smiling_eyes_reactions {
   __typename: "post_reaction_aggregate";
-  aggregate: GetThreadReactions_thread_public_posts_grinning_face_with_smiling_eyes_reactions_aggregate | null;
+  aggregate: GetThreadReactions_thread_by_pk_posts_grinning_face_with_smiling_eyes_reactions_aggregate | null;
 }
 
-export interface GetThreadReactions_thread_public_posts_party_popper_reactions_aggregate {
+export interface GetThreadReactions_thread_by_pk_posts_party_popper_reactions_aggregate {
   __typename: "post_reaction_aggregate_fields";
   count: number;
 }
 
-export interface GetThreadReactions_thread_public_posts_party_popper_reactions {
+export interface GetThreadReactions_thread_by_pk_posts_party_popper_reactions {
   __typename: "post_reaction_aggregate";
-  aggregate: GetThreadReactions_thread_public_posts_party_popper_reactions_aggregate | null;
+  aggregate: GetThreadReactions_thread_by_pk_posts_party_popper_reactions_aggregate | null;
 }
 
-export interface GetThreadReactions_thread_public_posts_red_heart_reactions_aggregate {
+export interface GetThreadReactions_thread_by_pk_posts_red_heart_reactions_aggregate {
   __typename: "post_reaction_aggregate_fields";
   count: number;
 }
 
-export interface GetThreadReactions_thread_public_posts_red_heart_reactions {
+export interface GetThreadReactions_thread_by_pk_posts_red_heart_reactions {
   __typename: "post_reaction_aggregate";
-  aggregate: GetThreadReactions_thread_public_posts_red_heart_reactions_aggregate | null;
+  aggregate: GetThreadReactions_thread_by_pk_posts_red_heart_reactions_aggregate | null;
 }
 
-export interface GetThreadReactions_thread_public_posts_rocket_reactions_aggregate {
+export interface GetThreadReactions_thread_by_pk_posts_rocket_reactions_aggregate {
   __typename: "post_reaction_aggregate_fields";
   count: number;
 }
 
-export interface GetThreadReactions_thread_public_posts_rocket_reactions {
+export interface GetThreadReactions_thread_by_pk_posts_rocket_reactions {
   __typename: "post_reaction_aggregate";
-  aggregate: GetThreadReactions_thread_public_posts_rocket_reactions_aggregate | null;
+  aggregate: GetThreadReactions_thread_by_pk_posts_rocket_reactions_aggregate | null;
 }
 
-export interface GetThreadReactions_thread_public_posts_thumbs_down_reactions_aggregate {
+export interface GetThreadReactions_thread_by_pk_posts_thumbs_down_reactions_aggregate {
   __typename: "post_reaction_aggregate_fields";
   count: number;
 }
 
-export interface GetThreadReactions_thread_public_posts_thumbs_down_reactions {
+export interface GetThreadReactions_thread_by_pk_posts_thumbs_down_reactions {
   __typename: "post_reaction_aggregate";
-  aggregate: GetThreadReactions_thread_public_posts_thumbs_down_reactions_aggregate | null;
+  aggregate: GetThreadReactions_thread_by_pk_posts_thumbs_down_reactions_aggregate | null;
 }
 
-export interface GetThreadReactions_thread_public_posts_thumbs_up_reactions_aggregate {
+export interface GetThreadReactions_thread_by_pk_posts_thumbs_up_reactions_aggregate {
   __typename: "post_reaction_aggregate_fields";
   count: number;
 }
 
-export interface GetThreadReactions_thread_public_posts_thumbs_up_reactions {
+export interface GetThreadReactions_thread_by_pk_posts_thumbs_up_reactions {
   __typename: "post_reaction_aggregate";
-  aggregate: GetThreadReactions_thread_public_posts_thumbs_up_reactions_aggregate | null;
+  aggregate: GetThreadReactions_thread_by_pk_posts_thumbs_up_reactions_aggregate | null;
 }
 
-export interface GetThreadReactions_thread_public_posts {
-  __typename: "post_public";
+export interface GetThreadReactions_thread_by_pk_posts {
+  __typename: "realm_post";
   id: number | null;
   /**
    * An array relationship
    */
-  my_reactions: GetThreadReactions_thread_public_posts_my_reactions[];
+  my_reactions: GetThreadReactions_thread_by_pk_posts_my_reactions[];
   /**
    * An aggregate relationship
    */
-  confused_face_reactions: GetThreadReactions_thread_public_posts_confused_face_reactions;
+  confused_face_reactions: GetThreadReactions_thread_by_pk_posts_confused_face_reactions;
   /**
    * An aggregate relationship
    */
-  eyes_reactions: GetThreadReactions_thread_public_posts_eyes_reactions;
+  eyes_reactions: GetThreadReactions_thread_by_pk_posts_eyes_reactions;
   /**
    * An aggregate relationship
    */
-  grinning_face_with_smiling_eyes_reactions: GetThreadReactions_thread_public_posts_grinning_face_with_smiling_eyes_reactions;
+  grinning_face_with_smiling_eyes_reactions: GetThreadReactions_thread_by_pk_posts_grinning_face_with_smiling_eyes_reactions;
   /**
    * An aggregate relationship
    */
-  party_popper_reactions: GetThreadReactions_thread_public_posts_party_popper_reactions;
+  party_popper_reactions: GetThreadReactions_thread_by_pk_posts_party_popper_reactions;
   /**
    * An aggregate relationship
    */
-  red_heart_reactions: GetThreadReactions_thread_public_posts_red_heart_reactions;
+  red_heart_reactions: GetThreadReactions_thread_by_pk_posts_red_heart_reactions;
   /**
    * An aggregate relationship
    */
-  rocket_reactions: GetThreadReactions_thread_public_posts_rocket_reactions;
+  rocket_reactions: GetThreadReactions_thread_by_pk_posts_rocket_reactions;
   /**
    * An aggregate relationship
    */
-  thumbs_down_reactions: GetThreadReactions_thread_public_posts_thumbs_down_reactions;
+  thumbs_down_reactions: GetThreadReactions_thread_by_pk_posts_thumbs_down_reactions;
   /**
    * An aggregate relationship
    */
-  thumbs_up_reactions: GetThreadReactions_thread_public_posts_thumbs_up_reactions;
+  thumbs_up_reactions: GetThreadReactions_thread_by_pk_posts_thumbs_up_reactions;
 }
 
-export interface GetThreadReactions_thread_public {
-  __typename: "thread_public";
-  id: number | null;
+export interface GetThreadReactions_thread_by_pk {
+  __typename: "thread";
+  id: number;
   /**
    * An array relationship
    */
-  my_reactions: GetThreadReactions_thread_public_my_reactions[];
+  my_reactions: GetThreadReactions_thread_by_pk_my_reactions[];
   /**
    * An aggregate relationship
    */
-  confused_face_reactions: GetThreadReactions_thread_public_confused_face_reactions;
+  confused_face_reactions: GetThreadReactions_thread_by_pk_confused_face_reactions;
   /**
    * An aggregate relationship
    */
-  eyes_reactions: GetThreadReactions_thread_public_eyes_reactions;
+  eyes_reactions: GetThreadReactions_thread_by_pk_eyes_reactions;
   /**
    * An aggregate relationship
    */
-  grinning_face_with_smiling_eyes_reactions: GetThreadReactions_thread_public_grinning_face_with_smiling_eyes_reactions;
+  grinning_face_with_smiling_eyes_reactions: GetThreadReactions_thread_by_pk_grinning_face_with_smiling_eyes_reactions;
   /**
    * An aggregate relationship
    */
-  party_popper_reactions: GetThreadReactions_thread_public_party_popper_reactions;
+  party_popper_reactions: GetThreadReactions_thread_by_pk_party_popper_reactions;
   /**
    * An aggregate relationship
    */
-  red_heart_reactions: GetThreadReactions_thread_public_red_heart_reactions;
+  red_heart_reactions: GetThreadReactions_thread_by_pk_red_heart_reactions;
   /**
    * An aggregate relationship
    */
-  rocket_reactions: GetThreadReactions_thread_public_rocket_reactions;
+  rocket_reactions: GetThreadReactions_thread_by_pk_rocket_reactions;
   /**
    * An aggregate relationship
    */
-  thumbs_down_reactions: GetThreadReactions_thread_public_thumbs_down_reactions;
+  thumbs_down_reactions: GetThreadReactions_thread_by_pk_thumbs_down_reactions;
   /**
    * An aggregate relationship
    */
-  thumbs_up_reactions: GetThreadReactions_thread_public_thumbs_up_reactions;
+  thumbs_up_reactions: GetThreadReactions_thread_by_pk_thumbs_up_reactions;
   /**
    * An array relationship
    */
-  posts: GetThreadReactions_thread_public_posts[];
+  posts: GetThreadReactions_thread_by_pk_posts[];
 }
 
 export interface GetThreadReactions {
   /**
-   * fetch data from the table: "thread_public"
+   * fetch data from the table: "thread" using primary key columns
    */
-  thread_public: GetThreadReactions_thread_public[];
+  thread_by_pk: GetThreadReactions_thread_by_pk | null;
 }
 
 export interface GetThreadReactionsVariables {
   threadId: number;
-  userId: string;
+  userId: uuid;
 }
 
 /* tslint:disable */
@@ -638,7 +613,7 @@ export interface GetThreadReactionsVariables {
 
 export interface AddThreadReaction_insert_thread_reaction_one {
   __typename: "thread_reaction";
-  user_id: string;
+  user_id: uuid;
   thread_id: number;
   name: reaction_emoji_enum;
 }
@@ -653,7 +628,7 @@ export interface AddThreadReaction {
 export interface AddThreadReactionVariables {
   name: reaction_emoji_enum;
   threadId: number;
-  userId: string;
+  userId: uuid;
 }
 
 /* tslint:disable */
@@ -667,7 +642,7 @@ export interface AddThreadReactionVariables {
 
 export interface DeleteThreadReaction_delete_thread_reaction_by_pk {
   __typename: "thread_reaction";
-  user_id: string;
+  user_id: uuid;
   thread_id: number;
   name: reaction_emoji_enum;
 }
@@ -682,7 +657,7 @@ export interface DeleteThreadReaction {
 export interface DeleteThreadReactionVariables {
   name: reaction_emoji_enum;
   threadId: number;
-  userId: string;
+  userId: uuid;
 }
 
 /* tslint:disable */
@@ -696,7 +671,7 @@ export interface DeleteThreadReactionVariables {
 
 export interface AddPostReaction_insert_post_reaction_one {
   __typename: "post_reaction";
-  user_id: string;
+  user_id: uuid;
   post_id: number;
   name: reaction_emoji_enum;
 }
@@ -711,7 +686,7 @@ export interface AddPostReaction {
 export interface AddPostReactionVariables {
   name: reaction_emoji_enum;
   postId: number;
-  userId: string;
+  userId: uuid;
 }
 
 /* tslint:disable */
@@ -725,7 +700,7 @@ export interface AddPostReactionVariables {
 
 export interface DeletePostReaction_delete_post_reaction_by_pk {
   __typename: "post_reaction";
-  user_id: string;
+  user_id: uuid;
   post_id: number;
   name: reaction_emoji_enum;
 }
@@ -740,7 +715,7 @@ export interface DeletePostReaction {
 export interface DeletePostReactionVariables {
   name: reaction_emoji_enum;
   postId: number;
-  userId: string;
+  userId: uuid;
 }
 
 /* tslint:disable */
@@ -749,86 +724,90 @@ export interface DeletePostReactionVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetRealmById
+// GraphQL query operation: GetRealm
 // ====================================================
 
-export interface GetRealmById_realm_public_topics {
+export interface GetRealm_realm_by_pk_topics {
   __typename: "topic";
   id: number;
   name: string;
 }
 
-export interface GetRealmById_realm_public_threads_public_topic {
+export interface GetRealm_realm_by_pk_threads_topic {
   __typename: "topic";
   id: number;
   name: string;
 }
 
-export interface GetRealmById_realm_public_threads_public_user {
-  __typename: "realm_user_public";
-  username: string | null;
-  avatar_url: string | null;
-}
-
-export interface GetRealmById_realm_public_threads_public_posts_user {
-  __typename: "realm_user_public";
-  username: string | null;
-  avatar_url: string | null;
-}
-
-export interface GetRealmById_realm_public_threads_public_posts {
-  __typename: "post_public";
-  id: number | null;
-  /**
-   * An object relationship
-   */
-  user: GetRealmById_realm_public_threads_public_posts_user | null;
-}
-
-export interface GetRealmById_realm_public_threads_public {
-  __typename: "thread_public";
-  id: number | null;
+export interface GetRealm_realm_by_pk_threads_user {
+  __typename: "realm_user_union";
   realm_id: number | null;
-  /**
-   * An object relationship
-   */
-  topic: GetRealmById_realm_public_threads_public_topic | null;
-  /**
-   * An object relationship
-   */
-  user: GetRealmById_realm_public_threads_public_user | null;
-  title: string | null;
-  updated_at: timestamptz | null;
-  /**
-   * An array relationship
-   */
-  posts: GetRealmById_realm_public_threads_public_posts[];
+  user_id: uuid | null;
+  username: string | null;
+  avatar_url: string | null;
 }
 
-export interface GetRealmById_realm_public {
-  __typename: "realm_public";
+export interface GetRealm_realm_by_pk_threads_posts_user {
+  __typename: "realm_user_union";
+  realm_id: number | null;
+  user_id: uuid | null;
+  username: string | null;
+  avatar_url: string | null;
+}
+
+export interface GetRealm_realm_by_pk_threads_posts {
+  __typename: "realm_post";
   id: number | null;
-  name: string | null;
-  description: string | null;
-  private: boolean | null;
+  /**
+   * An object relationship
+   */
+  user: GetRealm_realm_by_pk_threads_posts_user | null;
+}
+
+export interface GetRealm_realm_by_pk_threads {
+  __typename: "thread";
+  id: number;
+  realm_id: number;
+  /**
+   * An object relationship
+   */
+  topic: GetRealm_realm_by_pk_threads_topic | null;
+  /**
+   * An object relationship
+   */
+  user: GetRealm_realm_by_pk_threads_user | null;
+  title: string;
+  updated_at: timestamptz;
   /**
    * An array relationship
    */
-  topics: GetRealmById_realm_public_topics[];
+  posts: GetRealm_realm_by_pk_threads_posts[];
+}
+
+export interface GetRealm_realm_by_pk {
+  __typename: "realm";
+  id: number;
+  name: string;
+  description: string;
+  private: boolean;
   /**
    * An array relationship
    */
-  threads_public: GetRealmById_realm_public_threads_public[];
-}
-
-export interface GetRealmById {
+  topics: GetRealm_realm_by_pk_topics[];
   /**
-   * fetch data from the table: "realm_public"
+   * An array relationship
    */
-  realm_public: GetRealmById_realm_public[];
+  threads: GetRealm_realm_by_pk_threads[];
 }
 
-export interface GetRealmByIdVariables {
+export interface GetRealm {
+  /**
+   * fetch data from the table: "realm" using primary key columns
+   */
+  realm_by_pk: GetRealm_realm_by_pk | null;
+}
+
+export interface GetRealmVariables {
   id: number;
 }
 
@@ -878,7 +857,7 @@ export interface GetRealmDetailsInvitationCode_realm_by_pk_topics {
 export interface GetRealmDetailsInvitationCode_realm_by_pk {
   __typename: "realm";
   id: number;
-  admin_id: string;
+  admin_id: uuid;
   name: string;
   description: string;
   private: boolean;
@@ -922,7 +901,7 @@ export interface AddRealm {
 }
 
 export interface AddRealmVariables {
-  adminId: string;
+  adminId: uuid;
   name: string;
   description: string;
   private: boolean;
@@ -976,80 +955,84 @@ export interface UpdateRealmVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetThreadById
+// GraphQL query operation: GetThread
 // ====================================================
 
-export interface GetThreadById_thread_public_realm {
-  __typename: "realm_public";
-  id: number | null;
-  name: string | null;
+export interface GetThread_thread_by_pk_realm {
+  __typename: "realm";
+  id: number;
+  name: string;
 }
 
-export interface GetThreadById_thread_public_topic {
+export interface GetThread_thread_by_pk_topic {
   __typename: "topic";
   id: number;
   name: string;
 }
 
-export interface GetThreadById_thread_public_user {
-  __typename: "realm_user_public";
+export interface GetThread_thread_by_pk_user {
+  __typename: "realm_user_union";
+  realm_id: number | null;
+  user_id: uuid | null;
   username: string | null;
   status: string | null;
   avatar_url: string | null;
 }
 
-export interface GetThreadById_thread_public_posts_user {
-  __typename: "realm_user_public";
+export interface GetThread_thread_by_pk_posts_user {
+  __typename: "realm_user_union";
+  realm_id: number | null;
+  user_id: uuid | null;
   username: string | null;
   status: string | null;
   avatar_url: string | null;
 }
 
-export interface GetThreadById_thread_public_posts {
-  __typename: "post_public";
+export interface GetThread_thread_by_pk_posts {
+  __typename: "realm_post";
   id: number | null;
   /**
    * An object relationship
    */
-  user: GetThreadById_thread_public_posts_user | null;
+  user: GetThread_thread_by_pk_posts_user | null;
   content: string | null;
   created_at: timestamptz | null;
   updated_at: timestamptz | null;
 }
 
-export interface GetThreadById_thread_public {
-  __typename: "thread_public";
-  id: number | null;
+export interface GetThread_thread_by_pk {
+  __typename: "thread";
+  id: number;
   /**
    * An object relationship
    */
-  realm: GetThreadById_thread_public_realm | null;
+  realm: GetThread_thread_by_pk_realm;
   /**
    * An object relationship
    */
-  topic: GetThreadById_thread_public_topic | null;
-  title: string | null;
-  content: string | null;
+  topic: GetThread_thread_by_pk_topic | null;
+  title: string;
+  content: string;
   /**
    * An object relationship
    */
-  user: GetThreadById_thread_public_user | null;
-  created_at: timestamptz | null;
-  updated_at: timestamptz | null;
+  user: GetThread_thread_by_pk_user | null;
+  created_at: timestamptz;
+  updated_at: timestamptz;
   /**
    * An array relationship
    */
-  posts: GetThreadById_thread_public_posts[];
+  posts: GetThread_thread_by_pk_posts[];
 }
 
-export interface GetThreadById {
+export interface GetThread {
   /**
-   * fetch data from the table: "thread_public"
+   * fetch data from the table: "thread" using primary key columns
    */
-  thread_public: GetThreadById_thread_public[];
+  thread_by_pk: GetThread_thread_by_pk | null;
 }
 
-export interface GetThreadByIdVariables {
+export interface GetThreadVariables {
   id: number;
 }
 
@@ -1076,7 +1059,7 @@ export interface AddThread {
 
 export interface AddThreadVariables {
   realmId: number;
-  userId: string;
+  userId: uuid;
   topicId?: number | null;
   title: string;
   content: string;
@@ -1121,16 +1104,19 @@ export interface UpdateThreadVariables {
 export interface GetUser_user_by_pk_realm_ids {
   __typename: "realm_user_union";
   realm_id: number | null;
+  user_id: uuid | null;
 }
 
 export interface GetUser_user_by_pk_realm_users_realm {
-  __typename: "realm_public";
-  id: number | null;
-  name: string | null;
+  __typename: "realm";
+  id: number;
+  name: string;
 }
 
 export interface GetUser_user_by_pk_realm_users {
   __typename: "realm_user_union";
+  realm_id: number | null;
+  user_id: uuid | null;
   /**
    * An object relationship
    */
@@ -1143,7 +1129,8 @@ export interface GetUser_user_by_pk_realm_users {
 
 export interface GetUser_user_by_pk {
   __typename: "user";
-  id: string;
+  id: uuid;
+  university_id: string;
   email: string;
   role: string;
   created_at: timestamptz;
@@ -1165,8 +1152,8 @@ export interface GetUser {
 }
 
 export interface GetUserVariables {
-  userId: string;
   realmId: number;
+  userId: uuid;
 }
 
 /* tslint:disable */
@@ -1179,13 +1166,15 @@ export interface GetUserVariables {
 // ====================================================
 
 export interface GetUserRealms_user_by_pk_realm_users_realm {
-  __typename: "realm_public";
-  id: number | null;
-  name: string | null;
+  __typename: "realm";
+  id: number;
+  name: string;
 }
 
 export interface GetUserRealms_user_by_pk_realm_users {
   __typename: "realm_user_union";
+  realm_id: number | null;
+  user_id: uuid | null;
   /**
    * An object relationship
    */
@@ -1194,7 +1183,7 @@ export interface GetUserRealms_user_by_pk_realm_users {
 
 export interface GetUserRealms_user_by_pk {
   __typename: "user";
-  id: string;
+  id: uuid;
   /**
    * An array relationship
    */
@@ -1209,7 +1198,7 @@ export interface GetUserRealms {
 }
 
 export interface GetUserRealmsVariables {
-  id: string;
+  id: uuid;
 }
 
 /* tslint:disable */
@@ -1223,7 +1212,8 @@ export interface GetUserRealmsVariables {
 
 export interface AddOrUpdateUser_insert_user_one {
   __typename: "user";
-  id: string;
+  id: uuid;
+  university_id: string;
   email: string;
 }
 
@@ -1235,7 +1225,7 @@ export interface AddOrUpdateUser {
 }
 
 export interface AddOrUpdateUserVariables {
-  id: string;
+  universityId: string;
   email: string;
 }
 
@@ -1250,7 +1240,7 @@ export interface AddOrUpdateUserVariables {
 
 export interface UpdateUsername_update_user_by_pk {
   __typename: "user";
-  id: string;
+  id: uuid;
   username: string;
 }
 
@@ -1262,7 +1252,7 @@ export interface UpdateUsername {
 }
 
 export interface UpdateUsernameVariables {
-  id: string;
+  userId: uuid;
   username: string;
 }
 
@@ -1277,7 +1267,7 @@ export interface UpdateUsernameVariables {
 
 export interface UpdateRealmUsername_insert_realm_user_one {
   __typename: "realm_user";
-  user_id: string;
+  user_id: uuid;
   realm_id: number;
   username: string;
 }
@@ -1290,7 +1280,7 @@ export interface UpdateRealmUsername {
 }
 
 export interface UpdateRealmUsernameVariables {
-  userId: string;
+  userId: uuid;
   realmId: number;
   username: string;
 }
@@ -1306,7 +1296,7 @@ export interface UpdateRealmUsernameVariables {
 
 export interface UpdateUserAvatar_update_user_by_pk {
   __typename: "user";
-  id: string;
+  id: uuid;
   avatar_url: string | null;
 }
 
@@ -1318,7 +1308,7 @@ export interface UpdateUserAvatar {
 }
 
 export interface UpdateUserAvatarVariables {
-  id: string;
+  userId: uuid;
   avatarUrl: string;
 }
 
@@ -1333,7 +1323,7 @@ export interface UpdateUserAvatarVariables {
 
 export interface UpdateRealmUserAvatar_insert_realm_user_one {
   __typename: "realm_user";
-  user_id: string;
+  user_id: uuid;
   realm_id: number;
   avatar_url: string | null;
 }
@@ -1346,7 +1336,7 @@ export interface UpdateRealmUserAvatar {
 }
 
 export interface UpdateRealmUserAvatarVariables {
-  userId: string;
+  userId: uuid;
   realmId: number;
   avatarUrl: string;
 }
@@ -1362,7 +1352,7 @@ export interface UpdateRealmUserAvatarVariables {
 
 export interface UpdateUserStatus_update_user_by_pk {
   __typename: "user";
-  id: string;
+  id: uuid;
   status: string | null;
 }
 
@@ -1374,7 +1364,7 @@ export interface UpdateUserStatus {
 }
 
 export interface UpdateUserStatusVariables {
-  id: string;
+  userId: uuid;
   status: string;
 }
 
@@ -1389,7 +1379,7 @@ export interface UpdateUserStatusVariables {
 
 export interface UpdateRealmUserStatus_update_realm_user_by_pk {
   __typename: "realm_user";
-  user_id: string;
+  user_id: uuid;
   realm_id: number;
   status: string | null;
 }
@@ -1402,7 +1392,7 @@ export interface UpdateRealmUserStatus {
 }
 
 export interface UpdateRealmUserStatusVariables {
-  userId: string;
+  userId: uuid;
   realmId: number;
   status: string;
 }
@@ -1623,14 +1613,6 @@ export interface String_comparison_exp {
 }
 
 /**
- * input type for inserting array relation for remote table "post"
- */
-export interface post_arr_rel_insert_input {
-  data: post_insert_input[];
-  on_conflict?: post_on_conflict | null;
-}
-
-/**
  * Boolean expression to filter rows from the table "post". All fields are combined with a logical 'AND'.
  */
 export interface post_bool_exp {
@@ -1643,7 +1625,7 @@ export interface post_bool_exp {
   thread?: thread_bool_exp | null;
   thread_id?: Int_comparison_exp | null;
   updated_at?: timestamptz_comparison_exp | null;
-  user_id?: String_comparison_exp | null;
+  user_id?: uuid_comparison_exp | null;
 }
 
 /**
@@ -1656,7 +1638,7 @@ export interface post_insert_input {
   thread?: thread_obj_rel_insert_input | null;
   thread_id?: number | null;
   updated_at?: timestamptz | null;
-  user_id?: string | null;
+  user_id?: uuid | null;
 }
 
 /**
@@ -1674,46 +1656,6 @@ export interface post_on_conflict {
   constraint: post_constraint;
   update_columns: post_update_column[];
   where?: post_bool_exp | null;
-}
-
-/**
- * input type for inserting array relation for remote table "post_public"
- */
-export interface post_public_arr_rel_insert_input {
-  data: post_public_insert_input[];
-}
-
-/**
- * Boolean expression to filter rows from the table "post_public". All fields are combined with a logical 'AND'.
- */
-export interface post_public_bool_exp {
-  _and?: post_public_bool_exp[] | null;
-  _not?: post_public_bool_exp | null;
-  _or?: post_public_bool_exp[] | null;
-  content?: String_comparison_exp | null;
-  created_at?: timestamptz_comparison_exp | null;
-  id?: Int_comparison_exp | null;
-  reactions?: post_reaction_bool_exp | null;
-  thread?: thread_public_bool_exp | null;
-  thread_id?: Int_comparison_exp | null;
-  updated_at?: timestamptz_comparison_exp | null;
-  user?: realm_user_public_bool_exp | null;
-  username?: String_comparison_exp | null;
-}
-
-/**
- * input type for inserting data into table "post_public"
- */
-export interface post_public_insert_input {
-  content?: string | null;
-  created_at?: timestamptz | null;
-  id?: number | null;
-  reactions?: post_reaction_arr_rel_insert_input | null;
-  thread?: thread_public_obj_rel_insert_input | null;
-  thread_id?: number | null;
-  updated_at?: timestamptz | null;
-  user?: realm_user_public_obj_rel_insert_input | null;
-  username?: string | null;
 }
 
 /**
@@ -1735,7 +1677,7 @@ export interface post_reaction_bool_exp {
   name?: reaction_emoji_enum_comparison_exp | null;
   post?: post_bool_exp | null;
   post_id?: Int_comparison_exp | null;
-  user_id?: String_comparison_exp | null;
+  user_id?: uuid_comparison_exp | null;
 }
 
 /**
@@ -1746,7 +1688,7 @@ export interface post_reaction_insert_input {
   name?: reaction_emoji_enum | null;
   post?: post_obj_rel_insert_input | null;
   post_id?: number | null;
-  user_id?: string | null;
+  user_id?: uuid | null;
 }
 
 /**
@@ -1776,14 +1718,14 @@ export interface realm_bool_exp {
   _and?: realm_bool_exp[] | null;
   _not?: realm_bool_exp | null;
   _or?: realm_bool_exp[] | null;
-  admin_id?: String_comparison_exp | null;
+  admin_id?: uuid_comparison_exp | null;
   created_at?: timestamptz_comparison_exp | null;
   description?: String_comparison_exp | null;
   id?: Int_comparison_exp | null;
   invitation_code?: String_comparison_exp | null;
   name?: String_comparison_exp | null;
   private?: Boolean_comparison_exp | null;
-  threads_public?: thread_public_bool_exp | null;
+  threads?: thread_bool_exp | null;
   topics?: topic_bool_exp | null;
   updated_at?: timestamptz_comparison_exp | null;
 }
@@ -1792,14 +1734,14 @@ export interface realm_bool_exp {
  * input type for inserting data into table "realm"
  */
 export interface realm_insert_input {
-  admin_id?: string | null;
+  admin_id?: uuid | null;
   created_at?: timestamptz | null;
   description?: string | null;
   id?: number | null;
   invitation_code?: string | null;
   name?: string | null;
   private?: boolean | null;
-  threads_public?: thread_public_arr_rel_insert_input | null;
+  threads?: thread_arr_rel_insert_input | null;
   topics?: topic_arr_rel_insert_input | null;
   updated_at?: timestamptz | null;
 }
@@ -1822,75 +1764,87 @@ export interface realm_on_conflict {
 }
 
 /**
- * Boolean expression to filter rows from the table "realm_public". All fields are combined with a logical 'AND'.
+ * input type for inserting array relation for remote table "realm_post"
  */
-export interface realm_public_bool_exp {
-  _and?: realm_public_bool_exp[] | null;
-  _not?: realm_public_bool_exp | null;
-  _or?: realm_public_bool_exp[] | null;
-  admin_username?: String_comparison_exp | null;
+export interface realm_post_arr_rel_insert_input {
+  data: realm_post_insert_input[];
+}
+
+/**
+ * Boolean expression to filter rows from the table "realm_post". All fields are combined with a logical 'AND'.
+ */
+export interface realm_post_bool_exp {
+  _and?: realm_post_bool_exp[] | null;
+  _not?: realm_post_bool_exp | null;
+  _or?: realm_post_bool_exp[] | null;
+  content?: String_comparison_exp | null;
   created_at?: timestamptz_comparison_exp | null;
-  description?: String_comparison_exp | null;
   id?: Int_comparison_exp | null;
-  name?: String_comparison_exp | null;
-  private?: Boolean_comparison_exp | null;
-  threads_public?: thread_public_bool_exp | null;
-  topics?: topic_bool_exp | null;
+  reactions?: post_reaction_bool_exp | null;
+  realm_id?: Int_comparison_exp | null;
+  thread_id?: Int_comparison_exp | null;
+  updated_at?: timestamptz_comparison_exp | null;
+  user?: realm_user_union_bool_exp | null;
+  user_id?: uuid_comparison_exp | null;
 }
 
 /**
- * input type for inserting data into table "realm_public"
+ * input type for inserting data into table "realm_post"
  */
-export interface realm_public_insert_input {
-  admin_username?: string | null;
+export interface realm_post_insert_input {
+  content?: string | null;
   created_at?: timestamptz | null;
-  description?: string | null;
   id?: number | null;
-  name?: string | null;
-  private?: boolean | null;
-  threads_public?: thread_public_arr_rel_insert_input | null;
-  topics?: topic_arr_rel_insert_input | null;
+  reactions?: post_reaction_arr_rel_insert_input | null;
+  realm_id?: number | null;
+  thread_id?: number | null;
+  updated_at?: timestamptz | null;
+  user?: realm_user_union_obj_rel_insert_input | null;
+  user_id?: uuid | null;
 }
 
 /**
- * input type for inserting object relation for remote table "realm_public"
+ * Boolean expression to filter rows from the table "realm_user_union". All fields are combined with a logical 'AND'.
  */
-export interface realm_public_obj_rel_insert_input {
-  data: realm_public_insert_input;
-}
-
-/**
- * Boolean expression to filter rows from the table "realm_user_public". All fields are combined with a logical 'AND'.
- */
-export interface realm_user_public_bool_exp {
-  _and?: realm_user_public_bool_exp[] | null;
-  _not?: realm_user_public_bool_exp | null;
-  _or?: realm_user_public_bool_exp[] | null;
+export interface realm_user_union_bool_exp {
+  _and?: realm_user_union_bool_exp[] | null;
+  _not?: realm_user_union_bool_exp | null;
+  _or?: realm_user_union_bool_exp[] | null;
   avatar_url?: String_comparison_exp | null;
   created_at?: timestamptz_comparison_exp | null;
   realm?: realm_bool_exp | null;
   realm_id?: Int_comparison_exp | null;
   status?: String_comparison_exp | null;
+  user_id?: uuid_comparison_exp | null;
   username?: String_comparison_exp | null;
 }
 
 /**
- * input type for inserting data into table "realm_user_public"
+ * input type for inserting data into table "realm_user_union"
  */
-export interface realm_user_public_insert_input {
+export interface realm_user_union_insert_input {
   avatar_url?: string | null;
   created_at?: timestamptz | null;
   realm?: realm_obj_rel_insert_input | null;
   realm_id?: number | null;
   status?: string | null;
+  user_id?: uuid | null;
   username?: string | null;
 }
 
 /**
- * input type for inserting object relation for remote table "realm_user_public"
+ * input type for inserting object relation for remote table "realm_user_union"
  */
-export interface realm_user_public_obj_rel_insert_input {
-  data: realm_user_public_insert_input;
+export interface realm_user_union_obj_rel_insert_input {
+  data: realm_user_union_insert_input;
+}
+
+/**
+ * input type for inserting array relation for remote table "thread"
+ */
+export interface thread_arr_rel_insert_input {
+  data: thread_insert_input[];
+  on_conflict?: thread_on_conflict | null;
 }
 
 /**
@@ -1903,14 +1857,16 @@ export interface thread_bool_exp {
   content?: String_comparison_exp | null;
   created_at?: timestamptz_comparison_exp | null;
   id?: Int_comparison_exp | null;
-  posts?: post_bool_exp | null;
+  posts?: realm_post_bool_exp | null;
+  reactions?: thread_reaction_bool_exp | null;
   realm?: realm_bool_exp | null;
   realm_id?: Int_comparison_exp | null;
   title?: String_comparison_exp | null;
   topic?: topic_bool_exp | null;
   topic_id?: Int_comparison_exp | null;
   updated_at?: timestamptz_comparison_exp | null;
-  user_id?: String_comparison_exp | null;
+  user?: realm_user_union_bool_exp | null;
+  user_id?: uuid_comparison_exp | null;
 }
 
 /**
@@ -1920,14 +1876,16 @@ export interface thread_insert_input {
   content?: string | null;
   created_at?: timestamptz | null;
   id?: number | null;
-  posts?: post_arr_rel_insert_input | null;
+  posts?: realm_post_arr_rel_insert_input | null;
+  reactions?: thread_reaction_arr_rel_insert_input | null;
   realm?: realm_obj_rel_insert_input | null;
   realm_id?: number | null;
   title?: string | null;
   topic?: topic_obj_rel_insert_input | null;
   topic_id?: number | null;
   updated_at?: timestamptz | null;
-  user_id?: string | null;
+  user?: realm_user_union_obj_rel_insert_input | null;
+  user_id?: uuid | null;
 }
 
 /**
@@ -1945,61 +1903,6 @@ export interface thread_on_conflict {
   constraint: thread_constraint;
   update_columns: thread_update_column[];
   where?: thread_bool_exp | null;
-}
-
-/**
- * input type for inserting array relation for remote table "thread_public"
- */
-export interface thread_public_arr_rel_insert_input {
-  data: thread_public_insert_input[];
-}
-
-/**
- * Boolean expression to filter rows from the table "thread_public". All fields are combined with a logical 'AND'.
- */
-export interface thread_public_bool_exp {
-  _and?: thread_public_bool_exp[] | null;
-  _not?: thread_public_bool_exp | null;
-  _or?: thread_public_bool_exp[] | null;
-  content?: String_comparison_exp | null;
-  created_at?: timestamptz_comparison_exp | null;
-  id?: Int_comparison_exp | null;
-  posts?: post_public_bool_exp | null;
-  reactions?: thread_reaction_bool_exp | null;
-  realm?: realm_public_bool_exp | null;
-  realm_id?: Int_comparison_exp | null;
-  title?: String_comparison_exp | null;
-  topic?: topic_bool_exp | null;
-  topic_id?: Int_comparison_exp | null;
-  updated_at?: timestamptz_comparison_exp | null;
-  user?: realm_user_public_bool_exp | null;
-  username?: String_comparison_exp | null;
-}
-
-/**
- * input type for inserting data into table "thread_public"
- */
-export interface thread_public_insert_input {
-  content?: string | null;
-  created_at?: timestamptz | null;
-  id?: number | null;
-  posts?: post_public_arr_rel_insert_input | null;
-  reactions?: thread_reaction_arr_rel_insert_input | null;
-  realm?: realm_public_obj_rel_insert_input | null;
-  realm_id?: number | null;
-  title?: string | null;
-  topic?: topic_obj_rel_insert_input | null;
-  topic_id?: number | null;
-  updated_at?: timestamptz | null;
-  user?: realm_user_public_obj_rel_insert_input | null;
-  username?: string | null;
-}
-
-/**
- * input type for inserting object relation for remote table "thread_public"
- */
-export interface thread_public_obj_rel_insert_input {
-  data: thread_public_insert_input;
 }
 
 /**
@@ -2021,7 +1924,7 @@ export interface thread_reaction_bool_exp {
   name?: reaction_emoji_enum_comparison_exp | null;
   thread?: thread_bool_exp | null;
   thread_id?: Int_comparison_exp | null;
-  user_id?: String_comparison_exp | null;
+  user_id?: uuid_comparison_exp | null;
 }
 
 /**
@@ -2032,7 +1935,7 @@ export interface thread_reaction_insert_input {
   name?: reaction_emoji_enum | null;
   thread?: thread_obj_rel_insert_input | null;
   thread_id?: number | null;
-  user_id?: string | null;
+  user_id?: uuid | null;
 }
 
 /**
@@ -2109,6 +2012,21 @@ export interface topic_on_conflict {
   constraint: topic_constraint;
   update_columns: topic_update_column[];
   where?: topic_bool_exp | null;
+}
+
+/**
+ * Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'.
+ */
+export interface uuid_comparison_exp {
+  _eq?: uuid | null;
+  _gt?: uuid | null;
+  _gte?: uuid | null;
+  _in?: uuid[] | null;
+  _is_null?: boolean | null;
+  _lt?: uuid | null;
+  _lte?: uuid | null;
+  _neq?: uuid | null;
+  _nin?: uuid[] | null;
 }
 
 //==============================================================

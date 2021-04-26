@@ -38,19 +38,23 @@ export default async function handleToken(
       return res.status(401).send("Unauthorized");
     }
 
-    const id = email.split("@")[0];
+    const universityId = email.split("@")[0];
 
     try {
       const data = await graphQLClient.request<
         AddOrUpdateUser,
         AddOrUpdateUserVariables
       >(ADD_OR_UPDATE_USER, {
-        id,
+        universityId,
         email,
       });
       const user = data.insert_user_one!;
 
-      const refreshToken = await encodeRefreshToken(user);
+      const refreshToken = await encodeRefreshToken({
+        id: user.id,
+        universityId: user.university_id,
+        email: user.email,
+      });
       nookies.set({ res }, REFRESH_TOKEN_COOKIE_NAME, refreshToken, {
         httpOnly: true,
         maxAge: 90 * 24 * 60 * 60,

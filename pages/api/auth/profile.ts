@@ -25,7 +25,7 @@ import { REFRESH_TOKEN_COOKIE_NAME } from "./token";
 import usernameBlocklist from "./username_blocklist.json";
 
 export interface UserProfile {
-  id: string;
+  id: uuid;
   email: string;
   realmId?: number;
   realmName?: string;
@@ -102,9 +102,9 @@ export default async function handleProfile(
     }
 
     try {
-      const { id: userId } = await verify(token, "refresh");
+      const { id: userId, universityId } = await verify(token, "refresh");
 
-      if (userId === username) {
+      if (universityId === username) {
         return res.status(409).send("Invalid username");
       }
 
@@ -123,7 +123,7 @@ export default async function handleProfile(
           await graphQLClient.request<UpdateUsername, UpdateUsernameVariables>(
             UPDATE_USERNAME,
             {
-              id: userId,
+              userId,
               username,
             }
           );

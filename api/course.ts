@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
-export const GET_COURSE_BY_ID = gql`
-  query GetCourseById($id: String!) {
+export const GET_COURSE = gql`
+  query GetCourse($id: String!) {
     course_by_pk(id: $id) {
       id
       name
@@ -13,7 +13,7 @@ export const GET_COURSE_BY_ID = gql`
       semester_id
       number
       index
-      course_reviews_public_aggregate {
+      course_reviews_aggregate {
         aggregate {
           count
           avg {
@@ -47,8 +47,8 @@ export const GET_COURSES = gql`
   }
 `;
 
-export const GET_COURSE_COUNT_BY_SEMESTER = gql`
-  query GetCourseCountBySemester($semesterId: String!) {
+export const GET_COURSE_COUNT = gql`
+  query GetCourseCount($semesterId: String!) {
     course_aggregate(where: { semester_id: { _eq: $semesterId } }) {
       aggregate {
         count

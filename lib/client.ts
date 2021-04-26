@@ -57,14 +57,17 @@ function createApolloClient() {
     link: typeof window === "undefined" ? serverLink : clientLink,
     cache: new InMemoryCache({
       typePolicies: {
-        user_public: {
-          keyFields: ["username"],
+        realm_user: {
+          keyFields: ["realm_id", "user_id"],
         },
-        realm_user_public: {
-          keyFields: ["username"],
+        realm_user_union: {
+          keyFields: ["realm_id", "user_id"],
         },
-        course_review_public: {
-          keyFields: ["course_id", "user", ["username"]],
+        thread_reaction: {
+          keyFields: ["thread_id", "user_id", "name"],
+        },
+        post_reaction: {
+          keyFields: ["post_id", "user_id", "name"],
         },
       },
     }),

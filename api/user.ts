@@ -1,16 +1,20 @@
 import { gql } from "@apollo/client";
 
 export const GET_USER = gql`
-  query GetUser($userId: String!, $realmId: Int!) {
+  query GetUser($realmId: Int!, $userId: uuid!) {
     user_by_pk(id: $userId) {
       id
+      university_id
       email
       role
       created_at
       realm_ids: realm_users {
         realm_id
+        user_id
       }
       realm_users(where: { realm_id: { _eq: $realmId } }, limit: 1) {
+        realm_id
+        user_id
         realm {
           id
           name
@@ -25,10 +29,12 @@ export const GET_USER = gql`
 `;
 
 export const GET_USER_REALMS = gql`
-  query GetUserRealms($id: String!) {
+  query GetUserRealms($id: uuid!) {
     user_by_pk(id: $id) {
       id
       realm_users {
+        realm_id
+        user_id
         realm {
           id
           name
@@ -39,20 +45,31 @@ export const GET_USER_REALMS = gql`
 `;
 
 export const ADD_OR_UPDATE_USER = gql`
-  mutation AddOrUpdateUser($id: String!, $email: String!) {
+  mutation AddOrUpdateUser($universityId: String!, $email: String!) {
     insert_user_one(
-      object: { id: $id, email: $email, username: $id }
-      on_conflict: { constraint: users_pkey, update_columns: [email] }
+      object: {
+        university_id: $universityId
+        email: $email
+        username: $universityId
+      }
+      on_conflict: {
+        constraint: user_university_id_key
+        update_columns: [email]
+      }
     ) {
       id
+      university_id
       email
     }
   }
 `;
 
 export const UPDATE_USERNAME = gql`
-  mutation UpdateUsername($id: String!, $username: String!) {
-    update_user_by_pk(pk_columns: { id: $id }, _set: { username: $username }) {
+  mutation UpdateUsername($userId: uuid!, $username: String!) {
+    update_user_by_pk(
+      pk_columns: { id: $userId }
+      _set: { username: $username }
+    ) {
       id
       username
     }
@@ -61,7 +78,7 @@ export const UPDATE_USERNAME = gql`
 
 export const UPDATE_REALM_USERNAME = gql`
   mutation UpdateRealmUsername(
-    $userId: String!
+    $userId: uuid!
     $realmId: Int!
     $username: String!
   ) {
@@ -77,9 +94,9 @@ export const UPDATE_REALM_USERNAME = gql`
 `;
 
 export const UPDATE_USER_AVATAR = gql`
-  mutation UpdateUserAvatar($id: String!, $avatarUrl: String!) {
+  mutation UpdateUserAvatar($userId: uuid!, $avatarUrl: String!) {
     update_user_by_pk(
-      pk_columns: { id: $id }
+      pk_columns: { id: $userId }
       _set: { avatar_url: $avatarUrl }
     ) {
       id
@@ -90,7 +107,7 @@ export const UPDATE_USER_AVATAR = gql`
 
 export const UPDATE_REALM_USER_AVATAR = gql`
   mutation UpdateRealmUserAvatar(
-    $userId: String!
+    $userId: uuid!
     $realmId: Int!
     $avatarUrl: String!
   ) {
@@ -106,8 +123,8 @@ export const UPDATE_REALM_USER_AVATAR = gql`
 `;
 
 export const UPDATE_USER_STATUS = gql`
-  mutation UpdateUserStatus($id: String!, $status: String!) {
-    update_user_by_pk(pk_columns: { id: $id }, _set: { status: $status }) {
+  mutation UpdateUserStatus($userId: uuid!, $status: String!) {
+    update_user_by_pk(pk_columns: { id: $userId }, _set: { status: $status }) {
       id
       status
     }
@@ -116,7 +133,7 @@ export const UPDATE_USER_STATUS = gql`
 
 export const UPDATE_REALM_USER_STATUS = gql`
   mutation UpdateRealmUserStatus(
-    $userId: String!
+    $userId: uuid!
     $realmId: Int!
     $status: String!
   ) {

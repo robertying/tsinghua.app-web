@@ -5,11 +5,8 @@ import { NextSeo } from "next-seo";
 import { Button, Container, TextField, Typography } from "@material-ui/core";
 import { initializeApollo } from "lib/client";
 import { getSemesterTextFromId } from "lib/format";
-import {
-  GetCourseCountBySemester,
-  GetCourseCountBySemesterVariables,
-} from "api/types";
-import { GET_COURSE_COUNT_BY_SEMESTER } from "api/course";
+import { GetCourseCount, GetCourseCountVariables } from "api/types";
+import { GET_COURSE_COUNT } from "api/course";
 
 const CURRENT_SEMESTER_ID = "2020-2021-2";
 
@@ -127,11 +124,8 @@ export const getStaticProps: GetStaticProps<CourseXHomeProps> = async () => {
   let courseCount: number | null = null;
 
   try {
-    const result = await client.query<
-      GetCourseCountBySemester,
-      GetCourseCountBySemesterVariables
-    >({
-      query: GET_COURSE_COUNT_BY_SEMESTER,
+    const result = await client.query<GetCourseCount, GetCourseCountVariables>({
+      query: GET_COURSE_COUNT,
       variables: {
         semesterId: CURRENT_SEMESTER_ID,
       },

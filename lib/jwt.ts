@@ -1,17 +1,23 @@
 import jwt from "jsonwebtoken";
 
 export interface JwtPayload {
-  id: string;
+  id: uuid;
+  universityId: string;
   email: string;
   iat: number;
   exp: number;
 }
 
-export const encodeRefreshToken = (user: { id: string; email: string }) => {
+export const encodeRefreshToken = (user: {
+  id: uuid;
+  universityId: string;
+  email: string;
+}) => {
   return new Promise<string>((resolve, reject) => {
     jwt.sign(
       {
         id: user.id,
+        universityId: user.universityId,
         email: user.email,
       },
       process.env.AUTH_REFRESH_TOKEN_SECRET!,
@@ -31,7 +37,8 @@ export const encodeRefreshToken = (user: { id: string; email: string }) => {
 };
 
 export const encodeAccessToken = (user: {
-  id: string;
+  id: uuid;
+  universityId: string;
   email: string;
   role: string;
   realmIds: number[];
@@ -40,6 +47,7 @@ export const encodeAccessToken = (user: {
     jwt.sign(
       {
         id: user.id,
+        universityId: user.universityId,
         email: user.email,
         "https://hasura.io/jwt/claims": {
           "x-hasura-allowed-roles": [user.role],

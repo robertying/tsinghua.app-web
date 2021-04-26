@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_THREAD_REACTIONS = gql`
-  query GetThreadReactions($threadId: Int!, $userId: String!) {
-    thread_public(where: { id: { _eq: $threadId } }, limit: 1) {
+  query GetThreadReactions($threadId: Int!, $userId: uuid!) {
+    thread_by_pk(id: $threadId) {
       id
       my_reactions: reactions(where: { user_id: { _eq: $userId } }) {
         name
@@ -127,7 +127,7 @@ export const ADD_THREAD_REACTION = gql`
   mutation AddThreadReaction(
     $name: reaction_emoji_enum!
     $threadId: Int!
-    $userId: String!
+    $userId: uuid!
   ) {
     insert_thread_reaction_one(
       object: { name: $name, thread_id: $threadId, user_id: $userId }
@@ -147,7 +147,7 @@ export const DELETE_THREAD_REACTION = gql`
   mutation DeleteThreadReaction(
     $name: reaction_emoji_enum!
     $threadId: Int!
-    $userId: String!
+    $userId: uuid!
   ) {
     delete_thread_reaction_by_pk(
       name: $name
@@ -165,7 +165,7 @@ export const ADD_POST_REACTION = gql`
   mutation AddPostReaction(
     $name: reaction_emoji_enum!
     $postId: Int!
-    $userId: String!
+    $userId: uuid!
   ) {
     insert_post_reaction_one(
       object: { name: $name, post_id: $postId, user_id: $userId }
@@ -185,7 +185,7 @@ export const DELETE_POST_REACTION = gql`
   mutation DeletePostReaction(
     $name: reaction_emoji_enum!
     $postId: Int!
-    $userId: String!
+    $userId: uuid!
   ) {
     delete_post_reaction_by_pk(
       name: $name

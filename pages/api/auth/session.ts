@@ -29,7 +29,10 @@ export default async function handleSession(
     const user = response.user_by_pk!;
 
     const accessToken = await encodeAccessToken({
-      ...user,
+      id: user.id,
+      universityId: user.university_id,
+      email: user.email,
+      role: user.role,
       realmIds: user.realm_ids.map((u) => u.realm_id!),
     });
     res.send({
