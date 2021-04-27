@@ -136,10 +136,9 @@ const Verify: React.FC = () => {
                   ? `/auth/login?redirect_url=${router.query.redirect_url}`
                   : "/auth/login"
               }
+              passHref
             >
-              <a>
-                <Button>返回登录</Button>
-              </a>
+              <Button>返回登录</Button>
             </Link>
             <Button
               sx={{ ml: 2 }}

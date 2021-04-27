@@ -37,12 +37,10 @@ const NotFound: React.FC = () => {
               加入共享计划以帮助添加此课程的详细信息。
             </Typography>
           )}
-          <Link href="/">
-            <a>
-              <Button sx={{ mt: 2 }} variant="contained">
-                返回主页
-              </Button>
-            </a>
+          <Link href="/" passHref>
+            <Button sx={{ mt: 2 }} variant="contained">
+              返回主页
+            </Button>
           </Link>
         </Paper>
       </Container>

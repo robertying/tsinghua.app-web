@@ -26,12 +26,10 @@ const InternalError: React.FC = () => {
           <Typography sx={{ mt: 4 }} variant="body1">
             服务器内部产生了错误。请稍后重试。
           </Typography>
-          <Link href="/">
-            <a>
-              <Button sx={{ mt: 2 }} variant="contained">
-                返回主页
-              </Button>
-            </a>
+          <Link href="/" passHref>
+            <Button sx={{ mt: 2 }} variant="contained">
+              返回主页
+            </Button>
           </Link>
         </Paper>
       </Container>

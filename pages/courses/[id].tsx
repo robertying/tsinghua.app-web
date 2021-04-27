@@ -19,6 +19,7 @@ import {
   TextField,
   Tooltip,
   Stack,
+  Card,
 } from "@material-ui/core";
 import { Home } from "@material-ui/icons";
 import { useMutation, useQuery } from "@apollo/client";
@@ -49,6 +50,8 @@ import { addApolloState, initializeApollo } from "lib/client";
 import { getSemesterTextFromId } from "lib/format";
 import { useUser } from "lib/session";
 import NotFound from "pages/404";
+
+const EMPTY_USER_ID = "00000000-0000-0000-0000-000000000000";
 
 const CourseDetail: React.FC = () => {
   const toast = useToast();
@@ -84,7 +87,7 @@ const CourseDetail: React.FC = () => {
     {
       variables: {
         courseId: courseId,
-        userId: user?.id ?? "",
+        userId: user?.id ?? EMPTY_USER_ID,
       },
       skip: !courseId,
     }
@@ -245,14 +248,12 @@ const CourseDetail: React.FC = () => {
           sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
           component="nav"
         >
-          <Link href="/courses">
-            <a>
-              <Tooltip title="返回搜索">
-                <IconButton>
-                  <Home />
-                </IconButton>
-              </Tooltip>
-            </a>
+          <Link href="/courses" passHref>
+            <Tooltip title="返回搜索">
+              <IconButton>
+                <Home />
+              </IconButton>
+            </Tooltip>
           </Link>
           <Box sx={{ ml: 2 }}>
             <Typography sx={{ fontWeight: "bold" }} variant="h4" component="h1">
@@ -378,16 +379,10 @@ const CourseDetail: React.FC = () => {
                 </div>
               ) : (
                 <Link
-                  href={
-                    "/auth/login" +
-                    (typeof window !== "undefined"
-                      ? `?redirect_url=${window.location.href}`
-                      : "")
-                  }
+                  href={`/auth/login?redirect_url=${router.asPath}`}
+                  passHref
                 >
-                  <a>
-                    <Button variant="contained">登录</Button>
-                  </a>
+                  <Button variant="contained">登录</Button>
                 </Link>
               )}
             </Box>
@@ -424,17 +419,19 @@ const CourseDetail: React.FC = () => {
                   {reviewed && (
                     <Review {...courseReviewData!.my_course_review!} />
                   )}
-                  {courseReviewData?.course_review.length === 0 ? (
-                    <Typography
-                      sx={{ mt: 4, textAlign: "center" }}
-                      variant="body2"
-                    >
-                      无更多评价
-                    </Typography>
-                  ) : (
-                    courseReviewData?.course_review.map((review) => (
-                      <Review key={review.user!.username} {...review} />
-                    ))
+                  {courseReviewData?.course_review.map((review) => (
+                    <Review key={review.user!.username} {...review} />
+                  ))}
+                  {!reviewed && courseReviewData?.course_review.length === 0 && (
+                    <Card sx={{ textAlign: "center", p: 6 }}>
+                      <Typography
+                        sx={{ fontStyle: "italic" }}
+                        variant="subtitle1"
+                        component="div"
+                      >
+                        无更多评价
+                      </Typography>
+                    </Card>
                   )}
                 </Stack>
               )}
@@ -512,7 +509,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       query: GET_COURSE_REVIEWS,
       variables: {
         courseId: params.id as string,
-        userId: "00000000-0000-0000-0000-000000000000",
+        userId: EMPTY_USER_ID,
       },
     });
   }
