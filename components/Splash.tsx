@@ -15,7 +15,6 @@ const Splash: React.FC = () => {
         alignItems: "center",
         position: "relative",
         zIndex: 999,
-        backgroundColor: theme.palette.background.default,
       }}
     >
       <Typography
