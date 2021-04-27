@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
-import { Stack, Tooltip, Typography } from "@material-ui/core";
-import { ArrowBack, PersonAdd } from "@material-ui/icons";
+import { Stack, Tooltip } from "@material-ui/core";
 import { useUser } from "lib/session";
 import MyFab from "./Fab";
 import MyAvatar from "./Avatar";
@@ -71,13 +70,6 @@ const Layout: React.FC = ({ children }) => {
         )}
       </Stack>
       {children}
-      <Typography
-        sx={{ textAlign: "center", my: 2 }}
-        variant="caption"
-        component="footer"
-      >
-        © 2021 Rui Ying
-      </Typography>
     </>
   );
 };
