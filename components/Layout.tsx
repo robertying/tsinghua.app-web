@@ -53,7 +53,11 @@ const Layout: React.FC = ({ children }) => {
         )}
         {!isProfile && !isAuth && !authLoading && !user && (
           <Tooltip title="登录">
-            <MyFab onClick={() => router.push("/auth/login")}>
+            <MyFab
+              onClick={() =>
+                router.push(`/auth/login?redirect_url=${router.asPath}`)
+              }
+            >
               <PersonAdd />
             </MyFab>
           </Tooltip>
