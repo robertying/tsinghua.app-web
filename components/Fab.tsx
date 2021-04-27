@@ -3,7 +3,7 @@ import { Fab, FabProps, useMediaQuery } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import Portal from "./Portal";
 
-const MyFab: React.FC<
+const InternalFab: React.FC<
   FabProps & {
     forwardedRef: React.Ref<HTMLButtonElement>;
   }
@@ -25,6 +25,8 @@ const MyFab: React.FC<
   );
 };
 
-export default forwardRef<HTMLButtonElement, FabProps>((props, ref) => (
-  <MyFab {...props} forwardedRef={ref} />
+const MyFab = forwardRef<HTMLButtonElement, FabProps>((props, ref) => (
+  <InternalFab {...props} forwardedRef={ref} />
 ));
+
+export default MyFab;
