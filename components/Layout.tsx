@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { Stack, Tooltip } from "@material-ui/core";
+import { ArrowBack, PersonAdd } from "@material-ui/icons";
 import { useUser } from "lib/session";
 import MyFab from "./Fab";
 import MyAvatar from "./Avatar";
