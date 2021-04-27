@@ -1,5 +1,6 @@
 :root {
   --primary-color: #9c27b0;
+  color-scheme: light dark;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -13,12 +14,12 @@ a:hover {
   text-decoration: none;
 }
 
-a:not(.MuiButtonBase-root):not(.MuiPaper-root),
-a:not(.MuiButtonBase-root):not(.MuiPaper-root):hover {
+a:not(.MuiButtonBase-root):not(.MuiButton-root):not(.MuiPaper-root),
+a:not(.MuiButtonBase-root):not(.MuiButton-root):not(.MuiPaper-root):hover {
   color: var(--primary-color);
 }
 
-a:not(.MuiButtonBase-root):not(.MuiPaper-root):hover {
+a:not(.MuiButtonBase-root):not(.MuiButton-root):not(.MuiPaper-root):hover {
   text-decoration: underline;
 }
 

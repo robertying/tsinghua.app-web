@@ -17,7 +17,6 @@ const githubSanitizeSchema = require("hast-util-sanitize/lib/github");
 export const markdownToHtml = async (markdownString: string) => {
   const file = await unified()
     .use(markdown)
-    .use(breaks)
     .use(externalLinks, { target: "_blank", rel: ["noopener", "noreferrer"] })
     .use(remark2rehype, { allowDangerousHtml: true })
     .use(raw)

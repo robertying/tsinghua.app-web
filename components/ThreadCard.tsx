@@ -52,9 +52,9 @@ const ThreadCard: React.FC<ThreadCardProps> = (props) => {
                 alt={props.user!.username ?? undefined}
                 size="small"
               />
-              {props.posts.map((post) => (
+              {props.posts.map((post, index) => (
                 <MyAvatar
-                  key={post.user!.username}
+                  key={index}
                   src={post.user!.avatar_url ?? undefined}
                   alt={post.user!.username ?? undefined}
                   size="small"

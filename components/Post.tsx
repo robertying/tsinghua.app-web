@@ -146,7 +146,7 @@ const Post: React.FC<PostProps> = (props) => {
           )
         }
       />
-      <CardContent sx={{ py: 0 }}>
+      <CardContent sx={{ pt: 0, pb: 1 }}>
         <Typography component="article" className="markdown-body">
           {loading ? "加载中……" : renderedContent}
         </Typography>
