@@ -36,7 +36,7 @@ import { useUser } from "lib/session";
 import { getOSS } from "lib/oss";
 import { markdownToReact } from "lib/markdown";
 import NotFound from "pages/404";
-import { GET_THREAD_BY_ID, UPDATE_THREAD } from "api/thread";
+import { GET_THREAD, UPDATE_THREAD } from "api/thread";
 import {
   AddPost,
   AddPostReaction,
@@ -48,9 +48,8 @@ import {
   DeletePostReactionVariables,
   DeleteThreadReaction,
   DeleteThreadReactionVariables,
-  GetThreadById,
-  GetThreadByIdVariables,
-  GetThreadById_thread_public_posts,
+  GetThread,
+  GetThreadVariables,
   GetThreadReactions,
   GetThreadReactionsVariables,
   reaction_emoji_enum,
@@ -58,6 +57,7 @@ import {
   UpdatePostVariables,
   UpdateThread,
   UpdateThreadVariables,
+  GetThread_thread_by_pk_posts,
 } from "api/types";
 import { ADD_POST, UPDATE_POST } from "api/post";
 import {
@@ -97,13 +97,13 @@ const Thread: React.FC = () => {
     error: threadError,
     loading: threadLoading,
     refetch: refetchThread,
-  } = useQuery<GetThreadById, GetThreadByIdVariables>(GET_THREAD_BY_ID, {
+  } = useQuery<GetThread, GetThreadVariables>(GET_THREAD, {
     variables: {
       id: threadId ? parseInt(threadId, 10) : 0,
     },
     skip: !threadId,
   });
-  const thread = threadData?.thread_public[0]!;
+  const thread = threadData?.thread_by_pk!;
 
   const {
     data: threadReactionData,
@@ -118,7 +118,7 @@ const Thread: React.FC = () => {
       skip: !threadId || !user?.id,
     }
   );
-  const threadReactions = threadReactionData?.thread_public[0];
+  const threadReactions = threadReactionData?.thread_by_pk;
 
   const [
     updateThread,
@@ -355,7 +355,7 @@ const Thread: React.FC = () => {
     handleThreadDialogOpen();
   };
 
-  const handleEditPost = async (post: GetThreadById_thread_public_posts) => {
+  const handleEditPost = async (post: GetThread_thread_by_pk_posts) => {
     setEditingPostId(post.id);
     setContent(post.content ?? "");
     handlePostDialogOpen();

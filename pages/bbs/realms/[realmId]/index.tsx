@@ -31,7 +31,7 @@ import { Add, Refresh, Settings } from "@material-ui/icons";
 import { v4 as uuid } from "uuid";
 import {
   ADD_REALM,
-  GET_REALM_BY_ID,
+  GET_REALM,
   GET_REALM_DETAILS_INVITATION_CODE,
   UPDATE_REALM,
 } from "api/realm";
@@ -42,8 +42,8 @@ import {
   AddRealmVariables,
   AddThread,
   AddThreadVariables,
-  GetRealmById,
-  GetRealmByIdVariables,
+  GetRealm,
+  GetRealmVariables,
   GetRealmDetailsInvitationCode,
   GetRealmDetailsInvitationCodeVariables,
   GetUserRealms,
@@ -101,13 +101,13 @@ const Realm: React.FC = () => {
     error: realmError,
     loading: realmLoading,
     refetch: refetchRealm,
-  } = useQuery<GetRealmById, GetRealmByIdVariables>(GET_REALM_BY_ID, {
+  } = useQuery<GetRealm, GetRealmVariables>(GET_REALM, {
     variables: {
       id: realmId ? parseInt(realmId, 10) : 0,
     },
     skip: !realmId,
   });
-  const realm = realmData?.realm_public?.[0]!;
+  const realm = realmData?.realm_by_pk!;
   const { data: realmDetailsData, refetch: refetchRealmDetails } = useQuery<
     GetRealmDetailsInvitationCode,
     GetRealmDetailsInvitationCodeVariables
@@ -498,7 +498,7 @@ const Realm: React.FC = () => {
           }}
           spacing={1}
         >
-          {realm.threads_public.length === 0 ? (
+          {realm.threads.length === 0 ? (
             <Card sx={{ textAlign: "center", p: 6 }}>
               <Typography
                 sx={{ fontStyle: "italic" }}
@@ -509,7 +509,7 @@ const Realm: React.FC = () => {
               </Typography>
             </Card>
           ) : (
-            realm.threads_public.map((thread) => (
+            realm.threads.map((thread) => (
               <ThreadCard key={thread.id} {...thread} />
             ))
           )}

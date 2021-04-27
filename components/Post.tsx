@@ -14,23 +14,23 @@ import { Edit, MoreVert } from "@material-ui/icons";
 import dayjs from "dayjs";
 import { markdownToReact } from "lib/markdown";
 import {
-  GetThreadById_thread_public,
-  GetThreadById_thread_public_posts,
-  GetThreadReactions_thread_public,
-  GetThreadReactions_thread_public_my_reactions,
-  GetThreadReactions_thread_public_posts,
-  GetThreadReactions_thread_public_posts_my_reactions,
+  GetThread_thread_by_pk,
+  GetThread_thread_by_pk_posts,
+  GetThreadReactions_thread_by_pk,
+  GetThreadReactions_thread_by_pk_posts,
+  GetThreadReactions_thread_by_pk_my_reactions,
+  GetThreadReactions_thread_by_pk_posts_my_reactions,
   reaction_emoji_enum,
 } from "api/types";
 import MyAvatar from "./Avatar";
 import ReactionSelect from "./ReactionSelect";
 
 export type PostProps = (
-  | Omit<GetThreadById_thread_public, "posts">
-  | GetThreadById_thread_public_posts
-  | (Omit<GetThreadById_thread_public, "posts"> &
-      Omit<GetThreadReactions_thread_public, "posts">)
-  | (GetThreadById_thread_public_posts & GetThreadReactions_thread_public_posts)
+  | Omit<GetThread_thread_by_pk, "posts">
+  | GetThread_thread_by_pk_posts
+  | (Omit<GetThread_thread_by_pk, "posts"> &
+      Omit<GetThreadReactions_thread_by_pk, "posts">)
+  | (GetThread_thread_by_pk_posts & GetThreadReactions_thread_by_pk_posts)
 ) & {
   onReact?: (
     target: "thread" | "post",
@@ -59,8 +59,8 @@ const getReactions = (values: PostProps) => {
 const getMyReactions = (values: PostProps) => {
   if ("my_reactions" in values) {
     return (values.my_reactions as (
-      | GetThreadReactions_thread_public_my_reactions
-      | GetThreadReactions_thread_public_posts_my_reactions
+      | GetThreadReactions_thread_by_pk_my_reactions
+      | GetThreadReactions_thread_by_pk_posts_my_reactions
     )[]).reduce((prev, curr) => {
       return {
         ...prev,
@@ -102,7 +102,7 @@ const Post: React.FC<PostProps> = (props) => {
 
   return (
     <Card
-      id={props.__typename === "post_public" ? `post-${props.id}` : undefined}
+      id={props.__typename === "realm_post" ? `post-${props.id}` : undefined}
     >
       <CardHeader
         avatar={
@@ -163,7 +163,7 @@ const Post: React.FC<PostProps> = (props) => {
             myReactions={getMyReactions(props)}
             onReact={(name, action) =>
               props.onReact?.(
-                props.__typename === "thread_public" ? "thread" : "post",
+                props.__typename === "realm_post" ? "thread" : "post",
                 name,
                 action
               )
