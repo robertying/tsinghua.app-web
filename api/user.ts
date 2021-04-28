@@ -44,6 +44,20 @@ export const GET_USER_REALMS = gql`
   }
 `;
 
+export const GET_REALM_USER_DETAILS = gql`
+  query GetRealmUserDetails($realmId: Int!, $userId: uuid!) {
+    realm_user_union(
+      where: { realm_id: { _eq: $realmId }, user_id: { _eq: $userId } }
+    ) {
+      realm_id
+      user_id
+      username
+      status
+      avatar_url
+    }
+  }
+`;
+
 export const ADD_OR_UPDATE_USER = gql`
   mutation AddOrUpdateUser($universityId: String!, $email: String!) {
     insert_user_one(

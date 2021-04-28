@@ -278,6 +278,115 @@ export interface GetCourseCountVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: GetMessageContacts
+// ====================================================
+
+export interface GetMessageContacts_message_from_user {
+  __typename: "realm_user_union";
+  realm_id: number | null;
+  user_id: uuid | null;
+  username: string | null;
+  avatar_url: string | null;
+}
+
+export interface GetMessageContacts_message_to_user {
+  __typename: "realm_user_union";
+  realm_id: number | null;
+  user_id: uuid | null;
+  username: string | null;
+  avatar_url: string | null;
+}
+
+export interface GetMessageContacts_message {
+  __typename: "message";
+  id: uuid;
+  /**
+   * An object relationship
+   */
+  from_user: GetMessageContacts_message_from_user | null;
+  /**
+   * An object relationship
+   */
+  to_user: GetMessageContacts_message_to_user | null;
+}
+
+export interface GetMessageContacts {
+  /**
+   * fetch data from the table: "message"
+   */
+  message: GetMessageContacts_message[];
+}
+
+export interface GetMessageContactsVariables {
+  realmId: number;
+  userId: uuid;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: GetMessages
+// ====================================================
+
+export interface GetMessages_message {
+  __typename: "message";
+  id: uuid;
+  from_user_id: uuid;
+  to_user_id: uuid;
+  text: string;
+  created_at: timestamptz;
+}
+
+export interface GetMessages {
+  /**
+   * fetch data from the table: "message"
+   */
+  message: GetMessages_message[];
+}
+
+export interface GetMessagesVariables {
+  realmId: number;
+  userId1: uuid;
+  userId2: uuid;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: AddMessage
+// ====================================================
+
+export interface AddMessage_insert_message_one {
+  __typename: "message";
+  id: uuid;
+}
+
+export interface AddMessage {
+  /**
+   * insert a single row into the table: "message"
+   */
+  insert_message_one: AddMessage_insert_message_one | null;
+}
+
+export interface AddMessageVariables {
+  realmId: number;
+  fromUserId: uuid;
+  toUserId: uuid;
+  text: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: AddPost
 // ====================================================
 
@@ -1207,6 +1316,36 @@ export interface GetUserRealmsVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: GetRealmUserDetails
+// ====================================================
+
+export interface GetRealmUserDetails_realm_user_union {
+  __typename: "realm_user_union";
+  realm_id: number | null;
+  user_id: uuid | null;
+  username: string | null;
+  status: string | null;
+  avatar_url: string | null;
+}
+
+export interface GetRealmUserDetails {
+  /**
+   * fetch data from the table: "realm_user_union"
+   */
+  realm_user_union: GetRealmUserDetails_realm_user_union[];
+}
+
+export interface GetRealmUserDetailsVariables {
+  realmId: number;
+  userId: uuid;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: AddOrUpdateUser
 // ====================================================
 
@@ -1782,6 +1921,7 @@ export interface realm_post_bool_exp {
   id?: Int_comparison_exp | null;
   reactions?: post_reaction_bool_exp | null;
   realm_id?: Int_comparison_exp | null;
+  thread?: thread_bool_exp | null;
   thread_id?: Int_comparison_exp | null;
   updated_at?: timestamptz_comparison_exp | null;
   user?: realm_user_union_bool_exp | null;
@@ -1797,6 +1937,7 @@ export interface realm_post_insert_input {
   id?: number | null;
   reactions?: post_reaction_arr_rel_insert_input | null;
   realm_id?: number | null;
+  thread?: thread_obj_rel_insert_input | null;
   thread_id?: number | null;
   updated_at?: timestamptz | null;
   user?: realm_user_union_obj_rel_insert_input | null;

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { Stack, Tooltip } from "@material-ui/core";
-import { ArrowBack, PersonAdd } from "@material-ui/icons";
+import { ArrowBack, Chat, PersonAdd } from "@material-ui/icons";
 import { useUser } from "lib/session";
 import MyFab from "./Fab";
 import MyAvatar from "./Avatar";
@@ -10,6 +10,7 @@ const Layout: React.FC = ({ children }) => {
   const realmId = router.query.realmId ?? 1;
   const isAuth = router.pathname.startsWith("/auth");
   const isProfile = router.pathname.endsWith("/profile");
+  const isMessages = router.pathname.endsWith("/messages");
 
   const [user, authLoading] = useUser();
 
@@ -51,6 +52,21 @@ const Layout: React.FC = ({ children }) => {
             </MyFab>
           </Tooltip>
         )}
+        {!isMessages && !authLoading && user && (
+          <Tooltip title="消息">
+            <MyFab
+              sx={{
+                "& > .MuiFab-label": {
+                  width: "100%",
+                  height: "100%",
+                },
+              }}
+              onClick={() => router.push(`/bbs/realms/${realmId}/messages`)}
+            >
+              <Chat />
+            </MyFab>
+          </Tooltip>
+        )}
         {!isProfile && !isAuth && !authLoading && !user && (
           <Tooltip title="登录">
             <MyFab
@@ -62,7 +78,7 @@ const Layout: React.FC = ({ children }) => {
             </MyFab>
           </Tooltip>
         )}
-        {(isProfile || isAuth) && (
+        {(isProfile || isAuth || isMessages) && (
           <Tooltip title="返回">
             <MyFab onClick={() => router.back()}>
               <ArrowBack />
