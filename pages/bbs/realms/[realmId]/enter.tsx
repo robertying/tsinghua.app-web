@@ -137,7 +137,7 @@ const RealmEnter: React.FC = () => {
               <Switch
                 color="primary"
                 checked={isAdmin}
-                onChange={(e, checked) => setIsAdmin(checked)}
+                onChange={(e) => setIsAdmin(e.target.checked)}
               />
             }
             label="我是管理员"

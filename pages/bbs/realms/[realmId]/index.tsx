@@ -662,7 +662,7 @@ const Realm: React.FC = () => {
                   <Switch
                     color="primary"
                     checked={realmPrivate}
-                    onChange={(e, checked) => setRealmPrivate(checked)}
+                    onChange={(e) => setRealmPrivate(e.target.checked)}
                   />
                 }
                 label="私有领域"
