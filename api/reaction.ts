@@ -5,6 +5,8 @@ export const GET_THREAD_REACTIONS = gql`
     thread_by_pk(id: $threadId) {
       id
       my_reactions: reactions(where: { user_id: { _eq: $userId } }) {
+        thread_id
+        user_id
         name
       }
       confused_face_reactions: reactions_aggregate(
@@ -62,6 +64,8 @@ export const GET_THREAD_REACTIONS = gql`
       posts(order_by: { created_at: asc }) {
         id
         my_reactions: reactions(where: { user_id: { _eq: $userId } }) {
+          post_id
+          user_id
           name
         }
         confused_face_reactions: reactions_aggregate(

@@ -163,7 +163,7 @@ const Post: React.FC<PostProps> = (props) => {
             myReactions={getMyReactions(props)}
             onReact={(name, action) =>
               props.onReact?.(
-                props.__typename === "realm_post" ? "thread" : "post",
+                props.__typename === "thread" ? "thread" : "post",
                 name,
                 action
               )
