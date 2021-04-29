@@ -39,10 +39,7 @@ export default async function handleEvents(
     return res.status(401).send("Unauthorized");
   }
 
-  const payload = req.body.payload;
-  if (!payload) {
-    return res.status(422).end();
-  }
+  const payload = req.body;
 
   try {
     switch (payload.trigger) {
