@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import {
   Card,
   CardActions,
@@ -7,12 +8,12 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Tooltip,
   Typography,
 } from "@material-ui/core";
-import { Edit, MoreVert } from "@material-ui/icons";
+import { Edit, MessageOutlined, MoreVert } from "@material-ui/icons";
 import dayjs from "dayjs";
 import { markdownToReact } from "lib/markdown";
+import { useUser } from "lib/session";
 import {
   GetThread_thread_by_pk,
   GetThread_thread_by_pk_posts,
@@ -71,6 +72,9 @@ const getMyReactions = (values: PostProps) => {
 };
 
 const Post: React.FC<PostProps> = (props) => {
+  const router = useRouter();
+  const [user] = useUser();
+
   const [loading, setLoading] = useState(true);
   const [
     renderedContent,
@@ -115,35 +119,47 @@ const Post: React.FC<PostProps> = (props) => {
         title={props.user?.username}
         subheader={props.user?.status}
         action={
-          props.onEdit && (
-            <>
-              <Tooltip title="更多操作" placement="left">
-                <IconButton onClick={handleMoreMenuOpen}>
-                  <MoreVert />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                anchorEl={menuButton}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={menuButton ? true : false}
-                onClose={handleMoreMenuClose}
-              >
+          <>
+            <IconButton onClick={handleMoreMenuOpen}>
+              <MoreVert />
+            </IconButton>
+            <Menu
+              anchorEl={menuButton}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={menuButton ? true : false}
+              onClose={handleMoreMenuClose}
+            >
+              {user && user.id !== props.user?.user_id && (
+                <MenuItem
+                  onClick={() =>
+                    router.push(
+                      `/bbs/realms/${props.user?.realm_id}/messages?user_id=${props.user?.user_id}`
+                    )
+                  }
+                >
+                  <MessageOutlined />
+                  <Typography sx={{ ml: 1 }} component="span">
+                    发消息
+                  </Typography>
+                </MenuItem>
+              )}
+              {props.onEdit && (
                 <MenuItem onClick={handleEditClick}>
                   <Edit />
                   <Typography sx={{ ml: 1 }} component="span">
                     编辑
                   </Typography>
                 </MenuItem>
-              </Menu>
-            </>
-          )
+              )}
+            </Menu>
+          </>
         }
       />
       <CardContent sx={{ pt: 0, pb: 1 }}>
