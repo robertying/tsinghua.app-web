@@ -30,6 +30,23 @@ export const GET_MESSAGE_CONTACTS = gql`
   }
 `;
 
+export const GET_MESSAGE = gql`
+  query GetMessage($id: uuid!) {
+    message_by_pk(id: $id) {
+      id
+      from_user {
+        realm {
+          id
+          name
+        }
+        realm_id
+        user_id
+        username
+      }
+    }
+  }
+`;
+
 export const GET_MESSAGES = gql`
   query GetMessages($realmId: Int!, $userId1: uuid!, $userId2: uuid!) {
     message(

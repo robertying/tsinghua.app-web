@@ -328,6 +328,52 @@ export interface GetMessageContactsVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: GetMessage
+// ====================================================
+
+export interface GetMessage_message_by_pk_from_user_realm {
+  __typename: "realm";
+  id: number;
+  name: string;
+}
+
+export interface GetMessage_message_by_pk_from_user {
+  __typename: "realm_user_union";
+  /**
+   * An object relationship
+   */
+  realm: GetMessage_message_by_pk_from_user_realm | null;
+  realm_id: number | null;
+  user_id: uuid | null;
+  username: string | null;
+}
+
+export interface GetMessage_message_by_pk {
+  __typename: "message";
+  id: uuid;
+  /**
+   * An object relationship
+   */
+  from_user: GetMessage_message_by_pk_from_user | null;
+}
+
+export interface GetMessage {
+  /**
+   * fetch data from the table: "message" using primary key columns
+   */
+  message_by_pk: GetMessage_message_by_pk | null;
+}
+
+export interface GetMessageVariables {
+  id: uuid;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: GetMessages
 // ====================================================
 
@@ -379,6 +425,97 @@ export interface AddMessageVariables {
   fromUserId: uuid;
   toUserId: uuid;
   text: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: AddNotification
+// ====================================================
+
+export interface AddNotification_insert_notification_one {
+  __typename: "notification";
+  id: uuid;
+}
+
+export interface AddNotification {
+  /**
+   * insert a single row into the table: "notification"
+   */
+  insert_notification_one: AddNotification_insert_notification_one | null;
+}
+
+export interface AddNotificationVariables {
+  payload: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: GetPost
+// ====================================================
+
+export interface GetPost_realm_post_user {
+  __typename: "realm_user_union";
+  realm_id: number | null;
+  user_id: uuid | null;
+  username: string | null;
+}
+
+export interface GetPost_realm_post_thread_realm {
+  __typename: "realm";
+  id: number;
+  name: string;
+}
+
+export interface GetPost_realm_post_thread_topic {
+  __typename: "topic";
+  id: number;
+  name: string;
+}
+
+export interface GetPost_realm_post_thread {
+  __typename: "thread";
+  id: number;
+  /**
+   * An object relationship
+   */
+  realm: GetPost_realm_post_thread_realm;
+  /**
+   * An object relationship
+   */
+  topic: GetPost_realm_post_thread_topic | null;
+  title: string;
+}
+
+export interface GetPost_realm_post {
+  __typename: "realm_post";
+  id: number | null;
+  /**
+   * An object relationship
+   */
+  user: GetPost_realm_post_user | null;
+  /**
+   * An object relationship
+   */
+  thread: GetPost_realm_post_thread | null;
+}
+
+export interface GetPost {
+  /**
+   * fetch data from the table: "realm_post"
+   */
+  realm_post: GetPost_realm_post[];
+}
+
+export interface GetPostVariables {
+  id: number;
 }
 
 /* tslint:disable */
@@ -445,6 +582,8 @@ export interface UpdatePostVariables {
 
 export interface GetThreadReactions_thread_by_pk_my_reactions {
   __typename: "thread_reaction";
+  thread_id: number;
+  user_id: uuid;
   name: reaction_emoji_enum;
 }
 
@@ -530,6 +669,8 @@ export interface GetThreadReactions_thread_by_pk_thumbs_up_reactions {
 
 export interface GetThreadReactions_thread_by_pk_posts_my_reactions {
   __typename: "post_reaction";
+  post_id: number;
+  user_id: uuid;
   name: reaction_emoji_enum;
 }
 
