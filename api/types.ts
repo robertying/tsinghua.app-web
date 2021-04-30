@@ -442,6 +442,64 @@ export interface AddMessageVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: GetNotifications
+// ====================================================
+
+export interface GetNotifications_notification {
+  __typename: "notification";
+  id: uuid;
+  payload: string;
+  read: boolean;
+  created_at: timestamptz;
+}
+
+export interface GetNotifications {
+  /**
+   * fetch data from the table: "notification"
+   */
+  notification: GetNotifications_notification[];
+}
+
+export interface GetNotificationsVariables {
+  userId: uuid;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: GetNewNotificationCount
+// ====================================================
+
+export interface GetNewNotificationCount_notification_aggregate_aggregate {
+  __typename: "notification_aggregate_fields";
+  count: number;
+}
+
+export interface GetNewNotificationCount_notification_aggregate {
+  __typename: "notification_aggregate";
+  aggregate: GetNewNotificationCount_notification_aggregate_aggregate | null;
+}
+
+export interface GetNewNotificationCount {
+  /**
+   * fetch aggregated fields from the table: "notification"
+   */
+  notification_aggregate: GetNewNotificationCount_notification_aggregate;
+}
+
+export interface GetNewNotificationCountVariables {
+  userId: uuid;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: AddNotification
 // ====================================================
 
@@ -460,6 +518,31 @@ export interface AddNotification {
 export interface AddNotificationVariables {
   userId: uuid;
   payload: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: MarkNotificationAsRead
+// ====================================================
+
+export interface MarkNotificationAsRead_update_notification_by_pk {
+  __typename: "notification";
+  id: uuid;
+}
+
+export interface MarkNotificationAsRead {
+  /**
+   * update single row of the table: "notification"
+   */
+  update_notification_by_pk: MarkNotificationAsRead_update_notification_by_pk | null;
+}
+
+export interface MarkNotificationAsReadVariables {
+  id: uuid;
 }
 
 /* tslint:disable */
