@@ -2,6 +2,7 @@ import "@primer/css/dist/markdown.css";
 import "katex/dist/katex.css";
 import React, { useEffect, useState } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
 import { useMutation, useQuery } from "@apollo/client";
@@ -75,6 +76,7 @@ const Realm: React.FC = () => {
   const [user, authLoading] = useUser();
 
   const realmId = router.query.realmId as string | undefined;
+  const topicId = router.query.topic as string | undefined;
 
   const [threadDialogOpen, setThreadDialogOpen] = useState(false);
   const [topic, setTopic] = useState("");
@@ -505,15 +507,35 @@ const Realm: React.FC = () => {
           {realm.description}
         </Typography>
         <Stack
-          sx={{ width: "100%", mt: 6 }}
+          sx={{ width: "100%", mt: 4 }}
           direction="row"
           justifyContent="space-between"
           alignItems="center"
         >
           <Stack direction="row" spacing={1}>
-            <Chip label="全部" />
+            <Link href={`/bbs/realms/${realmId}`} passHref>
+              <Chip
+                label="全部"
+                variant={topicId ? "outlined" : "filled"}
+                clickable
+                component="a"
+              />
+            </Link>
             {realm.topics.map((topic) => (
-              <Chip key={topic.id} label={topic.name} />
+              <Link
+                key={topic.id}
+                href={`/bbs/realms/${realmId}?topic=${topic.id}`}
+                passHref
+              >
+                <Chip
+                  label={topic.name}
+                  variant={
+                    topicId === topic.id.toString() ? "filled" : "outlined"
+                  }
+                  clickable
+                  component="a"
+                />
+              </Link>
             ))}
           </Stack>
         </Stack>
@@ -535,9 +557,11 @@ const Realm: React.FC = () => {
               </Typography>
             </Card>
           ) : (
-            realm.threads.map((thread) => (
-              <ThreadCard key={thread.id} {...thread} />
-            ))
+            realm.threads
+              .filter((thread) =>
+                topicId ? thread.topic?.id.toString() === topicId : true
+              )
+              .map((thread) => <ThreadCard key={thread.id} {...thread} />)
           )}
         </Stack>
         <MyDialog

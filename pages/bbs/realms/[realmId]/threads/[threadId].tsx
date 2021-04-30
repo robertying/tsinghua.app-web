@@ -439,7 +439,19 @@ const Thread: React.FC = () => {
             alignItems: "center",
           }}
         >
-          {thread.topic && <Chip sx={{ mr: 1 }} label={thread.topic!.name} />}
+          {thread.topic && (
+            <Link
+              href={`/bbs/realms/${realmId}?topic=${thread.topic.id}`}
+              passHref
+            >
+              <Chip
+                sx={{ mr: 1 }}
+                label={thread.topic!.name}
+                clickable
+                component="a"
+              />
+            </Link>
+          )}
           <Typography variant="h5" component="h1">
             {thread.title}
           </Typography>
