@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@apollo/client": "3.3.15",
-    "@babel/core": "7.13.16",
+    "@babel/core": "7.14.0",
     "@emotion/babel-plugin": "11.3.0",
     "@emotion/react": "11.1.5",
     "@emotion/styled": "11.3.0",
@@ -36,7 +36,7 @@
     "@typescript-eslint/eslint-plugin": "4.22.0",
     "@typescript-eslint/parser": "4.22.0",
     "ali-oss": "6.15.2",
-    "apollo": "2.32.10",
+    "apollo": "2.32.11",
     "axios": "0.21.1",
     "babel-eslint": "10.1.0",
     "babel-plugin-graphql-tag": "3.2.0",
