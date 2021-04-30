@@ -42,7 +42,7 @@ export default async function handleEvents(
   const payload = req.body;
 
   try {
-    switch (payload.trigger) {
+    switch (payload.trigger.name) {
       case "thread_has_new_post":
         const postId = payload.event.data.new.id;
         const postData = await getPost(postId);
