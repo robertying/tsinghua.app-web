@@ -96,7 +96,7 @@ const Layout: React.FC = ({ children }) => {
                   height: "100%",
                 },
               }}
-              onClick={() => router.push(`/bbs/notifications`)}
+              onClick={() => router.push(`/notifications`)}
             >
               <Badge
                 color="primary"

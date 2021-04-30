@@ -86,7 +86,7 @@ const Notifications: React.FC = () => {
 
   return (
     <>
-      <NextSeo title={` - 用户信息`} />
+      <NextSeo title="通知" />
       <Container
         sx={{
           py: 10,
@@ -95,7 +95,7 @@ const Notifications: React.FC = () => {
       >
         <Stack direction="column" spacing={1.5}>
           {notifications.map((n) => (
-            <Notification {...n} />
+            <Notification key={n.id} {...n} />
           ))}
         </Stack>
       </Container>
