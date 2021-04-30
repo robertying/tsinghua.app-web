@@ -51,6 +51,10 @@ export const GET_REALM_USER_DETAILS = gql`
     ) {
       realm_id
       user_id
+      realm {
+        id
+        name
+      }
       username
       status
       avatar_url

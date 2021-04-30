@@ -432,9 +432,16 @@ const Realm: React.FC = () => {
     return <NotFound />;
   }
 
+  const topicName = topicId
+    ? realm.topics.find((t) => t.id.toString() === topicId)?.name
+    : undefined;
+
   return (
     <>
-      <NextSeo title={realm.name!} description={realm.description!} />
+      <NextSeo
+        title={topicName ? `${topicName} - ${realm.name!}` : realm.name!}
+        description={realm.description!}
+      />
       <Container
         sx={{
           py: 8,

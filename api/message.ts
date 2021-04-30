@@ -16,12 +16,20 @@ export const GET_MESSAGE_CONTACTS = gql`
       id
       from_user {
         realm_id
+        realm {
+          id
+          name
+        }
         user_id
         username
         avatar_url
       }
       to_user {
         realm_id
+        realm {
+          id
+          name
+        }
         user_id
         username
         avatar_url

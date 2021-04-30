@@ -31,11 +31,12 @@ import {
   AddMessageVariables,
   GetMessageContacts,
   GetMessageContactsVariables,
-  GetMessageContacts_message_to_user,
+  GetMessageContacts_message_from_user,
   GetMessages,
   GetMessagesVariables,
   GetRealmUserDetails,
   GetRealmUserDetailsVariables,
+  GetRealmUserDetails_realm_user_union,
 } from "api/types";
 import MyAvatar from "components/Avatar";
 import MessageBubble from "components/MessageBubble";
@@ -72,7 +73,11 @@ const RealmMessages: React.FC = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedContactIndex, setSelectedContactIndex] = useState(0);
   const [selectedContact, setSelectedContact] = useState<
-    GetMessageContacts_message_to_user | undefined
+    | (
+        | GetRealmUserDetails_realm_user_union
+        | GetMessageContacts_message_from_user
+      )
+    | undefined
   >(undefined);
   const [text, setText] = useState("");
 
@@ -233,7 +238,13 @@ const RealmMessages: React.FC = () => {
 
   return (
     <>
-      <NextSeo title={`- 消息 - `} />
+      <NextSeo
+        title={
+          selectedContact
+            ? `${selectedContact.username} - 消息 - ${selectedContact.realm?.name}`
+            : "消息"
+        }
+      />
       <Container
         sx={{
           pt: 8,

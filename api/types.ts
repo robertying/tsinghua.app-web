@@ -281,17 +281,37 @@ export interface GetCourseCountVariables {
 // GraphQL query operation: GetMessageContacts
 // ====================================================
 
+export interface GetMessageContacts_message_from_user_realm {
+  __typename: "realm";
+  id: number;
+  name: string;
+}
+
 export interface GetMessageContacts_message_from_user {
   __typename: "realm_user_union";
   realm_id: number | null;
+  /**
+   * An object relationship
+   */
+  realm: GetMessageContacts_message_from_user_realm | null;
   user_id: uuid | null;
   username: string | null;
   avatar_url: string | null;
 }
 
+export interface GetMessageContacts_message_to_user_realm {
+  __typename: "realm";
+  id: number;
+  name: string;
+}
+
 export interface GetMessageContacts_message_to_user {
   __typename: "realm_user_union";
   realm_id: number | null;
+  /**
+   * An object relationship
+   */
+  realm: GetMessageContacts_message_to_user_realm | null;
   user_id: uuid | null;
   username: string | null;
   avatar_url: string | null;
@@ -1563,10 +1583,20 @@ export interface GetUserRealmsVariables {
 // GraphQL query operation: GetRealmUserDetails
 // ====================================================
 
+export interface GetRealmUserDetails_realm_user_union_realm {
+  __typename: "realm";
+  id: number;
+  name: string;
+}
+
 export interface GetRealmUserDetails_realm_user_union {
   __typename: "realm_user_union";
   realm_id: number | null;
   user_id: uuid | null;
+  /**
+   * An object relationship
+   */
+  realm: GetRealmUserDetails_realm_user_union_realm | null;
   username: string | null;
   status: string | null;
   avatar_url: string | null;

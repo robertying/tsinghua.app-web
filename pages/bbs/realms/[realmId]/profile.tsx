@@ -260,7 +260,7 @@ const RealmProfile: React.FC = () => {
 
   return (
     <>
-      <NextSeo title={`${user!.username} - 用户信息`} />
+      <NextSeo title={`${user.username} - 用户信息 - ${user.realmName}`} />
       <Container
         sx={{
           py: 8,
