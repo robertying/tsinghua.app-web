@@ -57,9 +57,7 @@ export default async function handleEvents(
         };
         await addNotification(
           post.thread?.user?.user_id!,
-          JSON.stringify({
-            threadNotification,
-          })
+          JSON.stringify(threadNotification)
         );
         break;
       case "new_message":
@@ -75,9 +73,7 @@ export default async function handleEvents(
         };
         await addNotification(
           message?.to_user?.user_id!,
-          JSON.stringify({
-            messageNotification,
-          })
+          JSON.stringify(messageNotification)
         );
         break;
       default:
