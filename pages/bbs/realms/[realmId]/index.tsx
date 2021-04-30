@@ -15,8 +15,10 @@ import {
   Dialog,
   DialogActions,
   DialogTitle,
+  Divider,
   FormControlLabel,
   IconButton,
+  Menu,
   MenuItem,
   Select,
   Stack,
@@ -27,7 +29,7 @@ import {
   Tooltip,
   Typography,
 } from "@material-ui/core";
-import { Add, Refresh, Settings } from "@material-ui/icons";
+import { Add, Refresh, Settings, SwapHoriz } from "@material-ui/icons";
 import { v4 as uuid } from "uuid";
 import {
   ADD_REALM,
@@ -74,7 +76,6 @@ const Realm: React.FC = () => {
 
   const realmId = router.query.realmId as string | undefined;
 
-  const [selectedRealmId, setSelectedRealmId] = useState("");
   const [threadDialogOpen, setThreadDialogOpen] = useState(false);
   const [topic, setTopic] = useState("");
   const [title, setTitle] = useState("");
@@ -95,6 +96,9 @@ const Realm: React.FC = () => {
   const [editingRealm, setEditingRealm] = useState(false);
   const [topicDialogOpen, setTopicDialogOpen] = useState(false);
   const [newTopic, setNewTopic] = useState("");
+  const [switchButton, setSwitchButton] = useState<HTMLButtonElement | null>(
+    null
+  );
 
   const {
     data: realmData,
@@ -142,10 +146,8 @@ const Realm: React.FC = () => {
     { error: updateRealmError, loading: updateRealmLoading },
   ] = useMutation<UpdateRealm, UpdateRealmVariables>(UPDATE_REALM);
 
-  const handleChangeRealm = (e: React.ChangeEvent<{ value: string }>) => {
-    setSelectedRealmId("");
-
-    router.push(`/bbs/realms/${e.target.value}`);
+  const handleChangeRealm = (id: number) => {
+    router.push(`/bbs/realms/${id}`);
   };
 
   const handleThreadDialogOpen = () => {
@@ -365,6 +367,14 @@ const Realm: React.FC = () => {
     handleRealmDialogClose({});
   };
 
+  const handleSwitchMenuOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setSwitchButton(e.currentTarget);
+  };
+
+  const handleSwitchMenuClose = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setSwitchButton(null);
+  };
+
   useEffect(() => {
     if (!authLoading && realm?.private) {
       if (!user) {
@@ -433,51 +443,67 @@ const Realm: React.FC = () => {
         maxWidth="sm"
       >
         {user && (
-          <Tooltip title="新帖子">
-            <MyFab onClick={handleThreadDialogOpen}>
-              <Add />
-            </MyFab>
-          </Tooltip>
-        )}
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <Typography sx={{ fontWeight: 500 }} variant="h3" component="h1">
-            {realm.name}
-          </Typography>
-          {realmDetails?.admin_id && realmDetails?.admin_id === user?.id && (
-            <Tooltip title="领域设置" placement="right">
-              <IconButton onClick={handleRealmEdit}>
-                <Settings />
-              </IconButton>
+          <>
+            <Tooltip title="切换领域">
+              <MyFab onClick={handleSwitchMenuOpen}>
+                <SwapHoriz />
+              </MyFab>
             </Tooltip>
-          )}
-        </Stack>
-        <Typography sx={{ mt: 1 }} variant="body1" component="h2">
-          {realm.description}
-        </Typography>
-        {user && (
-          <Stack sx={{ mt: 2 }} direction="row" alignItems="center">
-            <Select
-              size="small"
-              displayEmpty
-              value={selectedRealmId}
-              onChange={handleChangeRealm}
+            <Menu
+              sx={{
+                mt: 2,
+                maxHeight: "50vh",
+              }}
+              anchorEl={switchButton}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}
+              open={switchButton ? true : false}
+              onClose={handleSwitchMenuClose}
             >
-              <MenuItem disabled value="">
-                切换领域
+              {realmDetails?.admin_id && realmDetails?.admin_id === user?.id && (
+                <MenuItem button onClick={handleRealmEdit}>
+                  <Settings />
+                  <Typography sx={{ ml: 1 }} component="span">
+                    领域设置
+                  </Typography>
+                </MenuItem>
+              )}
+              <MenuItem button onClick={handleRealmDialogOpen}>
+                <Add />
+                <Typography sx={{ ml: 1 }} component="span">
+                  新领域
+                </Typography>
               </MenuItem>
+              <Divider sx={{ my: 1 }} />
               {userRealmData?.user_by_pk?.realm_users.map((r) => (
-                <MenuItem key={r.realm!.id} value={r.realm!.id!}>
+                <MenuItem
+                  key={r.realm!.id}
+                  button
+                  onClick={() => handleChangeRealm(r.realm!.id)}
+                >
                   {r.realm!.name}
                 </MenuItem>
               ))}
-            </Select>
-            <Tooltip sx={{ ml: 1 }} title="新领域" placement="right">
-              <IconButton size="small" onClick={handleRealmDialogOpen}>
+            </Menu>
+            <Tooltip title="新帖子">
+              <MyFab onClick={handleThreadDialogOpen}>
                 <Add />
-              </IconButton>
+              </MyFab>
             </Tooltip>
-          </Stack>
+          </>
         )}
+        <Typography sx={{ fontWeight: 500 }} variant="h3" component="h1">
+          {realm.name}
+        </Typography>
+        <Typography sx={{ mt: 1 }} variant="body1" component="h2">
+          {realm.description}
+        </Typography>
         <Stack
           sx={{ width: "100%", mt: 6 }}
           direction="row"
