@@ -348,6 +348,11 @@ export interface GetMessage_message_by_pk_from_user {
   username: string | null;
 }
 
+export interface GetMessage_message_by_pk_to_user {
+  __typename: "realm_user_union";
+  user_id: uuid | null;
+}
+
 export interface GetMessage_message_by_pk {
   __typename: "message";
   id: uuid;
@@ -355,6 +360,10 @@ export interface GetMessage_message_by_pk {
    * An object relationship
    */
   from_user: GetMessage_message_by_pk_from_user | null;
+  /**
+   * An object relationship
+   */
+  to_user: GetMessage_message_by_pk_to_user | null;
 }
 
 export interface GetMessage {
@@ -449,6 +458,7 @@ export interface AddNotification {
 }
 
 export interface AddNotificationVariables {
+  userId: uuid;
   payload: string;
 }
 
@@ -474,6 +484,12 @@ export interface GetPost_realm_post_thread_realm {
   name: string;
 }
 
+export interface GetPost_realm_post_thread_user {
+  __typename: "realm_user_union";
+  realm_id: number | null;
+  user_id: uuid | null;
+}
+
 export interface GetPost_realm_post_thread_topic {
   __typename: "topic";
   id: number;
@@ -487,6 +503,10 @@ export interface GetPost_realm_post_thread {
    * An object relationship
    */
   realm: GetPost_realm_post_thread_realm;
+  /**
+   * An object relationship
+   */
+  user: GetPost_realm_post_thread_user | null;
   /**
    * An object relationship
    */

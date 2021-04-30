@@ -13,10 +13,11 @@ import { ADD_NOTIFICATION } from "api/notification";
 import { GET_POST } from "api/post";
 import { GET_MESSAGE } from "api/message";
 
-const addNotification = async (payload: string) =>
+const addNotification = async (userId: uuid, payload: string) =>
   graphQLClient.request<AddNotification, AddNotificationVariables>(
     ADD_NOTIFICATION,
     {
+      userId,
       payload,
     }
   );
@@ -55,6 +56,7 @@ export default async function handleEvents(
           url: `/bbs/realms/${post.thread?.realm.id}/threads/${post.thread?.id}#post-${postId}`,
         };
         await addNotification(
+          post.thread?.user?.user_id!,
           JSON.stringify({
             threadNotification,
           })
@@ -72,6 +74,7 @@ export default async function handleEvents(
           url: `/bbs/realms/${message?.from_user?.realm?.id}/messages?user_id=${message?.from_user?.user_id}`,
         };
         await addNotification(
+          message?.to_user?.user_id!,
           JSON.stringify({
             messageNotification,
           })

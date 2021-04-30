@@ -15,6 +15,10 @@ export const GET_POST = gql`
           id
           name
         }
+        user {
+          realm_id
+          user_id
+        }
         topic {
           id
           name

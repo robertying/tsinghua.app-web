@@ -43,6 +43,9 @@ export const GET_MESSAGE = gql`
         user_id
         username
       }
+      to_user {
+        user_id
+      }
     }
   }
 `;
