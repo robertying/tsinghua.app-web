@@ -67,7 +67,7 @@ const RealmMessages: React.FC = () => {
   const [user] = useUser();
 
   const realmId = router.query.realmId as string | undefined;
-  const initialSelectedUserId = router.query.user_id as string | undefined;
+  const initialSelectedUserId = router.query.user as string | undefined;
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedContactIndex, setSelectedContactIndex] = useState(0);

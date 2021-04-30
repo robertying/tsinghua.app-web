@@ -69,7 +69,7 @@ export default async function handleEvents(
           version: 1,
           messageId,
           content: `来自 ${message?.from_user?.realm?.name} 的 ${message?.from_user?.username} 给你发送了一条消息`,
-          url: `/bbs/realms/${message?.from_user?.realm?.id}/messages?user_id=${message?.from_user?.user_id}`,
+          url: `/bbs/realms/${message?.from_user?.realm?.id}/messages?user=${message?.from_user?.user_id}`,
         };
         await addNotification(
           message?.to_user?.user_id!,
