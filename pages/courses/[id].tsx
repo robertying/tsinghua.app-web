@@ -241,7 +241,7 @@ const CourseDetail: React.FC = () => {
         description="星期四大学课程信息共享计划"
       />
       <Container
-        sx={{ display: "flex", flexDirection: "column", py: 2 }}
+        sx={{ display: "flex", flexDirection: "column", py: 8 }}
         maxWidth="sm"
       >
         <Box

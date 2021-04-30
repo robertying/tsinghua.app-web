@@ -89,7 +89,7 @@ const Notifications: React.FC = () => {
       <NextSeo title={` - 用户信息`} />
       <Container
         sx={{
-          py: 8,
+          py: 10,
         }}
         maxWidth="sm"
       >

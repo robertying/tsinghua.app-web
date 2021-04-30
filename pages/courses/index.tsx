@@ -41,7 +41,7 @@ export const CourseXHome: React.FC<CourseXHomeProps> = ({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        py: 8,
+        py: 10,
         minHeight: router.query.query ? "unset" : "100vh",
       }}
     >
@@ -80,7 +80,7 @@ export const CourseXHome: React.FC<CourseXHomeProps> = ({
         </Typography>
       )}
       <Container
-        sx={{ display: "flex", alignItems: "stretch", mt: courseCount ? 3 : 8 }}
+        sx={{ display: "flex", alignItems: "stretch", mt: courseCount ? 3 : 4 }}
         maxWidth="sm"
         component="form"
         action=""

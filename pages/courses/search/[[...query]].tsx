@@ -56,7 +56,7 @@ const CourseXSearch: React.FC = () => {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              mt: 8,
+              mt: 4,
               px: 0,
             }}
             maxWidth="sm"
