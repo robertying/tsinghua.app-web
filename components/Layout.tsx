@@ -18,6 +18,7 @@ const Layout: React.FC = ({ children }) => {
   const isProfile = router.pathname.endsWith("/profile");
   const isMessages = router.pathname.endsWith("/messages");
   const isNotifications = router.pathname.endsWith("/notifications");
+  const isBbs = router.pathname.startsWith("/bbs");
 
   const [user, authLoading] = useUser();
 
@@ -72,7 +73,7 @@ const Layout: React.FC = ({ children }) => {
             </MyFab>
           </Tooltip>
         )}
-        {!isMessages && !authLoading && user && (
+        {isBbs && !isMessages && !authLoading && user && (
           <Tooltip title="消息">
             <MyFab
               sx={{
