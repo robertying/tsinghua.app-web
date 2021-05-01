@@ -137,7 +137,7 @@ const Post: React.FC<PostProps> = (props) => {
                 open={menuButton ? true : false}
                 onClose={handleMoreMenuClose}
               >
-                {user.id !== props.user?.user_id && (
+                {user.username && user.id !== props.user?.user_id && (
                   <MenuItem
                     onClick={() =>
                       router.push(

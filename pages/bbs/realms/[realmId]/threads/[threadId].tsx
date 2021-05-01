@@ -413,8 +413,8 @@ const Thread: React.FC = () => {
             : `${thread.title} - ${thread.realm!.name}`
         }
       />
-      <Container sx={{ py: 8 }} maxWidth="sm">
-        {user && (
+      <Container sx={{ py: 10 }} maxWidth="sm">
+        {user?.username && (
           <Tooltip title="新回复">
             <MyFab onClick={handlePostDialogOpen}>
               <Add />

@@ -1,6 +1,12 @@
 import { useRouter } from "next/router";
 import { Badge, Stack, Tooltip } from "@material-ui/core";
-import { ArrowBack, Chat, PersonAdd, Notifications } from "@material-ui/icons";
+import {
+  ArrowBack,
+  Chat,
+  PersonAdd,
+  Notifications,
+  GroupAdd,
+} from "@material-ui/icons";
 import { useQuery } from "@apollo/client";
 import {
   GetNewNotificationCount,
@@ -50,29 +56,47 @@ const Layout: React.FC = ({ children }) => {
         justifyContent="flex-end"
         spacing={1}
       >
-        {!isProfile && !authLoading && user && (
-          <Tooltip title="用户信息">
-            <MyFab
-              sx={{
-                "& > .MuiFab-label": {
-                  width: "100%",
-                  height: "100%",
-                },
-              }}
-              onClick={() => router.push(`/bbs/realms/${realmId}/profile`)}
-            >
-              <MyAvatar
+        {!isProfile &&
+          !authLoading &&
+          user &&
+          (user.username ? (
+            <Tooltip title="用户信息">
+              <MyFab
                 sx={{
-                  width: "90%",
-                  height: "90%",
+                  "& > .MuiFab-label": {
+                    width: "100%",
+                    height: "100%",
+                  },
                 }}
-                src={user.avatarUrl ?? undefined}
-                alt={user.username}
-                size="medium"
-              />
-            </MyFab>
-          </Tooltip>
-        )}
+                onClick={() => router.push(`/bbs/realms/${realmId}/profile`)}
+              >
+                <MyAvatar
+                  sx={{
+                    width: "90%",
+                    height: "90%",
+                  }}
+                  src={user.avatarUrl ?? undefined}
+                  alt={user.username}
+                  size="medium"
+                />
+              </MyFab>
+            </Tooltip>
+          ) : (
+            <Tooltip title="加入领域">
+              <MyFab
+                sx={{
+                  "& > .MuiFab-label": {
+                    width: "100%",
+                    height: "100%",
+                  },
+                }}
+                color="primary"
+                onClick={() => router.push(`/bbs/realms/${realmId}/enter`)}
+              >
+                <GroupAdd />
+              </MyFab>
+            </Tooltip>
+          ))}
         {isBbs && !isMessages && !authLoading && user && (
           <Tooltip title="消息">
             <MyFab

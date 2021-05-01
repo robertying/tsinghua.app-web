@@ -26,6 +26,11 @@ export const getAccessToken = async () => {
   return accessToken;
 };
 
+export const clearSession = () => {
+  expireAt = 0;
+  accessToken = null;
+};
+
 export const useUser = () => {
   const router = useRouter();
   const realmId = router.query.realmId ?? 1;

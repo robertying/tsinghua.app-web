@@ -501,11 +501,13 @@ const Realm: React.FC = () => {
                 </MenuItem>
               ))}
             </Menu>
-            <Tooltip title="新帖子">
-              <MyFab onClick={handleThreadDialogOpen}>
-                <Add />
-              </MyFab>
-            </Tooltip>
+            {user.username && (
+              <Tooltip title="新帖子">
+                <MyFab onClick={handleThreadDialogOpen}>
+                  <Add />
+                </MyFab>
+              </Tooltip>
+            )}
           </>
         )}
         <Typography sx={{ fontWeight: 500 }} variant="h3" component="h1">

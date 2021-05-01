@@ -14,7 +14,7 @@ import {
 import { useQuery } from "@apollo/client";
 import NProgress from "nprogress";
 import axios, { AxiosError } from "axios";
-import { useUser } from "lib/session";
+import { clearSession, useUser } from "lib/session";
 import { GET_REALM_DETAILS } from "api/realm";
 import { GetRealmDetails, GetRealmDetailsVariables } from "api/types";
 import NotFound from "pages/404";
@@ -65,6 +65,7 @@ const RealmEnter: React.FC = () => {
         code,
       });
 
+      clearSession();
       router.reload();
     } catch (err) {
       const axiosError = err as AxiosError;
@@ -131,17 +132,19 @@ const RealmEnter: React.FC = () => {
           <Typography sx={{ mt: 2 }} variant="body1" component="h2">
             {realm.description}
           </Typography>
-          <FormControlLabel
-            sx={{ mt: 2, display: "block" }}
-            control={
-              <Switch
-                color="primary"
-                checked={isAdmin}
-                onChange={(e) => setIsAdmin(e.target.checked)}
-              />
-            }
-            label="我是管理员"
-          />
+          {realm.private && (
+            <FormControlLabel
+              sx={{ mt: 2, display: "block" }}
+              control={
+                <Switch
+                  color="primary"
+                  checked={isAdmin}
+                  onChange={(e) => setIsAdmin(e.target.checked)}
+                />
+              }
+              label="我是管理员"
+            />
+          )}
           {!isAdmin && realm.private && (
             <>
               <Typography sx={{ mt: 4 }} variant="caption">
