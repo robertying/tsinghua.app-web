@@ -119,47 +119,49 @@ const Post: React.FC<PostProps> = (props) => {
         title={props.user?.username}
         subheader={props.user?.status}
         action={
-          <>
-            <IconButton onClick={handleMoreMenuOpen}>
-              <MoreVert />
-            </IconButton>
-            <Menu
-              anchorEl={menuButton}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={menuButton ? true : false}
-              onClose={handleMoreMenuClose}
-            >
-              {user && user.id !== props.user?.user_id && (
-                <MenuItem
-                  onClick={() =>
-                    router.push(
-                      `/bbs/realms/${props.user?.realm_id}/messages?user_id=${props.user?.user_id}`
-                    )
-                  }
-                >
-                  <MessageOutlined />
-                  <Typography sx={{ ml: 1 }} component="span">
-                    发消息
-                  </Typography>
-                </MenuItem>
-              )}
-              {props.onEdit && (
-                <MenuItem onClick={handleEditClick}>
-                  <Edit />
-                  <Typography sx={{ ml: 1 }} component="span">
-                    编辑
-                  </Typography>
-                </MenuItem>
-              )}
-            </Menu>
-          </>
+          user && (
+            <>
+              <IconButton onClick={handleMoreMenuOpen}>
+                <MoreVert />
+              </IconButton>
+              <Menu
+                anchorEl={menuButton}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={menuButton ? true : false}
+                onClose={handleMoreMenuClose}
+              >
+                {user.id !== props.user?.user_id && (
+                  <MenuItem
+                    onClick={() =>
+                      router.push(
+                        `/bbs/realms/${props.user?.realm_id}/messages?user_id=${props.user?.user_id}`
+                      )
+                    }
+                  >
+                    <MessageOutlined />
+                    <Typography sx={{ ml: 1 }} component="span">
+                      发消息
+                    </Typography>
+                  </MenuItem>
+                )}
+                {props.onEdit && (
+                  <MenuItem onClick={handleEditClick}>
+                    <Edit />
+                    <Typography sx={{ ml: 1 }} component="span">
+                      编辑
+                    </Typography>
+                  </MenuItem>
+                )}
+              </Menu>
+            </>
+          )
         }
       />
       <CardContent sx={{ pt: 0, pb: 1 }}>
