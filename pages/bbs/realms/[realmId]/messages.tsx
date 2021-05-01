@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
 import {
@@ -70,6 +70,7 @@ const RealmMessages: React.FC = () => {
   const realmId = router.query.realmId as string | undefined;
   const initialSelectedUserId = router.query.user as string | undefined;
 
+  const containerRef = useRef<HTMLDivElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedContactIndex, setSelectedContactIndex] = useState(0);
   const [selectedContact, setSelectedContact] = useState<
@@ -156,6 +157,17 @@ const RealmMessages: React.FC = () => {
   };
 
   useEffect(() => {
+    const handleWindowResize = () => {
+      if (containerRef.current) {
+        containerRef.current.style.height = `${window.innerHeight}px`;
+      }
+    };
+    handleWindowResize();
+    window.addEventListener("resize", handleWindowResize);
+    return () => window.removeEventListener("resize", handleWindowResize);
+  }, []);
+
+  useEffect(() => {
     if (initialSelectedUserId) {
       const index = contactList.findIndex(
         (c) => c.user_id === initialSelectedUserId
@@ -213,6 +225,11 @@ const RealmMessages: React.FC = () => {
     <CircularProgress size="2rem" sx={{ mx: "auto", display: "block" }} />
   ) : (
     <List sx={{ maxWidth: "50vw" }}>
+      {contactList.length === 0 && (
+        <ListItem>
+          <ListItemText sx={{ fontStyle: "italic" }} primary="无最近联系人" />
+        </ListItem>
+      )}
       {contactList.map((c, i) => (
         <ListItem
           key={c.user_id}
@@ -246,6 +263,7 @@ const RealmMessages: React.FC = () => {
         }
       />
       <Container
+        ref={containerRef}
         sx={{
           pt: 8,
           pb: 2,
@@ -366,7 +384,24 @@ const RealmMessages: React.FC = () => {
                 </LoadingButton>
               </Stack>
             </>
-          ) : null}
+          ) : (
+            <Box
+              sx={{
+                flex: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontStyle: "italic",
+                }}
+              >
+                无更多消息
+              </Typography>
+            </Box>
+          )}
         </Box>
       </Container>
     </>
