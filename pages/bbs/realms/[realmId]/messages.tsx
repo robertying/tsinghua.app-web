@@ -102,7 +102,7 @@ const RealmMessages: React.FC = () => {
     user,
   ]);
 
-  const { data: realmUserData } = useQuery<
+  const { data: realmUserData, loading: realmUserLoading } = useQuery<
     GetRealmUserDetails,
     GetRealmUserDetailsVariables
   >(GET_REALM_USER_DETAILS, {
@@ -321,7 +321,18 @@ const RealmMessages: React.FC = () => {
             flexDirection: "column",
           }}
         >
-          {selectedContact ? (
+          {contactLoading || realmUserLoading ? (
+            <Box
+              sx={{
+                flex: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <CircularProgress size="2rem" />
+            </Box>
+          ) : selectedContact ? (
             <>
               <Stack
                 sx={{ p: 2 }}
@@ -384,24 +395,7 @@ const RealmMessages: React.FC = () => {
                 </LoadingButton>
               </Stack>
             </>
-          ) : (
-            <Box
-              sx={{
-                flex: 1,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Typography
-                sx={{
-                  fontStyle: "italic",
-                }}
-              >
-                无更多消息
-              </Typography>
-            </Box>
-          )}
+          ) : null}
         </Box>
       </Container>
     </>
