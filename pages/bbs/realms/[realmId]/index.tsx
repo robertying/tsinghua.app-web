@@ -149,6 +149,7 @@ const Realm: React.FC = () => {
   ] = useMutation<UpdateRealm, UpdateRealmVariables>(UPDATE_REALM);
 
   const handleChangeRealm = (id: number) => {
+    handleSwitchMenuClose();
     router.push(`/bbs/realms/${id}`);
   };
 
@@ -373,7 +374,7 @@ const Realm: React.FC = () => {
     setSwitchButton(e.currentTarget);
   };
 
-  const handleSwitchMenuClose = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSwitchMenuClose = () => {
     setSwitchButton(null);
   };
 
@@ -444,7 +445,7 @@ const Realm: React.FC = () => {
       />
       <Container
         sx={{
-          py: 8,
+          py: 10,
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
