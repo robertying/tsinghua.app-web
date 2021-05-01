@@ -510,7 +510,9 @@ const Thread: React.FC = () => {
               disabled
               value={thread.topic?.id}
             >
-              <MenuItem value={thread.topic?.id}>{thread.topic?.name}</MenuItem>
+              <MenuItem value={thread.topic?.id}>
+                {thread.topic?.name || "无"}
+              </MenuItem>
             </Select>
             <TextField
               sx={{ flex: 1 }}
