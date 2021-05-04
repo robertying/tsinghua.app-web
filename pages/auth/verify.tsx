@@ -113,7 +113,9 @@ const Verify: React.FC = () => {
               autoComplete="email"
               disabled
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) =>
+                setEmail(e.target.value.trim().replaceAll(" ", ""))
+              }
             />
             <TextField
               sx={{ mt: 2 }}
@@ -126,7 +128,7 @@ const Verify: React.FC = () => {
                 pattern: "[0-9]*",
               }}
               value={otp}
-              onChange={(e) => setOtp(e.target.value.substr(0, 6))}
+              onChange={(e) => setOtp(e.target.value.trim().substr(0, 6))}
             />
           </Box>
           <Box sx={{ mt: 4, display: "flex", flexDirection: "row" }}>

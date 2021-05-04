@@ -111,11 +111,11 @@ const Login: React.FC = () => {
     }
   };
 
-  const usernameUpdateRequired = user && user.username === user.id;
+  const usernameUpdateRequired = user && user.username === user.universityId;
 
   useEffect(() => {
     if (user && !usernameUpdateRequired) {
-      router.push(redirectUrl ?? "/");
+      router.push(redirectUrl || "/");
     }
   }, [redirectUrl, router, user, usernameUpdateRequired]);
 
@@ -201,7 +201,9 @@ const Login: React.FC = () => {
                 label="清华邮箱"
                 helperText="以 tsinghua.edu.cn 或 tsinghua.org.cn 结尾的邮箱地址"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) =>
+                  setEmail(e.target.value.trim().replaceAll(" ", ""))
+                }
                 error={email ? !validateEmail(email) : false}
               />
               <Typography

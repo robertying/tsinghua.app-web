@@ -30,6 +30,7 @@ import usernameBlocklist from "./username_blocklist.json";
 export interface UserProfile {
   id: uuid;
   email: string;
+  universityId: string;
   realmId?: number;
   realmName?: string;
   username?: string;
@@ -82,6 +83,7 @@ export default async function handleProfile(
         return res.send({
           id: user.id,
           email: user.email,
+          universityId: user.university_id,
           createdAt: user.created_at,
         } as UserProfile);
       }
@@ -89,6 +91,7 @@ export default async function handleProfile(
       res.send({
         id: user.id,
         email: user.email,
+        universityId: user.university_id,
         realmId: realmUser.realm!.id,
         realmName: realmUser.realm!.name,
         username: realmUser.username,
