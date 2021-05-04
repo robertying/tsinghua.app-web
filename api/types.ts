@@ -1355,6 +1355,34 @@ export interface GetSessionVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: GetSessions
+// ====================================================
+
+export interface GetSessions_session {
+  __typename: "session";
+  id: uuid;
+  description: string;
+  created_at: timestamptz;
+  active_at: timestamptz;
+}
+
+export interface GetSessions {
+  /**
+   * fetch data from the table: "session"
+   */
+  session: GetSessions_session[];
+}
+
+export interface GetSessionsVariables {
+  userId: uuid;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: AddSession
 // ====================================================
 

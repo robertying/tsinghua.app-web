@@ -12,6 +12,20 @@ export const GET_SESSION = gql`
   }
 `;
 
+export const GET_SESSIONS = gql`
+  query GetSessions($userId: uuid!) {
+    session(
+      order_by: { active_at: desc }
+      where: { user_id: { _eq: $userId } }
+    ) {
+      id
+      description
+      created_at
+      active_at
+    }
+  }
+`;
+
 export const ADD_SESSION = gql`
   mutation AddSession(
     $id: uuid!

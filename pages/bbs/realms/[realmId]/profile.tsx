@@ -9,10 +9,11 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Stack,
   TextField,
   Typography,
 } from "@material-ui/core";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
 import ReactCrop from "react-image-crop";
@@ -23,7 +24,10 @@ import Splash from "components/Splash";
 import { useUser } from "lib/session";
 import { getOSS } from "lib/oss";
 import { authenticate } from "lib/auth";
+import { getDeviceDescription } from "lib/format";
 import {
+  GetSessions,
+  GetSessionsVariables,
   UpdateRealmUserAvatar,
   UpdateRealmUserAvatarVariables,
   UpdateRealmUserStatus,
@@ -39,6 +43,7 @@ import {
   UPDATE_USER_AVATAR,
   UPDATE_USER_STATUS,
 } from "api/user";
+import { GET_SESSIONS } from "api/session";
 
 const initialCrop: ReactCrop.Crop = {
   aspect: 1,
@@ -59,6 +64,16 @@ const RealmProfile: React.FC = () => {
   const [uploadLoading, setUploadLoading] = useState(false);
   const [statusDialogOpen, setStatusDialogOpen] = useState(false);
   const [status, setStatus] = useState("");
+
+  const { data: sessionData } = useQuery<GetSessions, GetSessionsVariables>(
+    GET_SESSIONS,
+    {
+      variables: {
+        userId: user?.id!,
+      },
+      skip: !user,
+    }
+  );
 
   const [updateAvatar] = useMutation<
     UpdateUserAvatar,
@@ -81,14 +96,7 @@ const RealmProfile: React.FC = () => {
     setUploadDialogOpen(true);
   };
 
-  const handleUploadDialogClose = (
-    e: {},
-    reason?: "backdropClick" | "escapeKeyDown"
-  ) => {
-    if (reason) {
-      return;
-    }
-
+  const handleUploadDialogClose = () => {
     setUploadDialogOpen(false);
     setCrop(initialCrop);
     setImageFile(null);
@@ -174,7 +182,7 @@ const RealmProfile: React.FC = () => {
             toast("error", "上传失败");
           } else {
             refetchUser();
-            handleUploadDialogClose({});
+            handleUploadDialogClose();
             toast("success", "上传成功");
           }
         } catch (e) {
@@ -280,6 +288,10 @@ const RealmProfile: React.FC = () => {
           用户信息
         </Typography>
         <Typography variant="h5" component="h2">
+          用户名
+        </Typography>
+        <Typography variant="body1">{user.username}</Typography>
+        <Typography variant="h5" component="h2">
           头像
         </Typography>
         <MyAvatar
@@ -309,9 +321,30 @@ const RealmProfile: React.FC = () => {
           更新状态
         </Button>
         <Typography variant="h5" component="h2">
-          用户名
+          已登录设备
         </Typography>
-        <Typography variant="body1">{user.username}</Typography>
+        <Stack sx={{ mt: 2 }} direction="column" spacing={2}>
+          {sessionData?.session.map((s) => (
+            <Stack key={s.id} direction="row" alignItems="center" spacing={2}>
+              <Button>移除</Button>
+              <Stack direction="column" spacing={1}>
+                <Typography>{getDeviceDescription(s.description)}</Typography>
+                <Typography variant="caption">{`活跃于 ${dayjs(
+                  s.active_at
+                ).fromNow()}；登录于 ${dayjs(
+                  s.created_at
+                ).fromNow()}`}</Typography>
+              </Stack>
+            </Stack>
+          ))}
+        </Stack>
+        <Typography
+          sx={{ fontStyle: "italic", mt: 2 }}
+          variant="caption"
+          component="div"
+        >
+          设备信息可能不准确
+        </Typography>
         <Typography variant="h5" component="h2">
           邮箱
         </Typography>
