@@ -58,7 +58,7 @@ export default async function handleSession(
     });
     res.send({
       accessToken,
-      expireAt: Math.floor(new Date().getTime() / 1000) + 1 * 60 * 60,
+      expireAt: Math.floor(new Date().getTime() / 1000) + 1 * 60 * 60, // 1h
     } as Session);
   } catch (e) {
     return res.status(401).send("Unauthorized");

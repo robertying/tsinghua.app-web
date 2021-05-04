@@ -82,14 +82,14 @@ export default async function handleToken(
       });
       nookies.set({ res }, SESSION_ID_COOKIE_NAME, sessionId, {
         httpOnly: true,
-        maxAge: 89 * 24 * 60 * 60, // 89d
+        maxAge: 179 * 24 * 60 * 60, // 179d
         path: "/",
         sameSite: "Strict",
         secure: process.env.NODE_ENV === "production" ? true : false,
       });
       nookies.set({ res }, REFRESH_TOKEN_COOKIE_NAME, refreshToken, {
         httpOnly: true,
-        maxAge: 89 * 24 * 60 * 60, // 89d
+        maxAge: 179 * 24 * 60 * 60, // 179d
         path: "/",
         sameSite: "Strict",
         secure: process.env.NODE_ENV === "production" ? true : false,

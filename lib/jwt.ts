@@ -26,7 +26,7 @@ export const encodeRefreshToken = (user: {
       process.env.AUTH_REFRESH_TOKEN_SECRET!,
       {
         algorithm: "HS512",
-        expiresIn: "90d",
+        expiresIn: "180d",
       },
       (err, encoded) => {
         if (err || !encoded) {

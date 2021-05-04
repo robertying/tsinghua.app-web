@@ -38,7 +38,7 @@ export default async function handleSts(
     const policy = generatePolicy(tempFolder);
 
     client
-      .assumeRole(process.env.OSS_ROLE_ARN!, policy, 15 * 60)
+      .assumeRole(process.env.OSS_ROLE_ARN!, policy, 15 * 60 /* 15m */)
       .then((result: any) => {
         res.status(200).json({
           AccessKeyId: result.credentials.AccessKeyId,
