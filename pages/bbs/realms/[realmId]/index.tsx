@@ -157,14 +157,7 @@ const Realm: React.FC = () => {
     setThreadDialogOpen(true);
   };
 
-  const handleThreadDialogClose = (
-    event: {},
-    reason?: "backdropClick" | "escapeKeyDown"
-  ) => {
-    if (reason) {
-      return;
-    }
-
+  const handleThreadDialogClose = () => {
     setThreadDialogOpen(false);
     setImageUploading(false);
     setTopic("");
@@ -252,7 +245,7 @@ const Realm: React.FC = () => {
       },
     });
 
-    handleThreadDialogClose({});
+    handleThreadDialogClose();
     toast("success", "帖子发表成功");
     await refetchRealm({
       id: realm!.id!,
@@ -263,14 +256,7 @@ const Realm: React.FC = () => {
     setRealmDialogOpen(true);
   };
 
-  const handleRealmDialogClose = (
-    event: {},
-    reason?: "backdropClick" | "escapeKeyDown"
-  ) => {
-    if (reason) {
-      return;
-    }
-
+  const handleRealmDialogClose = () => {
     setRealmDialogOpen(false);
     setRealmName("");
     setRealmDescription("");
@@ -367,7 +353,7 @@ const Realm: React.FC = () => {
       }, 1000);
     }
 
-    handleRealmDialogClose({});
+    handleRealmDialogClose();
   };
 
   const handleSwitchMenuOpen = (e: React.MouseEvent<HTMLButtonElement>) => {

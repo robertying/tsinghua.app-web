@@ -154,14 +154,7 @@ const Thread: React.FC = () => {
     setThreadDialogOpen(true);
   };
 
-  const handleThreadDialogClose = (
-    event: {},
-    reason?: "backdropClick" | "escapeKeyDown"
-  ) => {
-    if (reason) {
-      return;
-    }
-
+  const handleThreadDialogClose = () => {
     setThreadDialogOpen(false);
     setImageUploading(false);
     setTitle("");
@@ -175,14 +168,7 @@ const Thread: React.FC = () => {
     setPostDialogOpen(true);
   };
 
-  const handlePostDialogClose = (
-    event: {},
-    reason?: "backdropClick" | "escapeKeyDown"
-  ) => {
-    if (reason) {
-      return;
-    }
-
+  const handlePostDialogClose = () => {
     setEditingPostId(null);
     setPostDialogOpen(false);
     setImageUploading(false);
@@ -263,7 +249,7 @@ const Thread: React.FC = () => {
       },
     });
 
-    handleThreadDialogClose({});
+    handleThreadDialogClose();
     toast("success", "帖子编辑成功");
     await refetchThread();
   };
@@ -296,7 +282,7 @@ const Thread: React.FC = () => {
       newPostId && router.replace(router.asPath + `#post-${newPostId}`);
     }
 
-    handlePostDialogClose({});
+    handlePostDialogClose();
     await refetchThread({
       id: thread?.id!,
     });
