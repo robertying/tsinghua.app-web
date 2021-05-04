@@ -10,11 +10,11 @@ import { GET_COURSE_COUNT } from "api/course";
 
 const CURRENT_SEMESTER_ID = "2020-2021-2";
 
-interface CourseXHomeProps {
+interface CourseHomeProps {
   courseCount?: number | null;
 }
 
-export const CourseXHome: React.FC<CourseXHomeProps> = ({
+export const CourseHome: React.FC<CourseHomeProps> = ({
   children,
   courseCount,
 }) => {
@@ -106,19 +106,19 @@ export const CourseXHome: React.FC<CourseXHomeProps> = ({
   );
 };
 
-const CourseXHomeWithSeo: React.FC<CourseXHomeProps> = (props) => (
+const CourseHomeWithSeo: React.FC<CourseHomeProps> = (props) => (
   <>
     <NextSeo
       title="课程信息共享计划 courseX"
       description="星期四大学课程信息共享计划"
     />
-    <CourseXHome {...props} />
+    <CourseHome {...props} />
   </>
 );
 
-export default CourseXHomeWithSeo;
+export default CourseHomeWithSeo;
 
-export const getStaticProps: GetStaticProps<CourseXHomeProps> = async () => {
+export const getStaticProps: GetStaticProps<CourseHomeProps> = async () => {
   const client = initializeApollo();
 
   let courseCount: number | null = null;
@@ -140,6 +140,6 @@ export const getStaticProps: GetStaticProps<CourseXHomeProps> = async () => {
     props: {
       courseCount,
     },
-    revalidate: 60,
+    revalidate: 1 * 60 * 60, // 1h
   };
 };

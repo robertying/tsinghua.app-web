@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -14,34 +13,25 @@ import {
   TableRow,
   Typography,
 } from "@material-ui/core";
-import { CourseXHome } from "pages/courses";
-import { useToast } from "components/Snackbar";
+import { CourseHome } from "pages/courses";
 import { getSemesterTextFromId } from "lib/format";
 import { addApolloState, initializeApollo } from "lib/client";
 import { GET_COURSES } from "api/course";
 import { GetCourses, GetCoursesVariables } from "api/types";
 
-const CourseXSearch: React.FC = () => {
-  const toast = useToast();
-
+const CourseSearch: React.FC = () => {
   const router = useRouter();
-  const query = router.query.query?.[0] as string;
+  const query = router.query.query?.[0] as string | undefined;
 
-  const { data: courseData, error: courseError } = useQuery<
-    GetCourses,
-    GetCoursesVariables
-  >(GET_COURSES, {
-    variables: {
-      query: `%${query}%`,
-    },
-    skip: !query,
-  });
-
-  useEffect(() => {
-    if (courseError) {
-      toast("error", "课程加载失败");
+  const { data: courseData } = useQuery<GetCourses, GetCoursesVariables>(
+    GET_COURSES,
+    {
+      variables: {
+        query: `%${query}%`,
+      },
+      skip: !query,
     }
-  }, [courseError, toast]);
+  );
 
   return (
     <>
@@ -49,7 +39,7 @@ const CourseXSearch: React.FC = () => {
         title={query ? `${query} - 搜索 - courseX` : "搜索 - courseX"}
         description="星期四大学课程信息共享计划"
       />
-      <CourseXHome>
+      <CourseHome>
         {query && (
           <Container
             sx={{
@@ -62,7 +52,7 @@ const CourseXSearch: React.FC = () => {
             maxWidth="sm"
           >
             {router.isFallback ? (
-              <CircularProgress size="2rem" />
+              <CircularProgress size="1.5rem" />
             ) : courseData?.course.length === 0 ? (
               <Typography variant="body1">未找到相关课程</Typography>
             ) : (
@@ -103,7 +93,7 @@ const CourseXSearch: React.FC = () => {
             )}
           </Container>
         )}
-      </CourseXHome>
+      </CourseHome>
     </>
   );
 };
@@ -133,4 +123,4 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   });
 };
 
-export default CourseXSearch;
+export default CourseSearch;

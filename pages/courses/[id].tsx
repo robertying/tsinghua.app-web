@@ -57,25 +57,28 @@ const CourseDetail: React.FC = () => {
   const toast = useToast();
 
   const router = useRouter();
-  const courseId = router.query.id as string;
+  const courseId = router.query.id as string | undefined;
 
   const [user, authLoading] = useUser();
+
+  const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
+  const [deleteReviewDialogOpen, setDeleteReviewDialogOpen] = useState(false);
+  const [rating, setRating] = useState<number | null>(null);
+  const [content, setContent] = useState("");
 
   const { data: courseData, refetch: refetchCourse } = useQuery<
     GetCourse,
     GetCourseVariables
   >(GET_COURSE, {
     variables: {
-      id: courseId,
+      id: courseId!,
     },
     skip: !courseId,
   });
   const course = courseData?.course_by_pk;
-
-  const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
-  const [deleteReviewDialogOpen, setDeleteReviewDialogOpen] = useState(false);
-  const [rating, setRating] = useState<number | null>(null);
-  const [content, setContent] = useState("");
+  const courseTimeAndLocations = (course
+    ? JSON.parse(course.time_location)
+    : []) as string[];
 
   const {
     data: courseReviewData,
@@ -86,44 +89,53 @@ const CourseDetail: React.FC = () => {
     GET_COURSE_REVIEWS,
     {
       variables: {
-        courseId: courseId,
+        courseId: courseId!,
         userId: user?.id ?? EMPTY_USER_ID,
       },
       skip: !courseId,
     }
   );
+  const courseReviews = courseReviewData?.course_review;
+  const myCourseReview = courseReviewData?.my_course_review;
 
   const [
     addCourseReview,
-    { data: addCourseReviewData, error: addCourseReviewError },
+    {
+      data: addCourseReviewData,
+      error: addCourseReviewError,
+      loading: addCourseReviewLoading,
+    },
   ] = useMutation<AddCourseReview, AddCourseReviewVariables>(ADD_COURSE_REVIEW);
   const [
     updateCourseReview,
-    { data: updateCourseReviewData, error: updateCourseReviewError },
+    {
+      data: updateCourseReviewData,
+      error: updateCourseReviewError,
+      loading: updateCourseReviewLoading,
+    },
   ] = useMutation<UpdateCourseReview, UpdateCourseReviewVariables>(
     UPDATE_COURSE_REVIEW
   );
   const [
     deleteCourseReview,
-    { data: deleteCourseReviewData, error: deleteCourseReviewError },
+    {
+      data: deleteCourseReviewData,
+      error: deleteCourseReviewError,
+      loading: deleteCourseReviewLoading,
+    },
   ] = useMutation<DeleteCourseReview, DeleteCourseReviewVariables>(
     DELETE_COURSE_REVIEW
   );
-  const reviewed = courseReviewData && courseReviewData.my_course_review;
 
   const handleReviewDialogOpen = () => {
-    if (reviewed) {
-      setRating(courseReviewData!.my_course_review!.rating);
-      setContent(courseReviewData!.my_course_review!.content);
+    if (myCourseReview) {
+      setRating(myCourseReview.rating);
+      setContent(myCourseReview.content);
     }
     setReviewDialogOpen(true);
   };
 
-  const handleReviewDialogClose = (e?: any, reason?: string) => {
-    if (reason) {
-      return;
-    }
-
+  const handleReviewDialogClose = () => {
     setReviewDialogOpen(false);
     setRating(null);
     setContent("");
@@ -135,11 +147,9 @@ const CourseDetail: React.FC = () => {
 
   const handleDeleteReviewDialogClose = () => {
     setDeleteReviewDialogOpen(false);
-    setRating(null);
-    setContent("");
   };
 
-  const handleDeleteReview = () => {
+  const handleReviewDelete = () => {
     deleteCourseReview({
       variables: {
         courseId: course!.id,
@@ -148,13 +158,13 @@ const CourseDetail: React.FC = () => {
     });
   };
 
-  const handleSubmitReview = () => {
+  const handleReviewSubmit = () => {
     if (!rating) {
       toast("info", "请先打分");
       return;
     }
 
-    if (!reviewed) {
+    if (!myCourseReview) {
       addCourseReview({
         variables: {
           courseId: course!.id,
@@ -174,6 +184,12 @@ const CourseDetail: React.FC = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (courseReviewError) {
+      toast("error", "评价获取失败");
+    }
+  }, [courseReviewError, toast]);
 
   useEffect(() => {
     if (addCourseReviewData) {
@@ -219,12 +235,6 @@ const CourseDetail: React.FC = () => {
       toast("error", "评价删除失败");
     }
   }, [deleteCourseReviewError, toast]);
-
-  useEffect(() => {
-    if (courseReviewError) {
-      toast("error", "评价获取失败");
-    }
-  }, [courseReviewError, toast]);
 
   if (router.isFallback) {
     return <Splash />;
@@ -299,13 +309,13 @@ const CourseDetail: React.FC = () => {
               {course.teacher.name}
             </Typography>
           </section>
-          {(JSON.parse(course.time_location) as string[]).length > 0 && (
+          {courseTimeAndLocations.length > 0 && (
             <section>
               <Typography variant="h6" component="h5">
                 时间 / 地点
               </Typography>
               <ul>
-                {(JSON.parse(course.time_location) as string[]).map((i) => (
+                {courseTimeAndLocations.map((i) => (
                   <li key={i}>{i}</li>
                 ))}
               </ul>
@@ -332,51 +342,25 @@ const CourseDetail: React.FC = () => {
               </Typography>
               {authLoading ? (
                 <CircularProgress size="1.5rem" />
-              ) : user?.id ? (
-                <div>
-                  {reviewed && (
-                    <>
-                      <Button
-                        sx={{ mr: 1 }}
-                        variant="outlined"
-                        size="small"
-                        onClick={handleDeleteReviewDialogOpen}
-                      >
-                        删除评价
-                      </Button>
-                      <Dialog
-                        fullWidth
-                        open={deleteReviewDialogOpen}
-                        onClose={handleDeleteReviewDialogClose}
-                      >
-                        <DialogTitle>删除此条评价？</DialogTitle>
-                        <DialogContent>
-                          <DialogContentText>
-                            此操作不可撤销。
-                          </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                          <Button
-                            onClick={handleDeleteReviewDialogClose}
-                            color="primary"
-                          >
-                            取消
-                          </Button>
-                          <Button onClick={handleDeleteReview} color="primary">
-                            确定
-                          </Button>
-                        </DialogActions>
-                      </Dialog>
-                    </>
+              ) : user ? (
+                <Stack direction="row" spacing={1}>
+                  {myCourseReview && (
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      onClick={handleDeleteReviewDialogOpen}
+                    >
+                      删除评价
+                    </Button>
                   )}
                   <Button
                     variant="outlined"
                     size="small"
                     onClick={handleReviewDialogOpen}
                   >
-                    {reviewed ? "更新评价" : "撰写评价"}
+                    {myCourseReview ? "更新评价" : "撰写评价"}
                   </Button>
-                </div>
+                </Stack>
               ) : (
                 <Link
                   href={`/auth/login?redirect_url=${router.asPath}`}
@@ -413,26 +397,25 @@ const CourseDetail: React.FC = () => {
               }}
             >
               {courseReviewLoading ? (
-                <CircularProgress sx={{ alignSelf: "center" }} size="2rem" />
+                <CircularProgress sx={{ alignSelf: "center" }} size="1.5rem" />
               ) : (
                 <Stack direction="column" spacing={1}>
-                  {reviewed && (
-                    <Review {...courseReviewData!.my_course_review!} />
-                  )}
-                  {courseReviewData?.course_review.map((review) => (
-                    <Review key={review.user!.username} {...review} />
+                  {myCourseReview && <Review {...myCourseReview!} />}
+                  {courseReviews?.map((review) => (
+                    <Review key={review.id} {...review} />
                   ))}
-                  {!reviewed && courseReviewData?.course_review.length === 0 && (
-                    <Card sx={{ textAlign: "center", p: 6 }}>
-                      <Typography
-                        sx={{ fontStyle: "italic" }}
-                        variant="subtitle1"
-                        component="div"
-                      >
-                        无更多评价
-                      </Typography>
-                    </Card>
-                  )}
+                  {!myCourseReview &&
+                    (!courseReviews || courseReviews.length === 0) && (
+                      <Card sx={{ textAlign: "center", p: 6 }}>
+                        <Typography
+                          sx={{ fontStyle: "italic" }}
+                          variant="subtitle1"
+                          component="div"
+                        >
+                          无更多评价
+                        </Typography>
+                      </Card>
+                    )}
                 </Stack>
               )}
             </Box>
@@ -441,9 +424,10 @@ const CourseDetail: React.FC = () => {
         <MyDialog
           open={reviewDialogOpen}
           onClose={handleReviewDialogClose}
-          title={reviewed ? "更新评价" : "新评价"}
-          okText={reviewed ? "更新" : "发布"}
-          onOk={handleSubmitReview}
+          title={myCourseReview ? "更新评价" : "新评价"}
+          okText={myCourseReview ? "更新" : "发布"}
+          onOk={handleReviewSubmit}
+          okLoading={addCourseReviewLoading || updateCourseReviewLoading}
         >
           <Typography variant="subtitle1" component="p">
             {getSemesterTextFromId(course.semester_id)}
@@ -473,6 +457,7 @@ const CourseDetail: React.FC = () => {
           <TextField
             sx={{ my: 2 }}
             minRows={5}
+            maxRows={10}
             fullWidth
             multiline
             value={content}
@@ -480,6 +465,24 @@ const CourseDetail: React.FC = () => {
             placeholder="可选"
           />
         </MyDialog>
+        <Dialog
+          fullWidth
+          open={deleteReviewDialogOpen}
+          onClose={handleDeleteReviewDialogClose}
+        >
+          <DialogTitle>删除此条评价？</DialogTitle>
+          <DialogContent>
+            <DialogContentText>此操作不可撤销。</DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleDeleteReviewDialogClose}>取消</Button>
+            {deleteCourseReviewLoading ? (
+              <CircularProgress sx={{ mr: 1 }} size="1.5rem" />
+            ) : (
+              <Button onClick={handleReviewDelete}>确定</Button>
+            )}
+          </DialogActions>
+        </Dialog>
       </Container>
     </>
   );
