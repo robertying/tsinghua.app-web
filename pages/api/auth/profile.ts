@@ -9,11 +9,14 @@ import {
   UPDATE_USERNAME,
 } from "api/user";
 import { GET_REALM_DETAILS_INVITATION_CODE } from "api/realm";
+import { GET_SESSION } from "api/session";
 import {
   GetRealmDetailsInvitationCode,
   GetRealmDetailsInvitationCodeVariables,
   GetRealmUserByUsername,
   GetRealmUserByUsernameVariables,
+  GetSession,
+  GetSessionVariables,
   GetUser,
   GetUserVariables,
   UpdateRealmUsername,
@@ -21,7 +24,7 @@ import {
   UpdateUsername,
   UpdateUsernameVariables,
 } from "api/types";
-import { REFRESH_TOKEN_COOKIE_NAME } from "./token";
+import { REFRESH_TOKEN_COOKIE_NAME, SESSION_ID_COOKIE_NAME } from "./token";
 import usernameBlocklist from "./username_blocklist.json";
 
 export interface UserProfile {
@@ -50,13 +53,26 @@ export default async function handleProfile(
     }
 
     try {
-      const { id: userId } = await verify(token, "refresh");
+      const { id: userId, sessionId } = await verify(token, "refresh");
 
-      const response = await graphQLClient.request<GetUser, GetUserVariables>(
+      const sessionData = await graphQLClient.request<
+        GetSession,
+        GetSessionVariables
+      >(GET_SESSION, { id: sessionId, activeAt: new Date().toISOString() });
+      if (
+        !sessionData.update_session_by_pk ||
+        sessionData.update_session_by_pk.user_id !== userId
+      ) {
+        nookies.destroy({ res }, SESSION_ID_COOKIE_NAME, { path: "/" });
+        nookies.destroy({ res }, REFRESH_TOKEN_COOKIE_NAME, { path: "/" });
+        return res.status(401).send("Unauthorized");
+      }
+
+      const userData = await graphQLClient.request<GetUser, GetUserVariables>(
         GET_USER,
         { userId, realmId }
       );
-      const user = response.user_by_pk!;
+      const user = userData.user_by_pk!;
       if (!user) {
         return res.status(403).send("Access denied");
       }
@@ -102,7 +118,23 @@ export default async function handleProfile(
     }
 
     try {
-      const { id: userId, universityId } = await verify(token, "refresh");
+      const { id: userId, sessionId, universityId } = await verify(
+        token,
+        "refresh"
+      );
+
+      const sessionData = await graphQLClient.request<
+        GetSession,
+        GetSessionVariables
+      >(GET_SESSION, { id: sessionId, activeAt: new Date().toISOString() });
+      if (
+        !sessionData.update_session_by_pk ||
+        sessionData.update_session_by_pk.user_id !== userId
+      ) {
+        nookies.destroy({ res }, SESSION_ID_COOKIE_NAME, { path: "/" });
+        nookies.destroy({ res }, REFRESH_TOKEN_COOKIE_NAME, { path: "/" });
+        return res.status(401).send("Unauthorized");
+      }
 
       if (universityId === username) {
         return res.status(409).send("Invalid username");

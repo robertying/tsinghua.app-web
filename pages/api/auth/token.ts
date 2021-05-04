@@ -1,12 +1,21 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nookies from "nookies";
+import { v4 as uuid } from "uuid";
 import totp from "lib/totp";
 import { validateEmail } from "lib/validate";
 import { encodeRefreshToken } from "lib/jwt";
 import { graphQLClient } from "lib/client";
 import { ADD_OR_UPDATE_USER } from "api/user";
-import { AddOrUpdateUser, AddOrUpdateUserVariables } from "api/types";
+import { ADD_SESSION } from "api/session";
+import {
+  AddOrUpdateUser,
+  AddOrUpdateUserVariables,
+  AddSession,
+  AddSessionVariables,
+} from "api/types";
 
+export const SESSION_ID_COOKIE_NAME =
+  process.env.NODE_ENV === "production" ? "__Host-session_id" : "session_id";
 export const REFRESH_TOKEN_COOKIE_NAME =
   process.env.NODE_ENV === "production"
     ? "__Host-refresh_token"
@@ -30,6 +39,10 @@ export default async function handleToken(
   if (otp.toString().length !== 6) {
     return res.status(422).send("Invalid otp");
   }
+  const ua = req.body.ua ?? req.headers["user-agent"];
+  if (!ua) {
+    return res.status(422).send("Missing user agent");
+  }
 
   try {
     const valid = await totp.check(otp, email + process.env.AUTH_TOTP_SECRET!);
@@ -41,23 +54,42 @@ export default async function handleToken(
     const universityId = email.split("@")[0];
 
     try {
-      const data = await graphQLClient.request<
+      const userData = await graphQLClient.request<
         AddOrUpdateUser,
         AddOrUpdateUserVariables
       >(ADD_OR_UPDATE_USER, {
         universityId,
         email,
       });
-      const user = data.insert_user_one!;
+      const user = userData.insert_user_one!;
+
+      const sessionData = await graphQLClient.request<
+        AddSession,
+        AddSessionVariables
+      >(ADD_SESSION, {
+        id: req.cookies[SESSION_ID_COOKIE_NAME] || uuid(),
+        userId: user.id,
+        description: ua,
+        activeAt: new Date().toISOString(),
+      });
+      const sessionId = sessionData.insert_session_one!.id;
 
       const refreshToken = await encodeRefreshToken({
         id: user.id,
         universityId: user.university_id,
         email: user.email,
+        sessionId,
+      });
+      nookies.set({ res }, SESSION_ID_COOKIE_NAME, sessionId, {
+        httpOnly: true,
+        maxAge: 89 * 24 * 60 * 60, // 89d
+        path: "/",
+        sameSite: "Strict",
+        secure: process.env.NODE_ENV === "production" ? true : false,
       });
       nookies.set({ res }, REFRESH_TOKEN_COOKIE_NAME, refreshToken, {
         httpOnly: true,
-        maxAge: 90 * 24 * 60 * 60,
+        maxAge: 89 * 24 * 60 * 60, // 89d
         path: "/",
         sameSite: "Strict",
         secure: process.env.NODE_ENV === "production" ? true : false,

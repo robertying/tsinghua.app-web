@@ -1328,6 +1328,61 @@ export interface UpdateRealmVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: GetSession
+// ====================================================
+
+export interface GetSession_update_session_by_pk {
+  __typename: "session";
+  id: uuid;
+  user_id: uuid;
+}
+
+export interface GetSession {
+  /**
+   * update single row of the table: "session"
+   */
+  update_session_by_pk: GetSession_update_session_by_pk | null;
+}
+
+export interface GetSessionVariables {
+  id: uuid;
+  activeAt: timestamptz;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: AddSession
+// ====================================================
+
+export interface AddSession_insert_session_one {
+  __typename: "session";
+  id: uuid;
+}
+
+export interface AddSession {
+  /**
+   * insert a single row into the table: "session"
+   */
+  insert_session_one: AddSession_insert_session_one | null;
+}
+
+export interface AddSessionVariables {
+  id: uuid;
+  userId: uuid;
+  description: string;
+  activeAt?: timestamptz | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: GetThread
 // ====================================================
 

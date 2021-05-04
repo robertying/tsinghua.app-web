@@ -4,6 +4,7 @@ export interface JwtPayload {
   id: uuid;
   universityId: string;
   email: string;
+  sessionId: uuid;
   iat: number;
   exp: number;
 }
@@ -12,6 +13,7 @@ export const encodeRefreshToken = (user: {
   id: uuid;
   universityId: string;
   email: string;
+  sessionId: uuid;
 }) => {
   return new Promise<string>((resolve, reject) => {
     jwt.sign(
@@ -19,6 +21,7 @@ export const encodeRefreshToken = (user: {
         id: user.id,
         universityId: user.universityId,
         email: user.email,
+        sessionId: user.sessionId,
       },
       process.env.AUTH_REFRESH_TOKEN_SECRET!,
       {
