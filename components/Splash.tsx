@@ -1,4 +1,5 @@
-import { Box, Typography } from "@material-ui/core";
+import Image from "next/image";
+import { Box } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 
 const Splash: React.FC = () => {
@@ -17,15 +18,29 @@ const Splash: React.FC = () => {
         zIndex: 999,
       }}
     >
-      <Typography
-        sx={{
-          fontWeight: "300",
-          fontSize: "8rem",
-          color: theme.palette.primary.main,
-        }}
-      >
-        X
-      </Typography>
+      {theme.palette.mode === "dark" ? (
+        <Image
+          css={{
+            borderRadius: 16,
+          }}
+          alt="logo"
+          src="/logo-dark.png"
+          width={80}
+          height={80}
+          priority
+        />
+      ) : (
+        <Image
+          css={{
+            borderRadius: 16,
+          }}
+          alt="logo"
+          src="/logo-light.png"
+          width={80}
+          height={80}
+          priority
+        />
+      )}
     </Box>
   );
 };
