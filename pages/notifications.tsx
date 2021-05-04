@@ -1,14 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
 import {
   Badge,
   Card,
   CardActionArea,
+  CircularProgress,
   Container,
   Stack,
   Typography,
 } from "@material-ui/core";
+import { LoadingButton } from "@material-ui/lab";
 import { useMutation, useQuery } from "@apollo/client";
 import dayjs from "dayjs";
 import { GET_NOTIFICATIONS, MARK_NOTIFICATION_AS_READ } from "api/notification";
@@ -21,10 +24,11 @@ import {
 } from "api/types";
 import { NotificationPayload } from "lib/notification";
 import { useUser } from "lib/session";
+import { useToast } from "components/Snackbar";
 
-interface NotificationProps extends GetNotifications_notification {}
-
-const Notification: React.FC<NotificationProps> = (notification) => {
+const Notification: React.FC<GetNotifications_notification> = (
+  notification
+) => {
   const payload = JSON.parse(notification.payload) as NotificationPayload;
 
   return (
@@ -49,16 +53,24 @@ const Notification: React.FC<NotificationProps> = (notification) => {
 };
 
 const Notifications: React.FC = () => {
-  const [user] = useUser();
+  const router = useRouter();
+  const toast = useToast();
 
-  const { data: notificationData, refetch: refetchNotifications } = useQuery<
-    GetNotifications,
-    GetNotificationsVariables
-  >(GET_NOTIFICATIONS, {
+  const [user, authLoading] = useUser();
+
+  const [markLoading, setMarkLoading] = useState(false);
+
+  const {
+    data: notificationData,
+    error: notificationError,
+    loading: notificationLoading,
+    refetch: refetchNotifications,
+  } = useQuery<GetNotifications, GetNotificationsVariables>(GET_NOTIFICATIONS, {
     variables: {
       userId: user?.id!,
     },
     skip: !user,
+    pollInterval: 1 * 60 * 1000, // 1min
   });
   const notifications = notificationData?.notification ?? [];
 
@@ -67,10 +79,11 @@ const Notifications: React.FC = () => {
     MarkNotificationAsReadVariables
   >(MARK_NOTIFICATION_AS_READ);
 
-  useEffect(() => {
-    setTimeout(async () => {
+  const handleNotificationsMarkAsRead = async () => {
+    setMarkLoading(true);
+    try {
       await Promise.all(
-        (notificationData?.notification ?? [])
+        notifications
           .filter((n) => !n.read)
           .map(async (n) => {
             await markNotificationAsRead({
@@ -80,9 +93,26 @@ const Notifications: React.FC = () => {
             });
           })
       );
+      toast("success", "标记已读成功");
       refetchNotifications();
-    }, 3000);
-  }, [markNotificationAsRead, notificationData, refetchNotifications]);
+    } catch {
+      toast("error", "标记已读失败");
+    } finally {
+      setMarkLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!authLoading && !user) {
+      router.push(`/auth/login?redirect_url=${router.asPath}`);
+    }
+  }, [authLoading, router, user]);
+
+  useEffect(() => {
+    if (notificationError) {
+      toast("error", "通知获取失败");
+    }
+  }, [notificationError, toast]);
 
   return (
     <>
@@ -90,14 +120,28 @@ const Notifications: React.FC = () => {
       <Container
         sx={{
           py: 10,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
         }}
         maxWidth="sm"
       >
-        <Stack direction="column" spacing={1.5}>
-          {notifications.map((n) => (
-            <Notification key={n.id} {...n} />
-          ))}
-        </Stack>
+        <LoadingButton
+          loading={markLoading}
+          variant="outlined"
+          onClick={handleNotificationsMarkAsRead}
+        >
+          将所有通知标为已读
+        </LoadingButton>
+        {notificationLoading ? (
+          <CircularProgress sx={{ mt: 8, alignSelf: "center" }} size="1.5rem" />
+        ) : (
+          <Stack sx={{ mt: 2, width: "100%" }} direction="column" spacing={1.5}>
+            {notifications.map((n) => (
+              <Notification key={n.id} {...n} />
+            ))}
+          </Stack>
+        )}
       </Container>
     </>
   );
