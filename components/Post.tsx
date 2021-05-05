@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import Link from "next/link";
 import {
   Card,
@@ -73,7 +72,6 @@ const getMyReactions = (values: PostProps) => {
 };
 
 const Post: React.FC<PostProps> = (props) => {
-  const router = useRouter();
   const [user] = useUser();
 
   const [loading, setLoading] = useState(true);

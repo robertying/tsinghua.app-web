@@ -1,7 +1,6 @@
 import "@primer/css/dist/markdown.css";
 import "katex/dist/katex.css";
 import { useEffect, useState } from "react";
-import { GetStaticPaths, GetStaticProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";

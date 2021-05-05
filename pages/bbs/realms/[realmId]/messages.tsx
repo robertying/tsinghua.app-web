@@ -70,7 +70,7 @@ const RealmMessages: React.FC = () => {
   const realmId = router.query.realmId as string | undefined;
   const initialSelectedUserId = router.query.user as string | undefined;
 
-  const [user, authLoading] = useUser();
+  const [user] = useUser();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
