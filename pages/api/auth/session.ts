@@ -26,8 +26,12 @@ export default async function handleSession(
     req.body.refreshToken ?? cookies[REFRESH_TOKEN_COOKIE_NAME];
 
   try {
-    const { id, sessionId } = await verify(refreshToken, "refresh");
+    const { id, sessionId: sId } = await verify(refreshToken, "refresh");
     const userId = id === "learnx" ? process.env.LEARNX_USER_ID! : id;
+    const sessionId =
+      userId === process.env.LEARNX_USER_ID!
+        ? process.env.LEARNX_SESSION_ID!
+        : sId;
 
     const sessionData = await graphQLClient.request<
       GetSession,
