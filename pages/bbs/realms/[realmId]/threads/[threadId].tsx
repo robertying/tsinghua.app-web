@@ -34,6 +34,7 @@ import MyFab from "components/Fab";
 import MyDialog from "components/Dialog";
 import { useUser } from "lib/session";
 import { getOSS } from "lib/oss";
+import { useBeforeUnloadAlert } from "lib/edit";
 import { markdownToReact } from "lib/markdown";
 import NotFound from "pages/404";
 import { GET_THREAD, UPDATE_THREAD } from "api/thread";
@@ -75,7 +76,7 @@ const Thread: React.FC = () => {
   const realmId = router.query.realmId as string;
   const threadId = router.query.threadId as string;
 
-  const [user, authLoading] = useUser();
+  const [user] = useUser();
 
   const [threadDialogOpen, setThreadDialogOpen] = useState(false);
   const [postDialogOpen, setPostDialogOpen] = useState(false);
@@ -384,6 +385,8 @@ const Thread: React.FC = () => {
       })();
     }
   }, [content, tab]);
+
+  useBeforeUnloadAlert(threadDialogOpen || postDialogOpen);
 
   if (threadLoading) {
     return <Splash />;

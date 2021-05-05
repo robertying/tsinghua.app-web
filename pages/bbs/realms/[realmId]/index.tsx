@@ -60,6 +60,7 @@ import MyDialog from "components/Dialog";
 import MyFab from "components/Fab";
 import { getOSS } from "lib/oss";
 import { markdownToReact } from "lib/markdown";
+import { useBeforeUnloadAlert } from "lib/edit";
 import { useUser } from "lib/session";
 import NotFound from "pages/404";
 
@@ -258,6 +259,7 @@ const Realm: React.FC = () => {
   };
 
   const handleRealmDialogOpen = () => {
+    handleSwitchMenuClose();
     setRealmDialogOpen(true);
   };
 
@@ -301,6 +303,7 @@ const Realm: React.FC = () => {
       return;
     }
 
+    handleSwitchMenuClose();
     setEditingRealm(true);
     setRealmName(realm.name);
     setRealmDescription(realm.description);
@@ -415,6 +418,8 @@ const Realm: React.FC = () => {
       })();
     }
   }, [content, tab]);
+
+  useBeforeUnloadAlert(realmDialogOpen || threadDialogOpen);
 
   if (realmLoading) {
     return <Splash />;
