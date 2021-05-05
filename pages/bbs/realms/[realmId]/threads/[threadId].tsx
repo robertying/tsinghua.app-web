@@ -563,7 +563,7 @@ const Thread: React.FC = () => {
           ) : (
             <div
               css={{
-                padding: "2rem 1rem",
+                padding: "2rem 0",
               }}
               className="markdown-body"
             >
@@ -667,7 +667,7 @@ const Thread: React.FC = () => {
           ) : (
             <div
               css={{
-                padding: "2rem 1rem",
+                padding: "2rem 0",
               }}
               className="markdown-body"
             >
