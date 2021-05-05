@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 const Portal: React.FC<{ parentId: string }> = ({ children, parentId }) => {

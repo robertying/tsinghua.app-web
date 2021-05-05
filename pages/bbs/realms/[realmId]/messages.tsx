@@ -63,12 +63,14 @@ const getContactList = (userId?: string, contactData?: GetMessageContacts) => {
 const RealmMessages: React.FC = () => {
   const theme = useTheme();
   const smUp = useMediaQuery(theme.breakpoints.up("sm"));
-  const toast = useToast();
-  const router = useRouter();
-  const [user] = useUser();
 
+  const toast = useToast();
+
+  const router = useRouter();
   const realmId = router.query.realmId as string | undefined;
   const initialSelectedUserId = router.query.user as string | undefined;
+
+  const [user, authLoading] = useUser();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -125,7 +127,7 @@ const RealmMessages: React.FC = () => {
       userId2: selectedContact?.user_id!,
     },
     skip: !realmId || !user || !selectedContact,
-    pollInterval: 5 * 1000,
+    pollInterval: 1 * 1000, // 1s
   });
 
   const [
@@ -202,13 +204,13 @@ const RealmMessages: React.FC = () => {
 
   useEffect(() => {
     if (contactError) {
-      toast("error", "联系人加载失败");
+      toast("error", "联系人获取失败");
     }
   }, [contactError, toast]);
 
   useEffect(() => {
     if (messageError) {
-      toast("error", "消息加载失败");
+      toast("error", "消息获取失败");
     }
   }, [messageError, toast]);
 

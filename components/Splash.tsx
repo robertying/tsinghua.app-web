@@ -1,10 +1,7 @@
-import Image from "next/image";
 import { Box } from "@material-ui/core";
-import { useTheme } from "@material-ui/core/styles";
+import Logo from "./Logo";
 
 const Splash: React.FC = () => {
-  const theme = useTheme();
-
   return (
     <Box
       sx={{
@@ -18,29 +15,7 @@ const Splash: React.FC = () => {
         zIndex: 999,
       }}
     >
-      {theme.palette.mode === "dark" ? (
-        <Image
-          css={{
-            borderRadius: 16,
-          }}
-          alt="logo"
-          src="/logo-dark.png"
-          width={80}
-          height={80}
-          priority
-        />
-      ) : (
-        <Image
-          css={{
-            borderRadius: 16,
-          }}
-          alt="logo"
-          src="/logo-light.png"
-          width={80}
-          height={80}
-          priority
-        />
-      )}
+      <Logo />
     </Box>
   );
 };

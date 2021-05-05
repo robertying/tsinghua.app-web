@@ -13,6 +13,7 @@ import {
 import NProgress from "nprogress";
 import axios, { AxiosError } from "axios";
 import { useToast } from "components/Snackbar";
+import Logo from "components/Logo";
 import { validateEmail } from "lib/validate";
 import { useUser } from "lib/session";
 
@@ -149,7 +150,8 @@ const Login: React.FC = () => {
             usernameUpdateRequired ? handleUsernameSubmit : handleEmailSubmit
           }
         >
-          <Typography sx={{ fontWeight: "bold" }} variant="h4" component="h1">
+          <Logo />
+          <Typography sx={{ fontWeight: "bold" }} variant="h5" component="h1">
             星期四 Thursday
           </Typography>
           {authLoading ? (

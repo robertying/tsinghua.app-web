@@ -1,6 +1,6 @@
 import type { NextApiResponse } from "next";
 import nookies from "nookies";
-import type { IncomingMessage } from "node:http";
+import type { IncomingMessage } from "http";
 import type { NextApiRequestCookies } from "next/dist/next-server/server/api-utils";
 import {
   REFRESH_TOKEN_COOKIE_NAME,

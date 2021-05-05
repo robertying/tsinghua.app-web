@@ -1,7 +1,6 @@
 import "@primer/css/dist/markdown.css";
 import "katex/dist/katex.css";
-import React, { useEffect, useState } from "react";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
@@ -72,11 +71,12 @@ const generateRealmCode = () => {
 
 const Realm: React.FC = () => {
   const toast = useToast();
-  const router = useRouter();
-  const [user, authLoading] = useUser();
 
-  const realmId = router.query.realmId as string | undefined;
+  const router = useRouter();
+  const realmId = (router.query.realmId ?? "1") as string;
   const topicId = router.query.topic as string | undefined;
+
+  const [user, authLoading] = useUser();
 
   const [threadDialogOpen, setThreadDialogOpen] = useState(false);
   const [topic, setTopic] = useState("");
@@ -87,8 +87,11 @@ const Realm: React.FC = () => {
   const [linkTitle, setLinkTitle] = useState("");
   const [linkHref, setLinkHref] = useState("");
   const [tab, setTab] = useState(0);
-  const [html, setHtml] = useState<React.ReactElement | null>(null);
-  const [htmlLoading, setHtmlLoading] = useState(false);
+  const [
+    renderedContent,
+    setRenderedContent,
+  ] = useState<React.ReactElement | null>(null);
+  const [rendering, setRendering] = useState(false);
   const [realmDialogOpen, setRealmDialogOpen] = useState(false);
   const [realmName, setRealmName] = useState("");
   const [realmDescription, setRealmDescription] = useState("");
@@ -109,19 +112,18 @@ const Realm: React.FC = () => {
     refetch: refetchRealm,
   } = useQuery<GetRealm, GetRealmVariables>(GET_REALM, {
     variables: {
-      id: realmId ? parseInt(realmId, 10) : 0,
+      id: parseInt(realmId, 10),
     },
-    skip: !realmId,
   });
   const realm = realmData?.realm_by_pk!;
+
   const { data: realmDetailsData, refetch: refetchRealmDetails } = useQuery<
     GetRealmDetailsInvitationCode,
     GetRealmDetailsInvitationCodeVariables
   >(GET_REALM_DETAILS_INVITATION_CODE, {
     variables: {
-      id: realmId ? parseInt(realmId, 10) : 0,
+      id: parseInt(realmId, 10),
     },
-    skip: !realmId,
   });
   const realmDetails = realmDetailsData?.realm_by_pk;
 
@@ -130,7 +132,7 @@ const Realm: React.FC = () => {
     GetUserRealmsVariables
   >(GET_USER_REALMS, {
     variables: {
-      id: user?.id ?? "",
+      id: user?.id!,
     },
     skip: !user,
   });
@@ -148,7 +150,7 @@ const Realm: React.FC = () => {
     { error: updateRealmError, loading: updateRealmLoading },
   ] = useMutation<UpdateRealm, UpdateRealmVariables>(UPDATE_REALM);
 
-  const handleChangeRealm = (id: number) => {
+  const handleRealmChange = (id: number) => {
     handleSwitchMenuClose();
     router.push(`/bbs/realms/${id}`);
   };
@@ -164,8 +166,8 @@ const Realm: React.FC = () => {
     setTitle("");
     setContent("");
     setTab(0);
-    setHtml(null);
-    setHtmlLoading(false);
+    setRenderedContent(null);
+    setRendering(false);
   };
 
   const handleLinkDialogOpen = () => {
@@ -191,6 +193,11 @@ const Realm: React.FC = () => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
 
+      if (file.size > 10 * 1024 * 1024) {
+        toast("warning", "图片上传失败：图片大小超过 10 MB");
+        return;
+      }
+
       setImageUploading(true);
       try {
         const { oss, tempFolder } = await getOSS();
@@ -210,7 +217,7 @@ const Realm: React.FC = () => {
     e.target.value = "";
   };
 
-  const handleInsertLink = () => {
+  const handleLinkInsert = () => {
     if (!linkHref.trim()) {
       return;
     }
@@ -237,8 +244,8 @@ const Realm: React.FC = () => {
 
     await addThread({
       variables: {
-        userId: user!.id,
-        realmId: realm!.id!,
+        userId: user?.id!,
+        realmId: realm.id!,
         topicId: topic === "null" ? null : parseInt(topic, 10),
         title: title.trim(),
         content: content.trim(),
@@ -247,9 +254,7 @@ const Realm: React.FC = () => {
 
     handleThreadDialogClose();
     toast("success", "帖子发表成功");
-    await refetchRealm({
-      id: realm!.id!,
-    });
+    await refetchRealm();
   };
 
   const handleRealmDialogOpen = () => {
@@ -297,10 +302,10 @@ const Realm: React.FC = () => {
     }
 
     setEditingRealm(true);
-    setRealmName(realm.name!);
-    setRealmDescription(realm.description!);
-    setRealmPrivate(realm.private!);
-    setRealmCode(realmDetails!.invitation_code ?? generateRealmCode());
+    setRealmName(realm.name);
+    setRealmDescription(realm.description);
+    setRealmPrivate(realm.private);
+    setRealmCode(realmDetails.invitation_code ?? generateRealmCode());
     setRealmTopics(new Set(realmDetails.topics.map((t) => t.name)));
 
     handleRealmDialogOpen();
@@ -319,7 +324,7 @@ const Realm: React.FC = () => {
     if (editingRealm) {
       await updateRealm({
         variables: {
-          id: realm.id!,
+          id: realm.id,
           description: realmDescription.trim(),
           private: realmPrivate,
           invitationCode: realmPrivate ? realmCode : null,
@@ -336,7 +341,7 @@ const Realm: React.FC = () => {
     } else {
       const { data: newRealmData } = await addRealm({
         variables: {
-          adminId: user!.id,
+          adminId: user?.id!,
           name: realmName.trim(),
           description: realmDescription.trim(),
           private: realmPrivate,
@@ -403,15 +408,15 @@ const Realm: React.FC = () => {
   useEffect(() => {
     if (tab === 1) {
       (async () => {
-        setHtmlLoading(true);
+        setRendering(true);
         const result = await markdownToReact(content);
-        setHtml(result);
-        setHtmlLoading(false);
+        setRenderedContent(result);
+        setRendering(false);
       })();
     }
   }, [content, tab]);
 
-  if (router.isFallback || realmLoading) {
+  if (realmLoading) {
     return <Splash />;
   }
 
@@ -426,8 +431,8 @@ const Realm: React.FC = () => {
   return (
     <>
       <NextSeo
-        title={topicName ? `${topicName} - ${realm.name!}` : realm.name!}
-        description={realm.description!}
+        title={topicName ? `${topicName} - ${realm.name}` : realm.name}
+        description={realm.description}
       />
       <Container
         sx={{
@@ -481,7 +486,7 @@ const Realm: React.FC = () => {
                 <MenuItem
                   key={r.realm!.id}
                   button
-                  onClick={() => handleChangeRealm(r.realm!.id)}
+                  onClick={() => handleRealmChange(r.realm!.id)}
                 >
                   {r.realm!.name}
                 </MenuItem>
@@ -624,16 +629,25 @@ const Realm: React.FC = () => {
             </Tabs>
           </Box>
           {tab === 0 ? (
-            <TextField
-              sx={{ my: 2 }}
-              minRows={10}
-              maxRows={20}
-              fullWidth
-              multiline
-              placeholder="内容"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-            />
+            <>
+              <TextField
+                sx={{ mt: 2 }}
+                minRows={5}
+                maxRows={15}
+                fullWidth
+                multiline
+                placeholder="内容"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />
+              <Typography
+                sx={{ mt: 1, mb: 2, fontStyle: "italic" }}
+                variant="caption"
+                component="div"
+              >
+                支持 Markdown 和 LaTeX
+              </Typography>
+            </>
           ) : (
             <div
               css={{
@@ -641,7 +655,13 @@ const Realm: React.FC = () => {
               }}
               className="markdown-body"
             >
-              {htmlLoading ? <Typography>预览加载中……</Typography> : html}
+              {rendering ? (
+                <Typography sx={{ fontStyle: "italic" }} variant="caption">
+                  预览加载中……
+                </Typography>
+              ) : (
+                renderedContent
+              )}
             </div>
           )}
           <Dialog
@@ -669,12 +689,8 @@ const Realm: React.FC = () => {
               />
             </Box>
             <DialogActions>
-              <Button onClick={handleLinkDialogClose} color="primary">
-                取消
-              </Button>
-              <Button onClick={handleInsertLink} color="primary">
-                确定
-              </Button>
+              <Button onClick={handleLinkDialogClose}>取消</Button>
+              <Button onClick={handleLinkInsert}>确定</Button>
             </DialogActions>
           </Dialog>
         </MyDialog>
@@ -716,7 +732,10 @@ const Realm: React.FC = () => {
               {realmPrivate && (
                 <>
                   <TextField
-                    sx={{ "& > div": { letterSpacing: "0.25rem" } }}
+                    sx={{
+                      width: 72,
+                      "& > div": { letterSpacing: "0.25rem" },
+                    }}
                     size="small"
                     label="邀请码"
                     value={realmCode}
@@ -762,12 +781,8 @@ const Realm: React.FC = () => {
               />
             </Box>
             <DialogActions>
-              <Button onClick={handleTopicDialogClose} color="primary">
-                取消
-              </Button>
-              <Button onClick={handleTopicAdd} color="primary">
-                确定
-              </Button>
+              <Button onClick={handleTopicDialogClose}>取消</Button>
+              <Button onClick={handleTopicAdd}>确定</Button>
             </DialogActions>
           </Dialog>
         </MyDialog>
@@ -777,17 +792,3 @@ const Realm: React.FC = () => {
 };
 
 export default Realm;
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: true,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async () => {
-  return {
-    props: {},
-    revalidate: 1,
-  };
-};

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import useSWR, { mutate } from "swr";
 import axios from "axios";
@@ -51,4 +52,16 @@ export const useUser = () => {
     boolean,
     typeof refetch
   ];
+};
+
+export const useAuthRoute = () => {
+  const router = useRouter();
+
+  const [user, authLoading] = useUser();
+
+  useEffect(() => {
+    if (!authLoading && !user) {
+      router.push(`/auth/login?redirect_url=${router.asPath}`);
+    }
+  }, [authLoading, router, user]);
 };

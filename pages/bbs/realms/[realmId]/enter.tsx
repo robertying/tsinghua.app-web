@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
 import {
@@ -14,7 +13,7 @@ import {
 import { useQuery } from "@apollo/client";
 import NProgress from "nprogress";
 import axios, { AxiosError } from "axios";
-import { clearSession, useUser } from "lib/session";
+import { clearSession, useAuthRoute, useUser } from "lib/session";
 import { GET_REALM_DETAILS } from "api/realm";
 import { GetRealmDetails, GetRealmDetailsVariables } from "api/types";
 import NotFound from "pages/404";
@@ -23,27 +22,28 @@ import Splash from "components/Splash";
 
 const RealmEnter: React.FC = () => {
   const toast = useToast();
-  const [user, authLoading] = useUser();
+
+  const [user] = useUser();
+
   const router = useRouter();
-  const realmId = router.query.realmId as string | undefined;
+  const realmId = (router.query.realmId ?? "1") as string;
 
   const [code, setCode] = useState("");
   const [username, setUsername] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { data } = useQuery<GetRealmDetails, GetRealmDetailsVariables>(
-    GET_REALM_DETAILS,
-    {
-      variables: {
-        id: parseInt(realmId!, 10),
-      },
-      skip: !realmId,
-    }
-  );
-  const realm = data?.realm_by_pk!;
+  const { data: realmData, loading: realmLoading } = useQuery<
+    GetRealmDetails,
+    GetRealmDetailsVariables
+  >(GET_REALM_DETAILS, {
+    variables: {
+      id: parseInt(realmId!, 10),
+    },
+  });
+  const realm = realmData?.realm_by_pk!;
 
-  const handleEnterRealm: React.FormEventHandler<HTMLElement> = async (e) => {
+  const handleRealmEnter: React.FormEventHandler<HTMLElement> = async (e) => {
     e.preventDefault();
 
     if (!isAdmin && realm.private && !code) {
@@ -82,6 +82,8 @@ const RealmEnter: React.FC = () => {
     }
   };
 
+  useAuthRoute();
+
   useEffect(() => {
     if (realm && user?.username) {
       router.replace(`/bbs/realms/${realm.id}`);
@@ -94,20 +96,17 @@ const RealmEnter: React.FC = () => {
     }
   }, [router]);
 
-  if (router.isFallback) {
+  if (realmLoading) {
     return <Splash />;
   }
 
-  if (!realm || (!authLoading && !user)) {
+  if (!realmLoading && !realm) {
     return <NotFound />;
   }
 
   return (
     <>
-      <NextSeo
-        title={`加入 - ${realm.name}`}
-        description={realm.description!}
-      />
+      <NextSeo title={`加入 - ${realm.name}`} description={realm.description} />
       <Container
         sx={{
           display: "flex",
@@ -124,7 +123,7 @@ const RealmEnter: React.FC = () => {
           }}
           component="form"
           noValidate
-          onSubmit={handleEnterRealm}
+          onSubmit={handleRealmEnter}
         >
           <Typography sx={{ fontWeight: 500 }} variant="h4" component="h1">
             {realm.name}
@@ -193,17 +192,3 @@ const RealmEnter: React.FC = () => {
 };
 
 export default RealmEnter;
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: true,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async () => {
-  return {
-    props: {},
-    revalidate: 1,
-  };
-};

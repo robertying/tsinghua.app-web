@@ -1,16 +1,7 @@
-import { GetServerSideProps } from "next";
+import Realm from "./realms/[realmId]";
 
 const ThursdayHome: React.FC = () => {
-  return null;
+  return <Realm />;
 };
 
 export default ThursdayHome;
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  return {
-    redirect: {
-      destination: "/bbs/realms/1",
-      permanent: true,
-    },
-  };
-};

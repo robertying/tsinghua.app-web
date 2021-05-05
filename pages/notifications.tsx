@@ -23,8 +23,9 @@ import {
   MarkNotificationAsReadVariables,
 } from "api/types";
 import { NotificationPayload } from "lib/notification";
-import { useUser } from "lib/session";
+import { useAuthRoute, useUser } from "lib/session";
 import { useToast } from "components/Snackbar";
+import Splash from "components/Splash";
 
 const Notification: React.FC<GetNotifications_notification> = (
   notification
@@ -53,7 +54,6 @@ const Notification: React.FC<GetNotifications_notification> = (
 };
 
 const Notifications: React.FC = () => {
-  const router = useRouter();
   const toast = useToast();
 
   const [user, authLoading] = useUser();
@@ -102,17 +102,17 @@ const Notifications: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    if (!authLoading && !user) {
-      router.push(`/auth/login?redirect_url=${router.asPath}`);
-    }
-  }, [authLoading, router, user]);
+  useAuthRoute();
 
   useEffect(() => {
     if (notificationError) {
       toast("error", "通知获取失败");
     }
   }, [notificationError, toast]);
+
+  if (authLoading) {
+    return <Splash />;
+  }
 
   return (
     <>

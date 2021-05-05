@@ -37,6 +37,14 @@ import { getOSS } from "lib/oss";
 import { markdownToReact } from "lib/markdown";
 import NotFound from "pages/404";
 import { GET_THREAD, UPDATE_THREAD } from "api/thread";
+import { ADD_POST, UPDATE_POST } from "api/post";
+import {
+  ADD_POST_REACTION,
+  ADD_THREAD_REACTION,
+  DELETE_POST_REACTION,
+  DELETE_THREAD_REACTION,
+  GET_THREAD_REACTIONS,
+} from "api/reaction";
 import {
   AddPost,
   AddPostReaction,
@@ -59,22 +67,15 @@ import {
   UpdateThreadVariables,
   GetThread_thread_by_pk_posts,
 } from "api/types";
-import { ADD_POST, UPDATE_POST } from "api/post";
-import {
-  ADD_POST_REACTION,
-  ADD_THREAD_REACTION,
-  DELETE_POST_REACTION,
-  DELETE_THREAD_REACTION,
-  GET_THREAD_REACTIONS,
-} from "api/reaction";
 
 const Thread: React.FC = () => {
   const toast = useToast();
-  const router = useRouter();
-  const [user] = useUser();
 
+  const router = useRouter();
   const realmId = router.query.realmId as string;
   const threadId = router.query.threadId as string;
+
+  const [user, authLoading] = useUser();
 
   const [threadDialogOpen, setThreadDialogOpen] = useState(false);
   const [postDialogOpen, setPostDialogOpen] = useState(false);
@@ -99,7 +100,7 @@ const Thread: React.FC = () => {
     refetch: refetchThread,
   } = useQuery<GetThread, GetThreadVariables>(GET_THREAD, {
     variables: {
-      id: threadId ? parseInt(threadId, 10) : 0,
+      id: parseInt(threadId, 10),
     },
     skip: !threadId,
   });
@@ -112,10 +113,10 @@ const Thread: React.FC = () => {
     GET_THREAD_REACTIONS,
     {
       variables: {
-        threadId: threadId ? parseInt(threadId, 10) : 0,
+        threadId: parseInt(threadId, 10),
         userId: user?.id!,
       },
-      skip: !threadId || !user?.id,
+      skip: !threadId || !user,
     }
   );
   const threadReactions = threadReactionData?.thread_by_pk;
@@ -201,6 +202,11 @@ const Thread: React.FC = () => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
 
+      if (file.size > 10 * 1024 * 1024) {
+        toast("warning", "图片上传失败：图片大小超过 10 MB");
+        return;
+      }
+
       setImageUploading(true);
       try {
         const { oss, tempFolder } = await getOSS();
@@ -220,7 +226,7 @@ const Thread: React.FC = () => {
     e.target.value = "";
   };
 
-  const handleInsertLink = () => {
+  const handleLinkInsert = () => {
     if (!linkHref.trim()) {
       return;
     }
@@ -243,7 +249,7 @@ const Thread: React.FC = () => {
 
     await updateThread({
       variables: {
-        threadId: thread!.id!,
+        threadId: thread.id,
         title: title.trim(),
         content: content.trim(),
       },
@@ -271,8 +277,8 @@ const Thread: React.FC = () => {
     } else {
       const result = await addPost({
         variables: {
-          userId: user!.id,
-          threadId: thread?.id!,
+          userId: user?.id!,
+          threadId: thread.id,
           content: content.trim(),
         },
       });
@@ -283,9 +289,7 @@ const Thread: React.FC = () => {
     }
 
     handlePostDialogClose();
-    await refetchThread({
-      id: thread?.id!,
-    });
+    await refetchThread();
   };
 
   const handleReaction = async (
@@ -298,16 +302,16 @@ const Thread: React.FC = () => {
       if (action === "add") {
         addThreadReaction({
           variables: {
-            userId: user!.id,
-            threadId: thread!.id!,
+            userId: user?.id!,
+            threadId: thread.id,
             name,
           },
         });
       } else {
         deleteThreadReaction({
           variables: {
-            userId: user!.id,
-            threadId: thread!.id!,
+            userId: user?.id!,
+            threadId: thread.id,
             name,
           },
         });
@@ -316,7 +320,7 @@ const Thread: React.FC = () => {
       if (action === "add") {
         addPostReaction({
           variables: {
-            userId: user!.id,
+            userId: user?.id!,
             postId: postId!,
             name,
           },
@@ -324,7 +328,7 @@ const Thread: React.FC = () => {
       } else {
         deletePostReaction({
           variables: {
-            userId: user!.id,
+            userId: user?.id!,
             postId: postId!,
             name,
           },
@@ -336,8 +340,8 @@ const Thread: React.FC = () => {
   };
 
   const handleEditThread = async () => {
-    setTitle(thread?.title ?? "");
-    setContent(thread?.content ?? "");
+    setTitle(thread.title);
+    setContent(thread.content);
     handleThreadDialogOpen();
   };
 
@@ -349,7 +353,7 @@ const Thread: React.FC = () => {
 
   useEffect(() => {
     if (threadError) {
-      toast("error", "帖子加载失败");
+      toast("error", "帖子获取失败");
     }
   }, [threadError, toast]);
 
@@ -382,7 +386,7 @@ const Thread: React.FC = () => {
     }
   }, [content, tab]);
 
-  if (router.isFallback || threadLoading) {
+  if (threadLoading) {
     return <Splash />;
   }
 
@@ -395,8 +399,8 @@ const Thread: React.FC = () => {
       <NextSeo
         title={
           thread.topic
-            ? `${thread.title} - ${thread.topic!.name} - ${thread.realm!.name}`
-            : `${thread.title} - ${thread.realm!.name}`
+            ? `${thread.title} - ${thread.topic.name} - ${thread.realm.name}`
+            : `${thread.title} - ${thread.realm.name}`
         }
       />
       <Container sx={{ py: 10 }} maxWidth="sm">
@@ -414,7 +418,7 @@ const Thread: React.FC = () => {
             </Typography>
           </Link>
           <Link href={`/bbs/realms/${realmId}`} passHref>
-            <Typography component="a">{thread.realm!.name}</Typography>
+            <Typography component="a">{thread.realm.name}</Typography>
           </Link>
         </Breadcrumbs>
         <Box
@@ -432,7 +436,7 @@ const Thread: React.FC = () => {
             >
               <Chip
                 sx={{ mr: 1 }}
-                label={thread.topic!.name}
+                label={thread.topic.name}
                 clickable
                 component="a"
               />
@@ -537,16 +541,25 @@ const Thread: React.FC = () => {
             </Tabs>
           </Box>
           {tab === 0 ? (
-            <TextField
-              sx={{ my: 2 }}
-              minRows={10}
-              maxRows={20}
-              fullWidth
-              multiline
-              placeholder="内容"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-            />
+            <>
+              <TextField
+                sx={{ mt: 2 }}
+                minRows={5}
+                maxRows={15}
+                fullWidth
+                multiline
+                placeholder="内容"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />
+              <Typography
+                sx={{ mt: 1, mb: 2, fontStyle: "italic" }}
+                variant="caption"
+                component="div"
+              >
+                支持 Markdown 和 LaTeX
+              </Typography>
+            </>
           ) : (
             <div
               css={{
@@ -555,7 +568,9 @@ const Thread: React.FC = () => {
               className="markdown-body"
             >
               {rendering ? (
-                <Typography>预览加载中……</Typography>
+                <Typography sx={{ fontStyle: "italic" }} variant="caption">
+                  预览加载中……
+                </Typography>
               ) : (
                 renderedContent
               )}
@@ -586,12 +601,8 @@ const Thread: React.FC = () => {
               />
             </Box>
             <DialogActions>
-              <Button onClick={handleLinkDialogClose} color="primary">
-                取消
-              </Button>
-              <Button onClick={handleInsertLink} color="primary">
-                确定
-              </Button>
+              <Button onClick={handleLinkDialogClose}>取消</Button>
+              <Button onClick={handleLinkInsert}>确定</Button>
             </DialogActions>
           </Dialog>
         </MyDialog>
@@ -634,16 +645,25 @@ const Thread: React.FC = () => {
             </Tabs>
           </Box>
           {tab === 0 ? (
-            <TextField
-              sx={{ my: 2 }}
-              minRows={10}
-              maxRows={20}
-              fullWidth
-              multiline
-              placeholder="内容"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-            />
+            <>
+              <TextField
+                sx={{ mt: 2 }}
+                minRows={5}
+                maxRows={15}
+                fullWidth
+                multiline
+                placeholder="内容"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />
+              <Typography
+                sx={{ mt: 1, mb: 2, fontStyle: "italic" }}
+                variant="caption"
+                component="div"
+              >
+                支持 Markdown 和 LaTeX
+              </Typography>
+            </>
           ) : (
             <div
               css={{
@@ -652,7 +672,9 @@ const Thread: React.FC = () => {
               className="markdown-body"
             >
               {rendering ? (
-                <Typography>预览加载中……</Typography>
+                <Typography sx={{ fontStyle: "italic" }} variant="caption">
+                  预览加载中……
+                </Typography>
               ) : (
                 renderedContent
               )}
@@ -683,12 +705,8 @@ const Thread: React.FC = () => {
               />
             </Box>
             <DialogActions>
-              <Button onClick={handleLinkDialogClose} color="primary">
-                取消
-              </Button>
-              <Button onClick={handleInsertLink} color="primary">
-                确定
-              </Button>
+              <Button onClick={handleLinkDialogClose}>取消</Button>
+              <Button onClick={handleLinkInsert}>确定</Button>
             </DialogActions>
           </Dialog>
         </MyDialog>
@@ -698,17 +716,3 @@ const Thread: React.FC = () => {
 };
 
 export default Thread;
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: true,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async () => {
-  return {
-    props: {},
-    revalidate: 1,
-  };
-};
