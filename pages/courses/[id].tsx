@@ -73,7 +73,6 @@ const CourseDetail: React.FC = () => {
     variables: {
       id: courseId!,
     },
-    skip: !courseId,
   });
   const course = courseData?.course_by_pk;
   const courseTimeAndLocations = (course

@@ -409,7 +409,7 @@ const Realm: React.FC = () => {
     if (tab === 1) {
       (async () => {
         setRendering(true);
-        const result = await markdownToReact(content);
+        const result = await markdownToReact(content, true);
         setRenderedContent(result);
         setRendering(false);
       })();

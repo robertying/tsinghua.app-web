@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import {
   Card,
   CardActions,
@@ -138,18 +139,17 @@ const Post: React.FC<PostProps> = (props) => {
                 onClose={handleMoreMenuClose}
               >
                 {user.username && user.id !== props.user?.user_id && (
-                  <MenuItem
-                    onClick={() =>
-                      router.push(
-                        `/bbs/realms/${props.user?.realm_id}/messages?user_id=${props.user?.user_id}`
-                      )
-                    }
+                  <Link
+                    href={`/bbs/realms/${props.user?.realm_id}/messages?user_id=${props.user?.user_id}`}
+                    passHref
                   >
-                    <MessageOutlined />
-                    <Typography sx={{ ml: 1 }} component="span">
-                      发消息
-                    </Typography>
-                  </MenuItem>
+                    <MenuItem button component="a">
+                      <MessageOutlined />
+                      <Typography sx={{ ml: 1 }} component="span">
+                        发消息
+                      </Typography>
+                    </MenuItem>
+                  </Link>
                 )}
                 {props.onEdit && (
                   <MenuItem onClick={handleEditClick}>

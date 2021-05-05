@@ -1,4 +1,6 @@
 import { createElement, Fragment } from "react";
+import Link from "next/link";
+import merge from "deepmerge";
 import unified from "unified";
 import markdown from "remark-parse";
 import math from "remark-math";
@@ -10,8 +12,8 @@ import katex from "rehype-katex";
 import stringify from "rehype-stringify";
 import sanitize from "rehype-sanitize";
 import rehype2react from "rehype-react";
-import merge from "deepmerge";
 import MyImage from "components/Image";
+import { isRelativeUrl } from "./validate";
 const githubSanitizeSchema = require("hast-util-sanitize/lib/github");
 
 export const markdownToHtml = async (markdownString: string) => {
@@ -64,15 +66,20 @@ const katexSanitizeSchema = merge(githubSanitizeSchema, {
   },
 });
 
-const rehype2reactOptions = {
+const getRehypeToReactOptions = (preview?: boolean) => ({
   createElement: createElement,
   Fragment: Fragment,
   components: {
-    a: (props: React.HTMLProps<HTMLAnchorElement>) => (
-      <a {...props} target="_blank" rel="noopener noreferrer">
-        {props.children}
-      </a>
-    ),
+    a: (props: React.HTMLProps<HTMLAnchorElement>) =>
+      !preview && isRelativeUrl(props.href ?? "") ? (
+        <Link href={props.href ?? ""}>
+          <a {...props}>{props.children}</a>
+        </Link>
+      ) : (
+        <a {...props} target="_blank" rel="noopener noreferrer">
+          {props.children}
+        </a>
+      ),
     img: (
       props: React.DetailedHTMLProps<
         React.ImgHTMLAttributes<HTMLImageElement>,
@@ -87,9 +94,12 @@ const rehype2reactOptions = {
       />
     ),
   },
-};
+});
 
-export const markdownToReact = async (markdownString: string) => {
+export const markdownToReact = async (
+  markdownString: string,
+  preview?: boolean
+) => {
   const file = await unified()
     .use(markdown)
     .use(math)
@@ -97,7 +107,7 @@ export const markdownToReact = async (markdownString: string) => {
     .use(remark2rehype, { allowDangerousHtml: true })
     .use(raw)
     .use(katex)
-    .use(rehype2react, rehype2reactOptions)
+    .use(rehype2react, getRehypeToReactOptions(preview))
     .use(sanitize, katexSanitizeSchema)
     .process(markdownString);
 

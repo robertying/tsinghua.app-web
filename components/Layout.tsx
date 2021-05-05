@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { Badge, Stack, Tooltip } from "@material-ui/core";
 import {
   ArrowBack,
@@ -69,89 +70,91 @@ const Layout: React.FC = ({ children }) => {
           !authLoading &&
           user &&
           (user.username ? (
-            <Tooltip title="用户信息">
-              <MyFab
-                sx={{
-                  "& > .MuiFab-label": {
-                    width: "100%",
-                    height: "100%",
-                  },
-                }}
-                onClick={() => router.push(`/bbs/realms/${realmId}/profile`)}
-              >
-                <MyAvatar
+            <Link href={`/bbs/realms/${realmId}/profile`} passHref>
+              <Tooltip title="用户信息">
+                <MyFab
                   sx={{
-                    width: "90%",
-                    height: "90%",
+                    "& > .MuiFab-label": {
+                      width: "100%",
+                      height: "100%",
+                    },
                   }}
-                  src={user.avatarUrl ?? undefined}
-                  alt={user.username}
-                  size="medium"
-                />
-              </MyFab>
-            </Tooltip>
+                >
+                  <MyAvatar
+                    sx={{
+                      width: "90%",
+                      height: "90%",
+                    }}
+                    src={user.avatarUrl ?? undefined}
+                    alt={user.username}
+                    size="medium"
+                  />
+                </MyFab>
+              </Tooltip>
+            </Link>
           ) : (
-            <Tooltip title="加入领域">
-              <MyFab
-                sx={{
-                  "& > .MuiFab-label": {
-                    width: "100%",
-                    height: "100%",
-                  },
-                }}
-                color="primary"
-                onClick={() => router.push(`/bbs/realms/${realmId}/enter`)}
-              >
-                <GroupAdd />
-              </MyFab>
-            </Tooltip>
+            <Link href={`/bbs/realms/${realmId}/enter`} passHref>
+              <Tooltip title="加入领域">
+                <MyFab
+                  sx={{
+                    "& > .MuiFab-label": {
+                      width: "100%",
+                      height: "100%",
+                    },
+                  }}
+                  color="primary"
+                >
+                  <GroupAdd />
+                </MyFab>
+              </Tooltip>
+            </Link>
           ))}
         {isBbs && !isMessages && !authLoading && user && (
-          <Tooltip title="消息">
-            <MyFab
-              sx={{
-                "& > .MuiFab-label": {
-                  width: "100%",
-                  height: "100%",
-                },
-              }}
-              onClick={() => router.push(`/bbs/realms/${realmId}/messages`)}
-            >
-              <Chat />
-            </MyFab>
-          </Tooltip>
+          <Link href={`/bbs/realms/${realmId}/messages`} passHref>
+            <Tooltip title="消息">
+              <MyFab
+                sx={{
+                  "& > .MuiFab-label": {
+                    width: "100%",
+                    height: "100%",
+                  },
+                }}
+              >
+                <Chat />
+              </MyFab>
+            </Tooltip>
+          </Link>
         )}
         {!isNotifications && !authLoading && user && (
-          <Tooltip title="通知">
-            <MyFab
-              sx={{
-                "& > .MuiFab-label": {
-                  width: "100%",
-                  height: "100%",
-                },
-              }}
-              onClick={() => router.push(`/notifications`)}
-            >
-              <Badge
-                color="primary"
-                badgeContent={notificationCount}
-                invisible={!notificationCount}
+          <Link href="/notifications" passHref>
+            <Tooltip title="通知">
+              <MyFab
+                sx={{
+                  "& > .MuiFab-label": {
+                    width: "100%",
+                    height: "100%",
+                  },
+                }}
               >
-                <Notifications />
-              </Badge>
-            </MyFab>
-          </Tooltip>
+                <Badge
+                  color="primary"
+                  badgeContent={notificationCount}
+                  invisible={!notificationCount}
+                >
+                  <Notifications />
+                </Badge>
+              </MyFab>
+            </Tooltip>
+          </Link>
         )}
         {!isProfile && !isAuth && !authLoading && !user && (
-          <Tooltip title="登录">
-            <MyFab
-              onClick={() =>
-                router.push(`/auth/login?redirect_url=${router.asPath}`)
-              }
-            >
-              <PersonAdd />
-            </MyFab>
-          </Tooltip>
+          <Link href={`/auth/login?redirect_url=${router.asPath}`} passHref>
+            <Tooltip title="登录">
+              <MyFab>
+                <PersonAdd />
+              </MyFab>
+            </Tooltip>
+          </Link>
         )}
         {(isProfile || isAuth || isMessages || isNotifications) && (
           <Tooltip title="返回">
@@ -161,11 +164,13 @@ const Layout: React.FC = ({ children }) => {
           </Tooltip>
         )}
         {(isCourses || isLearn) && (
-          <Tooltip title="主页">
-            <MyFab onClick={() => router.push("/")}>
-              <Home />
-            </MyFab>
-          </Tooltip>
+          <Link href="/" passHref>
+            <Tooltip title="主页">
+              <MyFab>
+                <Home />
+              </MyFab>
+            </Tooltip>
+          </Link>
         )}
       </Stack>
       {children}

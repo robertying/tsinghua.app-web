@@ -102,7 +102,6 @@ const Thread: React.FC = () => {
     variables: {
       id: parseInt(threadId, 10),
     },
-    skip: !threadId,
   });
   const thread = threadData?.thread_by_pk!;
 
@@ -379,7 +378,7 @@ const Thread: React.FC = () => {
     if (tab === 1) {
       (async () => {
         setRendering(true);
-        const result = await markdownToReact(content);
+        const result = await markdownToReact(content, true);
         setRenderedContent(result);
         setRendering(false);
       })();
