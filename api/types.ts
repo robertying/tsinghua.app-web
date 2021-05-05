@@ -1411,6 +1411,31 @@ export interface AddSessionVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: DeleteSession
+// ====================================================
+
+export interface DeleteSession_delete_session_by_pk {
+  __typename: "session";
+  id: uuid;
+}
+
+export interface DeleteSession {
+  /**
+   * delete single row from the table: "session"
+   */
+  delete_session_by_pk: DeleteSession_delete_session_by_pk | null;
+}
+
+export interface DeleteSessionVariables {
+  id: uuid;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: GetThread
 // ====================================================
 

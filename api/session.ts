@@ -49,3 +49,11 @@ export const ADD_SESSION = gql`
     }
   }
 `;
+
+export const DELETE_SESSION = gql`
+  mutation DeleteSession($id: uuid!) {
+    delete_session_by_pk(id: $id) {
+      id
+    }
+  }
+`;

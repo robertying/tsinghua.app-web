@@ -1,9 +1,10 @@
 import "react-image-crop/dist/ReactCrop.css";
-import React, { useEffect, useRef, useState } from "react";
-import { GetServerSideProps } from "next";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
 import {
   Button,
+  CircularProgress,
   Container,
   Dialog,
   DialogActions,
@@ -13,6 +14,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import { LoadingButton } from "@material-ui/lab";
 import { useMutation, useQuery } from "@apollo/client";
 import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
@@ -21,11 +23,12 @@ import MyAvatar from "components/Avatar";
 import MyDialog from "components/Dialog";
 import { useToast } from "components/Snackbar";
 import Splash from "components/Splash";
-import { useUser } from "lib/session";
+import { useAuthRoute, useUser } from "lib/session";
 import { getOSS } from "lib/oss";
-import { authenticate } from "lib/auth";
 import { getDeviceDescription } from "lib/format";
 import {
+  DeleteSession,
+  DeleteSessionVariables,
   GetSessions,
   GetSessionsVariables,
   UpdateRealmUserAvatar,
@@ -43,7 +46,7 @@ import {
   UPDATE_USER_AVATAR,
   UPDATE_USER_STATUS,
 } from "api/user";
-import { GET_SESSIONS } from "api/session";
+import { DELETE_SESSION, GET_SESSIONS } from "api/session";
 
 const initialCrop: ReactCrop.Crop = {
   aspect: 1,
@@ -53,6 +56,9 @@ const initialCrop: ReactCrop.Crop = {
 
 const RealmProfile: React.FC = () => {
   const toast = useToast();
+
+  const router = useRouter();
+
   const [user, authLoading, refetchUser] = useUser();
 
   const imageRef = useRef<HTMLImageElement | null>(null);
@@ -65,15 +71,16 @@ const RealmProfile: React.FC = () => {
   const [statusDialogOpen, setStatusDialogOpen] = useState(false);
   const [status, setStatus] = useState("");
 
-  const { data: sessionData } = useQuery<GetSessions, GetSessionsVariables>(
-    GET_SESSIONS,
-    {
-      variables: {
-        userId: user?.id!,
-      },
-      skip: !user,
-    }
-  );
+  const {
+    data: sessionData,
+    error: sessionError,
+    loading: sessionLoading,
+  } = useQuery<GetSessions, GetSessionsVariables>(GET_SESSIONS, {
+    variables: {
+      userId: user?.id!,
+    },
+    skip: !user,
+  });
 
   const [updateAvatar] = useMutation<
     UpdateUserAvatar,
@@ -83,14 +90,21 @@ const RealmProfile: React.FC = () => {
     UpdateRealmUserAvatar,
     UpdateRealmUserAvatarVariables
   >(UPDATE_REALM_USER_AVATAR);
-  const [updateStatus] = useMutation<
+  const [updateStatus, { loading: updateStatusLoading }] = useMutation<
     UpdateUserStatus,
     UpdateUserStatusVariables
   >(UPDATE_USER_STATUS);
-  const [updateRealmStatus] = useMutation<
-    UpdateRealmUserStatus,
-    UpdateRealmUserStatusVariables
-  >(UPDATE_REALM_USER_STATUS);
+  const [
+    updateRealmStatus,
+    { loading: updateRealmStatusLoading },
+  ] = useMutation<UpdateRealmUserStatus, UpdateRealmUserStatusVariables>(
+    UPDATE_REALM_USER_STATUS
+  );
+
+  const [
+    deleteSession,
+    { error: deleteSessionError, loading: deleteSessionLoading },
+  ] = useMutation<DeleteSession, DeleteSessionVariables>(DELETE_SESSION);
 
   const handleUploadDialogOpen = () => {
     setUploadDialogOpen(true);
@@ -137,7 +151,7 @@ const RealmProfile: React.FC = () => {
     return false;
   };
 
-  const handleUpload = async () => {
+  const handleAvatarUpload = async () => {
     if (!previewCanvasRef.current || !imageRef.current) {
       toast("info", "请先选择图片");
       return;
@@ -196,8 +210,8 @@ const RealmProfile: React.FC = () => {
     );
   };
 
-  const handleSetStatus = async () => {
-    if (!status) {
+  const handleStatusSet = async () => {
+    if (!status.trim()) {
       toast("info", "请设置新状态");
       return;
     }
@@ -225,6 +239,13 @@ const RealmProfile: React.FC = () => {
       toast("error", "状态设置失败");
     }
   };
+
+  const handleSessionDelete = async (id: uuid) => {
+    await deleteSession({ variables: { id } });
+    router.reload();
+  };
+
+  useAuthRoute();
 
   useEffect(() => {
     if (!previewCanvasRef.current || !imageRef.current) {
@@ -262,18 +283,37 @@ const RealmProfile: React.FC = () => {
     );
   }, [crop]);
 
-  if (authLoading || !user) {
+  useEffect(() => {
+    if (sessionError) {
+      toast("error", "会话获取失败");
+    }
+  }, [sessionError, toast]);
+
+  useEffect(() => {
+    if (deleteSessionError) {
+      toast("error", "会话移除失败");
+    }
+  }, [deleteSessionError, toast]);
+
+  if (authLoading) {
     return <Splash />;
   }
 
   return (
     <>
-      <NextSeo title={`${user.username} - 用户信息 - ${user.realmName}`} />
+      <NextSeo
+        title={
+          user?.username
+            ? `${user.username} - 用户信息 - ${user.realmName}`
+            : "用户信息"
+        }
+      />
       <Container
         sx={{
-          py: 8,
+          py: 10,
           "& > h2": {
             mt: 4,
+            fontWeight: "500",
           },
           "& > p": {
             mt: 1,
@@ -282,7 +322,7 @@ const RealmProfile: React.FC = () => {
         maxWidth="sm"
       >
         <Typography variant="h5" component="div">
-          {user.realmName}
+          {user?.realmName}
         </Typography>
         <Typography sx={{ mt: 1 }} variant="h3" component="h1">
           用户信息
@@ -290,43 +330,53 @@ const RealmProfile: React.FC = () => {
         <Typography variant="h5" component="h2">
           用户名
         </Typography>
-        <Typography variant="body1">{user.username}</Typography>
+        <Typography variant="body1">{user?.username}</Typography>
         <Typography variant="h5" component="h2">
           头像
         </Typography>
         <MyAvatar
           sx={{ width: 150, height: 150, mt: 2, fontSize: "4rem" }}
-          src={user.avatarUrl ?? undefined}
-          alt={user.username}
+          src={user?.avatarUrl ?? undefined}
+          alt={user?.username}
           size="large"
         />
-        <Button
-          sx={{ mt: 2 }}
-          variant="outlined"
-          component="span"
-          onClick={handleUploadDialogOpen}
-        >
-          {user.avatarUrl ? "更新头像" : "上传头像"}
-        </Button>
+        {user?.username && (
+          <Button
+            sx={{ mt: 2 }}
+            variant="outlined"
+            component="span"
+            onClick={handleUploadDialogOpen}
+          >
+            {user.avatarUrl ? "更新头像" : "上传头像"}
+          </Button>
+        )}
         <Typography variant="h5" component="h2">
           状态
         </Typography>
-        <Typography variant="body1">{user.status || "未设置状态"}</Typography>
-        <Button
-          sx={{ mt: 2 }}
-          variant="outlined"
-          component="span"
-          onClick={handleStatusDialogOpen}
-        >
-          更新状态
-        </Button>
+        <Typography variant="body1">{user?.status || "未设置状态"}</Typography>
+        {user?.username && (
+          <Button
+            sx={{ mt: 2 }}
+            variant="outlined"
+            component="span"
+            onClick={handleStatusDialogOpen}
+          >
+            更新状态
+          </Button>
+        )}
         <Typography variant="h5" component="h2">
-          已登录设备
+          会话
         </Typography>
         <Stack sx={{ mt: 2 }} direction="column" spacing={2}>
+          {sessionLoading && <CircularProgress size="1.5rem" />}
           {sessionData?.session.map((s) => (
             <Stack key={s.id} direction="row" alignItems="center" spacing={2}>
-              <Button>移除</Button>
+              <LoadingButton
+                loading={deleteSessionLoading}
+                onClick={() => handleSessionDelete(s.id)}
+              >
+                移除
+              </LoadingButton>
               <Stack direction="column" spacing={1}>
                 <Typography>{getDeviceDescription(s.description)}</Typography>
                 <Typography variant="caption">{`活跃于 ${dayjs(
@@ -343,25 +393,25 @@ const RealmProfile: React.FC = () => {
           variant="caption"
           component="div"
         >
-          设备信息可能不准确
+          设备信息可能不准确。
         </Typography>
         <Typography variant="h5" component="h2">
           邮箱
         </Typography>
-        <Typography variant="body1">{user.email}</Typography>
+        <Typography variant="body1">{user?.email}</Typography>
         <Typography variant="h5" component="h2">
           注册时间
         </Typography>
         <Typography variant="body1">
-          {dayjs(user.createdAt).fromNow()}
+          {dayjs(user?.createdAt).fromNow()}
         </Typography>
         <MyDialog
           open={uploadDialogOpen}
           onClose={handleUploadDialogClose}
-          title={user.avatarUrl ? "更新头像" : "上传头像"}
-          okText={user.avatarUrl ? "更新" : "上传"}
+          title={user?.avatarUrl ? "更新头像" : "上传头像"}
+          okText={user?.avatarUrl ? "更新" : "上传"}
           okLoading={uploadLoading}
-          onOk={handleUpload}
+          onOk={handleAvatarUpload}
         >
           {imageFile && (
             <>
@@ -428,12 +478,13 @@ const RealmProfile: React.FC = () => {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleStatusDialogClose} color="primary">
-              取消
-            </Button>
-            <Button onClick={handleSetStatus} color="primary">
+            <Button onClick={handleStatusDialogClose}>取消</Button>
+            <LoadingButton
+              loading={updateStatusLoading || updateRealmStatusLoading}
+              onClick={handleStatusSet}
+            >
               确定
-            </Button>
+            </LoadingButton>
           </DialogActions>
         </Dialog>
       </Container>
@@ -442,20 +493,3 @@ const RealmProfile: React.FC = () => {
 };
 
 export default RealmProfile;
-
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const auth = await authenticate(req);
-
-  if (!auth) {
-    return {
-      redirect: {
-        destination: `/auth/login?redirect_url=${req.url}`,
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-};
