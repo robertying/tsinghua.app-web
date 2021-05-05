@@ -41,7 +41,7 @@ const RealmEnter: React.FC = () => {
       id: parseInt(realmId!, 10),
     },
   });
-  const realm = realmData?.realm_by_pk!;
+  const realm = realmData?.realm_public?.[0]!;
 
   const handleRealmEnter: React.FormEventHandler<HTMLElement> = async (e) => {
     e.preventDefault();
@@ -106,7 +106,10 @@ const RealmEnter: React.FC = () => {
 
   return (
     <>
-      <NextSeo title={`加入 - ${realm.name}`} description={realm.description} />
+      <NextSeo
+        title={`加入 - ${realm.name!}`}
+        description={realm.description!}
+      />
       <Container
         sx={{
           display: "flex",
@@ -125,7 +128,7 @@ const RealmEnter: React.FC = () => {
           noValidate
           onSubmit={handleRealmEnter}
         >
-          <Typography sx={{ fontWeight: 500 }} variant="h4" component="h1">
+          <Typography sx={{ fontWeight: 500 }} variant="h5" component="h1">
             {realm.name}
           </Typography>
           <Typography sx={{ mt: 2 }} variant="body1" component="h2">

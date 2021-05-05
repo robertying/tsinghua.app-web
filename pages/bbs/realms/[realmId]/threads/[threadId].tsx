@@ -395,6 +395,10 @@ const Thread: React.FC = () => {
     return <NotFound />;
   }
 
+  if (thread.realm.id.toString() !== realmId) {
+    return <NotFound />;
+  }
+
   return (
     <>
       <NextSeo

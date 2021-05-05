@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const GET_REALM = gql`
   query GetRealm($id: Int!) {
-    realm_by_pk(id: $id) {
+    realm_public(where: { id: { _eq: $id } }, limit: 1) {
       id
       name
       description
@@ -46,7 +46,7 @@ export const GET_REALM = gql`
 
 export const GET_REALM_DETAILS = gql`
   query GetRealmDetails($id: Int!) {
-    realm_by_pk(id: $id) {
+    realm_public(where: { id: { _eq: $id } }, limit: 1) {
       id
       name
       description

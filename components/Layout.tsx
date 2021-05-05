@@ -27,6 +27,7 @@ const Layout: React.FC = ({ children }) => {
   const isNotifications = router.pathname.endsWith("/notifications");
 
   const isBbs = router.pathname.startsWith("/bbs");
+  const isEnter = router.pathname.endsWith("/enter");
   const isProfile = router.pathname.endsWith("/profile");
   const isMessages = router.pathname.endsWith("/messages");
 
@@ -92,7 +93,7 @@ const Layout: React.FC = ({ children }) => {
                 </MyFab>
               </Tooltip>
             </Link>
-          ) : (
+          ) : !isEnter ? (
             <Link href={`/bbs/realms/${realmId}/enter`} passHref>
               <Tooltip title="加入领域">
                 <MyFab
@@ -108,8 +109,8 @@ const Layout: React.FC = ({ children }) => {
                 </MyFab>
               </Tooltip>
             </Link>
-          ))}
-        {isBbs && !isMessages && !authLoading && user && (
+          ) : null)}
+        {isBbs && !isMessages && !authLoading && user && user.username && (
           <Link href={`/bbs/realms/${realmId}/messages`} passHref>
             <Tooltip title="消息">
               <MyFab
@@ -156,7 +157,7 @@ const Layout: React.FC = ({ children }) => {
             </Tooltip>
           </Link>
         )}
-        {(isProfile || isAuth || isMessages || isNotifications) && (
+        {(isProfile || isAuth || isMessages || isNotifications || isEnter) && (
           <Tooltip title="返回">
             <MyFab onClick={() => router.back()}>
               <ArrowBack />

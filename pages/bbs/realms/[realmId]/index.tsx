@@ -74,7 +74,9 @@ const Realm: React.FC = () => {
   const toast = useToast();
 
   const router = useRouter();
-  const realmId = (router.query.realmId ?? "1") as string;
+  const realmId = (router.pathname.startsWith("/bbs/realms")
+    ? router.query.realmId
+    : "1") as string | undefined;
   const topicId = router.query.topic as string | undefined;
 
   const [user, authLoading] = useUser();
@@ -113,18 +115,20 @@ const Realm: React.FC = () => {
     refetch: refetchRealm,
   } = useQuery<GetRealm, GetRealmVariables>(GET_REALM, {
     variables: {
-      id: parseInt(realmId, 10),
+      id: parseInt(realmId!, 10),
     },
+    skip: !realmId,
   });
-  const realm = realmData?.realm_by_pk!;
+  const realm = realmData?.realm_public?.[0]!;
 
   const { data: realmDetailsData, refetch: refetchRealmDetails } = useQuery<
     GetRealmDetailsInvitationCode,
     GetRealmDetailsInvitationCodeVariables
   >(GET_REALM_DETAILS_INVITATION_CODE, {
     variables: {
-      id: parseInt(realmId, 10),
+      id: parseInt(realmId!, 10),
     },
+    skip: !user || !realmId,
   });
   const realmDetails = realmDetailsData?.realm_by_pk;
 
@@ -305,9 +309,9 @@ const Realm: React.FC = () => {
 
     handleSwitchMenuClose();
     setEditingRealm(true);
-    setRealmName(realm.name);
-    setRealmDescription(realm.description);
-    setRealmPrivate(realm.private);
+    setRealmName(realm.name!);
+    setRealmDescription(realm.description!);
+    setRealmPrivate(realm.private!);
     setRealmCode(realmDetails.invitation_code ?? generateRealmCode());
     setRealmTopics(new Set(realmDetails.topics.map((t) => t.name)));
 
@@ -327,7 +331,7 @@ const Realm: React.FC = () => {
     if (editingRealm) {
       await updateRealm({
         variables: {
-          id: realm.id,
+          id: realm.id!,
           description: realmDescription.trim(),
           private: realmPrivate,
           invitationCode: realmPrivate ? realmCode : null,
@@ -421,7 +425,7 @@ const Realm: React.FC = () => {
 
   useBeforeUnloadAlert(realmDialogOpen || threadDialogOpen);
 
-  if (realmLoading) {
+  if (!realmId || realmLoading) {
     return <Splash />;
   }
 
@@ -436,8 +440,8 @@ const Realm: React.FC = () => {
   return (
     <>
       <NextSeo
-        title={topicName ? `${topicName} - ${realm.name}` : realm.name}
-        description={realm.description}
+        title={topicName ? `${topicName} - ${realm.name!}` : realm.name!}
+        description={realm.description!}
       />
       <Container
         sx={{
@@ -738,7 +742,7 @@ const Realm: React.FC = () => {
                 <>
                   <TextField
                     sx={{
-                      width: 72,
+                      width: "5rem",
                       "& > div": { letterSpacing: "0.25rem" },
                     }}
                     size="small"
