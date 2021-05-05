@@ -6,6 +6,7 @@ import {
   PersonAdd,
   Notifications,
   GroupAdd,
+  Home,
 } from "@material-ui/icons";
 import { useQuery } from "@apollo/client";
 import {
@@ -20,11 +21,19 @@ import MyAvatar from "./Avatar";
 const Layout: React.FC = ({ children }) => {
   const router = useRouter();
   const realmId = router.query.realmId ?? 1;
+
   const isAuth = router.pathname.startsWith("/auth");
+  const isNotifications = router.pathname.endsWith("/notifications");
+
+  const isBbs = router.pathname.startsWith("/bbs");
   const isProfile = router.pathname.endsWith("/profile");
   const isMessages = router.pathname.endsWith("/messages");
-  const isNotifications = router.pathname.endsWith("/notifications");
-  const isBbs = router.pathname.startsWith("/bbs");
+
+  const isCourses =
+    router.pathname.endsWith("/courses") ||
+    router.pathname.startsWith("/courses/search");
+
+  const isLearn = router.pathname.startsWith("/learn");
 
   const [user, authLoading] = useUser();
 
@@ -36,7 +45,7 @@ const Layout: React.FC = ({ children }) => {
       userId: user?.id!,
     },
     skip: !user,
-    pollInterval: 30 * 1000,
+    pollInterval: 30 * 1000, // 30s
   });
   const notificationCount =
     newNotificationData?.notification_aggregate.aggregate?.count;
@@ -148,6 +157,13 @@ const Layout: React.FC = ({ children }) => {
           <Tooltip title="返回">
             <MyFab onClick={() => router.back()}>
               <ArrowBack />
+            </MyFab>
+          </Tooltip>
+        )}
+        {(isCourses || isLearn) && (
+          <Tooltip title="主页">
+            <MyFab onClick={() => router.push("/")}>
+              <Home />
             </MyFab>
           </Tooltip>
         )}

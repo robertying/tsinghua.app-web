@@ -21,7 +21,7 @@ import {
   Stack,
   Card,
 } from "@material-ui/core";
-import { Home } from "@material-ui/icons";
+import { Search } from "@material-ui/icons";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_COURSE } from "api/course";
 import {
@@ -261,7 +261,7 @@ const CourseDetail: React.FC = () => {
           <Link href="/courses" passHref>
             <Tooltip title="返回搜索">
               <IconButton>
-                <Home />
+                <Search />
               </IconButton>
             </Tooltip>
           </Link>
