@@ -214,7 +214,7 @@ const CarouselContainer: React.FC = ({ children }) => {
           width: "100%",
           pointerEvents: "none",
           background:
-            "linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 90%, var(--background-color) 100%)",
+            "linear-gradient(to right, var(--transparent-color) 0%, var(--transparent-color) 90%, var(--background-color) 100%)",
         }}
       />
     </Box>
