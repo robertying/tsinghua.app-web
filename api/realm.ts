@@ -57,6 +57,21 @@ export const GET_REALM = gql`
   }
 `;
 
+export const GET_PUBLIC_REALMS = gql`
+  query GetPublicRealms {
+    realm_public(where: { private: { _eq: false }, id: { _neq: 1 } }) {
+      id
+      name
+      description
+      users_aggregate {
+        aggregate {
+          count
+        }
+      }
+    }
+  }
+`;
+
 export const GET_REALM_DETAILS = gql`
   query GetRealmDetails($id: Int!) {
     realm_public(where: { id: { _eq: $id } }, limit: 1) {

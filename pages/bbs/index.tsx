@@ -6,17 +6,26 @@ import {
   Stack,
   Typography,
   Container,
+  Box,
 } from "@material-ui/core";
-import { CommentOutlined, EmojiEmotionsOutlined } from "@material-ui/icons";
+import {
+  CommentOutlined,
+  EmojiEmotionsOutlined,
+  PeopleOutlined,
+} from "@material-ui/icons";
 import dayjs from "dayjs";
+import sampleSize from "lodash/sampleSize";
 import { initializeApollo } from "lib/client";
 import {
   GetHottestThreads,
   GetHottestThreads_thread,
   GetNewestThreads,
   GetNewestThreads_thread,
+  GetPublicRealms,
+  GetPublicRealms_realm_public,
 } from "api/types";
 import { GET_HOTTEST_THREADS, GET_NEWEST_THREADS } from "api/thread";
+import { GET_PUBLIC_REALMS } from "api/realm";
 import Realm from "./realms/[realmId]";
 
 const ExploreThreadCard: React.FC<
@@ -88,16 +97,63 @@ const ExploreThreadCard: React.FC<
   );
 };
 
+const ExploreRealmCard: React.FC<GetPublicRealms_realm_public> = (props) => {
+  return (
+    <Card>
+      <Link href={`/bbs/realms/${props.id}`} passHref>
+        <CardActionArea
+          sx={{
+            p: 2,
+            pb: 1.5,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            alignItems: "stretch",
+            height: "100%",
+          }}
+        >
+          <Typography variant="subtitle2" component="div">
+            {props.name}
+          </Typography>
+          <Typography
+            sx={{ mt: 0.5, overflowWrap: "break-word" }}
+            variant="subtitle1"
+            component="div"
+          >
+            {props.description}
+          </Typography>
+          <Stack
+            sx={{
+              mt: 0.5,
+            }}
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-end"
+          >
+            <Stack
+              sx={{ fontSize: "0.8rem", ml: "auto" }}
+              direction="row"
+              alignItems="center"
+              spacing={0.5}
+            >
+              <PeopleOutlined sx={{ fontSize: "inherit" }} />
+              <Typography sx={{ fontSize: "inherit" }} variant="caption">
+                {props.users_aggregate.aggregate?.count}
+              </Typography>
+            </Stack>
+          </Stack>
+        </CardActionArea>
+      </Link>
+    </Card>
+  );
+};
+
 const CarouselContainer: React.FC = ({ children }) => {
   return (
-    <Stack
+    <Box
       sx={{
         width: "100%",
-        pt: 1,
-        pb: {
-          xs: 2,
-          sm: 0,
-        },
+        position: "relative",
         pl: {
           xs: 1,
           sm: 0,
@@ -106,53 +162,85 @@ const CarouselContainer: React.FC = ({ children }) => {
           xs: -1,
           sm: 0,
         },
-        "&::after": {
-          content: '""',
-          minWidth: {
-            xs: 8,
+      }}
+    >
+      <Stack
+        sx={{
+          pt: 1,
+          pb: {
+            xs: 2,
             sm: 0,
           },
-        },
-        overflowX: {
-          xs: "scroll",
-          sm: "unset",
-        },
-        scrollSnapType: "x mandatory",
-        scrollPaddingLeft: 8,
-        "& > *": {
-          scrollSnapAlign: "start",
-          flex: {
-            xs: "1 0 auto",
-            sm: 1,
+          "&::after": {
+            content: '""',
+            minWidth: {
+              xs: 8,
+              sm: 0,
+            },
           },
-          width: {
-            xs: "75%",
+          overflowX: {
+            xs: "scroll",
+            sm: "unset",
           },
-        },
-      }}
-      direction="row"
-      spacing={1.5}
-    >
-      {children}
-    </Stack>
+          scrollSnapType: "x mandatory",
+          scrollPaddingLeft: 8,
+          "& > *": {
+            scrollSnapAlign: "start",
+            flex: {
+              xs: "1 0 auto",
+              sm: 1,
+            },
+            width: {
+              xs: "55%",
+            },
+          },
+        }}
+        direction="row"
+        spacing={1.5}
+      >
+        {children}
+      </Stack>
+      <Box
+        sx={{
+          display: {
+            xs: "block",
+            sm: "none",
+          },
+          position: "absolute",
+          right: 0,
+          top: 0,
+          bottom: 0,
+          height: "100%",
+          width: "100%",
+          pointerEvents: "none",
+          background:
+            "linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 90%, var(--background-color) 100%)",
+        }}
+      />
+    </Box>
   );
 };
 
 interface ThursdayHomeProps {
   hottestThreads: GetHottestThreads_thread[];
   newestThreads: GetNewestThreads_thread[];
+  randomRealms: GetPublicRealms_realm_public[];
 }
 
 const ThursdayHome: React.FC<ThursdayHomeProps> = ({
   hottestThreads,
   newestThreads,
+  randomRealms,
 }) => {
   return (
     <>
       <Container
         sx={{
-          pt: 10,
-          mb: -4,
+          pt: 8,
+          mb: {
+            xs: -4,
+            sm: -2,
+          },
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
@@ -173,12 +261,24 @@ const ThursdayHome: React.FC<ThursdayHomeProps> = ({
         )}
         {newestThreads.length && (
           <>
-            <Typography sx={{ mt: 2 }} variant="h5" component="h3">
+            <Typography sx={{ mt: 1.5 }} variant="h5" component="h3">
               最新
             </Typography>
             <CarouselContainer>
               {newestThreads.map((t) => (
                 <ExploreThreadCard key={t.id} {...t} />
+              ))}
+            </CarouselContainer>
+          </>
+        )}
+        {randomRealms.length && (
+          <>
+            <Typography sx={{ mt: 1.5 }} variant="h5" component="h3">
+              探索
+            </Typography>
+            <CarouselContainer>
+              {randomRealms.map((t) => (
+                <ExploreRealmCard key={t.id} {...t} />
               ))}
             </CarouselContainer>
           </>
@@ -196,6 +296,7 @@ export const getStaticProps: GetStaticProps<ThursdayHomeProps> = async () => {
 
   let hottestThreads: GetHottestThreads_thread[] = [];
   let newestThreads: GetNewestThreads_thread[] = [];
+  let randomRealms: GetPublicRealms_realm_public[] = [];
 
   try {
     const response = await client.query<GetHottestThreads>({
@@ -209,11 +310,18 @@ export const getStaticProps: GetStaticProps<ThursdayHomeProps> = async () => {
     });
     newestThreads = response.data.thread;
   } catch {}
+  try {
+    const response = await client.query<GetPublicRealms>({
+      query: GET_PUBLIC_REALMS,
+    });
+    randomRealms = sampleSize(response.data.realm_public, 3);
+  } catch {}
 
   return {
     props: {
       hottestThreads,
       newestThreads,
+      randomRealms,
     },
     revalidate: 1,
   };

@@ -445,7 +445,7 @@ const Realm: React.FC = () => {
       />
       <Container
         sx={{
-          py: 10,
+          py: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
@@ -510,7 +510,7 @@ const Realm: React.FC = () => {
             )}
           </>
         )}
-        <Typography sx={{ fontWeight: 500 }} variant="h3" component="h1">
+        <Typography sx={{ fontWeight: 500 }} variant="h4" component="h1">
           {realm.name}
         </Typography>
         <Typography sx={{ mt: 1 }} variant="body1" component="h2">

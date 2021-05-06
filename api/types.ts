@@ -1209,6 +1209,43 @@ export interface GetRealmVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: GetPublicRealms
+// ====================================================
+
+export interface GetPublicRealms_realm_public_users_aggregate_aggregate {
+  __typename: "realm_user_union_aggregate_fields";
+  count: number;
+}
+
+export interface GetPublicRealms_realm_public_users_aggregate {
+  __typename: "realm_user_union_aggregate";
+  aggregate: GetPublicRealms_realm_public_users_aggregate_aggregate | null;
+}
+
+export interface GetPublicRealms_realm_public {
+  __typename: "realm_public";
+  id: number | null;
+  name: string | null;
+  description: string | null;
+  /**
+   * An aggregate relationship
+   */
+  users_aggregate: GetPublicRealms_realm_public_users_aggregate;
+}
+
+export interface GetPublicRealms {
+  /**
+   * fetch data from the table: "realm_public"
+   */
+  realm_public: GetPublicRealms_realm_public[];
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: GetRealmDetails
 // ====================================================
 
@@ -2409,6 +2446,7 @@ export interface realm_public_bool_exp {
   private?: Boolean_comparison_exp | null;
   threads?: thread_bool_exp | null;
   topics?: topic_bool_exp | null;
+  users?: realm_user_union_bool_exp | null;
 }
 
 /**
@@ -2422,6 +2460,7 @@ export interface realm_public_insert_input {
   private?: boolean | null;
   threads?: thread_arr_rel_insert_input | null;
   topics?: topic_arr_rel_insert_input | null;
+  users?: realm_user_union_arr_rel_insert_input | null;
 }
 
 /**
@@ -2429,6 +2468,13 @@ export interface realm_public_insert_input {
  */
 export interface realm_public_obj_rel_insert_input {
   data: realm_public_insert_input;
+}
+
+/**
+ * input type for inserting array relation for remote table "realm_user_union"
+ */
+export interface realm_user_union_arr_rel_insert_input {
+  data: realm_user_union_insert_input[];
 }
 
 /**
