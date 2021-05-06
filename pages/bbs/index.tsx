@@ -8,9 +8,8 @@ import {
   Container,
 } from "@material-ui/core";
 import { CommentOutlined, EmojiEmotionsOutlined } from "@material-ui/icons";
-import { useQuery } from "@apollo/client";
 import dayjs from "dayjs";
-import { addApolloState, initializeApollo } from "lib/client";
+import { initializeApollo } from "lib/client";
 import {
   GetHottestThreads,
   GetHottestThreads_thread,
@@ -40,18 +39,19 @@ const ExploreThreadCard: React.FC<
             height: "100%",
           }}
         >
+          <Typography variant="subtitle2" component="div">
+            {props.realm?.name}
+          </Typography>
           <Typography
-            sx={{ overflowWrap: "break-word" }}
+            sx={{ mt: 0.5, overflowWrap: "break-word" }}
             variant="subtitle1"
             component="div"
           >
-            {props.id === 15
-              ? "dasdadasdadadadasdadadadadadadadadsadadsadasdadsa"
-              : props.title}
+            {props.title}
           </Typography>
           <Stack
             sx={{
-              mt: 1,
+              mt: 0.5,
             }}
             direction="row"
             alignItems="center"
@@ -138,14 +138,15 @@ const CarouselContainer: React.FC = ({ children }) => {
   );
 };
 
-const ThursdayHome: React.FC = () => {
-  const { data: hotThreadData } = useQuery<GetHottestThreads>(
-    GET_HOTTEST_THREADS
-  );
-  const { data: newThreadData } = useQuery<GetNewestThreads>(
-    GET_NEWEST_THREADS
-  );
+interface ThursdayHomeProps {
+  hottestThreads: GetHottestThreads_thread[];
+  newestThreads: GetNewestThreads_thread[];
+}
 
+const ThursdayHome: React.FC<ThursdayHomeProps> = ({
+  hottestThreads,
+  newestThreads,
+}) => {
   return (
     <>
       <Container
@@ -158,25 +159,25 @@ const ThursdayHome: React.FC = () => {
         }}
         maxWidth="sm"
       >
-        {hotThreadData?.thread.length && (
+        {hottestThreads.length && (
           <>
             <Typography variant="h5" component="h3">
               热门
             </Typography>
             <CarouselContainer>
-              {hotThreadData?.thread.map((t) => (
+              {hottestThreads.map((t) => (
                 <ExploreThreadCard key={t.id} {...t} />
               ))}
             </CarouselContainer>
           </>
         )}
-        {newThreadData?.thread.length && (
+        {newestThreads.length && (
           <>
             <Typography sx={{ mt: 2 }} variant="h5" component="h3">
               最新
             </Typography>
             <CarouselContainer>
-              {newThreadData?.thread.map((t) => (
+              {newestThreads.map((t) => (
                 <ExploreThreadCard key={t.id} {...t} />
               ))}
             </CarouselContainer>
@@ -190,18 +191,30 @@ const ThursdayHome: React.FC = () => {
 
 export default ThursdayHome;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps<ThursdayHomeProps> = async () => {
   const client = initializeApollo();
 
-  await client.query<GetHottestThreads>({
-    query: GET_HOTTEST_THREADS,
-  });
-  await client.query<GetNewestThreads>({
-    query: GET_NEWEST_THREADS,
-  });
+  let hottestThreads: GetHottestThreads_thread[] = [];
+  let newestThreads: GetNewestThreads_thread[] = [];
 
-  return addApolloState(client, {
-    props: {},
+  try {
+    const response = await client.query<GetHottestThreads>({
+      query: GET_HOTTEST_THREADS,
+    });
+    hottestThreads = response.data.thread;
+  } catch {}
+  try {
+    const response = await client.query<GetNewestThreads>({
+      query: GET_NEWEST_THREADS,
+    });
+    newestThreads = response.data.thread;
+  } catch {}
+
+  return {
+    props: {
+      hottestThreads,
+      newestThreads,
+    },
     revalidate: 1,
-  });
+  };
 };
