@@ -48,12 +48,15 @@ export default async function handleEvents(
         const postId = payload.event.data.new.id;
         const postData = await getPost(postId);
         const post = postData.realm_post[0];
+        if (post.user?.user_id === post.thread?.user?.user_id) {
+          break;
+        }
         const threadNotification: ThreadNotification = {
           type: "thread_has_new_post",
           version: 1,
           postId,
-          content: `${post.user?.username} 回复了你在 ${post.thread?.realm.name} 发布的帖子 ${post.thread?.title}`,
-          url: `/bbs/realms/${post.thread?.realm.id}/threads/${post.thread?.id}#post-${postId}`,
+          content: `${post.user?.username} 回复了你在 ${post.thread?.realm?.name} 发布的帖子 ${post.thread?.title}`,
+          url: `/bbs/realms/${post.thread?.realm?.id}/threads/${post.thread?.id}#post-${postId}`,
         };
         await addNotification(
           post.thread?.user?.user_id!,
