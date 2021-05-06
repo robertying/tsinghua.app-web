@@ -282,9 +282,9 @@ export interface GetCourseCountVariables {
 // ====================================================
 
 export interface GetMessageContacts_message_from_user_realm {
-  __typename: "realm";
-  id: number;
-  name: string;
+  __typename: "realm_public";
+  id: number | null;
+  name: string | null;
 }
 
 export interface GetMessageContacts_message_from_user {
@@ -300,9 +300,9 @@ export interface GetMessageContacts_message_from_user {
 }
 
 export interface GetMessageContacts_message_to_user_realm {
-  __typename: "realm";
-  id: number;
-  name: string;
+  __typename: "realm_public";
+  id: number | null;
+  name: string | null;
 }
 
 export interface GetMessageContacts_message_to_user {
@@ -352,9 +352,9 @@ export interface GetMessageContactsVariables {
 // ====================================================
 
 export interface GetMessage_message_by_pk_from_user_realm {
-  __typename: "realm";
-  id: number;
-  name: string;
+  __typename: "realm_public";
+  id: number | null;
+  name: string | null;
 }
 
 export interface GetMessage_message_by_pk_from_user {
@@ -582,9 +582,9 @@ export interface GetPost_realm_post_user {
 }
 
 export interface GetPost_realm_post_thread_realm {
-  __typename: "realm";
-  id: number;
-  name: string;
+  __typename: "realm_public";
+  id: number | null;
+  name: string | null;
 }
 
 export interface GetPost_realm_post_thread_user {
@@ -605,7 +605,7 @@ export interface GetPost_realm_post_thread {
   /**
    * An object relationship
    */
-  realm: GetPost_realm_post_thread_realm;
+  realm: GetPost_realm_post_thread_realm | null;
   /**
    * An object relationship
    */
@@ -1137,6 +1137,21 @@ export interface GetRealm_realm_public_threads_posts {
   user: GetRealm_realm_public_threads_posts_user | null;
 }
 
+export interface GetRealm_realm_public_threads_posts_aggregate_aggregate_max {
+  __typename: "realm_post_max_fields";
+  updated_at: timestamptz | null;
+}
+
+export interface GetRealm_realm_public_threads_posts_aggregate_aggregate {
+  __typename: "realm_post_aggregate_fields";
+  max: GetRealm_realm_public_threads_posts_aggregate_aggregate_max | null;
+}
+
+export interface GetRealm_realm_public_threads_posts_aggregate {
+  __typename: "realm_post_aggregate";
+  aggregate: GetRealm_realm_public_threads_posts_aggregate_aggregate | null;
+}
+
 export interface GetRealm_realm_public_threads {
   __typename: "thread";
   id: number;
@@ -1150,11 +1165,15 @@ export interface GetRealm_realm_public_threads {
    */
   user: GetRealm_realm_public_threads_user | null;
   title: string;
-  updated_at: timestamptz;
   /**
    * An array relationship
    */
   posts: GetRealm_realm_public_threads_posts[];
+  /**
+   * An aggregate relationship
+   */
+  posts_aggregate: GetRealm_realm_public_threads_posts_aggregate;
+  updated_at: timestamptz;
 }
 
 export interface GetRealm_realm_public {
@@ -1440,9 +1459,9 @@ export interface DeleteSessionVariables {
 // ====================================================
 
 export interface GetThread_thread_by_pk_realm {
-  __typename: "realm";
-  id: number;
-  name: string;
+  __typename: "realm_public";
+  id: number | null;
+  name: string | null;
 }
 
 export interface GetThread_thread_by_pk_topic {
@@ -1487,7 +1506,7 @@ export interface GetThread_thread_by_pk {
   /**
    * An object relationship
    */
-  realm: GetThread_thread_by_pk_realm;
+  realm: GetThread_thread_by_pk_realm | null;
   /**
    * An object relationship
    */
@@ -1515,6 +1534,128 @@ export interface GetThread {
 
 export interface GetThreadVariables {
   id: number;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: GetHottestThreads
+// ====================================================
+
+export interface GetHottestThreads_thread_realm {
+  __typename: "realm_public";
+  id: number | null;
+  name: string | null;
+}
+
+export interface GetHottestThreads_thread_posts_aggregate_aggregate {
+  __typename: "realm_post_aggregate_fields";
+  count: number;
+}
+
+export interface GetHottestThreads_thread_posts_aggregate {
+  __typename: "realm_post_aggregate";
+  aggregate: GetHottestThreads_thread_posts_aggregate_aggregate | null;
+}
+
+export interface GetHottestThreads_thread_reactions_aggregate_aggregate {
+  __typename: "thread_reaction_aggregate_fields";
+  count: number;
+}
+
+export interface GetHottestThreads_thread_reactions_aggregate {
+  __typename: "thread_reaction_aggregate";
+  aggregate: GetHottestThreads_thread_reactions_aggregate_aggregate | null;
+}
+
+export interface GetHottestThreads_thread {
+  __typename: "thread";
+  id: number;
+  /**
+   * An object relationship
+   */
+  realm: GetHottestThreads_thread_realm | null;
+  title: string;
+  /**
+   * An aggregate relationship
+   */
+  posts_aggregate: GetHottestThreads_thread_posts_aggregate;
+  /**
+   * An aggregate relationship
+   */
+  reactions_aggregate: GetHottestThreads_thread_reactions_aggregate;
+  created_at: timestamptz;
+}
+
+export interface GetHottestThreads {
+  /**
+   * fetch data from the table: "thread"
+   */
+  thread: GetHottestThreads_thread[];
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: GetNewestThreads
+// ====================================================
+
+export interface GetNewestThreads_thread_realm {
+  __typename: "realm_public";
+  id: number | null;
+  name: string | null;
+}
+
+export interface GetNewestThreads_thread_posts_aggregate_aggregate {
+  __typename: "realm_post_aggregate_fields";
+  count: number;
+}
+
+export interface GetNewestThreads_thread_posts_aggregate {
+  __typename: "realm_post_aggregate";
+  aggregate: GetNewestThreads_thread_posts_aggregate_aggregate | null;
+}
+
+export interface GetNewestThreads_thread_reactions_aggregate_aggregate {
+  __typename: "thread_reaction_aggregate_fields";
+  count: number;
+}
+
+export interface GetNewestThreads_thread_reactions_aggregate {
+  __typename: "thread_reaction_aggregate";
+  aggregate: GetNewestThreads_thread_reactions_aggregate_aggregate | null;
+}
+
+export interface GetNewestThreads_thread {
+  __typename: "thread";
+  id: number;
+  /**
+   * An object relationship
+   */
+  realm: GetNewestThreads_thread_realm | null;
+  title: string;
+  /**
+   * An aggregate relationship
+   */
+  posts_aggregate: GetNewestThreads_thread_posts_aggregate;
+  /**
+   * An aggregate relationship
+   */
+  reactions_aggregate: GetNewestThreads_thread_reactions_aggregate;
+  created_at: timestamptz;
+}
+
+export interface GetNewestThreads {
+  /**
+   * fetch data from the table: "thread"
+   */
+  thread: GetNewestThreads_thread[];
 }
 
 /* tslint:disable */
@@ -1589,9 +1730,9 @@ export interface GetUser_user_by_pk_realm_ids {
 }
 
 export interface GetUser_user_by_pk_realm_users_realm {
-  __typename: "realm";
-  id: number;
-  name: string;
+  __typename: "realm_public";
+  id: number | null;
+  name: string | null;
 }
 
 export interface GetUser_user_by_pk_realm_users {
@@ -1647,9 +1788,9 @@ export interface GetUserVariables {
 // ====================================================
 
 export interface GetUserRealms_user_by_pk_realm_users_realm {
-  __typename: "realm";
-  id: number;
-  name: string;
+  __typename: "realm_public";
+  id: number | null;
+  name: string | null;
 }
 
 export interface GetUserRealms_user_by_pk_realm_users {
@@ -1692,9 +1833,9 @@ export interface GetUserRealmsVariables {
 // ====================================================
 
 export interface GetRealmUserDetails_realm_user_union_realm {
-  __typename: "realm";
-  id: number;
-  name: string;
+  __typename: "realm_public";
+  id: number | null;
+  name: string | null;
 }
 
 export interface GetRealmUserDetails_realm_user_union {
@@ -1952,6 +2093,42 @@ export interface GetRealmUserByUsernameVariables {
 // START Enums and Input Objects
 //==============================================================
 
+/**
+ * unique or primary key constraints on table "post"
+ */
+export enum post_constraint {
+  post_pkey = "post_pkey",
+}
+
+/**
+ * unique or primary key constraints on table "post_reaction"
+ */
+export enum post_reaction_constraint {
+  post_reaction_pkey = "post_reaction_pkey",
+}
+
+/**
+ * update columns of table "post_reaction"
+ */
+export enum post_reaction_update_column {
+  created_at = "created_at",
+  name = "name",
+  post_id = "post_id",
+  user_id = "user_id",
+}
+
+/**
+ * update columns of table "post"
+ */
+export enum post_update_column {
+  content = "content",
+  created_at = "created_at",
+  id = "id",
+  thread_id = "thread_id",
+  updated_at = "updated_at",
+  user_id = "user_id",
+}
+
 export enum reaction_emoji_enum {
   confused_face = "confused_face",
   eyes = "eyes",
@@ -1964,25 +2141,41 @@ export enum reaction_emoji_enum {
 }
 
 /**
- * unique or primary key constraints on table "realm"
+ * unique or primary key constraints on table "thread"
  */
-export enum realm_constraint {
-  realm_name_key = "realm_name_key",
-  realm_pkey = "realm_pkey",
+export enum thread_constraint {
+  thread_pkey = "thread_pkey",
 }
 
 /**
- * update columns of table "realm"
+ * unique or primary key constraints on table "thread_reaction"
  */
-export enum realm_update_column {
-  admin_id = "admin_id",
+export enum thread_reaction_constraint {
+  thread_reaction_pkey = "thread_reaction_pkey",
+}
+
+/**
+ * update columns of table "thread_reaction"
+ */
+export enum thread_reaction_update_column {
   created_at = "created_at",
-  description = "description",
-  id = "id",
-  invitation_code = "invitation_code",
   name = "name",
-  private = "private",
+  thread_id = "thread_id",
+  user_id = "user_id",
+}
+
+/**
+ * update columns of table "thread"
+ */
+export enum thread_update_column {
+  content = "content",
+  created_at = "created_at",
+  id = "id",
+  realm_id = "realm_id",
+  title = "title",
+  topic_id = "topic_id",
   updated_at = "updated_at",
+  user_id = "user_id",
 }
 
 /**
@@ -2060,53 +2253,326 @@ export interface String_comparison_exp {
 }
 
 /**
- * Boolean expression to filter rows from the table "realm". All fields are combined with a logical 'AND'.
+ * Boolean expression to filter rows from the table "post". All fields are combined with a logical 'AND'.
  */
-export interface realm_bool_exp {
-  _and?: realm_bool_exp[] | null;
-  _not?: realm_bool_exp | null;
-  _or?: realm_bool_exp[] | null;
-  admin_id?: uuid_comparison_exp | null;
+export interface post_bool_exp {
+  _and?: post_bool_exp[] | null;
+  _not?: post_bool_exp | null;
+  _or?: post_bool_exp[] | null;
+  content?: String_comparison_exp | null;
   created_at?: timestamptz_comparison_exp | null;
+  id?: Int_comparison_exp | null;
+  thread?: thread_bool_exp | null;
+  thread_id?: Int_comparison_exp | null;
+  updated_at?: timestamptz_comparison_exp | null;
+  user_id?: uuid_comparison_exp | null;
+}
+
+/**
+ * input type for inserting data into table "post"
+ */
+export interface post_insert_input {
+  content?: string | null;
+  created_at?: timestamptz | null;
+  id?: number | null;
+  thread?: thread_obj_rel_insert_input | null;
+  thread_id?: number | null;
+  updated_at?: timestamptz | null;
+  user_id?: uuid | null;
+}
+
+/**
+ * input type for inserting object relation for remote table "post"
+ */
+export interface post_obj_rel_insert_input {
+  data: post_insert_input;
+  on_conflict?: post_on_conflict | null;
+}
+
+/**
+ * on conflict condition type for table "post"
+ */
+export interface post_on_conflict {
+  constraint: post_constraint;
+  update_columns: post_update_column[];
+  where?: post_bool_exp | null;
+}
+
+/**
+ * input type for inserting array relation for remote table "post_reaction"
+ */
+export interface post_reaction_arr_rel_insert_input {
+  data: post_reaction_insert_input[];
+  on_conflict?: post_reaction_on_conflict | null;
+}
+
+/**
+ * Boolean expression to filter rows from the table "post_reaction". All fields are combined with a logical 'AND'.
+ */
+export interface post_reaction_bool_exp {
+  _and?: post_reaction_bool_exp[] | null;
+  _not?: post_reaction_bool_exp | null;
+  _or?: post_reaction_bool_exp[] | null;
+  created_at?: timestamptz_comparison_exp | null;
+  name?: reaction_emoji_enum_comparison_exp | null;
+  post?: post_bool_exp | null;
+  post_id?: Int_comparison_exp | null;
+  user_id?: uuid_comparison_exp | null;
+}
+
+/**
+ * input type for inserting data into table "post_reaction"
+ */
+export interface post_reaction_insert_input {
+  created_at?: timestamptz | null;
+  name?: reaction_emoji_enum | null;
+  post?: post_obj_rel_insert_input | null;
+  post_id?: number | null;
+  user_id?: uuid | null;
+}
+
+/**
+ * on conflict condition type for table "post_reaction"
+ */
+export interface post_reaction_on_conflict {
+  constraint: post_reaction_constraint;
+  update_columns: post_reaction_update_column[];
+  where?: post_reaction_bool_exp | null;
+}
+
+/**
+ * Boolean expression to compare columns of type "reaction_emoji_enum". All fields are combined with logical 'AND'.
+ */
+export interface reaction_emoji_enum_comparison_exp {
+  _eq?: reaction_emoji_enum | null;
+  _in?: reaction_emoji_enum[] | null;
+  _is_null?: boolean | null;
+  _neq?: reaction_emoji_enum | null;
+  _nin?: reaction_emoji_enum[] | null;
+}
+
+/**
+ * input type for inserting array relation for remote table "realm_post"
+ */
+export interface realm_post_arr_rel_insert_input {
+  data: realm_post_insert_input[];
+}
+
+/**
+ * Boolean expression to filter rows from the table "realm_post". All fields are combined with a logical 'AND'.
+ */
+export interface realm_post_bool_exp {
+  _and?: realm_post_bool_exp[] | null;
+  _not?: realm_post_bool_exp | null;
+  _or?: realm_post_bool_exp[] | null;
+  content?: String_comparison_exp | null;
+  created_at?: timestamptz_comparison_exp | null;
+  id?: Int_comparison_exp | null;
+  reactions?: post_reaction_bool_exp | null;
+  realm?: realm_public_bool_exp | null;
+  realm_id?: Int_comparison_exp | null;
+  thread?: thread_bool_exp | null;
+  thread_id?: Int_comparison_exp | null;
+  updated_at?: timestamptz_comparison_exp | null;
+  user?: realm_user_union_bool_exp | null;
+  user_id?: uuid_comparison_exp | null;
+}
+
+/**
+ * input type for inserting data into table "realm_post"
+ */
+export interface realm_post_insert_input {
+  content?: string | null;
+  created_at?: timestamptz | null;
+  id?: number | null;
+  reactions?: post_reaction_arr_rel_insert_input | null;
+  realm?: realm_public_obj_rel_insert_input | null;
+  realm_id?: number | null;
+  thread?: thread_obj_rel_insert_input | null;
+  thread_id?: number | null;
+  updated_at?: timestamptz | null;
+  user?: realm_user_union_obj_rel_insert_input | null;
+  user_id?: uuid | null;
+}
+
+/**
+ * Boolean expression to filter rows from the table "realm_public". All fields are combined with a logical 'AND'.
+ */
+export interface realm_public_bool_exp {
+  _and?: realm_public_bool_exp[] | null;
+  _not?: realm_public_bool_exp | null;
+  _or?: realm_public_bool_exp[] | null;
+  admin_id?: uuid_comparison_exp | null;
   description?: String_comparison_exp | null;
   id?: Int_comparison_exp | null;
-  invitation_code?: String_comparison_exp | null;
   name?: String_comparison_exp | null;
   private?: Boolean_comparison_exp | null;
+  threads?: thread_bool_exp | null;
   topics?: topic_bool_exp | null;
-  updated_at?: timestamptz_comparison_exp | null;
 }
 
 /**
- * input type for inserting data into table "realm"
+ * input type for inserting data into table "realm_public"
  */
-export interface realm_insert_input {
+export interface realm_public_insert_input {
   admin_id?: uuid | null;
-  created_at?: timestamptz | null;
   description?: string | null;
   id?: number | null;
-  invitation_code?: string | null;
   name?: string | null;
   private?: boolean | null;
+  threads?: thread_arr_rel_insert_input | null;
   topics?: topic_arr_rel_insert_input | null;
+}
+
+/**
+ * input type for inserting object relation for remote table "realm_public"
+ */
+export interface realm_public_obj_rel_insert_input {
+  data: realm_public_insert_input;
+}
+
+/**
+ * Boolean expression to filter rows from the table "realm_user_union". All fields are combined with a logical 'AND'.
+ */
+export interface realm_user_union_bool_exp {
+  _and?: realm_user_union_bool_exp[] | null;
+  _not?: realm_user_union_bool_exp | null;
+  _or?: realm_user_union_bool_exp[] | null;
+  avatar_url?: String_comparison_exp | null;
+  created_at?: timestamptz_comparison_exp | null;
+  realm?: realm_public_bool_exp | null;
+  realm_id?: Int_comparison_exp | null;
+  status?: String_comparison_exp | null;
+  user_id?: uuid_comparison_exp | null;
+  username?: String_comparison_exp | null;
+}
+
+/**
+ * input type for inserting data into table "realm_user_union"
+ */
+export interface realm_user_union_insert_input {
+  avatar_url?: string | null;
+  created_at?: timestamptz | null;
+  realm?: realm_public_obj_rel_insert_input | null;
+  realm_id?: number | null;
+  status?: string | null;
+  user_id?: uuid | null;
+  username?: string | null;
+}
+
+/**
+ * input type for inserting object relation for remote table "realm_user_union"
+ */
+export interface realm_user_union_obj_rel_insert_input {
+  data: realm_user_union_insert_input;
+}
+
+/**
+ * input type for inserting array relation for remote table "thread"
+ */
+export interface thread_arr_rel_insert_input {
+  data: thread_insert_input[];
+  on_conflict?: thread_on_conflict | null;
+}
+
+/**
+ * Boolean expression to filter rows from the table "thread". All fields are combined with a logical 'AND'.
+ */
+export interface thread_bool_exp {
+  _and?: thread_bool_exp[] | null;
+  _not?: thread_bool_exp | null;
+  _or?: thread_bool_exp[] | null;
+  content?: String_comparison_exp | null;
+  created_at?: timestamptz_comparison_exp | null;
+  id?: Int_comparison_exp | null;
+  posts?: realm_post_bool_exp | null;
+  reactions?: thread_reaction_bool_exp | null;
+  realm?: realm_public_bool_exp | null;
+  realm_id?: Int_comparison_exp | null;
+  title?: String_comparison_exp | null;
+  topic?: topic_bool_exp | null;
+  topic_id?: Int_comparison_exp | null;
+  updated_at?: timestamptz_comparison_exp | null;
+  user?: realm_user_union_bool_exp | null;
+  user_id?: uuid_comparison_exp | null;
+}
+
+/**
+ * input type for inserting data into table "thread"
+ */
+export interface thread_insert_input {
+  content?: string | null;
+  created_at?: timestamptz | null;
+  id?: number | null;
+  posts?: realm_post_arr_rel_insert_input | null;
+  reactions?: thread_reaction_arr_rel_insert_input | null;
+  realm?: realm_public_obj_rel_insert_input | null;
+  realm_id?: number | null;
+  title?: string | null;
+  topic?: topic_obj_rel_insert_input | null;
+  topic_id?: number | null;
   updated_at?: timestamptz | null;
+  user?: realm_user_union_obj_rel_insert_input | null;
+  user_id?: uuid | null;
 }
 
 /**
- * input type for inserting object relation for remote table "realm"
+ * input type for inserting object relation for remote table "thread"
  */
-export interface realm_obj_rel_insert_input {
-  data: realm_insert_input;
-  on_conflict?: realm_on_conflict | null;
+export interface thread_obj_rel_insert_input {
+  data: thread_insert_input;
+  on_conflict?: thread_on_conflict | null;
 }
 
 /**
- * on conflict condition type for table "realm"
+ * on conflict condition type for table "thread"
  */
-export interface realm_on_conflict {
-  constraint: realm_constraint;
-  update_columns: realm_update_column[];
-  where?: realm_bool_exp | null;
+export interface thread_on_conflict {
+  constraint: thread_constraint;
+  update_columns: thread_update_column[];
+  where?: thread_bool_exp | null;
+}
+
+/**
+ * input type for inserting array relation for remote table "thread_reaction"
+ */
+export interface thread_reaction_arr_rel_insert_input {
+  data: thread_reaction_insert_input[];
+  on_conflict?: thread_reaction_on_conflict | null;
+}
+
+/**
+ * Boolean expression to filter rows from the table "thread_reaction". All fields are combined with a logical 'AND'.
+ */
+export interface thread_reaction_bool_exp {
+  _and?: thread_reaction_bool_exp[] | null;
+  _not?: thread_reaction_bool_exp | null;
+  _or?: thread_reaction_bool_exp[] | null;
+  created_at?: timestamptz_comparison_exp | null;
+  name?: reaction_emoji_enum_comparison_exp | null;
+  thread?: thread_bool_exp | null;
+  thread_id?: Int_comparison_exp | null;
+  user_id?: uuid_comparison_exp | null;
+}
+
+/**
+ * input type for inserting data into table "thread_reaction"
+ */
+export interface thread_reaction_insert_input {
+  created_at?: timestamptz | null;
+  name?: reaction_emoji_enum | null;
+  thread?: thread_obj_rel_insert_input | null;
+  thread_id?: number | null;
+  user_id?: uuid | null;
+}
+
+/**
+ * on conflict condition type for table "thread_reaction"
+ */
+export interface thread_reaction_on_conflict {
+  constraint: thread_reaction_constraint;
+  update_columns: thread_reaction_update_column[];
+  where?: thread_reaction_bool_exp | null;
 }
 
 /**
@@ -2142,7 +2608,7 @@ export interface topic_bool_exp {
   created_at?: timestamptz_comparison_exp | null;
   id?: Int_comparison_exp | null;
   name?: String_comparison_exp | null;
-  realm?: realm_bool_exp | null;
+  realm?: realm_public_bool_exp | null;
   realm_id?: Int_comparison_exp | null;
   updated_at?: timestamptz_comparison_exp | null;
 }
@@ -2154,9 +2620,17 @@ export interface topic_insert_input {
   created_at?: timestamptz | null;
   id?: number | null;
   name?: string | null;
-  realm?: realm_obj_rel_insert_input | null;
+  realm?: realm_public_obj_rel_insert_input | null;
   realm_id?: number | null;
   updated_at?: timestamptz | null;
+}
+
+/**
+ * input type for inserting object relation for remote table "topic"
+ */
+export interface topic_obj_rel_insert_input {
+  data: topic_insert_input;
+  on_conflict?: topic_on_conflict | null;
 }
 
 /**

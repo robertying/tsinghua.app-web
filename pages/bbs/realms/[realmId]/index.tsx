@@ -493,9 +493,9 @@ const Realm: React.FC = () => {
               <Divider sx={{ my: 1 }} />
               {userRealmData?.user_by_pk?.realm_users.map((r) => (
                 <MenuItem
-                  key={r.realm!.id}
+                  key={r.realm!.id!}
                   button
-                  onClick={() => handleRealmChange(r.realm!.id)}
+                  onClick={() => handleRealmChange(r.realm!.id!)}
                 >
                   {r.realm!.name}
                 </MenuItem>

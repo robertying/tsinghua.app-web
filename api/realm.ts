@@ -11,7 +11,13 @@ export const GET_REALM = gql`
         id
         name
       }
-      threads(order_by: { updated_at: desc }) {
+      threads(
+        order_by: [
+          { posts_aggregate: { max: { updated_at: desc_nulls_last } } }
+          { updated_at: desc }
+          { created_at: desc }
+        ]
+      ) {
         id
         realm_id
         topic {
@@ -25,9 +31,8 @@ export const GET_REALM = gql`
           avatar_url
         }
         title
-        updated_at
         posts(
-          order_by: [{ id: asc }, { created_at: desc }]
+          order_by: [{ id: asc }, { updated_at: desc }, { created_at: desc }]
           distinct_on: [id]
           limit: 4
         ) {
@@ -39,6 +44,14 @@ export const GET_REALM = gql`
             avatar_url
           }
         }
+        posts_aggregate {
+          aggregate {
+            max {
+              updated_at
+            }
+          }
+        }
+        updated_at
       }
     }
   }

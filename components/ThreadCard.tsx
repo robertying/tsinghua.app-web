@@ -34,7 +34,15 @@ const ThreadCard: React.FC<ThreadCardProps> = (props) => {
             }}
           >
             <Typography variant="caption">
-              {dayjs(props.updated_at!).fromNow()}
+              {props.posts_aggregate.aggregate?.max?.updated_at
+                ? dayjs(props.updated_at).isAfter(
+                    dayjs(props.posts_aggregate.aggregate?.max?.updated_at)
+                  )
+                  ? dayjs(props.updated_at).fromNow()
+                  : dayjs(
+                      props.posts_aggregate.aggregate?.max?.updated_at
+                    ).fromNow()
+                : dayjs(props.updated_at).fromNow()}
             </Typography>
             <AvatarGroup
               sx={{

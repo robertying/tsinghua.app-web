@@ -395,7 +395,7 @@ const Thread: React.FC = () => {
     return <NotFound />;
   }
 
-  if (thread.realm.id.toString() !== realmId) {
+  if (thread.realm!.id?.toString() !== realmId) {
     return <NotFound />;
   }
 
@@ -404,8 +404,8 @@ const Thread: React.FC = () => {
       <NextSeo
         title={
           thread.topic
-            ? `${thread.title} - ${thread.topic.name} - ${thread.realm.name}`
-            : `${thread.title} - ${thread.realm.name}`
+            ? `${thread.title} - ${thread.topic.name} - ${thread.realm!.name}`
+            : `${thread.title} - ${thread.realm!.name}`
         }
       />
       <Container sx={{ py: 10 }} maxWidth="sm">
@@ -423,7 +423,7 @@ const Thread: React.FC = () => {
             </Typography>
           </Link>
           <Link href={`/bbs/realms/${realmId}`} passHref>
-            <Typography component="a">{thread.realm.name}</Typography>
+            <Typography component="a">{thread.realm!.name}</Typography>
           </Link>
         </Breadcrumbs>
         <Box
