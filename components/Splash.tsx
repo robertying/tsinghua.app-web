@@ -11,8 +11,13 @@ const Splash: React.FC = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        position: "relative",
+        position: "fixed",
         zIndex: 999,
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: "var(--background-color)",
       }}
     >
       <Logo />

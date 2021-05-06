@@ -1,11 +1,13 @@
 :root {
   --primary-color: #9c27b0;
+  --background-color: #fff;
   color-scheme: light dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --primary-color: #bb86fc;
+    --background-color: #121212;
   }
 }
 
