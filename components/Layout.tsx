@@ -27,6 +27,7 @@ const Layout: React.FC = ({ children }) => {
   const isNotifications = router.pathname.endsWith("/notifications");
 
   const isBbs = router.pathname.startsWith("/bbs");
+  const isBbsHome = router.pathname.endsWith("/bbs");
   const isEnter = router.pathname.endsWith("/enter");
   const isProfile = router.pathname.endsWith("/profile");
   const isMessages = router.pathname.endsWith("/messages");
@@ -164,7 +165,7 @@ const Layout: React.FC = ({ children }) => {
             </MyFab>
           </Tooltip>
         )}
-        {(isCourses || isLearn) && (
+        {(isBbsHome || isCourses || isLearn) && (
           <Link href="/" passHref>
             <Tooltip title="主页">
               <MyFab>

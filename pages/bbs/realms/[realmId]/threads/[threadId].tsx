@@ -417,7 +417,7 @@ const Thread: React.FC = () => {
           </Tooltip>
         )}
         <Breadcrumbs>
-          <Link href="/" passHref>
+          <Link href="/bbs" passHref>
             <Typography sx={{ color: "inherit !important" }} component="a">
               星期四 Thursday
             </Typography>
