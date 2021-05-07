@@ -1,6 +1,6 @@
 import "@primer/css/dist/markdown.css";
 import "katex/dist/katex.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
@@ -77,10 +77,16 @@ const Thread: React.FC = () => {
 
   const [user] = useUser();
 
+  const textFieldRef = useRef<HTMLTextAreaElement>(null);
+
   const [threadDialogOpen, setThreadDialogOpen] = useState(false);
   const [postDialogOpen, setPostDialogOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [cursorSelection, setCursorSelection] = useState<[number, number]>([
+    0,
+    0,
+  ]);
   const [imageUploading, setImageUploading] = useState(false);
   const [linkDialogOpen, setLinkDialogOpen] = useState(false);
   const [linkTitle, setLinkTitle] = useState("");
@@ -179,6 +185,12 @@ const Thread: React.FC = () => {
   };
 
   const handleLinkDialogOpen = () => {
+    setCursorSelection([
+      textFieldRef.current?.selectionStart ?? 0,
+      textFieldRef.current?.selectionEnd ??
+        textFieldRef.current?.selectionStart ??
+        0,
+    ]);
     setLinkDialogOpen(true);
   };
 
@@ -193,6 +205,15 @@ const Thread: React.FC = () => {
     setLinkDialogOpen(false);
     setLinkTitle("");
     setLinkHref("");
+  };
+
+  const handleImageButtonClick = () => {
+    setCursorSelection([
+      textFieldRef.current?.selectionStart ?? 0,
+      textFieldRef.current?.selectionEnd ??
+        textFieldRef.current?.selectionStart ??
+        0,
+    ]);
   };
 
   const handleImageSelect: React.ChangeEventHandler<HTMLInputElement> = async (
@@ -213,7 +234,11 @@ const Thread: React.FC = () => {
         const name = `images/${tempFolder}/${uuid()}`;
         await oss.put(name, file);
 
-        setContent(content + `\n![上传图片](${name})\n`);
+        setContent(
+          content.substring(0, cursorSelection[0]) +
+            `\n![上传图片](${name})\n` +
+            content.substring(cursorSelection[1])
+        );
         toast("success", "图片上传成功");
       } catch (e) {
         toast("error", "图片上传失败：" + e.toString());
@@ -231,7 +256,9 @@ const Thread: React.FC = () => {
     }
 
     setContent(
-      content + `[${linkTitle.trim() || linkHref.trim()}](${linkHref.trim()})`
+      content.substring(0, cursorSelection[0]) +
+        `[${linkTitle.trim() || linkHref.trim()}](${linkHref.trim()})` +
+        content.substring(cursorSelection[1])
     );
     handleLinkDialogClose({});
   };
@@ -533,6 +560,7 @@ const Thread: React.FC = () => {
                 variant="outlined"
                 component="span"
                 disabled={imageUploading}
+                onClick={handleImageButtonClick}
               >
                 插入图片
               </Button>
@@ -548,9 +576,10 @@ const Thread: React.FC = () => {
           {tab === 0 ? (
             <>
               <TextField
+                inputRef={textFieldRef}
                 sx={{ mt: 2 }}
-                minRows={5}
-                maxRows={15}
+                minRows={6}
+                maxRows={12}
                 fullWidth
                 multiline
                 placeholder="内容"
@@ -562,7 +591,7 @@ const Thread: React.FC = () => {
                 variant="caption"
                 component="div"
               >
-                支持 Markdown 和 LaTeX
+                支持 HTML，Markdown 和 LaTeX
               </Typography>
             </>
           ) : (
@@ -637,6 +666,7 @@ const Thread: React.FC = () => {
                 variant="outlined"
                 component="span"
                 disabled={imageUploading}
+                onClick={handleImageButtonClick}
               >
                 插入图片
               </Button>
@@ -652,9 +682,10 @@ const Thread: React.FC = () => {
           {tab === 0 ? (
             <>
               <TextField
+                inputRef={textFieldRef}
                 sx={{ mt: 2 }}
-                minRows={5}
-                maxRows={15}
+                minRows={6}
+                maxRows={12}
                 fullWidth
                 multiline
                 placeholder="内容"
@@ -666,7 +697,7 @@ const Thread: React.FC = () => {
                 variant="caption"
                 component="div"
               >
-                支持 Markdown 和 LaTeX
+                支持 HTML，Markdown 和 LaTeX
               </Typography>
             </>
           ) : (
