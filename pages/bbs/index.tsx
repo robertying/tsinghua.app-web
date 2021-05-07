@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { GetStaticProps } from "next";
 import Link from "next/link";
 import {
@@ -149,15 +150,32 @@ const ExploreRealmCard: React.FC<GetPublicRealms_realm_public> = (props) => {
 };
 
 const CarouselContainer: React.FC = ({ children }) => {
+  const stackRef = useRef<HTMLDivElement>(null);
+  const [scrollEnd, setScrollEnd] = useState(false);
+
+  useEffect(() => {
+    if (stackRef.current) {
+      const element = stackRef.current;
+
+      const handleScroll = () => {
+        if (element.scrollWidth - element.offsetWidth <= element.scrollLeft) {
+          setScrollEnd(true);
+        } else {
+          setScrollEnd(false);
+        }
+      };
+
+      handleScroll();
+      element.addEventListener("scroll", handleScroll);
+      return () => element.removeEventListener("scroll", handleScroll);
+    }
+  }, []);
+
   return (
     <Box
       sx={{
         width: "100%",
         position: "relative",
-        pl: {
-          xs: 1,
-          sm: 0,
-        },
         mx: {
           xs: -1,
           sm: 0,
@@ -165,10 +183,15 @@ const CarouselContainer: React.FC = ({ children }) => {
       }}
     >
       <Stack
+        ref={stackRef}
         sx={{
           pt: 1,
           pb: {
             xs: 2,
+            sm: 0,
+          },
+          pl: {
+            xs: 1,
             sm: 0,
           },
           "&::after": {
@@ -179,7 +202,7 @@ const CarouselContainer: React.FC = ({ children }) => {
             },
           },
           overflowX: {
-            xs: "scroll",
+            xs: "auto",
             sm: "unset",
           },
           scrollSnapType: "x mandatory",
@@ -202,10 +225,12 @@ const CarouselContainer: React.FC = ({ children }) => {
       </Stack>
       <Box
         sx={{
-          display: {
-            xs: "block",
-            sm: "none",
-          },
+          display: scrollEnd
+            ? "none"
+            : {
+                xs: "block",
+                sm: "none",
+              },
           position: "absolute",
           right: 0,
           top: 0,
@@ -214,7 +239,7 @@ const CarouselContainer: React.FC = ({ children }) => {
           width: "100%",
           pointerEvents: "none",
           background:
-            "linear-gradient(to right, var(--transparent-color) 0%, var(--transparent-color) 90%, var(--background-color) 100%)",
+            "linear-gradient(to right, var(--transparent-color) 0%, var(--transparent-color) 95%, var(--background-color) 100%)",
         }}
       />
     </Box>
