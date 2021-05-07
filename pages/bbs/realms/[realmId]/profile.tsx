@@ -432,8 +432,6 @@ const RealmProfile: React.FC = () => {
                 imageAlt="待裁剪的头像图片"
                 onImageLoaded={handleImageLoad}
                 crop={crop}
-                minHeight={250}
-                minWidth={250}
                 keepSelection
                 ruleOfThirds
                 circularCrop
