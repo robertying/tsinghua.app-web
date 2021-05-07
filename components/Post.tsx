@@ -138,7 +138,7 @@ const Post: React.FC<PostProps> = (props) => {
               >
                 {user.username && user.id !== props.user?.user_id && (
                   <Link
-                    href={`/bbs/realms/${props.user?.realm_id}/messages?user_id=${props.user?.user_id}`}
+                    href={`/bbs/realms/${props.user?.realm_id}/messages?user=${props.user?.user_id}`}
                     passHref
                   >
                     <MenuItem button component="a">
