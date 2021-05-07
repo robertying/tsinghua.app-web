@@ -9,6 +9,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
+  DialogContentText,
   DialogTitle,
   Stack,
   TextField,
@@ -70,6 +71,8 @@ const RealmProfile: React.FC = () => {
   const [uploadLoading, setUploadLoading] = useState(false);
   const [statusDialogOpen, setStatusDialogOpen] = useState(false);
   const [status, setStatus] = useState("");
+  const [deleteSessionDialogOpen, setDeleteSessionDialogOpen] = useState(false);
+  const [deletingSessionId, setDeletingSessionId] = useState<uuid | null>(null);
 
   const {
     data: sessionData,
@@ -123,6 +126,16 @@ const RealmProfile: React.FC = () => {
   const handleStatusDialogClose = () => {
     setStatusDialogOpen(false);
     setStatus("");
+  };
+
+  const handleDeleteSessionDialogOpen = (id: uuid) => {
+    setDeletingSessionId(id);
+    setDeleteSessionDialogOpen(true);
+  };
+
+  const handleDeleteSessionDialogClose = () => {
+    setDeleteSessionDialogOpen(false);
+    setDeletingSessionId(null);
   };
 
   const handleImageSelect: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -240,8 +253,8 @@ const RealmProfile: React.FC = () => {
     }
   };
 
-  const handleSessionDelete = async (id: uuid) => {
-    await deleteSession({ variables: { id } });
+  const handleSessionDelete = async () => {
+    await deleteSession({ variables: { id: deletingSessionId! } });
     router.reload();
   };
 
@@ -371,12 +384,9 @@ const RealmProfile: React.FC = () => {
           {sessionLoading && <CircularProgress size="1.5rem" />}
           {sessionData?.session.map((s) => (
             <Stack key={s.id} direction="row" alignItems="center" spacing={2}>
-              <LoadingButton
-                loading={deleteSessionLoading}
-                onClick={() => handleSessionDelete(s.id)}
-              >
+              <Button onClick={() => handleDeleteSessionDialogOpen(s.id)}>
                 移除
-              </LoadingButton>
+              </Button>
               <Stack direction="column" spacing={1}>
                 <Typography>{getDeviceDescription(s.description)}</Typography>
                 <Typography variant="caption">{`活跃于 ${dayjs(
@@ -480,6 +490,27 @@ const RealmProfile: React.FC = () => {
             <LoadingButton
               loading={updateStatusLoading || updateRealmStatusLoading}
               onClick={handleStatusSet}
+            >
+              确定
+            </LoadingButton>
+          </DialogActions>
+        </Dialog>
+        <Dialog
+          fullWidth
+          open={deleteSessionDialogOpen}
+          onClose={handleDeleteSessionDialogClose}
+        >
+          <DialogTitle>移除此会话？</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              此操作会使你的账号从该会话对应的设备登出。
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleDeleteSessionDialogClose}>取消</Button>
+            <LoadingButton
+              loading={deleteSessionLoading}
+              onClick={handleSessionDelete}
             >
               确定
             </LoadingButton>
