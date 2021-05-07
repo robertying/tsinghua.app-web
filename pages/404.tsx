@@ -7,6 +7,7 @@ const NotFound: React.FC = () => {
   const router = useRouter();
 
   const courseRelated = router.asPath.startsWith("/courses/");
+  const realmId = router.query.realmId as string | undefined;
 
   return (
     <>
@@ -37,11 +38,19 @@ const NotFound: React.FC = () => {
               加入共享计划以帮助添加此课程的详细信息。
             </Typography>
           )}
-          <Link href="/" passHref>
-            <Button sx={{ mt: 2 }} variant="contained">
-              返回主页
-            </Button>
-          </Link>
+          {realmId ? (
+            <Link href={`/bbs/realms/${realmId}`} passHref>
+              <Button sx={{ mt: 2 }} variant="contained">
+                返回领域主页
+              </Button>
+            </Link>
+          ) : (
+            <Link href="/" passHref>
+              <Button sx={{ mt: 2 }} variant="contained">
+                返回主页
+              </Button>
+            </Link>
+          )}
         </Paper>
       </Container>
     </>
