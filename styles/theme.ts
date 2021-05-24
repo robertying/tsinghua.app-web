@@ -1,4 +1,4 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 import { zhCN } from "@material-ui/core/locale";
 
 const fontFamily =
@@ -6,7 +6,7 @@ const fontFamily =
 
 const getAppTheme = (dark?: boolean) =>
   dark
-    ? createMuiTheme(
+    ? createTheme(
         {
           palette: {
             mode: "dark",
@@ -23,7 +23,7 @@ const getAppTheme = (dark?: boolean) =>
         },
         zhCN
       )
-    : createMuiTheme(
+    : createTheme(
         {
           palette: {
             mode: "light",

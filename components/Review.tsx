@@ -21,9 +21,7 @@ const Review: React.FC<ReviewProps> = (review) => (
           src={review.user?.avatar_url ?? undefined}
         />
         <Typography sx={{ mx: 2 }}>{review.user?.username}</Typography>
-        <Box sx={{ ml: "auto" }} clone>
-          <Rating value={review.rating} readOnly />
-        </Box>
+        <Rating sx={{ ml: "auto" }} value={review.rating} readOnly />
       </Box>
       <Typography
         sx={{ whiteSpace: "pre-wrap", wordBreak: "break-word", p: 1, my: 2 }}

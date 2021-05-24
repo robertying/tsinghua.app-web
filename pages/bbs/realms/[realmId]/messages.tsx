@@ -7,7 +7,6 @@ import {
   Container,
   Divider,
   Drawer,
-  Hidden,
   IconButton,
   List,
   ListItem,
@@ -283,7 +282,14 @@ const RealmMessages: React.FC = () => {
             overflowY: "auto",
           }}
         >
-          <Hidden smUp implementation="css">
+          <Box
+            sx={{
+              display: {
+                xs: "block",
+                sm: "none",
+              },
+            }}
+          >
             <Drawer
               container={container}
               variant="temporary"
@@ -307,14 +313,28 @@ const RealmMessages: React.FC = () => {
                 <Menu />
               </IconButton>
             </Tooltip>
-          </Hidden>
-          <Hidden smDown implementation="css">
+          </Box>
+          <Box
+            sx={{
+              display: {
+                xs: "none",
+                sm: "block",
+              },
+            }}
+          >
             {drawer}
-          </Hidden>
+          </Box>
         </Box>
-        <Hidden smDown implementation="css">
+        <Box
+          sx={{
+            display: {
+              xs: "none",
+              sm: "block",
+            },
+          }}
+        >
           <Divider orientation="vertical" />
-        </Hidden>
+        </Box>
         <Box
           component="main"
           sx={{

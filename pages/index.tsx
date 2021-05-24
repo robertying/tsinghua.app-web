@@ -1,3 +1,4 @@
+import { cloneElement } from "react";
 import Link from "next/link";
 import {
   Box,
@@ -22,7 +23,7 @@ const FeatureCard = ({
   title: string;
   description: string;
   url: string;
-  icon: React.ReactNode;
+  icon: React.ReactElement;
 }) => (
   <Link href={url} passHref>
     <Card component="a">
@@ -33,9 +34,9 @@ const FeatureCard = ({
               textAlign: "center",
             }}
           >
-            <Box sx={{ fontSize: { xs: "4rem", sm: "6rem" } }} clone>
-              {icon}
-            </Box>
+            {cloneElement(icon, {
+              sx: { fontSize: { xs: "4rem", sm: "6rem" } },
+            })}
           </Box>
           <Typography
             sx={{ mt: 1, fontWeight: 500 }}
