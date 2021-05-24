@@ -121,10 +121,11 @@ export default async function handleProfile(
     }
 
     try {
-      const { id: userId, sessionId, universityId } = await verify(
-        token,
-        "refresh"
-      );
+      const {
+        id: userId,
+        sessionId,
+        universityId,
+      } = await verify(token, "refresh");
 
       const sessionData = await graphQLClient.request<
         GetSession,

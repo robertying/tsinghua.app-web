@@ -59,10 +59,12 @@ const getReactions = (values: PostProps) => {
 
 const getMyReactions = (values: PostProps) => {
   if ("my_reactions" in values) {
-    return (values.my_reactions as (
-      | GetThreadReactions_thread_by_pk_my_reactions
-      | GetThreadReactions_thread_by_pk_posts_my_reactions
-    )[]).reduce((prev, curr) => {
+    return (
+      values.my_reactions as (
+        | GetThreadReactions_thread_by_pk_my_reactions
+        | GetThreadReactions_thread_by_pk_posts_my_reactions
+      )[]
+    ).reduce((prev, curr) => {
       return {
         ...prev,
         [curr.name]: true,
@@ -75,10 +77,8 @@ const Post: React.FC<PostProps> = (props) => {
   const [user] = useUser();
 
   const [loading, setLoading] = useState(true);
-  const [
-    renderedContent,
-    setRenderedContent,
-  ] = useState<React.ReactElement | null>(null);
+  const [renderedContent, setRenderedContent] =
+    useState<React.ReactElement | null>(null);
   const [menuButton, setMenuButton] = useState<HTMLButtonElement | null>(null);
 
   const handleMoreMenuOpen = (e: React.MouseEvent<HTMLButtonElement>) => {

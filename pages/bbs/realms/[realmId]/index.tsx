@@ -74,9 +74,9 @@ const Realm: React.FC = () => {
   const toast = useToast();
 
   const router = useRouter();
-  const realmId = (router.pathname.startsWith("/bbs/realms")
-    ? router.query.realmId
-    : "1") as string | undefined;
+  const realmId = (
+    router.pathname.startsWith("/bbs/realms") ? router.query.realmId : "1"
+  ) as string | undefined;
   const topicId = router.query.topic as string | undefined;
 
   const [user, authLoading] = useUser();
@@ -88,18 +88,15 @@ const Realm: React.FC = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [cursorSelection, setCursorSelection] = useState<[number, number]>([
-    0,
-    0,
+    0, 0,
   ]);
   const [imageUploading, setImageUploading] = useState(false);
   const [linkDialogOpen, setLinkDialogOpen] = useState(false);
   const [linkTitle, setLinkTitle] = useState("");
   const [linkHref, setLinkHref] = useState("");
   const [tab, setTab] = useState(0);
-  const [
-    renderedContent,
-    setRenderedContent,
-  ] = useState<React.ReactElement | null>(null);
+  const [renderedContent, setRenderedContent] =
+    useState<React.ReactElement | null>(null);
   const [rendering, setRendering] = useState(false);
   const [realmDialogOpen, setRealmDialogOpen] = useState(false);
   const [realmName, setRealmName] = useState("");
@@ -110,9 +107,8 @@ const Realm: React.FC = () => {
   const [editingRealm, setEditingRealm] = useState(false);
   const [topicDialogOpen, setTopicDialogOpen] = useState(false);
   const [newTopic, setNewTopic] = useState("");
-  const [switchButton, setSwitchButton] = useState<HTMLButtonElement | null>(
-    null
-  );
+  const [switchButton, setSwitchButton] =
+    useState<HTMLButtonElement | null>(null);
 
   const {
     data: realmData,
@@ -148,14 +144,10 @@ const Realm: React.FC = () => {
     skip: !user,
   });
 
-  const [
-    addThread,
-    { error: addThreadError, loading: addThreadLoading },
-  ] = useMutation<AddThread, AddThreadVariables>(ADD_THREAD);
-  const [
-    addRealm,
-    { error: addRealmError, loading: addRealmLoading },
-  ] = useMutation<AddRealm, AddRealmVariables>(ADD_REALM);
+  const [addThread, { error: addThreadError, loading: addThreadLoading }] =
+    useMutation<AddThread, AddThreadVariables>(ADD_THREAD);
+  const [addRealm, { error: addRealmError, loading: addRealmLoading }] =
+    useMutation<AddRealm, AddRealmVariables>(ADD_REALM);
   const [
     updateRealm,
     { error: updateRealmError, loading: updateRealmLoading },

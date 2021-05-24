@@ -84,18 +84,15 @@ const Thread: React.FC = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [cursorSelection, setCursorSelection] = useState<[number, number]>([
-    0,
-    0,
+    0, 0,
   ]);
   const [imageUploading, setImageUploading] = useState(false);
   const [linkDialogOpen, setLinkDialogOpen] = useState(false);
   const [linkTitle, setLinkTitle] = useState("");
   const [linkHref, setLinkHref] = useState("");
   const [tab, setTab] = useState(0);
-  const [
-    renderedContent,
-    setRenderedContent,
-  ] = useState<React.ReactElement | null>(null);
+  const [renderedContent, setRenderedContent] =
+    useState<React.ReactElement | null>(null);
   const [rendering, setRendering] = useState(false);
   const [editingPostId, setEditingPostId] = useState<number | null>(null);
 
@@ -111,50 +108,42 @@ const Thread: React.FC = () => {
   });
   const thread = threadData?.thread_by_pk!;
 
-  const {
-    data: threadReactionData,
-    refetch: refetchThreadReactions,
-  } = useQuery<GetThreadReactions, GetThreadReactionsVariables>(
-    GET_THREAD_REACTIONS,
-    {
-      variables: {
-        threadId: parseInt(threadId, 10),
-        userId: user?.id!,
-      },
-      skip: !threadId || !user,
-    }
-  );
+  const { data: threadReactionData, refetch: refetchThreadReactions } =
+    useQuery<GetThreadReactions, GetThreadReactionsVariables>(
+      GET_THREAD_REACTIONS,
+      {
+        variables: {
+          threadId: parseInt(threadId, 10),
+          userId: user?.id!,
+        },
+        skip: !threadId || !user,
+      }
+    );
   const threadReactions = threadReactionData?.thread_by_pk;
 
   const [
     updateThread,
     { error: updateThreadError, loading: updateThreadLoading },
   ] = useMutation<UpdateThread, UpdateThreadVariables>(UPDATE_THREAD);
-  const [
-    addPost,
-    { error: addPostError, loading: addPostLoading },
-  ] = useMutation<AddPost, AddPostVariables>(ADD_POST);
-  const [
-    updatePost,
-    { error: updatePostError, loading: updatePostLoading },
-  ] = useMutation<UpdatePost, UpdatePostVariables>(UPDATE_POST);
+  const [addPost, { error: addPostError, loading: addPostLoading }] =
+    useMutation<AddPost, AddPostVariables>(ADD_POST);
+  const [updatePost, { error: updatePostError, loading: updatePostLoading }] =
+    useMutation<UpdatePost, UpdatePostVariables>(UPDATE_POST);
 
-  const [addThreadReaction] = useMutation<
-    AddThreadReaction,
-    AddThreadReactionVariables
-  >(ADD_THREAD_REACTION);
+  const [addThreadReaction] =
+    useMutation<AddThreadReaction, AddThreadReactionVariables>(
+      ADD_THREAD_REACTION
+    );
   const [deleteThreadReaction] = useMutation<
     DeleteThreadReaction,
     DeleteThreadReactionVariables
   >(DELETE_THREAD_REACTION);
-  const [addPostReaction] = useMutation<
-    AddPostReaction,
-    AddPostReactionVariables
-  >(ADD_POST_REACTION);
-  const [deletePostReaction] = useMutation<
-    DeletePostReaction,
-    DeletePostReactionVariables
-  >(DELETE_POST_REACTION);
+  const [addPostReaction] =
+    useMutation<AddPostReaction, AddPostReactionVariables>(ADD_POST_REACTION);
+  const [deletePostReaction] =
+    useMutation<DeletePostReaction, DeletePostReactionVariables>(
+      DELETE_POST_REACTION
+    );
 
   const handleThreadDialogOpen = () => {
     setThreadDialogOpen(true);

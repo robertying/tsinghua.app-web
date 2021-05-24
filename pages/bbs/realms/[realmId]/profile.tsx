@@ -85,24 +85,22 @@ const RealmProfile: React.FC = () => {
     skip: !user,
   });
 
-  const [updateAvatar] = useMutation<
-    UpdateUserAvatar,
-    UpdateUserAvatarVariables
-  >(UPDATE_USER_AVATAR);
+  const [updateAvatar] =
+    useMutation<UpdateUserAvatar, UpdateUserAvatarVariables>(
+      UPDATE_USER_AVATAR
+    );
   const [updateRealmAvatar] = useMutation<
     UpdateRealmUserAvatar,
     UpdateRealmUserAvatarVariables
   >(UPDATE_REALM_USER_AVATAR);
-  const [updateStatus, { loading: updateStatusLoading }] = useMutation<
-    UpdateUserStatus,
-    UpdateUserStatusVariables
-  >(UPDATE_USER_STATUS);
-  const [
-    updateRealmStatus,
-    { loading: updateRealmStatusLoading },
-  ] = useMutation<UpdateRealmUserStatus, UpdateRealmUserStatusVariables>(
-    UPDATE_REALM_USER_STATUS
-  );
+  const [updateStatus, { loading: updateStatusLoading }] =
+    useMutation<UpdateUserStatus, UpdateUserStatusVariables>(
+      UPDATE_USER_STATUS
+    );
+  const [updateRealmStatus, { loading: updateRealmStatusLoading }] =
+    useMutation<UpdateRealmUserStatus, UpdateRealmUserStatusVariables>(
+      UPDATE_REALM_USER_STATUS
+    );
 
   const [
     deleteSession,

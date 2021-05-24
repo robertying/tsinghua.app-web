@@ -75,9 +75,9 @@ const CourseDetail: React.FC = () => {
     },
   });
   const course = courseData?.course_by_pk;
-  const courseTimeAndLocations = (course
-    ? JSON.parse(course.time_location)
-    : []) as string[];
+  const courseTimeAndLocations = (
+    course ? JSON.parse(course.time_location) : []
+  ) as string[];
 
   const {
     data: courseReviewData,
@@ -112,9 +112,10 @@ const CourseDetail: React.FC = () => {
       error: updateCourseReviewError,
       loading: updateCourseReviewLoading,
     },
-  ] = useMutation<UpdateCourseReview, UpdateCourseReviewVariables>(
-    UPDATE_COURSE_REVIEW
-  );
+  ] =
+    useMutation<UpdateCourseReview, UpdateCourseReviewVariables>(
+      UPDATE_COURSE_REVIEW
+    );
   const [
     deleteCourseReview,
     {
@@ -122,9 +123,10 @@ const CourseDetail: React.FC = () => {
       error: deleteCourseReviewError,
       loading: deleteCourseReviewLoading,
     },
-  ] = useMutation<DeleteCourseReview, DeleteCourseReviewVariables>(
-    DELETE_COURSE_REVIEW
-  );
+  ] =
+    useMutation<DeleteCourseReview, DeleteCourseReviewVariables>(
+      DELETE_COURSE_REVIEW
+    );
 
   const handleReviewDialogOpen = () => {
     if (myCourseReview) {
