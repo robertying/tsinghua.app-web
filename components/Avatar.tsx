@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import { Avatar, AvatarProps } from "@material-ui/core";
 
 export interface MyAvatarProps extends AvatarProps {

@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 const MyImage: React.FC<
   React.DetailedHTMLProps<
     React.ImgHTMLAttributes<HTMLImageElement>,

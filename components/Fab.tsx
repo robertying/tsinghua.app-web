@@ -25,6 +25,7 @@ const InternalFab: React.FC<
   );
 };
 
+// eslint-disable-next-line react/display-name
 const MyFab = forwardRef<HTMLButtonElement, FabProps>((props, ref) => (
   <InternalFab {...props} forwardedRef={ref} />
 ));

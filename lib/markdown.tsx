@@ -66,6 +66,7 @@ const katexSanitizeSchema = merge(githubSanitizeSchema, {
   },
 });
 
+/* eslint-disable react/display-name */
 const getRehypeToReactOptions = (preview?: boolean) => ({
   createElement: createElement,
   Fragment: Fragment,
@@ -95,6 +96,7 @@ const getRehypeToReactOptions = (preview?: boolean) => ({
     ),
   },
 });
+/* eslint-enable react/display-name */
 
 export const markdownToReact = async (
   markdownString: string,
