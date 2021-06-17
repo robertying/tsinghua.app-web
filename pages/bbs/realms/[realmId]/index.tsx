@@ -107,8 +107,9 @@ const Realm: React.FC = () => {
   const [editingRealm, setEditingRealm] = useState(false);
   const [topicDialogOpen, setTopicDialogOpen] = useState(false);
   const [newTopic, setNewTopic] = useState("");
-  const [switchButton, setSwitchButton] =
-    useState<HTMLButtonElement | null>(null);
+  const [switchButton, setSwitchButton] = useState<HTMLButtonElement | null>(
+    null
+  );
 
   const {
     data: realmData,

@@ -74,14 +74,13 @@ const RealmMessages: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedContactIndex, setSelectedContactIndex] = useState(0);
-  const [selectedContact, setSelectedContact] =
-    useState<
-      | (
-          | GetRealmUserDetails_realm_user_union
-          | GetMessageContacts_message_from_user
-        )
-      | undefined
-    >(undefined);
+  const [selectedContact, setSelectedContact] = useState<
+    | (
+        | GetRealmUserDetails_realm_user_union
+        | GetMessageContacts_message_from_user
+      )
+    | undefined
+  >(undefined);
   const [text, setText] = useState("");
 
   const {

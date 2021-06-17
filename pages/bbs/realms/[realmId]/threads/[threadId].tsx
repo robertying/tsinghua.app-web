@@ -130,20 +130,22 @@ const Thread: React.FC = () => {
   const [updatePost, { error: updatePostError, loading: updatePostLoading }] =
     useMutation<UpdatePost, UpdatePostVariables>(UPDATE_POST);
 
-  const [addThreadReaction] =
-    useMutation<AddThreadReaction, AddThreadReactionVariables>(
-      ADD_THREAD_REACTION
-    );
+  const [addThreadReaction] = useMutation<
+    AddThreadReaction,
+    AddThreadReactionVariables
+  >(ADD_THREAD_REACTION);
   const [deleteThreadReaction] = useMutation<
     DeleteThreadReaction,
     DeleteThreadReactionVariables
   >(DELETE_THREAD_REACTION);
-  const [addPostReaction] =
-    useMutation<AddPostReaction, AddPostReactionVariables>(ADD_POST_REACTION);
-  const [deletePostReaction] =
-    useMutation<DeletePostReaction, DeletePostReactionVariables>(
-      DELETE_POST_REACTION
-    );
+  const [addPostReaction] = useMutation<
+    AddPostReaction,
+    AddPostReactionVariables
+  >(ADD_POST_REACTION);
+  const [deletePostReaction] = useMutation<
+    DeletePostReaction,
+    DeletePostReactionVariables
+  >(DELETE_POST_REACTION);
 
   const handleThreadDialogOpen = () => {
     setThreadDialogOpen(true);
