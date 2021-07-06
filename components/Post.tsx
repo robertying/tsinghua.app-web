@@ -141,7 +141,7 @@ const Post: React.FC<PostProps> = (props) => {
                     href={`/bbs/realms/${props.user?.realm_id}/messages?user=${props.user?.user_id}`}
                     passHref
                   >
-                    <MenuItem button component="a">
+                    <MenuItem component="a">
                       <MessageOutlined />
                       <Typography sx={{ ml: 1 }} component="span">
                         发消息

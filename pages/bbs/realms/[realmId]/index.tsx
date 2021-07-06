@@ -497,14 +497,14 @@ const Realm: React.FC = () => {
               onClose={handleSwitchMenuClose}
             >
               {realmDetails?.admin_id && realmDetails?.admin_id === user?.id && (
-                <MenuItem button onClick={handleRealmEdit}>
+                <MenuItem onClick={handleRealmEdit}>
                   <Settings />
                   <Typography sx={{ ml: 1 }} component="span">
                     领域设置
                   </Typography>
                 </MenuItem>
               )}
-              <MenuItem button onClick={handleRealmDialogOpen}>
+              <MenuItem onClick={handleRealmDialogOpen}>
                 <Add />
                 <Typography sx={{ ml: 1 }} component="span">
                   新领域
@@ -514,7 +514,6 @@ const Realm: React.FC = () => {
               {userRealmData?.user_by_pk?.realm_users.map((r) => (
                 <MenuItem
                   key={r.realm!.id!}
-                  button
                   onClick={() => handleRealmChange(r.realm!.id!)}
                 >
                   {r.realm!.name}
