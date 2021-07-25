@@ -4,8 +4,6 @@
   "description": "星期四大学信息化建设推进计划",
   "display": "standalone",
   "start_url": ".",
-  "background_color": "#fff",
-  "theme_color": "#9c27b0",
   "icons": [
     {
       "src": "favicon-16x16.png",

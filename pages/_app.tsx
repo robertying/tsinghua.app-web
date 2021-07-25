@@ -41,7 +41,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         />
         <meta name="application-name" content="Thursday" />
         <meta name="apple-mobile-web-app-title" content="Thursday" />
-        <meta name="theme-color" content="#9c27b0" />
         <link rel="icon" href="/favicon.ico" />
         <link
           rel="icon"
