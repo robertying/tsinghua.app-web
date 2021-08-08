@@ -8,8 +8,6 @@ RUN yarn install --frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM node:16-alpine AS builder
-ARG CDN_URL
-ENV CDN_URL=$CDN_URL
 ARG GRAPHQL_API_URL
 ENV GRAPHQL_API_URL=$GRAPHQL_API_URL
 ARG GRAPHQL_ADMIN_SECRET

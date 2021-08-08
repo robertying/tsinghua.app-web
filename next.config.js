@@ -77,6 +77,5 @@ const withTM = require("next-transpile-modules")([
 
 module.exports = withPlugins([withTM, withBundleAnalyzer], {
   reactStrictMode: true,
-  assetPrefix: process.env.NODE_ENV === "production" ? process.env.CDN_URL : "",
   compress: false,
 });
