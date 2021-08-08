@@ -1,7 +1,7 @@
 import { createElement, Fragment } from "react";
 import Link from "next/link";
 import merge from "deepmerge";
-import unified from "unified";
+import { unified } from "unified";
 import markdown from "remark-parse";
 import math from "remark-math";
 import breaks from "remark-breaks";
@@ -14,7 +14,7 @@ import sanitize from "rehype-sanitize";
 import rehype2react from "rehype-react";
 import MyImage from "components/Image";
 import { isRelativeUrl } from "./validate";
-const githubSanitizeSchema = require("hast-util-sanitize/lib/github");
+import { defaultSchema } from "hast-util-sanitize/lib/schema";
 
 export const markdownToHtml = async (markdownString: string) => {
   const file = await unified()
@@ -28,7 +28,7 @@ export const markdownToHtml = async (markdownString: string) => {
   return file.toString();
 };
 
-const katexSanitizeSchema = merge(githubSanitizeSchema, {
+const katexSanitizeSchema = merge(defaultSchema, {
   tagNames: [
     "math",
     "annotation",
@@ -108,7 +108,7 @@ export const markdownToReact = async (
     .use(breaks)
     .use(remark2rehype, { allowDangerousHtml: true })
     .use(raw)
-    .use(katex)
+    .use(katex as any)
     .use(rehype2react, getRehypeToReactOptions(preview))
     .use(sanitize, katexSanitizeSchema)
     .process(markdownString);
