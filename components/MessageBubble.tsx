@@ -1,4 +1,4 @@
-import { Paper, Stack, Typography } from "@material-ui/core";
+import { Paper, Stack, Typography } from "@mui/material";
 import dayjs from "dayjs";
 
 export interface MessageBubbleProps {

@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
-import { Fab, FabProps, useMediaQuery } from "@material-ui/core";
-import { useTheme } from "@material-ui/core/styles";
+import { Fab, FabProps, useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import Portal from "./Portal";
 
 const InternalFab: React.FC<

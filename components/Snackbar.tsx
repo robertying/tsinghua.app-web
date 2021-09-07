@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useState } from "react";
-import { Alert, Snackbar } from "@material-ui/core";
+import { Alert, Snackbar } from "@mui/material";
 
 export type ToastType = "success" | "warning" | "info" | "error";
 

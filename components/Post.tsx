@@ -9,8 +9,8 @@ import {
   Menu,
   MenuItem,
   Typography,
-} from "@material-ui/core";
-import { Edit, MessageOutlined, MoreVert } from "@material-ui/icons";
+} from "@mui/material";
+import { Edit, MessageOutlined, MoreVert } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { markdownToReact } from "lib/markdown";
 import { useUser } from "lib/session";

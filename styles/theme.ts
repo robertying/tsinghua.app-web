@@ -1,5 +1,5 @@
-import { createTheme } from "@material-ui/core/styles";
-import { zhCN } from "@material-ui/core/locale";
+import { createTheme } from "@mui/material/styles";
+import { zhCN } from "@mui/material/locale";
 
 const fontFamily =
   "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'";

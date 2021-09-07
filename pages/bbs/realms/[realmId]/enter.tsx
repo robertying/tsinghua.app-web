@@ -9,7 +9,7 @@ import {
   Switch,
   TextField,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import { useQuery } from "@apollo/client";
 import NProgress from "nprogress";
 import axios, { AxiosError } from "axios";

@@ -7,12 +7,12 @@ import {
   CardContent,
   Container,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import {
   ForumOutlined,
   NotificationsOutlined,
   SchoolOutlined,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 
 const FeatureCard = ({
   title,

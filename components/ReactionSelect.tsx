@@ -6,9 +6,9 @@ import {
   useMediaQuery,
   Box,
   Tooltip,
-} from "@material-ui/core";
-import { useTheme } from "@material-ui/core/styles";
-import { AddReactionOutlined } from "@material-ui/icons";
+} from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { AddReactionOutlined } from "@mui/icons-material";
 import { reaction_emoji_enum } from "api/types";
 
 const emojis = {

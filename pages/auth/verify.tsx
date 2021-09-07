@@ -9,7 +9,7 @@ import {
   Paper,
   TextField,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import axios, { AxiosError } from "axios";
 import NProgress from "nprogress";
 import { useToast } from "components/Snackbar";

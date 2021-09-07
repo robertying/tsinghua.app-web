@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { NextSeo } from "next-seo";
-import { Button, Container, Paper, Typography } from "@material-ui/core";
+import { Button, Container, Paper, Typography } from "@mui/material";
 
 const InternalError: React.FC = () => {
   return (

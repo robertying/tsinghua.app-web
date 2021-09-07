@@ -11,10 +11,10 @@ import {
   CircularProgress,
   Tooltip,
   Typography,
-} from "@material-ui/core";
-import { useTheme } from "@material-ui/core/styles";
-import { TransitionProps } from "@material-ui/core/transitions";
-import { Close } from "@material-ui/icons";
+} from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { TransitionProps } from "@mui/material/transitions";
+import { Close } from "@mui/icons-material";
 
 const DialogTransition = forwardRef(function DialogTransition(
   props: TransitionProps & { children?: React.ReactElement },

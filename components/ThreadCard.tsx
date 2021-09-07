@@ -7,7 +7,7 @@ import {
   Chip,
   Stack,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import dayjs from "dayjs";
 import { GetRealm_realm_public_threads } from "api/types";
 import MyAvatar from "./Avatar";

@@ -9,8 +9,8 @@ import {
   Container,
   Stack,
   Typography,
-} from "@material-ui/core";
-import { LoadingButton } from "@material-ui/lab";
+} from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 import { useMutation, useQuery } from "@apollo/client";
 import dayjs from "dayjs";
 import { GET_NOTIFICATIONS, MARK_NOTIFICATION_AS_READ } from "api/notification";

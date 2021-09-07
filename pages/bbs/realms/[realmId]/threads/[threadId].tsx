@@ -22,8 +22,8 @@ import {
   Select,
   MenuItem,
   Tooltip,
-} from "@material-ui/core";
-import { Add } from "@material-ui/icons";
+} from "@mui/material";
+import { Add } from "@mui/icons-material";
 import { useMutation, useQuery } from "@apollo/client";
 import { v4 as uuid } from "uuid";
 import Post from "components/Post";

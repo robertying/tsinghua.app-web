@@ -12,7 +12,7 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import { CourseHome } from "pages/courses";
 import { getSemesterTextFromId } from "lib/format";
 import { addApolloState, initializeApollo } from "lib/client";

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { Badge, Stack, Tooltip } from "@material-ui/core";
+import { Badge, Stack, Tooltip } from "@mui/material";
 import {
   ArrowBack,
   Chat,
@@ -8,7 +8,7 @@ import {
   Notifications,
   GroupAdd,
   Home,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import { useQuery } from "@apollo/client";
 import {
   GetNewNotificationCount,

@@ -1,7 +1,7 @@
 import "@primer/css/dist/markdown.css";
 import { GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
-import { Container } from "@material-ui/core";
+import { Container } from "@mui/material";
 import axios from "axios";
 import { markdownToHtml } from "lib/markdown";
 

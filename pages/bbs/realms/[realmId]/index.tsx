@@ -28,8 +28,8 @@ import {
   TextField,
   Tooltip,
   Typography,
-} from "@material-ui/core";
-import { Add, Refresh, Settings, SwapHoriz } from "@material-ui/icons";
+} from "@mui/material";
+import { Add, Refresh, Settings, SwapHoriz } from "@mui/icons-material";
 import { v4 as uuid } from "uuid";
 import {
   ADD_REALM,

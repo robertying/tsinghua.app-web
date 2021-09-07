@@ -8,12 +8,12 @@ import {
   Typography,
   Container,
   Box,
-} from "@material-ui/core";
+} from "@mui/material";
 import {
   CommentOutlined,
   EmojiEmotionsOutlined,
   PeopleOutlined,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import dayjs from "dayjs";
 import sampleSize from "lodash/sampleSize";
 import { initializeApollo } from "lib/client";

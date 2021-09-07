@@ -17,10 +17,10 @@ import {
   Tooltip,
   Typography,
   useMediaQuery,
-} from "@material-ui/core";
-import { useTheme } from "@material-ui/core/styles";
-import { LoadingButton } from "@material-ui/lab";
-import { Menu } from "@material-ui/icons";
+} from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { LoadingButton } from "@mui/lab";
+import { Menu } from "@mui/icons-material";
 import { useMutation, useQuery } from "@apollo/client";
 import uniqBy from "lodash/uniqBy";
 import { ADD_MESSAGE, GET_MESSAGES, GET_MESSAGE_CONTACTS } from "api/message";

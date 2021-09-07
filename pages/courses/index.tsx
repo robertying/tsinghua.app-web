@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
-import { Button, Container, TextField, Typography } from "@material-ui/core";
+import { Button, Container, TextField, Typography } from "@mui/material";
 import { initializeApollo } from "lib/client";
 import { getSemesterTextFromId } from "lib/format";
 import { GetCourseCount, GetCourseCountVariables } from "api/types";

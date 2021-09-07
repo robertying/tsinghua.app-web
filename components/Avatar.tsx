@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { Avatar, AvatarProps } from "@material-ui/core";
+import { Avatar, AvatarProps } from "@mui/material";
 
 export interface MyAvatarProps extends AvatarProps {
   size: "small" | "medium" | "large";

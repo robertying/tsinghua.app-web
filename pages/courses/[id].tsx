@@ -20,8 +20,8 @@ import {
   Tooltip,
   Stack,
   Card,
-} from "@material-ui/core";
-import { Search } from "@material-ui/icons";
+} from "@mui/material";
+import { Search } from "@mui/icons-material";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_COURSE } from "api/course";
 import {

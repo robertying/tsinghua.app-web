@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useTheme } from "@material-ui/core/styles";
+import { useTheme } from "@mui/material/styles";
 
 const Logo: React.FC = () => {
   const theme = useTheme();

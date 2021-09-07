@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Rating, Typography } from "@material-ui/core";
+import { Box, Card, CardContent, Rating, Typography } from "@mui/material";
 import dayjs from "dayjs";
 import { GetCourseReviews_course_review } from "api/types";
 import Avatar from "./Avatar";

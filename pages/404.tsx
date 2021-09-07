@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
-import { Button, Container, Paper, Typography } from "@material-ui/core";
+import { Button, Container, Paper, Typography } from "@mui/material";
 
 const NotFound: React.FC = () => {
   const router = useRouter();

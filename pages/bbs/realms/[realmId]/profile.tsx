@@ -14,8 +14,8 @@ import {
   Stack,
   TextField,
   Typography,
-} from "@material-ui/core";
-import { LoadingButton } from "@material-ui/lab";
+} from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 import { useMutation, useQuery } from "@apollo/client";
 import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
