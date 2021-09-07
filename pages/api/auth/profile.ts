@@ -50,7 +50,7 @@ export default async function handleProfile(
 
   if (req.method === "GET") {
     if (!token) {
-      return res.status(200).send(null);
+      return res.status(401).send("Unauthorized");
     }
 
     try {

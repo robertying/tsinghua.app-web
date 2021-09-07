@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import useSWR, { mutate } from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import axios from "axios";
 import type { Session } from "pages/api/auth/session";
 import type { UserProfile } from "pages/api/auth/profile";
@@ -32,18 +32,22 @@ export const clearSession = () => {
   accessToken = null;
 };
 
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+
 export const useUser = () => {
   const router = useRouter();
+  const { mutate } = useSWRConfig();
   const realmId = router.query.realmId ?? 1;
 
   const { data, error } = useSWR<UserProfile | null>(
     `/api/auth/profile?realmId=${realmId}`,
+    fetcher,
     {
       shouldRetryOnError: false,
     }
   );
 
-  const loading = !data && !error;
+  const loading = !error && !data;
 
   const refetch = () => mutate(`/api/auth/profile?realmId=${realmId}`);
 
