@@ -231,7 +231,7 @@ const Realm: React.FC = () => {
         );
         toast("success", "图片上传成功");
       } catch (e) {
-        toast("error", "图片上传失败：" + e.toString());
+        toast("error", "图片上传失败：" + (e as Error).toString());
       } finally {
         setImageUploading(false);
       }

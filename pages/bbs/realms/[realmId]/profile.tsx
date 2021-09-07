@@ -19,7 +19,7 @@ import { LoadingButton } from "@material-ui/lab";
 import { useMutation, useQuery } from "@apollo/client";
 import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
-import ReactCrop from "react-image-crop";
+import ReactCrop, { Crop } from "react-image-crop";
 import MyAvatar from "components/Avatar";
 import MyDialog from "components/Dialog";
 import { useToast } from "components/Snackbar";
@@ -49,7 +49,7 @@ import {
 } from "api/user";
 import { DELETE_SESSION, GET_SESSIONS } from "api/session";
 
-const initialCrop: ReactCrop.Crop = {
+const initialCrop: Partial<Crop> = {
   aspect: 1,
   x: 0,
   y: 0,
@@ -67,7 +67,7 @@ const RealmProfile: React.FC = () => {
 
   const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
   const [imageFile, setImageFile] = useState<string | null>(null);
-  const [crop, setCrop] = useState<ReactCrop.Crop>(initialCrop);
+  const [crop, setCrop] = useState<Partial<Crop>>(initialCrop);
   const [uploadLoading, setUploadLoading] = useState(false);
   const [statusDialogOpen, setStatusDialogOpen] = useState(false);
   const [status, setStatus] = useState("");
@@ -211,7 +211,7 @@ const RealmProfile: React.FC = () => {
             toast("success", "上传成功");
           }
         } catch (e) {
-          toast("error", "上传失败：" + e.toString());
+          toast("error", "上传失败：" + (e as Error).toString());
         } finally {
           setUploadLoading(false);
         }

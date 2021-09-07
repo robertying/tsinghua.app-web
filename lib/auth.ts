@@ -1,7 +1,7 @@
 import type { NextApiResponse } from "next";
 import nookies from "nookies";
 import type { IncomingMessage } from "http";
-import type { NextApiRequestCookies } from "next/dist/next-server/server/api-utils";
+import type { NextApiRequestCookies } from "next/dist/server/api-utils";
 import {
   REFRESH_TOKEN_COOKIE_NAME,
   SESSION_ID_COOKIE_NAME,
