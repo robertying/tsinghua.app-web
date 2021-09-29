@@ -105,7 +105,7 @@
   --color-icon-warning: #9a6700;
   --color-border-primary: #d0d7de;
   --color-border-secondary: hsla(210, 18%, 87%, 1);
-  --color-border-tertiary: rgba(175, 184, 193, 0.2);
+  --color-border-tertiary: #d0d7de;
   --color-border-overlay: #d0d7de;
   --color-border-inverse: #ffffff;
   --color-border-info: #0969da;
@@ -398,11 +398,11 @@
   --color-diff-blob-addition-line-bg: #e6ffec;
   --color-diff-blob-addition-word-bg: #abf2bc;
   --color-diff-blob-deletion-num-hover-text: #24292f;
-  --color-diff-blob-deletion-line-bg: #ffebe9;
-  --color-diff-blob-deletion-word-bg: rgba(255, 129, 130, 0.4);
   --color-diff-blob-deletion-num-text: #24292f;
   --color-diff-blob-deletion-fg: #24292f;
   --color-diff-blob-deletion-num-bg: #ffd7d5;
+  --color-diff-blob-deletion-line-bg: #ffebe9;
+  --color-diff-blob-deletion-word-bg: rgba(255, 129, 130, 0.4);
   --color-diff-blob-hunk-text: #57606a;
   --color-diff-blob-hunk-num-bg: rgba(84, 174, 255, 0.4);
   --color-diff-blob-hunk-line-bg: #ddf4ff;
@@ -428,6 +428,7 @@
   --color-intro-shelf-gradient-right: #dafbe1;
   --color-intro-shelf-gradient-in: #ffffff;
   --color-intro-shelf-gradient-out: rgba(255, 255, 255, 0);
+  --color-canvas-default-transparent: rgba(255, 255, 255, 0);
   --color-marketing-icon-primary: #218bff;
   --color-marketing-icon-secondary: #54aeff;
   --color-search-keyword-hl: #fff8c5;
@@ -928,7 +929,7 @@
     --color-icon-warning: #c69026;
     --color-border-primary: #444c56;
     --color-border-secondary: #373e47;
-    --color-border-tertiary: rgba(99, 110, 123, 0.4);
+    --color-border-tertiary: #444c56;
     --color-border-overlay: #444c56;
     --color-border-inverse: #cdd9e5;
     --color-border-info: #316dca;
@@ -1221,11 +1222,11 @@
     --color-diff-blob-addition-line-bg: rgba(70, 149, 74, 0.15);
     --color-diff-blob-addition-word-bg: rgba(70, 149, 74, 0.4);
     --color-diff-blob-deletion-num-hover-text: #adbac7;
-    --color-diff-blob-deletion-line-bg: rgba(229, 83, 75, 0.15);
-    --color-diff-blob-deletion-word-bg: rgba(229, 83, 75, 0.4);
     --color-diff-blob-deletion-num-text: #adbac7;
     --color-diff-blob-deletion-fg: #adbac7;
     --color-diff-blob-deletion-num-bg: rgba(229, 83, 75, 0.3);
+    --color-diff-blob-deletion-line-bg: rgba(229, 83, 75, 0.15);
+    --color-diff-blob-deletion-word-bg: rgba(229, 83, 75, 0.4);
     --color-diff-blob-hunk-text: #768390;
     --color-diff-blob-hunk-num-bg: rgba(65, 132, 228, 0.4);
     --color-diff-blob-hunk-line-bg: rgba(65, 132, 228, 0.15);
@@ -1251,6 +1252,7 @@
     --color-intro-shelf-gradient-right: rgba(70, 149, 74, 0.15);
     --color-intro-shelf-gradient-in: #22272e;
     --color-intro-shelf-gradient-out: rgba(205, 217, 229, 0);
+    --color-canvas-default-transparent: rgba(34, 39, 46, 0);
     --color-marketing-icon-primary: #6cb6ff;
     --color-marketing-icon-secondary: #316dca;
     --color-search-keyword-hl: rgba(198, 144, 38, 0.4);
