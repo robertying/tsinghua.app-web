@@ -31,7 +31,7 @@ export default async function handleLogin(
         },
       }
     );
-    const result = response.data;
+    const result = response.data as any;
     if (
       !(
         result.success &&

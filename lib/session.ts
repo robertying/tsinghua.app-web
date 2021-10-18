@@ -32,7 +32,7 @@ export const clearSession = () => {
   accessToken = null;
 };
 
-const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+const fetcher = <T>(url: string) => axios.get<T>(url).then((res) => res.data);
 
 export const useUser = () => {
   const router = useRouter();

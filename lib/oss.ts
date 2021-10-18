@@ -13,7 +13,7 @@ export const getOSS = async () => {
     expirationTime.getTime() <= new Date().getTime()
   ) {
     const response = await axios.get("/api/auth/sts");
-    const auth = response.data;
+    const auth = response.data as any;
     expirationTime = new Date(auth.Expiration);
     tempFolder = auth.TempFolder;
 

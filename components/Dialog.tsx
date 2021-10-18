@@ -17,7 +17,9 @@ import { TransitionProps } from "@mui/material/transitions";
 import { Close } from "@mui/icons-material";
 
 const DialogTransition = forwardRef(function DialogTransition(
-  props: TransitionProps & { children?: React.ReactElement },
+  props: TransitionProps & {
+    children: React.ReactElement;
+  },
   ref: React.Ref<unknown>
 ) {
   return <Slide direction="up" ref={ref} {...props} />;

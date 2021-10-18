@@ -1,3 +1,4 @@
+import "@primer/css/dist/color-modes.css";
 import "styles/index.css";
 import "styles/nprogress.css";
 import "styles/markdown.css";
