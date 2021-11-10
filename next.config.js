@@ -6,7 +6,4 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 module.exports = withPlugins([withBundleAnalyzer], {
   reactStrictMode: true,
   compress: false,
-  experimental: {
-    esmExternals: true,
-  },
 });
