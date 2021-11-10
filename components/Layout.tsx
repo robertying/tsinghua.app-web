@@ -83,10 +83,6 @@ const Layout: React.FC = ({ children }) => {
                   }}
                 >
                   <MyAvatar
-                    sx={{
-                      width: "90%",
-                      height: "90%",
-                    }}
                     src={user.avatarUrl ?? undefined}
                     alt={user.username}
                     size="medium"
