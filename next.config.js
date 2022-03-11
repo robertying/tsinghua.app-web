@@ -5,5 +5,11 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 
 module.exports = withPlugins([withBundleAnalyzer], {
   reactStrictMode: true,
+  images: {
+    formats: ["image/avif", "image/webp"],
+  },
   compress: false,
+  experimental: {
+    outputStandalone: true,
+  },
 });
