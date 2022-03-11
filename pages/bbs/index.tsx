@@ -272,7 +272,7 @@ const ThursdayHome: React.FC<ThursdayHomeProps> = ({
         }}
         maxWidth="sm"
       >
-        {hottestThreads.length && (
+        {hottestThreads.length !== 0 && (
           <>
             <Typography variant="h5" component="h3">
               热门
@@ -284,7 +284,7 @@ const ThursdayHome: React.FC<ThursdayHomeProps> = ({
             </CarouselContainer>
           </>
         )}
-        {newestThreads.length && (
+        {newestThreads.length !== 0 && (
           <>
             <Typography sx={{ mt: 1.5 }} variant="h5" component="h3">
               最新
@@ -296,7 +296,7 @@ const ThursdayHome: React.FC<ThursdayHomeProps> = ({
             </CarouselContainer>
           </>
         )}
-        {randomRealms.length && (
+        {randomRealms.length !== 0 && (
           <>
             <Typography sx={{ mt: 1.5 }} variant="h5" component="h3">
               探索
