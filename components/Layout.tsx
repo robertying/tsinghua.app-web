@@ -19,7 +19,7 @@ import { useUser } from "lib/session";
 import MyFab from "./Fab";
 import MyAvatar from "./Avatar";
 
-const Layout: React.FC = ({ children }) => {
+const Layout: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   const router = useRouter();
   const realmId = router.query.realmId ?? 1;
 

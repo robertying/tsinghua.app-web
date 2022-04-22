@@ -70,7 +70,7 @@ const generateRealmCode = () => {
     .substr(0, 4);
 };
 
-const Realm: React.FC = () => {
+const Realm: React.FC<React.PropsWithChildren<unknown>> = () => {
   const toast = useToast();
 
   const router = useRouter();

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { NextSeo } from "next-seo";
 import { Button, Container, Paper, Typography } from "@mui/material";
 
-const InternalError: React.FC = () => {
+const InternalError: React.FC<React.PropsWithChildren<unknown>> = () => {
   return (
     <>
       <NextSeo title="500 Internal Error" noindex />

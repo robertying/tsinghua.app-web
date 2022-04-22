@@ -1,11 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 
-const MyImage: React.FC<
-  React.DetailedHTMLProps<
-    React.ImgHTMLAttributes<HTMLImageElement>,
-    HTMLImageElement
-  >
-> = (props) => {
+const MyImage: React.FC<React.PropsWithChildren<React.DetailedHTMLProps<
+  React.ImgHTMLAttributes<HTMLImageElement>,
+  HTMLImageElement
+>>> = (props) => {
   const { alt, src, ...restProps } = props;
 
   return src?.endsWith(".svg") ? (

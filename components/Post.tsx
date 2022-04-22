@@ -73,7 +73,7 @@ const getMyReactions = (values: PostProps) => {
   }
 };
 
-const Post: React.FC<PostProps> = (props) => {
+const Post: React.FC<React.PropsWithChildren<PostProps>> = (props) => {
   const [user] = useUser();
 
   const [loading, setLoading] = useState(true);

@@ -53,7 +53,7 @@ import NotFound from "pages/404";
 
 const EMPTY_USER_ID = "00000000-0000-0000-0000-000000000000";
 
-const CourseDetail: React.FC = () => {
+const CourseDetail: React.FC<React.PropsWithChildren<unknown>> = () => {
   const toast = useToast();
 
   const router = useRouter();

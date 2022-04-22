@@ -9,7 +9,7 @@ interface LearnProps {
   content: string;
 }
 
-const Learn: React.FC<LearnProps> = ({ content }) => {
+const Learn: React.FC<React.PropsWithChildren<LearnProps>> = ({ content }) => {
   return (
     <>
       <NextSeo

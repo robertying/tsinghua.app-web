@@ -57,7 +57,7 @@ const FeatureCard = ({
   </Link>
 );
 
-const Home: React.FC = () => {
+const Home: React.FC<React.PropsWithChildren<unknown>> = () => {
   return (
     <Container
       sx={{

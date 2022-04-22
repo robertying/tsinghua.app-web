@@ -33,7 +33,7 @@ export interface MyDialogProps extends DialogProps {
   title?: string;
 }
 
-const MyDialog: React.FC<MyDialogProps> = ({
+const MyDialog: React.FC<React.PropsWithChildren<MyDialogProps>> = ({
   onClose,
   onOk,
   okText,

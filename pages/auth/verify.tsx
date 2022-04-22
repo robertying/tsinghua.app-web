@@ -15,7 +15,7 @@ import NProgress from "nprogress";
 import { useToast } from "components/Snackbar";
 import { validateEmail } from "lib/validate";
 
-const Verify: React.FC = () => {
+const Verify: React.FC<React.PropsWithChildren<unknown>> = () => {
   const toast = useToast();
 
   const router = useRouter();

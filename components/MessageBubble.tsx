@@ -7,7 +7,7 @@ export interface MessageBubbleProps {
   createdAt: Date | string;
 }
 
-const MessageBubble: React.FC<MessageBubbleProps> = ({
+const MessageBubble: React.FC<React.PropsWithChildren<MessageBubbleProps>> = ({
   position,
   text,
   createdAt,

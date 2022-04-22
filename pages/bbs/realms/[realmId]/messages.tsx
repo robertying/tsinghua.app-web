@@ -59,7 +59,7 @@ const getContactList = (userId?: string, contactData?: GetMessageContacts) => {
     : [];
 };
 
-const RealmMessages: React.FC = () => {
+const RealmMessages: React.FC<React.PropsWithChildren<unknown>> = () => {
   const theme = useTheme();
   const smUp = useMediaQuery(theme.breakpoints.up("sm"));
 

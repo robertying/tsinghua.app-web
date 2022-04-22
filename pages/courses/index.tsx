@@ -14,7 +14,7 @@ interface CourseHomeProps {
   courseCount?: number | null;
 }
 
-export const CourseHome: React.FC<CourseHomeProps> = ({
+export const CourseHome: React.FC<React.PropsWithChildren<CourseHomeProps>> = ({
   children,
   courseCount,
 }) => {
@@ -106,7 +106,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
   );
 };
 
-const CourseHomeWithSeo: React.FC<CourseHomeProps> = (props) => (
+const CourseHomeWithSeo: React.FC<React.PropsWithChildren<CourseHomeProps>> = (props) => (
   <>
     <NextSeo
       title="课程信息共享计划 courseX"

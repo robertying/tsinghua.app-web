@@ -19,7 +19,7 @@ import { addApolloState, initializeApollo } from "lib/client";
 import { GET_COURSES } from "api/course";
 import { GetCourses, GetCoursesVariables } from "api/types";
 
-const CourseSearch: React.FC = () => {
+const CourseSearch: React.FC<React.PropsWithChildren<unknown>> = () => {
   const router = useRouter();
   const query = router.query.query?.[0] as string | undefined;
 

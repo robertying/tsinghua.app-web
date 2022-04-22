@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
 import { Button, Container, Paper, Typography } from "@mui/material";
 
-const NotFound: React.FC = () => {
+const NotFound: React.FC<React.PropsWithChildren<unknown>> = () => {
   const router = useRouter();
 
   const courseRelated = router.asPath.startsWith("/courses/");

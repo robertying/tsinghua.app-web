@@ -5,7 +5,7 @@ import Avatar from "./Avatar";
 
 export interface ReviewProps extends GetCourseReviews_course_review {}
 
-const Review: React.FC<ReviewProps> = (review) => (
+const Review: React.FC<React.PropsWithChildren<ReviewProps>> = (review) => (
   <Card>
     <CardContent sx={{ "&:last-child": { pb: 2 } }}>
       <Box

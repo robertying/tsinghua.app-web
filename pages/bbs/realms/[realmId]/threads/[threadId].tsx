@@ -68,7 +68,7 @@ import {
   GetThread_thread_by_pk_posts,
 } from "api/types";
 
-const Thread: React.FC = () => {
+const Thread: React.FC<React.PropsWithChildren<unknown>> = () => {
   const toast = useToast();
 
   const router = useRouter();

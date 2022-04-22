@@ -3,11 +3,9 @@ import { Fab, FabProps, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Portal from "./Portal";
 
-const InternalFab: React.FC<
-  FabProps & {
-    forwardedRef: React.Ref<HTMLButtonElement>;
-  }
-> = ({ forwardedRef, ...restProps }) => {
+const InternalFab: React.FC<React.PropsWithChildren<FabProps & {
+  forwardedRef: React.Ref<HTMLButtonElement>;
+}>> = ({ forwardedRef, ...restProps }) => {
   const theme = useTheme();
   const sm = useMediaQuery(theme.breakpoints.down("sm"));
 

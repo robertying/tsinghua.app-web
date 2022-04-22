@@ -49,13 +49,15 @@ import {
 } from "api/user";
 import { DELETE_SESSION, GET_SESSIONS } from "api/session";
 
-const initialCrop: Partial<Crop> = {
-  aspect: 1,
+const initialCrop: Crop = {
   x: 0,
   y: 0,
+  unit: "%",
+  width: 100,
+  height: 100,
 };
 
-const RealmProfile: React.FC = () => {
+const RealmProfile: React.FC<React.PropsWithChildren<unknown>> = () => {
   const toast = useToast();
 
   const router = useRouter();
@@ -67,7 +69,7 @@ const RealmProfile: React.FC = () => {
 
   const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
   const [imageFile, setImageFile] = useState<string | null>(null);
-  const [crop, setCrop] = useState<Partial<Crop>>(initialCrop);
+  const [crop, setCrop] = useState<Crop>(initialCrop);
   const [uploadLoading, setUploadLoading] = useState(false);
   const [statusDialogOpen, setStatusDialogOpen] = useState(false);
   const [status, setStatus] = useState("");
@@ -148,16 +150,17 @@ const RealmProfile: React.FC = () => {
     e.target.value = "";
   };
 
-  const handleImageLoad = (img: HTMLImageElement) => {
+  const handleImageLoad: React.ReactEventHandler<HTMLImageElement> = (e) => {
+    const img = e.currentTarget;
     imageRef.current = img;
 
     const min = Math.min(img.height, img.width);
     setCrop({
-      aspect: 1,
       x: 0,
       y: 0,
       width: min,
       height: min,
+      unit: "px",
     });
     return false;
   };
@@ -431,20 +434,27 @@ const RealmProfile: React.FC = () => {
                     userSelect: "none",
                   },
                 }}
-                imageStyle={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
-                }}
-                src={imageFile}
-                imageAlt="待裁剪的头像图片"
-                onImageLoaded={handleImageLoad}
                 crop={crop}
+                aspect={1}
                 keepSelection
                 ruleOfThirds
                 circularCrop
                 onChange={setCrop}
-              />
+              >
+                {
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    css={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "contain",
+                    }}
+                    src={imageFile}
+                    alt="待裁剪的头像图片"
+                    onLoad={handleImageLoad}
+                  />
+                }
+              </ReactCrop>
               <canvas
                 ref={previewCanvasRef}
                 style={{

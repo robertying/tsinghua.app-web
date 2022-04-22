@@ -6,7 +6,7 @@ export interface MyAvatarProps extends AvatarProps {
   size: "small" | "medium" | "large";
 }
 
-const MyAvatar: React.FC<MyAvatarProps> = ({
+const MyAvatar: React.FC<React.PropsWithChildren<MyAvatarProps>> = ({
   src,
   alt,
   size,

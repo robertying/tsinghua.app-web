@@ -9,7 +9,7 @@ const ToastContext = createContext<{
   toggleToast: () => {},
 });
 
-const ToastProvider: React.FC = ({ children }) => {
+const ToastProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   const [toastOpen, setToastOpen] = useState(false);
   const [toastType, setToastType] = useState<ToastType>("info");
   const [toastText, setToastText] = useState("");

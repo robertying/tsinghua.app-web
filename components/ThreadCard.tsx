@@ -14,7 +14,7 @@ import MyAvatar from "./Avatar";
 
 export interface ThreadCardProps extends GetRealm_realm_public_threads {}
 
-const ThreadCard: React.FC<ThreadCardProps> = (props) => {
+const ThreadCard: React.FC<React.PropsWithChildren<ThreadCardProps>> = (props) => {
   return (
     <Card>
       <Link href={`/bbs/realms/${props.realm_id}/threads/${props.id}`} passHref>

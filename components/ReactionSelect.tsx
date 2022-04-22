@@ -32,7 +32,7 @@ export interface ReactionSelectProps {
   onReact?: (emojiName: reaction_emoji_enum, action: "add" | "delete") => void;
 }
 
-const ReactionSelect: React.FC<ReactionSelectProps> = ({
+const ReactionSelect: React.FC<React.PropsWithChildren<ReactionSelectProps>> = ({
   reactions,
   myReactions,
   onReact,

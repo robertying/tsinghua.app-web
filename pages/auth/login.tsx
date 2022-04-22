@@ -19,7 +19,7 @@ import { useUser } from "lib/session";
 
 declare const grecaptcha: any;
 
-const Login: React.FC = () => {
+const Login: React.FC<React.PropsWithChildren<unknown>> = () => {
   const toast = useToast();
 
   const router = useRouter();

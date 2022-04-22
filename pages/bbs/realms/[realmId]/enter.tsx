@@ -20,7 +20,7 @@ import NotFound from "pages/404";
 import { useToast } from "components/Snackbar";
 import Splash from "components/Splash";
 
-const RealmEnter: React.FC = () => {
+const RealmEnter: React.FC<React.PropsWithChildren<unknown>> = () => {
   const toast = useToast();
 
   const [user] = useUser();

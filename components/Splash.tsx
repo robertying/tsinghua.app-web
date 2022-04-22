@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import Logo from "./Logo";
 
-const Splash: React.FC = () => {
+const Splash: React.FC<React.PropsWithChildren<unknown>> = () => {
   return (
     <Box
       sx={{

@@ -29,9 +29,7 @@ import { GET_HOTTEST_THREADS, GET_NEWEST_THREADS } from "api/thread";
 import { GET_PUBLIC_REALMS } from "api/realm";
 import Realm from "./realms/[realmId]";
 
-const ExploreThreadCard: React.FC<
-  GetHottestThreads_thread | GetNewestThreads_thread
-> = (props) => {
+const ExploreThreadCard: React.FC<React.PropsWithChildren<GetHottestThreads_thread | GetNewestThreads_thread>> = (props) => {
   return (
     <Card>
       <Link
@@ -98,7 +96,7 @@ const ExploreThreadCard: React.FC<
   );
 };
 
-const ExploreRealmCard: React.FC<GetPublicRealms_realm_public> = (props) => {
+const ExploreRealmCard: React.FC<React.PropsWithChildren<GetPublicRealms_realm_public>> = (props) => {
   return (
     <Card>
       <Link href={`/bbs/realms/${props.id}`} passHref>
@@ -149,7 +147,7 @@ const ExploreRealmCard: React.FC<GetPublicRealms_realm_public> = (props) => {
   );
 };
 
-const CarouselContainer: React.FC = ({ children }) => {
+const CarouselContainer: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   const stackRef = useRef<HTMLDivElement>(null);
   const [scrollEnd, setScrollEnd] = useState(false);
 
@@ -252,7 +250,7 @@ interface ThursdayHomeProps {
   randomRealms: GetPublicRealms_realm_public[];
 }
 
-const ThursdayHome: React.FC<ThursdayHomeProps> = ({
+const ThursdayHome: React.FC<React.PropsWithChildren<ThursdayHomeProps>> = ({
   hottestThreads,
   newestThreads,
   randomRealms,

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useTheme } from "@mui/material/styles";
 
-const Logo: React.FC = () => {
+const Logo: React.FC<React.PropsWithChildren<unknown>> = () => {
   const theme = useTheme();
 
   return theme.palette.mode === "dark" ? (
