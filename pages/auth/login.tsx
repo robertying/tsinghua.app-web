@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Head from "next/head";
+import Script from "next/script";
 import { NextSeo } from "next-seo";
 import {
   Button,
@@ -122,13 +122,11 @@ const Login: React.FC<React.PropsWithChildren<unknown>> = () => {
 
   return (
     <>
-      <Head>
-        <script
-          src={`https://www.recaptcha.net/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
-          async
-          defer
-        />
-      </Head>
+      <Script
+        src={`https://www.recaptcha.net/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+        async
+        defer
+      />
       <NextSeo title="登录" />
       <Container
         sx={{
