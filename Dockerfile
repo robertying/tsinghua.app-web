@@ -5,7 +5,7 @@ RUN apk add --no-cache alpine-sdk python3 libc6-compat curl && \
     curl -fsSL https://github.com/pnpm/pnpm/releases/latest/download/pnpm-linuxstatic-x64 -o /bin/pnpm && \
     chmod +x /bin/pnpm
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
+RUN npm install -g node-gyp && pnpm install --frozen-lockfile
 
 
 FROM node:18-alpine AS builder
