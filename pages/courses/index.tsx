@@ -8,7 +8,7 @@ import { getSemesterTextFromId } from "lib/format";
 import { GetCourseCount, GetCourseCountVariables } from "api/types";
 import { GET_COURSE_COUNT } from "api/course";
 
-const CURRENT_SEMESTER_ID = "2021-2022-2";
+const CURRENT_SEMESTER_ID = "2021-2022-3";
 
 interface CourseHomeProps {
   courseCount?: number | null;
@@ -106,7 +106,9 @@ export const CourseHome: React.FC<React.PropsWithChildren<CourseHomeProps>> = ({
   );
 };
 
-const CourseHomeWithSeo: React.FC<React.PropsWithChildren<CourseHomeProps>> = (props) => (
+const CourseHomeWithSeo: React.FC<React.PropsWithChildren<CourseHomeProps>> = (
+  props
+) => (
   <>
     <NextSeo
       title="课程信息共享计划 courseX"
