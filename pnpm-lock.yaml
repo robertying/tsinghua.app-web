@@ -34,6 +34,7 @@ specifiers:
   eslint-config-prettier: 8.5.0
   graphql: 16.5.0
   graphql-request: 4.3.0
+  hast-util-sanitize: 4.0.0
   jsonwebtoken: 8.5.1
   katex: 0.16.0
   lodash: 4.17.21
@@ -101,6 +102,7 @@ dependencies:
   eslint-config-prettier: 8.5.0_eslint@8.17.0
   graphql: 16.5.0
   graphql-request: 4.3.0_graphql@16.5.0
+  hast-util-sanitize: 4.0.0
   jsonwebtoken: 8.5.1
   katex: 0.16.0
   lodash: 4.17.21
