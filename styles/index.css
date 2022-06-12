@@ -13,6 +13,16 @@
   }
 }
 
+body[data-color-mode="auto"][data-light-theme="light"] {
+  --color-fg-default: rgba(0, 0, 0, 0.87);
+}
+
+@media (prefers-color-scheme: dark) {
+  body[data-color-mode="auto"][data-dark-theme="dark"] {
+    --color-fg-default: #fff;
+  }
+}
+
 a,
 a:hover {
   text-decoration: none;

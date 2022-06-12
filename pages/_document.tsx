@@ -7,7 +7,7 @@ const Document = () => {
       <body
         data-color-mode="auto"
         data-light-theme="light"
-        data-dark-theme="dark_dimmed"
+        data-dark-theme="dark"
       >
         <Main />
         <NextScript />
