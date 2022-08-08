@@ -32,11 +32,9 @@ export interface ReactionSelectProps {
   onReact?: (emojiName: reaction_emoji_enum, action: "add" | "delete") => void;
 }
 
-const ReactionSelect: React.FC<React.PropsWithChildren<ReactionSelectProps>> = ({
-  reactions,
-  myReactions,
-  onReact,
-}) => {
+const ReactionSelect: React.FC<
+  React.PropsWithChildren<ReactionSelectProps>
+> = ({ reactions, myReactions, onReact }) => {
   const theme = useTheme();
   const sm = useMediaQuery(theme.breakpoints.down("sm"));
 

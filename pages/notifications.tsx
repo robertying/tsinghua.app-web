@@ -26,9 +26,9 @@ import { useAuthRoute, useUser } from "lib/session";
 import { useToast } from "components/Snackbar";
 import Splash from "components/Splash";
 
-const Notification: React.FC<React.PropsWithChildren<GetNotifications_notification>> = (
-  notification
-) => {
+const Notification: React.FC<
+  React.PropsWithChildren<GetNotifications_notification>
+> = (notification) => {
   const payload = JSON.parse(notification.payload) as NotificationPayload;
 
   return (
