@@ -1,16 +1,22 @@
-import withPlugins from "next-compose-plugins";
-import withBundleAnalyzer from "@next/bundle-analyzer";
+import BundleAnalyzer from "@next/bundle-analyzer"
+
+const withBundleAnalyzer = BundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  compiler: {
+    emotion: true,
+  },
+  swcMinify: true,
+  output: "standalone",
   compress: false,
   experimental: {
-    outputStandalone: true,
     modularizeImports: {
       "@mui/material": {
         transform: "@mui/material/{{member}}",
@@ -22,16 +28,9 @@ const nextConfig = {
         transform: "@mui/icons-material/{{member}}",
       },
     },
-    emotion: true,
+    serverComponents: true,
+    runtime: "nodejs",
   },
 };
 
-export default withPlugins(
-  [
-    withBundleAnalyzer,
-    {
-      enabled: process.env.ANALYZE === "true",
-    },
-  ],
-  nextConfig
-);
+export default withBundleAnalyzer(nextConfig);
