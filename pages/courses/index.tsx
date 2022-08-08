@@ -8,7 +8,7 @@ import { getSemesterTextFromId } from "lib/format";
 import { GetCourseCount, GetCourseCountVariables } from "api/types";
 import { GET_COURSE_COUNT } from "api/course";
 
-const CURRENT_SEMESTER_ID = "2021-2022-3";
+const CURRENT_SEMESTER_ID = "2022-2023-1";
 
 interface CourseHomeProps {
   courseCount?: number | null;
