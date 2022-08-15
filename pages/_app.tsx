@@ -10,8 +10,6 @@ import { DefaultSeo } from "next-seo";
 import { ApolloProvider } from "@apollo/client";
 import { CssBaseline, useMediaQuery } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import createCache from "@emotion/cache";
-import { CacheProvider } from "@emotion/react";
 import NProgress from "nprogress";
 import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
@@ -20,8 +18,6 @@ import getAppTheme from "styles/theme";
 import { ToastProvider } from "components/Snackbar";
 import Layout from "components/Layout";
 import { useApollo } from "lib/client";
-
-const cache = createCache({ key: "css" });
 
 dayjs.locale("zh-cn");
 dayjs.extend(relativeTime);
@@ -75,16 +71,14 @@ const App: React.FC<React.PropsWithChildren<AppProps>> = ({
         description="星期四大学信息化建设推进计划"
       />
       <ApolloProvider client={apolloClient}>
-        <CacheProvider value={cache}>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <ToastProvider>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-            </ToastProvider>
-          </ThemeProvider>
-        </CacheProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <ToastProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ToastProvider>
+        </ThemeProvider>
       </ApolloProvider>
     </>
   );
