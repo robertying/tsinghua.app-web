@@ -43,6 +43,13 @@ export const GET_COURSES = gql`
         name
       }
       semester_id
+      course_reviews_aggregate {
+        aggregate {
+          avg {
+            rating
+          }
+        }
+      }
     }
   }
 `;

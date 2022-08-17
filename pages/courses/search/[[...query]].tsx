@@ -4,8 +4,10 @@ import Link from "next/link";
 import { NextSeo } from "next-seo";
 import { useQuery } from "@apollo/client";
 import {
+  Box,
   CircularProgress,
   Container,
+  Rating,
   Table,
   TableBody,
   TableCell,
@@ -78,9 +80,26 @@ const CourseSearch: React.FC<React.PropsWithChildren<unknown>> = () => {
                       key={course.id}
                     >
                       <TableCell>
-                        <Link href={`/courses/${course.id}`}>
-                          <a>{course.name}</a>
-                        </Link>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <Link href={`/courses/${course.id}`}>
+                            <a>{course.name}</a>
+                          </Link>
+                          <Rating
+                            sx={{ mt: 0.5 }}
+                            value={
+                              course.course_reviews_aggregate.aggregate?.avg
+                                ?.rating
+                            }
+                            precision={0.1}
+                            readOnly
+                            size="small"
+                          />
+                        </Box>
                       </TableCell>
                       <TableCell>{course.teacher.name}</TableCell>
                       <TableCell align="right">

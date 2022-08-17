@@ -220,6 +220,21 @@ export interface GetCourses_course_teacher {
   name: string;
 }
 
+export interface GetCourses_course_course_reviews_aggregate_aggregate_avg {
+  __typename: "course_review_avg_fields";
+  rating: number | null;
+}
+
+export interface GetCourses_course_course_reviews_aggregate_aggregate {
+  __typename: "course_review_aggregate_fields";
+  avg: GetCourses_course_course_reviews_aggregate_aggregate_avg | null;
+}
+
+export interface GetCourses_course_course_reviews_aggregate {
+  __typename: "course_review_aggregate";
+  aggregate: GetCourses_course_course_reviews_aggregate_aggregate | null;
+}
+
 export interface GetCourses_course {
   __typename: "course";
   id: string;
@@ -229,6 +244,10 @@ export interface GetCourses_course {
    */
   teacher: GetCourses_course_teacher;
   semester_id: string;
+  /**
+   * An aggregate relationship
+   */
+  course_reviews_aggregate: GetCourses_course_course_reviews_aggregate;
 }
 
 export interface GetCourses {
@@ -2327,7 +2346,7 @@ export interface post_obj_rel_insert_input {
 }
 
 /**
- * on conflict condition type for table "post"
+ * on_conflict condition type for table "post"
  */
 export interface post_on_conflict {
   constraint: post_constraint;
@@ -2369,7 +2388,7 @@ export interface post_reaction_insert_input {
 }
 
 /**
- * on conflict condition type for table "post_reaction"
+ * on_conflict condition type for table "post_reaction"
  */
 export interface post_reaction_on_conflict {
   constraint: post_reaction_constraint;
@@ -2571,7 +2590,7 @@ export interface thread_obj_rel_insert_input {
 }
 
 /**
- * on conflict condition type for table "thread"
+ * on_conflict condition type for table "thread"
  */
 export interface thread_on_conflict {
   constraint: thread_constraint;
@@ -2613,7 +2632,7 @@ export interface thread_reaction_insert_input {
 }
 
 /**
- * on conflict condition type for table "thread_reaction"
+ * on_conflict condition type for table "thread_reaction"
  */
 export interface thread_reaction_on_conflict {
   constraint: thread_reaction_constraint;
@@ -2680,7 +2699,7 @@ export interface topic_obj_rel_insert_input {
 }
 
 /**
- * on conflict condition type for table "topic"
+ * on_conflict condition type for table "topic"
  */
 export interface topic_on_conflict {
   constraint: topic_constraint;
