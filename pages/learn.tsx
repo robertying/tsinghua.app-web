@@ -25,6 +25,10 @@ const Learn: React.FC<React.PropsWithChildren<LearnProps>> = ({ content }) => {
               xs: "auto",
               sm: 320,
             },
+            width: {
+              xs: "auto",
+              sm: "auto",
+            },
           },
         }}
         maxWidth="sm"
