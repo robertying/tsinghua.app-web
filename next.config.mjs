@@ -1,4 +1,4 @@
-import BundleAnalyzer from "@next/bundle-analyzer"
+import BundleAnalyzer from "@next/bundle-analyzer";
 
 const withBundleAnalyzer = BundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
@@ -28,8 +28,6 @@ const nextConfig = {
         transform: "@mui/icons-material/{{member}}",
       },
     },
-    serverComponents: true,
-    runtime: "nodejs",
   },
 };
 
