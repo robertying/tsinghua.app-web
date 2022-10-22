@@ -1,4 +1,4 @@
-FROM node:18-alpine AS deps
+FROM node:19-alpine AS deps
 WORKDIR /app
 
 RUN apk add --no-cache alpine-sdk python3 libc6-compat curl && \
@@ -8,7 +8,7 @@ COPY package.json pnpm-lock.yaml ./
 RUN npm install -g node-gyp && pnpm install --frozen-lockfile
 
 
-FROM node:18-alpine AS builder
+FROM node:19-alpine AS builder
 WORKDIR /app
 
 ARG GRAPHQL_API_URL
@@ -27,7 +27,7 @@ RUN apk add --no-cache curl && \
 RUN pnpm build
 
 
-FROM node:18-alpine AS runner
+FROM node:19-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
