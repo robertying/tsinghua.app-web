@@ -257,7 +257,7 @@ const CourseDetail: React.FC<React.PropsWithChildren<unknown>> = () => {
           sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
           component="nav"
         >
-          <Link href="/courses" passHref>
+          <Link href="/courses" passHref legacyBehavior>
             <Tooltip title="返回搜索">
               <IconButton>
                 <Search />
@@ -361,12 +361,13 @@ const CourseDetail: React.FC<React.PropsWithChildren<unknown>> = () => {
                   </Button>
                 </Stack>
               ) : (
-                <Link
+                <Button
+                  component={Link}
                   href={`/auth/login?redirect_url=${router.asPath}`}
-                  passHref
+                  variant="contained"
                 >
-                  <Button variant="contained">登录</Button>
-                </Link>
+                  登录
+                </Button>
               )}
             </Box>
             <Box

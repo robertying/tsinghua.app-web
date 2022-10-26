@@ -13,7 +13,6 @@ const nextConfig = {
   compiler: {
     emotion: true,
   },
-  swcMinify: true,
   output: "standalone",
   compress: false,
   experimental: {

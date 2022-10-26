@@ -73,8 +73,8 @@ const getRehypeToReactOptions = (preview?: boolean) => ({
   components: {
     a: (props: React.HTMLProps<HTMLAnchorElement>) =>
       !preview && isRelativeUrl(props.href ?? "") ? (
-        <Link href={props.href ?? ""}>
-          <a {...props}>{props.children}</a>
+        <Link {...props} href={props.href ?? ""} ref={undefined}>
+          {props.children}
         </Link>
       ) : (
         <a {...props} target="_blank" rel="noopener noreferrer">

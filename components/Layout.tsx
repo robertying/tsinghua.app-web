@@ -72,7 +72,11 @@ const Layout: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
           !authLoading &&
           user &&
           (user.username ? (
-            <Link href={`/bbs/realms/${realmId}/profile`} passHref>
+            <Link
+              href={`/bbs/realms/${realmId}/profile`}
+              passHref
+              legacyBehavior
+            >
               <Tooltip title="用户信息">
                 <MyFab
                   sx={{
@@ -91,7 +95,7 @@ const Layout: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
               </Tooltip>
             </Link>
           ) : !isEnter ? (
-            <Link href={`/bbs/realms/${realmId}/enter`} passHref>
+            <Link href={`/bbs/realms/${realmId}/enter`} passHref legacyBehavior>
               <Tooltip title="加入领域">
                 <MyFab
                   sx={{
@@ -108,7 +112,11 @@ const Layout: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
             </Link>
           ) : null)}
         {isBbs && !isMessages && !authLoading && user && user.username && (
-          <Link href={`/bbs/realms/${realmId}/messages`} passHref>
+          <Link
+            href={`/bbs/realms/${realmId}/messages`}
+            passHref
+            legacyBehavior
+          >
             <Tooltip title="消息">
               <MyFab
                 sx={{
@@ -124,7 +132,7 @@ const Layout: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
           </Link>
         )}
         {!isNotifications && !authLoading && user && (
-          <Link href="/notifications" passHref>
+          <Link href="/notifications" passHref legacyBehavior>
             <Tooltip title="通知">
               <MyFab
                 sx={{
@@ -146,7 +154,11 @@ const Layout: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
           </Link>
         )}
         {!isProfile && !isAuth && !authLoading && !user && (
-          <Link href={`/auth/login?redirect_url=${router.asPath}`} passHref>
+          <Link
+            href={`/auth/login?redirect_url=${router.asPath}`}
+            passHref
+            legacyBehavior
+          >
             <Tooltip title="登录">
               <MyFab>
                 <PersonAdd />
@@ -162,7 +174,7 @@ const Layout: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
           </Tooltip>
         )}
         {(isBbsHome || isCourses || isLearn) && (
-          <Link href="/" passHref>
+          <Link href="/" passHref legacyBehavior>
             <Tooltip title="主页">
               <MyFab>
                 <Home />

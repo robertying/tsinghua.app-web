@@ -38,16 +38,14 @@ const Notification: React.FC<
       variant="dot"
       invisible={notification.read}
     >
-      <Link href={payload.url} passHref>
-        <Card sx={{ width: "100%" }} component="a">
-          <CardActionArea sx={{ p: 2 }}>
-            <Typography>{payload.content}</Typography>
-            <Typography sx={{ mt: 1 }} variant="caption" component="div">
-              {dayjs(notification.created_at).fromNow()}
-            </Typography>
-          </CardActionArea>
-        </Card>
-      </Link>
+      <Card sx={{ width: "100%" }}>
+        <CardActionArea component={Link} href={payload.url} sx={{ p: 2 }}>
+          <Typography>{payload.content}</Typography>
+          <Typography sx={{ mt: 1 }} variant="caption" component="div">
+            {dayjs(notification.created_at).fromNow()}
+          </Typography>
+        </CardActionArea>
+      </Card>
     </Badge>
   );
 };

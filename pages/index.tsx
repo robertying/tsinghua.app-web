@@ -25,36 +25,30 @@ const FeatureCard = ({
   url: string;
   icon: React.ReactElement;
 }) => (
-  <Link href={url} passHref>
-    <Card component="a">
-      <CardActionArea>
-        <CardContent>
-          <Box
-            sx={{
-              textAlign: "center",
-            }}
-          >
-            {cloneElement(icon, {
-              sx: { fontSize: { xs: "4rem", sm: "6rem" } },
-            })}
-          </Box>
-          <Typography
-            sx={{ mt: 1, fontWeight: 500 }}
-            variant="h5"
-            component="h2"
-          >
-            {title}
-          </Typography>
-          <Typography variant="subtitle1" component="h3">
-            {description}
-          </Typography>
-          <Typography sx={{ mt: 0.5 }} variant="subtitle2" component="h4">
-            {process.env.NEXT_PUBLIC_DOMAIN + url}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  </Link>
+  <Card>
+    <CardActionArea component={Link} href={url}>
+      <CardContent>
+        <Box
+          sx={{
+            textAlign: "center",
+          }}
+        >
+          {cloneElement(icon, {
+            sx: { fontSize: { xs: "4rem", sm: "6rem" } },
+          })}
+        </Box>
+        <Typography sx={{ mt: 1, fontWeight: 500 }} variant="h5" component="h2">
+          {title}
+        </Typography>
+        <Typography variant="subtitle1" component="h3">
+          {description}
+        </Typography>
+        <Typography sx={{ mt: 0.5 }} variant="subtitle2" component="h4">
+          {process.env.NEXT_PUBLIC_DOMAIN + url}
+        </Typography>
+      </CardContent>
+    </CardActionArea>
+  </Card>
 );
 
 const Home: React.FC<React.PropsWithChildren<unknown>> = () => {

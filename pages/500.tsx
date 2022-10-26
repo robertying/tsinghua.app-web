@@ -26,11 +26,9 @@ const InternalError: React.FC<React.PropsWithChildren<unknown>> = () => {
           <Typography sx={{ mt: 4 }} variant="body1">
             服务器内部产生了错误。请稍后重试。
           </Typography>
-          <Link href="/" passHref>
-            <Button sx={{ mt: 2 }} variant="contained">
-              返回主页
-            </Button>
-          </Link>
+          <Button component={Link} href="/" sx={{ mt: 2 }} variant="contained">
+            返回主页
+          </Button>
         </Paper>
       </Container>
     </>

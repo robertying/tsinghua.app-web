@@ -542,29 +542,24 @@ const Realm: React.FC<React.PropsWithChildren<unknown>> = () => {
           alignItems="center"
         >
           <Stack direction="row" spacing={1}>
-            <Link href={`/bbs/realms/${realmId}`} passHref>
-              <Chip
-                label="全部"
-                variant={topicId ? "outlined" : "filled"}
-                clickable
-                component="a"
-              />
-            </Link>
+            <Chip
+              component={Link}
+              href={`/bbs/realms/${realmId}`}
+              label="全部"
+              variant={topicId ? "outlined" : "filled"}
+              clickable
+            />
             {realm.topics.map((topic) => (
-              <Link
+              <Chip
                 key={topic.id}
+                component={Link}
                 href={`/bbs/realms/${realmId}?topic=${topic.id}`}
-                passHref
-              >
-                <Chip
-                  label={topic.name}
-                  variant={
-                    topicId === topic.id.toString() ? "filled" : "outlined"
-                  }
-                  clickable
-                  component="a"
-                />
-              </Link>
+                label={topic.name}
+                variant={
+                  topicId === topic.id.toString() ? "filled" : "outlined"
+                }
+                clickable
+              />
             ))}
           </Stack>
         </Stack>

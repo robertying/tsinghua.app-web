@@ -34,66 +34,63 @@ const ExploreThreadCard: React.FC<
 > = (props) => {
   return (
     <Card>
-      <Link
+      <CardActionArea
+        component={Link}
         href={`/bbs/realms/${props.realm?.id}/threads/${props.id}`}
-        passHref
+        sx={{
+          p: 2,
+          pb: 1.5,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          alignItems: "stretch",
+          height: "100%",
+        }}
       >
-        <CardActionArea
-          sx={{
-            p: 2,
-            pb: 1.5,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            alignItems: "stretch",
-            height: "100%",
-          }}
+        <Typography variant="subtitle2" component="div">
+          {props.realm?.name}
+        </Typography>
+        <Typography
+          sx={{ mt: 0.5, overflowWrap: "break-word" }}
+          variant="subtitle1"
+          component="div"
         >
-          <Typography variant="subtitle2" component="div">
-            {props.realm?.name}
-          </Typography>
-          <Typography
-            sx={{ mt: 0.5, overflowWrap: "break-word" }}
-            variant="subtitle1"
-            component="div"
-          >
-            {props.title}
+          {props.title}
+        </Typography>
+        <Stack
+          sx={{
+            mt: 0.5,
+          }}
+          direction="row"
+          alignItems="center"
+        >
+          <Typography variant="caption">
+            {dayjs(props.created_at).fromNow()}
           </Typography>
           <Stack
-            sx={{
-              mt: 0.5,
-            }}
+            sx={{ fontSize: "0.8rem", ml: "auto", mr: 1 }}
             direction="row"
             alignItems="center"
+            spacing={0.5}
           >
-            <Typography variant="caption">
-              {dayjs(props.created_at).fromNow()}
+            <CommentOutlined sx={{ fontSize: "inherit" }} />
+            <Typography sx={{ fontSize: "inherit" }} variant="caption">
+              {props.posts_aggregate.aggregate?.count}
             </Typography>
-            <Stack
-              sx={{ fontSize: "0.8rem", ml: "auto", mr: 1 }}
-              direction="row"
-              alignItems="center"
-              spacing={0.5}
-            >
-              <CommentOutlined sx={{ fontSize: "inherit" }} />
-              <Typography sx={{ fontSize: "inherit" }} variant="caption">
-                {props.posts_aggregate.aggregate?.count}
-              </Typography>
-            </Stack>
-            <Stack
-              sx={{ fontSize: "0.8rem" }}
-              direction="row"
-              alignItems="center"
-              spacing={0.5}
-            >
-              <EmojiEmotionsOutlined sx={{ fontSize: "inherit" }} />
-              <Typography sx={{ fontSize: "inherit" }} variant="caption">
-                {props.reactions_aggregate.aggregate?.count}
-              </Typography>
-            </Stack>
           </Stack>
-        </CardActionArea>
-      </Link>
+          <Stack
+            sx={{ fontSize: "0.8rem" }}
+            direction="row"
+            alignItems="center"
+            spacing={0.5}
+          >
+            <EmojiEmotionsOutlined sx={{ fontSize: "inherit" }} />
+            <Typography sx={{ fontSize: "inherit" }} variant="caption">
+              {props.reactions_aggregate.aggregate?.count}
+            </Typography>
+          </Stack>
+        </Stack>
+      </CardActionArea>
     </Card>
   );
 };
@@ -103,50 +100,50 @@ const ExploreRealmCard: React.FC<
 > = (props) => {
   return (
     <Card>
-      <Link href={`/bbs/realms/${props.id}`} passHref>
-        <CardActionArea
-          sx={{
-            p: 2,
-            pb: 1.5,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            alignItems: "stretch",
-            height: "100%",
-          }}
+      <CardActionArea
+        component={Link}
+        href={`/bbs/realms/${props.id}`}
+        sx={{
+          p: 2,
+          pb: 1.5,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          alignItems: "stretch",
+          height: "100%",
+        }}
+      >
+        <Typography variant="subtitle2" component="div">
+          {props.name}
+        </Typography>
+        <Typography
+          sx={{ mt: 0.5, overflowWrap: "break-word" }}
+          variant="subtitle1"
+          component="div"
         >
-          <Typography variant="subtitle2" component="div">
-            {props.name}
-          </Typography>
-          <Typography
-            sx={{ mt: 0.5, overflowWrap: "break-word" }}
-            variant="subtitle1"
-            component="div"
-          >
-            {props.description}
-          </Typography>
+          {props.description}
+        </Typography>
+        <Stack
+          sx={{
+            mt: 0.5,
+          }}
+          direction="row"
+          alignItems="center"
+          justifyContent="flex-end"
+        >
           <Stack
-            sx={{
-              mt: 0.5,
-            }}
+            sx={{ fontSize: "0.8rem", ml: "auto" }}
             direction="row"
             alignItems="center"
-            justifyContent="flex-end"
+            spacing={0.5}
           >
-            <Stack
-              sx={{ fontSize: "0.8rem", ml: "auto" }}
-              direction="row"
-              alignItems="center"
-              spacing={0.5}
-            >
-              <PeopleOutlined sx={{ fontSize: "inherit" }} />
-              <Typography sx={{ fontSize: "inherit" }} variant="caption">
-                {props.users_aggregate.aggregate?.count}
-              </Typography>
-            </Stack>
+            <PeopleOutlined sx={{ fontSize: "inherit" }} />
+            <Typography sx={{ fontSize: "inherit" }} variant="caption">
+              {props.users_aggregate.aggregate?.count}
+            </Typography>
           </Stack>
-        </CardActionArea>
-      </Link>
+        </Stack>
+      </CardActionArea>
     </Card>
   );
 };

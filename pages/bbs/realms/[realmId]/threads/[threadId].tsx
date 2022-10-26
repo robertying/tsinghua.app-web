@@ -435,14 +435,16 @@ const Thread: React.FC<React.PropsWithChildren<unknown>> = () => {
           </Tooltip>
         )}
         <Breadcrumbs>
-          <Link href="/bbs" passHref>
-            <Typography sx={{ color: "inherit !important" }} component="a">
-              星期四 Thursday
-            </Typography>
-          </Link>
-          <Link href={`/bbs/realms/${realmId}`} passHref>
-            <Typography component="a">{thread.realm!.name}</Typography>
-          </Link>
+          <Typography
+            component={Link}
+            href="/bbs"
+            sx={{ color: "inherit !important" }}
+          >
+            星期四 Thursday
+          </Typography>
+          <Typography component={Link} href={`/bbs/realms/${realmId}`}>
+            {thread.realm!.name}
+          </Typography>
         </Breadcrumbs>
         <Box
           sx={{
@@ -453,17 +455,13 @@ const Thread: React.FC<React.PropsWithChildren<unknown>> = () => {
           }}
         >
           {thread.topic && (
-            <Link
+            <Chip
+              component={Link}
               href={`/bbs/realms/${realmId}?topic=${thread.topic.id}`}
-              passHref
-            >
-              <Chip
-                sx={{ mr: 1 }}
-                label={thread.topic.name}
-                clickable
-                component="a"
-              />
-            </Link>
+              sx={{ mr: 1 }}
+              label={thread.topic.name}
+              clickable
+            />
           )}
           <Typography variant="h5" component="h1">
             {thread.title}

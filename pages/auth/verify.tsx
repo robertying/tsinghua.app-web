@@ -133,16 +133,16 @@ const Verify: React.FC<React.PropsWithChildren<unknown>> = () => {
             />
           </Box>
           <Box sx={{ mt: 4, display: "flex", flexDirection: "row" }}>
-            <Link
+            <Button
+              component={Link}
               href={
                 router.query.redirect_url
                   ? `/auth/login?redirect_url=${router.query.redirect_url}`
                   : "/auth/login"
               }
-              passHref
             >
-              <Button>返回登录</Button>
-            </Link>
+              返回登录
+            </Button>
             <Button
               sx={{ ml: 2 }}
               variant="contained"

@@ -39,17 +39,23 @@ const NotFound: React.FC<React.PropsWithChildren<unknown>> = () => {
             </Typography>
           )}
           {realmId ? (
-            <Link href={`/bbs/realms/${realmId}`} passHref>
-              <Button sx={{ mt: 2 }} variant="contained">
-                返回领域主页
-              </Button>
-            </Link>
+            <Button
+              component={Link}
+              href={`/bbs/realms/${realmId}`}
+              sx={{ mt: 2 }}
+              variant="contained"
+            >
+              返回领域主页
+            </Button>
           ) : (
-            <Link href="/" passHref>
-              <Button sx={{ mt: 2 }} variant="contained">
-                返回主页
-              </Button>
-            </Link>
+            <Button
+              component={Link}
+              href="/"
+              sx={{ mt: 2 }}
+              variant="contained"
+            >
+              返回主页
+            </Button>
           )}
         </Paper>
       </Container>

@@ -137,17 +137,15 @@ const Post: React.FC<React.PropsWithChildren<PostProps>> = (props) => {
                 onClose={handleMoreMenuClose}
               >
                 {user.username && user.id !== props.user?.user_id && (
-                  <Link
+                  <MenuItem
+                    component={Link}
                     href={`/bbs/realms/${props.user?.realm_id}/messages?user=${props.user?.user_id}`}
-                    passHref
                   >
-                    <MenuItem component="a">
-                      <MessageOutlined />
-                      <Typography sx={{ ml: 1 }} component="span">
-                        发消息
-                      </Typography>
-                    </MenuItem>
-                  </Link>
+                    <MessageOutlined />
+                    <Typography sx={{ ml: 1 }} component="span">
+                      发消息
+                    </Typography>
+                  </MenuItem>
                 )}
                 {props.onEdit && (
                   <MenuItem onClick={handleEditClick}>
