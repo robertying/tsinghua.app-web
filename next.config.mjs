@@ -15,17 +15,15 @@ const nextConfig = {
   },
   output: "standalone",
   compress: false,
-  experimental: {
-    modularizeImports: {
-      "@mui/material": {
-        transform: "@mui/material/{{member}}",
-      },
-      "@mui/lab": {
-        transform: "@mui/lab/{{member}}",
-      },
-      "@mui/icons-material": {
-        transform: "@mui/icons-material/{{member}}",
-      },
+  modularizeImports: {
+    "@mui/material": {
+      transform: "@mui/material/{{member}}",
+    },
+    "@mui/lab": {
+      transform: "@mui/lab/{{member}}",
+    },
+    "@mui/icons-material": {
+      transform: "@mui/icons-material/{{member}}",
     },
   },
 };
