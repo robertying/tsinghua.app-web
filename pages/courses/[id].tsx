@@ -21,6 +21,7 @@ import {
   Stack,
   Card,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { Search } from "@mui/icons-material";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_COURSE } from "api/course";
@@ -54,6 +55,8 @@ import NotFound from "pages/404";
 const EMPTY_USER_ID = "00000000-0000-0000-0000-000000000000";
 
 const CourseDetail: React.FC<React.PropsWithChildren<unknown>> = () => {
+  const theme = useTheme();
+
   const toast = useToast();
 
   const router = useRouter();
@@ -259,7 +262,7 @@ const CourseDetail: React.FC<React.PropsWithChildren<unknown>> = () => {
         >
           <Link href="/courses" passHref legacyBehavior>
             <Tooltip title="返回搜索">
-              <IconButton>
+              <IconButton sx={{ backgroundColor: theme.palette.action.hover }}>
                 <Search />
               </IconButton>
             </Tooltip>
