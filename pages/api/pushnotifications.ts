@@ -7,8 +7,8 @@ export default async function handlePushNotifications(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { payload, token } = req.body;
-  if (!payload || !token) {
+  const { payload, tokens } = req.body;
+  if (!payload || !tokens) {
     return res.status(400).end();
   }
 
@@ -23,16 +23,35 @@ export default async function handlePushNotifications(
   ) {
     return res.status(400).send("Invalid payload");
   }
+  if (
+    payload.notices.length === 0 &&
+    payload.assignments.length === 0 &&
+    payload.grades.length === 0 &&
+    payload.files.length === 0
+  ) {
+    return res.status(400).send("Empty payload");
+  }
 
-  const expoToken = `ExponentPushToken[${token}]`;
-  if (!Expo.isExpoPushToken(expoToken)) {
-    return res.status(400).send("Invalid Expo push token");
+  if (!Array.isArray(tokens)) {
+    return res.status(400).send("Invalid tokens");
+  }
+  if (tokens.length === 0) {
+    return res.status(400).send("Empty tokens");
+  }
+
+  const expoTokens: string[] = [];
+  for (const token of tokens) {
+    const expoToken = `ExponentPushToken[${token}]`;
+    if (!Expo.isExpoPushToken(expoToken)) {
+      return res.status(400).send("Invalid Expo push token");
+    }
+    expoTokens.push(expoToken);
   }
 
   const messages: ExpoPushMessage[] = [];
   for (const notice of payload.notices) {
     messages.push({
-      to: expoToken,
+      to: expoTokens,
       title: "新通知",
       subtitle: notice.courseName,
       body: notice.title,
@@ -41,7 +60,7 @@ export default async function handlePushNotifications(
   }
   for (const assignment of payload.assignments) {
     messages.push({
-      to: expoToken,
+      to: expoTokens,
       title: "新作业",
       subtitle: assignment.courseName,
       body: assignment.title,
@@ -50,7 +69,7 @@ export default async function handlePushNotifications(
   }
   for (const file of payload.files) {
     messages.push({
-      to: expoToken,
+      to: expoTokens,
       title: "新文件",
       subtitle: file.courseName,
       body: file.title,
@@ -59,7 +78,7 @@ export default async function handlePushNotifications(
   }
   for (const grade of payload.grades) {
     messages.push({
-      to: expoToken,
+      to: expoTokens,
       title: "成绩更新",
       subtitle: grade.courseName,
       body: grade.title,
