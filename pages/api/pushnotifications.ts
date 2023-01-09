@@ -56,7 +56,8 @@ export default async function handlePushNotifications(
       subtitle: notice.courseName,
       body: notice.title,
       data: notice,
-    });
+      _contentAvailable: true,
+    } as any);
   }
   for (const assignment of payload.assignments) {
     messages.push({
@@ -65,7 +66,8 @@ export default async function handlePushNotifications(
       subtitle: assignment.courseName,
       body: assignment.title,
       data: assignment,
-    });
+      _contentAvailable: true,
+    } as any);
   }
   for (const file of payload.files) {
     messages.push({
@@ -74,7 +76,8 @@ export default async function handlePushNotifications(
       subtitle: file.courseName,
       body: file.title,
       data: file,
-    });
+      _contentAvailable: true,
+    } as any);
   }
   for (const grade of payload.grades) {
     messages.push({
@@ -83,7 +86,8 @@ export default async function handlePushNotifications(
       subtitle: grade.courseName,
       body: grade.title,
       data: grade,
-    });
+      _contentAvailable: true,
+    } as any);
   }
 
   const chunks = expo.chunkPushNotifications(messages);
