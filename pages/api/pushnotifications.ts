@@ -56,6 +56,7 @@ export default async function handlePushNotifications(
       subtitle: notice.courseName,
       body: notice.title,
       data: notice,
+      sound: "default",
       _contentAvailable: true,
     } as any);
   }
@@ -66,6 +67,7 @@ export default async function handlePushNotifications(
       subtitle: assignment.courseName,
       body: assignment.title,
       data: assignment,
+      sound: "default",
       _contentAvailable: true,
     } as any);
   }
@@ -76,6 +78,7 @@ export default async function handlePushNotifications(
       subtitle: file.courseName,
       body: file.title,
       data: file,
+      sound: "default",
       _contentAvailable: true,
     } as any);
   }
@@ -86,6 +89,7 @@ export default async function handlePushNotifications(
       subtitle: grade.courseName,
       body: grade.title,
       data: grade,
+      sound: "default",
       _contentAvailable: true,
     } as any);
   }
