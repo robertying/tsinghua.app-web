@@ -5,11 +5,13 @@ import { Container } from "@mui/material";
 import axios from "axios";
 import { markdownToHtml } from "lib/markdown";
 
-interface LearnProps {
+interface LearnXProps {
   content: string;
 }
 
-const Learn: React.FC<React.PropsWithChildren<LearnProps>> = ({ content }) => {
+const LearnX: React.FC<React.PropsWithChildren<LearnXProps>> = ({
+  content,
+}) => {
   return (
     <>
       <NextSeo
@@ -42,9 +44,9 @@ const Learn: React.FC<React.PropsWithChildren<LearnProps>> = ({ content }) => {
   );
 };
 
-export default Learn;
+export default LearnX;
 
-export const getStaticProps: GetStaticProps<LearnProps> = async () => {
+export const getStaticProps: GetStaticProps<LearnXProps> = async () => {
   const response = await axios.get(
     "https://raw.githubusercontent.com/robertying/learnX/main/README.md"
   );

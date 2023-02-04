@@ -142,7 +142,7 @@ const Home: React.FC<React.PropsWithChildren<unknown>> = () => {
         <FeatureCard
           title="learnX"
           description="网络学堂新选择"
-          url="/learn"
+          url="/learnX"
           icon={<NotificationsOutlined />}
         />
       </Container>

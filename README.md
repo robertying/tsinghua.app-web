@@ -12,6 +12,6 @@ Multi-realm community
 
 courseX, Course Information Sharing Project
 
-### [tsinghua.app/learn](https://tsinghua.app/learn)
+### [tsinghua.app/learnX](https://tsinghua.app/learnX)
 
 learnX, App for Tsinghua University Web Learning

@@ -36,7 +36,7 @@ const Layout: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
     router.pathname.endsWith("/courses") ||
     router.pathname.startsWith("/courses/search");
 
-  const isLearn = router.pathname.startsWith("/learn");
+  const isLearn = router.pathname.startsWith("/learnX");
 
   const [user, authLoading] = useUser();
 
