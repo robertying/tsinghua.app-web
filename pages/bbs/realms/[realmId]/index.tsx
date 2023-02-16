@@ -496,14 +496,15 @@ const Realm: React.FC<React.PropsWithChildren<unknown>> = () => {
               open={switchButton ? true : false}
               onClose={handleSwitchMenuClose}
             >
-              {realmDetails?.admin_id && realmDetails?.admin_id === user?.id && (
-                <MenuItem onClick={handleRealmEdit}>
-                  <Settings />
-                  <Typography sx={{ ml: 1 }} component="span">
-                    领域设置
-                  </Typography>
-                </MenuItem>
-              )}
+              {realmDetails?.admin_id &&
+                realmDetails?.admin_id === user?.id && (
+                  <MenuItem onClick={handleRealmEdit}>
+                    <Settings />
+                    <Typography sx={{ ml: 1 }} component="span">
+                      领域设置
+                    </Typography>
+                  </MenuItem>
+                )}
               <MenuItem onClick={handleRealmDialogOpen}>
                 <Add />
                 <Typography sx={{ ml: 1 }} component="span">
