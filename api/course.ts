@@ -34,7 +34,7 @@ export const GET_COURSES = gql`
           { teacher: { name: { _ilike: $query } } }
         ]
       }
-      order_by: { semester_id: desc, updated_at: desc }
+      order_by: [{ semester_id: desc }, { updated_at: desc }]
     ) {
       id
       name

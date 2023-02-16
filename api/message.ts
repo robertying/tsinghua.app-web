@@ -10,7 +10,11 @@ export const GET_MESSAGE_CONTACTS = gql`
           { to_user_id: { _eq: $userId } }
         ]
       }
-      order_by: { from_user_id: asc, to_user_id: asc, created_at: desc }
+      order_by: [
+        { from_user_id: asc }
+        { to_user_id: asc }
+        { created_at: desc }
+      ]
       distinct_on: [from_user_id, to_user_id]
     ) {
       id
