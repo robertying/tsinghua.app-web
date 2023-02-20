@@ -25,6 +25,10 @@ export default async function handleSession(
   const refreshToken =
     req.body.refreshToken ?? cookies[REFRESH_TOKEN_COOKIE_NAME];
 
+  if (!refreshToken) {
+    return res.status(422).send("Missing refresh token");
+  }
+
   try {
     const { id, sessionId: sId } = await verify(refreshToken, "refresh");
     const userId = id === "learnx" ? process.env.LEARNX_USER_ID! : id;
