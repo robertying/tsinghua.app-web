@@ -78,7 +78,7 @@ export const encodeAccessToken = (user: {
 export const verify = (token: string | null, type: "refresh" | "access") => {
   return new Promise<JwtPayload>((resolve, reject) => {
     if (!token) {
-      return reject();
+      return reject(new Error("No token provided to verify."));
     }
     jwt.verify(
       token,
