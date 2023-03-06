@@ -40,19 +40,19 @@ import {
 import { ADD_THREAD } from "api/thread";
 import { GET_USER_REALMS } from "api/user";
 import {
-  AddRealm,
-  AddRealmVariables,
-  AddThread,
-  AddThreadVariables,
-  GetRealm,
-  GetRealmVariables,
-  GetRealmDetailsInvitationCode,
-  GetRealmDetailsInvitationCodeVariables,
-  GetUserRealms,
-  GetUserRealmsVariables,
-  UpdateRealm,
-  UpdateRealmVariables,
-} from "api/types";
+  AddRealmMutation,
+  AddRealmMutationVariables,
+  AddThreadMutation,
+  AddThreadMutationVariables,
+  GetRealmDetailsInvitationCodeQuery,
+  GetRealmDetailsInvitationCodeQueryVariables,
+  GetRealmQuery,
+  GetRealmQueryVariables,
+  GetUserRealmsQuery,
+  GetUserRealmsQueryVariables,
+  UpdateRealmMutation,
+  UpdateRealmMutationVariables,
+} from "api/types/graphql";
 import { useToast } from "components/Snackbar";
 import Splash from "components/Splash";
 import ThreadCard from "components/ThreadCard";
@@ -116,7 +116,7 @@ const Realm: React.FC<React.PropsWithChildren<unknown>> = () => {
     error: realmError,
     loading: realmLoading,
     refetch: refetchRealm,
-  } = useQuery<GetRealm, GetRealmVariables>(GET_REALM, {
+  } = useQuery<GetRealmQuery, GetRealmQueryVariables>(GET_REALM, {
     variables: {
       id: parseInt(realmId!, 10),
     },
@@ -125,8 +125,8 @@ const Realm: React.FC<React.PropsWithChildren<unknown>> = () => {
   const realm = realmData?.realm_public?.[0]!;
 
   const { data: realmDetailsData, refetch: refetchRealmDetails } = useQuery<
-    GetRealmDetailsInvitationCode,
-    GetRealmDetailsInvitationCodeVariables
+    GetRealmDetailsInvitationCodeQuery,
+    GetRealmDetailsInvitationCodeQueryVariables
   >(GET_REALM_DETAILS_INVITATION_CODE, {
     variables: {
       id: parseInt(realmId!, 10),
@@ -136,8 +136,8 @@ const Realm: React.FC<React.PropsWithChildren<unknown>> = () => {
   const realmDetails = realmDetailsData?.realm_by_pk;
 
   const { data: userRealmData } = useQuery<
-    GetUserRealms,
-    GetUserRealmsVariables
+    GetUserRealmsQuery,
+    GetUserRealmsQueryVariables
   >(GET_USER_REALMS, {
     variables: {
       id: user?.id!,
@@ -146,13 +146,15 @@ const Realm: React.FC<React.PropsWithChildren<unknown>> = () => {
   });
 
   const [addThread, { error: addThreadError, loading: addThreadLoading }] =
-    useMutation<AddThread, AddThreadVariables>(ADD_THREAD);
+    useMutation<AddThreadMutation, AddThreadMutationVariables>(ADD_THREAD);
   const [addRealm, { error: addRealmError, loading: addRealmLoading }] =
-    useMutation<AddRealm, AddRealmVariables>(ADD_REALM);
+    useMutation<AddRealmMutation, AddRealmMutationVariables>(ADD_REALM);
   const [
     updateRealm,
     { error: updateRealmError, loading: updateRealmLoading },
-  ] = useMutation<UpdateRealm, UpdateRealmVariables>(UPDATE_REALM);
+  ] = useMutation<UpdateRealmMutation, UpdateRealmMutationVariables>(
+    UPDATE_REALM
+  );
 
   const handleRealmChange = (id: number) => {
     handleSwitchMenuClose();

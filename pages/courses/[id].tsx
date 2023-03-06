@@ -32,17 +32,17 @@ import {
   UPDATE_COURSE_REVIEW,
 } from "api/course_review";
 import {
-  GetCourse,
-  GetCourseVariables,
-  AddCourseReview,
-  AddCourseReviewVariables,
-  GetCourseReviewsVariables,
-  GetCourseReviews,
-  UpdateCourseReview,
-  UpdateCourseReviewVariables,
-  DeleteCourseReview,
-  DeleteCourseReviewVariables,
-} from "api/types";
+  AddCourseReviewMutation,
+  AddCourseReviewMutationVariables,
+  DeleteCourseReviewMutation,
+  DeleteCourseReviewMutationVariables,
+  GetCourseQuery,
+  GetCourseQueryVariables,
+  GetCourseReviewsQuery,
+  GetCourseReviewsQueryVariables,
+  UpdateCourseReviewMutation,
+  UpdateCourseReviewMutationVariables,
+} from "api/types/graphql";
 import Review from "components/Review";
 import Splash from "components/Splash";
 import { useToast } from "components/Snackbar";
@@ -70,8 +70,8 @@ const CourseDetail: React.FC<React.PropsWithChildren<unknown>> = () => {
   const [content, setContent] = useState("");
 
   const { data: courseData, refetch: refetchCourse } = useQuery<
-    GetCourse,
-    GetCourseVariables
+    GetCourseQuery,
+    GetCourseQueryVariables
   >(GET_COURSE, {
     variables: {
       id: courseId!,
@@ -87,7 +87,7 @@ const CourseDetail: React.FC<React.PropsWithChildren<unknown>> = () => {
     error: courseReviewError,
     loading: courseReviewLoading,
     refetch: refetchCourseReviews,
-  } = useQuery<GetCourseReviews, GetCourseReviewsVariables>(
+  } = useQuery<GetCourseReviewsQuery, GetCourseReviewsQueryVariables>(
     GET_COURSE_REVIEWS,
     {
       variables: {
@@ -107,7 +107,9 @@ const CourseDetail: React.FC<React.PropsWithChildren<unknown>> = () => {
       error: addCourseReviewError,
       loading: addCourseReviewLoading,
     },
-  ] = useMutation<AddCourseReview, AddCourseReviewVariables>(ADD_COURSE_REVIEW);
+  ] = useMutation<AddCourseReviewMutation, AddCourseReviewMutationVariables>(
+    ADD_COURSE_REVIEW
+  );
   const [
     updateCourseReview,
     {
@@ -115,9 +117,10 @@ const CourseDetail: React.FC<React.PropsWithChildren<unknown>> = () => {
       error: updateCourseReviewError,
       loading: updateCourseReviewLoading,
     },
-  ] = useMutation<UpdateCourseReview, UpdateCourseReviewVariables>(
-    UPDATE_COURSE_REVIEW
-  );
+  ] = useMutation<
+    UpdateCourseReviewMutation,
+    UpdateCourseReviewMutationVariables
+  >(UPDATE_COURSE_REVIEW);
   const [
     deleteCourseReview,
     {
@@ -125,9 +128,10 @@ const CourseDetail: React.FC<React.PropsWithChildren<unknown>> = () => {
       error: deleteCourseReviewError,
       loading: deleteCourseReviewLoading,
     },
-  ] = useMutation<DeleteCourseReview, DeleteCourseReviewVariables>(
-    DELETE_COURSE_REVIEW
-  );
+  ] = useMutation<
+    DeleteCourseReviewMutation,
+    DeleteCourseReviewMutationVariables
+  >(DELETE_COURSE_REVIEW);
 
   const handleReviewDialogOpen = () => {
     if (myCourseReview) {
@@ -504,14 +508,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const client = initializeApollo();
 
   if (params?.id) {
-    await client.query<GetCourse, GetCourseVariables>({
+    await client.query<GetCourseQuery, GetCourseQueryVariables>({
       query: GET_COURSE,
       variables: {
         id: params.id as string,
       },
     });
 
-    await client.query<GetCourseReviews, GetCourseReviewsVariables>({
+    await client.query<GetCourseReviewsQuery, GetCourseReviewsQueryVariables>({
       query: GET_COURSE_REVIEWS,
       variables: {
         courseId: params.id as string,

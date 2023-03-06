@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { AddReactionOutlined } from "@mui/icons-material";
-import { reaction_emoji_enum } from "api/types";
+import { ReactionEmojiEnum } from "api/types/graphql";
 
 const emojis = {
   thumbs_up: "👍",
@@ -29,7 +29,7 @@ export interface ReactionSelectProps {
   myReactions?: {
     [_ in keyof typeof emojis]?: boolean;
   };
-  onReact?: (emojiName: reaction_emoji_enum, action: "add" | "delete") => void;
+  onReact?: (emojiName: ReactionEmojiEnum, action: "add" | "delete") => void;
 }
 
 const ReactionSelect: React.FC<
@@ -59,7 +59,7 @@ const ReactionSelect: React.FC<
         }}
       >
         {reactions &&
-          (Object.entries(emojis) as [reaction_emoji_enum, string][]).map(
+          (Object.entries(emojis) as [ReactionEmojiEnum, string][]).map(
             ([name, emoji]) =>
               reactions[name] ? (
                 <Chip
@@ -130,7 +130,7 @@ const ReactionSelect: React.FC<
                 },
               }}
               key={emoji}
-              onClick={() => onReact?.(name as reaction_emoji_enum, "add")}
+              onClick={() => onReact?.(name as ReactionEmojiEnum, "add")}
             >
               {emoji}
             </IconButton>

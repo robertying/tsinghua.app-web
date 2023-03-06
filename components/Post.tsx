@@ -15,27 +15,29 @@ import dayjs from "dayjs";
 import { markdownToReact } from "lib/markdown";
 import { useUser } from "lib/session";
 import {
-  GetThread_thread_by_pk,
-  GetThread_thread_by_pk_posts,
-  GetThreadReactions_thread_by_pk,
-  GetThreadReactions_thread_by_pk_posts,
-  GetThreadReactions_thread_by_pk_my_reactions,
-  GetThreadReactions_thread_by_pk_posts_my_reactions,
-  reaction_emoji_enum,
-} from "api/types";
+  GetThreadQuery,
+  GetThreadReactionsQuery,
+  ReactionEmojiEnum,
+} from "api/types/graphql";
 import MyAvatar from "./Avatar";
 import ReactionSelect from "./ReactionSelect";
 
-export type PostProps = (
-  | Omit<GetThread_thread_by_pk, "posts">
-  | GetThread_thread_by_pk_posts
-  | (Omit<GetThread_thread_by_pk, "posts"> &
-      Omit<GetThreadReactions_thread_by_pk, "posts">)
-  | (GetThread_thread_by_pk_posts & GetThreadReactions_thread_by_pk_posts)
-) & {
+type Thread = Partial<
+  Omit<
+    NonNullable<GetThreadQuery["thread_by_pk"]> &
+      NonNullable<GetThreadReactionsQuery["thread_by_pk"]>,
+    "posts"
+  >
+>;
+type ThreadPost = Partial<
+  NonNullable<GetThreadQuery["thread_by_pk"]>["posts"][0] &
+    NonNullable<GetThreadReactionsQuery["thread_by_pk"]>["posts"][0]
+>;
+
+export type PostProps = (Thread | ThreadPost) & {
   onReact?: (
     target: "thread" | "post",
-    name: reaction_emoji_enum,
+    name: ReactionEmojiEnum,
     action: "add" | "delete"
   ) => void;
   onEdit?: () => void;
@@ -44,27 +46,22 @@ export type PostProps = (
 const getReactions = (values: PostProps) => {
   if ("thumbs_up_reactions" in values) {
     return {
-      thumbs_up: values.thumbs_up_reactions.aggregate?.count,
-      thumbs_down: values.thumbs_down_reactions.aggregate?.count,
+      thumbs_up: values.thumbs_up_reactions!.aggregate?.count,
+      thumbs_down: values.thumbs_down_reactions!.aggregate?.count,
       grinning_face_with_smiling_eyes:
-        values.grinning_face_with_smiling_eyes_reactions.aggregate?.count,
-      party_popper: values.party_popper_reactions.aggregate?.count,
-      confused_face: values.confused_face_reactions.aggregate?.count,
-      red_heart: values.red_heart_reactions.aggregate?.count,
-      rocket: values.rocket_reactions.aggregate?.count,
-      eyes: values.eyes_reactions.aggregate?.count,
+        values.grinning_face_with_smiling_eyes_reactions!.aggregate?.count,
+      party_popper: values.party_popper_reactions!.aggregate?.count,
+      confused_face: values.confused_face_reactions!.aggregate?.count,
+      red_heart: values.red_heart_reactions!.aggregate?.count,
+      rocket: values.rocket_reactions!.aggregate?.count,
+      eyes: values.eyes_reactions!.aggregate?.count,
     };
   }
 };
 
 const getMyReactions = (values: PostProps) => {
   if ("my_reactions" in values) {
-    return (
-      values.my_reactions as (
-        | GetThreadReactions_thread_by_pk_my_reactions
-        | GetThreadReactions_thread_by_pk_posts_my_reactions
-      )[]
-    ).reduce((prev, curr) => {
+    return [...values.my_reactions!].reduce((prev, curr) => {
       return {
         ...prev,
         [curr.name]: true,
@@ -73,7 +70,11 @@ const getMyReactions = (values: PostProps) => {
   }
 };
 
-const Post: React.FC<React.PropsWithChildren<PostProps>> = (props) => {
+const Post: React.FC<React.PropsWithChildren<PostProps>> = ({
+  onEdit,
+  onReact,
+  ...post
+}) => {
   const [user] = useUser();
 
   const [loading, setLoading] = useState(true);
@@ -91,32 +92,30 @@ const Post: React.FC<React.PropsWithChildren<PostProps>> = (props) => {
 
   const handleEditClick = () => {
     handleMoreMenuClose();
-    props.onEdit?.();
+    onEdit?.();
   };
 
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const result = await markdownToReact(props.content!);
+      const result = await markdownToReact(post.content!);
       setRenderedContent(result);
       setLoading(false);
     })();
-  }, [props.content]);
+  }, [post.content]);
 
   return (
-    <Card
-      id={props.__typename === "realm_post" ? `post-${props.id}` : undefined}
-    >
+    <Card id={post.__typename === "realm_post" ? `post-${post.id}` : undefined}>
       <CardHeader
         avatar={
           <MyAvatar
-            src={props.user?.avatar_url ?? undefined}
-            alt={props.user?.username ?? undefined}
+            src={post.user?.avatar_url ?? undefined}
+            alt={post.user?.username ?? undefined}
             size="medium"
           />
         }
-        title={props.user?.username}
-        subheader={props.user?.status}
+        title={post.user?.username}
+        subheader={post.user?.status}
         action={
           user && (
             <>
@@ -136,10 +135,10 @@ const Post: React.FC<React.PropsWithChildren<PostProps>> = (props) => {
                 open={menuButton ? true : false}
                 onClose={handleMoreMenuClose}
               >
-                {user.username && user.id !== props.user?.user_id && (
+                {user.username && user.id !== post.user?.user_id && (
                   <MenuItem
                     component={Link}
-                    href={`/bbs/realms/${props.user?.realm_id}/messages?user=${props.user?.user_id}`}
+                    href={`/bbs/realms/${post.user?.realm_id}/messages?user=${post.user?.user_id}`}
                   >
                     <MessageOutlined />
                     <Typography sx={{ ml: 1 }} component="span">
@@ -147,7 +146,7 @@ const Post: React.FC<React.PropsWithChildren<PostProps>> = (props) => {
                     </Typography>
                   </MenuItem>
                 )}
-                {props.onEdit && (
+                {onEdit && (
                   <MenuItem onClick={handleEditClick}>
                     <Edit />
                     <Typography sx={{ ml: 1 }} component="span">
@@ -165,19 +164,19 @@ const Post: React.FC<React.PropsWithChildren<PostProps>> = (props) => {
           {loading ? "加载中……" : renderedContent}
         </Typography>
         <Typography sx={{ mt: 2 }} variant="caption" component="div">
-          {dayjs(props.updated_at!).isSame(props.created_at!)
-            ? dayjs(props.created_at!).fromNow()
-            : "编辑于 " + dayjs(props.updated_at!).fromNow()}
+          {dayjs(post.updated_at!).isSame(post.created_at!)
+            ? dayjs(post.created_at!).fromNow()
+            : "编辑于 " + dayjs(post.updated_at!).fromNow()}
         </Typography>
       </CardContent>
       <CardActions sx={{ pt: 0 }}>
-        {props.onReact && (
+        {onReact && (
           <ReactionSelect
-            reactions={getReactions(props)}
-            myReactions={getMyReactions(props)}
+            reactions={getReactions(post)}
+            myReactions={getMyReactions(post)}
             onReact={(name, action) =>
-              props.onReact?.(
-                props.__typename === "thread" ? "thread" : "post",
+              onReact?.(
+                post.__typename === "thread" ? "thread" : "post",
                 name,
                 action
               )

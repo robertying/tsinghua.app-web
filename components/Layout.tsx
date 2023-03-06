@@ -10,11 +10,11 @@ import {
   Home,
 } from "@mui/icons-material";
 import { useQuery } from "@apollo/client";
-import {
-  GetNewNotificationCount,
-  GetNewNotificationCountVariables,
-} from "api/types";
 import { GET_NEW_NOTIFICATION_COUNT } from "api/notification";
+import {
+  GetNewNotificationCountQuery,
+  GetNewNotificationCountQueryVariables,
+} from "api/types/graphql";
 import { useUser } from "lib/session";
 import MyFab from "./Fab";
 import MyAvatar from "./Avatar";
@@ -41,8 +41,8 @@ const Layout: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   const [user, authLoading] = useUser();
 
   const { data: newNotificationData } = useQuery<
-    GetNewNotificationCount,
-    GetNewNotificationCountVariables
+    GetNewNotificationCountQuery,
+    GetNewNotificationCountQueryVariables
   >(GET_NEW_NOTIFICATION_COUNT, {
     variables: {
       userId: user?.id!,

@@ -5,7 +5,10 @@ import { NextSeo } from "next-seo";
 import { Button, Container, TextField, Typography } from "@mui/material";
 import { initializeApollo } from "lib/client";
 import { getSemesterTextFromId } from "lib/format";
-import { GetCourseCount, GetCourseCountVariables } from "api/types";
+import {
+  GetCourseCountQuery,
+  GetCourseCountQueryVariables,
+} from "api/types/graphql";
 import { GET_COURSE_COUNT } from "api/course";
 
 const CURRENT_SEMESTER_ID = "2022-2023-2";
@@ -126,7 +129,10 @@ export const getStaticProps: GetStaticProps<CourseHomeProps> = async () => {
   let courseCount: number | null = null;
 
   try {
-    const result = await client.query<GetCourseCount, GetCourseCountVariables>({
+    const result = await client.query<
+      GetCourseCountQuery,
+      GetCourseCountQueryVariables
+    >({
       query: GET_COURSE_COUNT,
       variables: {
         semesterId: CURRENT_SEMESTER_ID,

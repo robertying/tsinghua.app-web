@@ -15,19 +15,18 @@ import { useMutation, useQuery } from "@apollo/client";
 import dayjs from "dayjs";
 import { GET_NOTIFICATIONS, MARK_NOTIFICATION_AS_READ } from "api/notification";
 import {
-  GetNotifications,
-  GetNotificationsVariables,
-  GetNotifications_notification,
-  MarkNotificationAsRead,
-  MarkNotificationAsReadVariables,
-} from "api/types";
+  GetNotificationsQuery,
+  GetNotificationsQueryVariables,
+  MarkNotificationAsReadMutation,
+  MarkNotificationAsReadMutationVariables,
+} from "api/types/graphql";
 import { NotificationPayload } from "lib/notification";
 import { useAuthRoute, useUser } from "lib/session";
 import { useToast } from "components/Snackbar";
 import Splash from "components/Splash";
 
 const Notification: React.FC<
-  React.PropsWithChildren<GetNotifications_notification>
+  React.PropsWithChildren<GetNotificationsQuery["notification"][0]>
 > = (notification) => {
   const payload = JSON.parse(notification.payload) as NotificationPayload;
 
@@ -62,18 +61,21 @@ const Notifications: React.FC<React.PropsWithChildren<unknown>> = () => {
     error: notificationError,
     loading: notificationLoading,
     refetch: refetchNotifications,
-  } = useQuery<GetNotifications, GetNotificationsVariables>(GET_NOTIFICATIONS, {
-    variables: {
-      userId: user?.id!,
-    },
-    skip: !user,
-    pollInterval: 1 * 60 * 1000, // 1min
-  });
+  } = useQuery<GetNotificationsQuery, GetNotificationsQueryVariables>(
+    GET_NOTIFICATIONS,
+    {
+      variables: {
+        userId: user?.id!,
+      },
+      skip: !user,
+      pollInterval: 1 * 60 * 1000, // 1min
+    }
+  );
   const notifications = notificationData?.notification ?? [];
 
   const [markNotificationAsRead] = useMutation<
-    MarkNotificationAsRead,
-    MarkNotificationAsReadVariables
+    MarkNotificationAsReadMutation,
+    MarkNotificationAsReadMutationVariables
   >(MARK_NOTIFICATION_AS_READ);
 
   const handleNotificationsMarkAsRead = async () => {

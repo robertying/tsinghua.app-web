@@ -8,11 +8,11 @@ import { graphQLClient } from "lib/client";
 import { ADD_OR_UPDATE_USER } from "api/user";
 import { ADD_SESSION } from "api/session";
 import {
-  AddOrUpdateUser,
-  AddOrUpdateUserVariables,
-  AddSession,
-  AddSessionVariables,
-} from "api/types";
+  AddOrUpdateUserMutation,
+  AddOrUpdateUserMutationVariables,
+  AddSessionMutation,
+  AddSessionMutationVariables,
+} from "api/types/graphql";
 
 export const SESSION_ID_COOKIE_NAME =
   process.env.NODE_ENV === "production" ? "__Host-session_id" : "session_id";
@@ -55,8 +55,8 @@ export default async function handleToken(
 
     try {
       const userData = await graphQLClient.request<
-        AddOrUpdateUser,
-        AddOrUpdateUserVariables
+        AddOrUpdateUserMutation,
+        AddOrUpdateUserMutationVariables
       >(ADD_OR_UPDATE_USER, {
         universityId,
         email,
@@ -64,8 +64,8 @@ export default async function handleToken(
       const user = userData.insert_user_one!;
 
       const sessionData = await graphQLClient.request<
-        AddSession,
-        AddSessionVariables
+        AddSessionMutation,
+        AddSessionMutationVariables
       >(ADD_SESSION, {
         id: req.cookies[SESSION_ID_COOKIE_NAME] || uuid(),
         userId: user.id,

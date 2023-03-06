@@ -11,19 +11,19 @@ import {
 import { GET_REALM_DETAILS_INVITATION_CODE } from "api/realm";
 import { GET_SESSION } from "api/session";
 import {
-  GetRealmDetailsInvitationCode,
-  GetRealmDetailsInvitationCodeVariables,
-  GetRealmUserByUsername,
-  GetRealmUserByUsernameVariables,
-  GetSession,
-  GetSessionVariables,
-  GetUser,
-  GetUserVariables,
-  UpdateRealmUsername,
-  UpdateRealmUsernameVariables,
-  UpdateUsername,
-  UpdateUsernameVariables,
-} from "api/types";
+  GetRealmDetailsInvitationCodeQuery,
+  GetRealmDetailsInvitationCodeQueryVariables,
+  GetRealmUserByUsernameQuery,
+  GetRealmUserByUsernameQueryVariables,
+  GetSessionMutation,
+  GetSessionMutationVariables,
+  GetUserQuery,
+  GetUserQueryVariables,
+  UpdateRealmUsernameMutation,
+  UpdateRealmUsernameMutationVariables,
+  UpdateUsernameMutation,
+  UpdateUsernameMutationVariables,
+} from "api/types/graphql";
 import { REFRESH_TOKEN_COOKIE_NAME, SESSION_ID_COOKIE_NAME } from "./token";
 import usernameBlocklist from "./username_blocklist.json";
 
@@ -57,8 +57,8 @@ export default async function handleProfile(
       const { id: userId, sessionId } = await verify(token, "refresh");
 
       const sessionData = await graphQLClient.request<
-        GetSession,
-        GetSessionVariables
+        GetSessionMutation,
+        GetSessionMutationVariables
       >(GET_SESSION, { id: sessionId, activeAt: new Date().toISOString() });
       if (
         !sessionData.update_session_by_pk ||
@@ -69,10 +69,10 @@ export default async function handleProfile(
         return res.status(401).send("Unauthorized");
       }
 
-      const userData = await graphQLClient.request<GetUser, GetUserVariables>(
-        GET_USER,
-        { userId, realmId }
-      );
+      const userData = await graphQLClient.request<
+        GetUserQuery,
+        GetUserQueryVariables
+      >(GET_USER, { userId, realmId });
       const user = userData.user_by_pk!;
       if (!user) {
         return res.status(403).send("Access denied");
@@ -128,8 +128,8 @@ export default async function handleProfile(
       } = await verify(token, "refresh");
 
       const sessionData = await graphQLClient.request<
-        GetSession,
-        GetSessionVariables
+        GetSessionMutation,
+        GetSessionMutationVariables
       >(GET_SESSION, { id: sessionId, activeAt: new Date().toISOString() });
       if (
         !sessionData.update_session_by_pk ||
@@ -145,8 +145,8 @@ export default async function handleProfile(
       }
 
       const possibleDuplicateUserData = await graphQLClient.request<
-        GetRealmUserByUsername,
-        GetRealmUserByUsernameVariables
+        GetRealmUserByUsernameQuery,
+        GetRealmUserByUsernameQueryVariables
       >(GET_REALM_USER_BY_USERNAME, {
         username,
       });
@@ -156,17 +156,17 @@ export default async function handleProfile(
 
       try {
         if (realmId === 1) {
-          await graphQLClient.request<UpdateUsername, UpdateUsernameVariables>(
-            UPDATE_USERNAME,
-            {
-              userId,
-              username,
-            }
-          );
+          await graphQLClient.request<
+            UpdateUsernameMutation,
+            UpdateUsernameMutationVariables
+          >(UPDATE_USERNAME, {
+            userId,
+            username,
+          });
         } else {
           const realmData = await graphQLClient.request<
-            GetRealmDetailsInvitationCode,
-            GetRealmDetailsInvitationCodeVariables
+            GetRealmDetailsInvitationCodeQuery,
+            GetRealmDetailsInvitationCodeQueryVariables
           >(GET_REALM_DETAILS_INVITATION_CODE, {
             id: realmId,
           });
@@ -181,8 +181,8 @@ export default async function handleProfile(
           }
 
           await graphQLClient.request<
-            UpdateRealmUsername,
-            UpdateRealmUsernameVariables
+            UpdateRealmUsernameMutation,
+            UpdateRealmUsernameMutationVariables
           >(UPDATE_REALM_USERNAME, {
             userId,
             realmId,

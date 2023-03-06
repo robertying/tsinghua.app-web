@@ -3,11 +3,11 @@ import nookies from "nookies";
 import { encodeAccessToken, verify } from "lib/jwt";
 import { graphQLClient } from "lib/client";
 import {
-  GetSession,
-  GetSessionVariables,
-  GetUser,
-  GetUserVariables,
-} from "api/types";
+  GetSessionMutation,
+  GetSessionMutationVariables,
+  GetUserQuery,
+  GetUserQueryVariables,
+} from "api/types/graphql";
 import { GET_USER } from "api/user";
 import { GET_SESSION } from "api/session";
 import { REFRESH_TOKEN_COOKIE_NAME, SESSION_ID_COOKIE_NAME } from "./token";
@@ -38,8 +38,8 @@ export default async function handleSession(
         : sId;
 
     const sessionData = await graphQLClient.request<
-      GetSession,
-      GetSessionVariables
+      GetSessionMutation,
+      GetSessionMutationVariables
     >(GET_SESSION, { id: sessionId, activeAt: new Date().toISOString() });
     if (
       id !== "learnx" &&
@@ -51,10 +51,10 @@ export default async function handleSession(
       return res.status(401).send("Unauthorized");
     }
 
-    const userData = await graphQLClient.request<GetUser, GetUserVariables>(
-      GET_USER,
-      { userId, realmId: 1 }
-    );
+    const userData = await graphQLClient.request<
+      GetUserQuery,
+      GetUserQueryVariables
+    >(GET_USER, { userId, realmId: 1 });
     const user = userData.user_by_pk!;
 
     const accessToken = await encodeAccessToken({

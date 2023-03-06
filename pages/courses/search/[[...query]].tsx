@@ -19,21 +19,21 @@ import { CourseHome } from "pages/courses";
 import { getSemesterTextFromId } from "lib/format";
 import { addApolloState, initializeApollo } from "lib/client";
 import { GET_COURSES } from "api/course";
-import { GetCourses, GetCoursesVariables } from "api/types";
+import { GetCoursesQuery, GetCoursesQueryVariables } from "api/types/graphql";
 
 const CourseSearch: React.FC<React.PropsWithChildren<unknown>> = () => {
   const router = useRouter();
   const query = router.query.query?.[0] as string | undefined;
 
-  const { data: courseData } = useQuery<GetCourses, GetCoursesVariables>(
-    GET_COURSES,
-    {
-      variables: {
-        query: `%${query}%`,
-      },
-      skip: !query,
-    }
-  );
+  const { data: courseData } = useQuery<
+    GetCoursesQuery,
+    GetCoursesQueryVariables
+  >(GET_COURSES, {
+    variables: {
+      query: `%${query}%`,
+    },
+    skip: !query,
+  });
 
   return (
     <>
@@ -128,7 +128,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const client = initializeApollo();
 
   if (params?.query?.[0]) {
-    await client.query<GetCourses, GetCoursesVariables>({
+    await client.query<GetCoursesQuery, GetCoursesQueryVariables>({
       query: GET_COURSES,
       variables: {
         query: `%${params?.query?.[0] as string}%`,

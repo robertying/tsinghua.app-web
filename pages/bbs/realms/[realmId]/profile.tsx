@@ -28,19 +28,19 @@ import { useAuthRoute, useUser } from "lib/session";
 import { getOSS } from "lib/oss";
 import { getDeviceDescription } from "lib/format";
 import {
-  DeleteSession,
-  DeleteSessionVariables,
-  GetSessions,
-  GetSessionsVariables,
-  UpdateRealmUserAvatar,
-  UpdateRealmUserAvatarVariables,
-  UpdateRealmUserStatus,
-  UpdateRealmUserStatusVariables,
-  UpdateUserAvatar,
-  UpdateUserAvatarVariables,
-  UpdateUserStatus,
-  UpdateUserStatusVariables,
-} from "api/types";
+  DeleteSessionMutation,
+  DeleteSessionMutationVariables,
+  GetSessionsQuery,
+  GetSessionsQueryVariables,
+  UpdateRealmUserAvatarMutation,
+  UpdateRealmUserAvatarMutationVariables,
+  UpdateRealmUserStatusMutation,
+  UpdateRealmUserStatusMutationVariables,
+  UpdateUserAvatarMutation,
+  UpdateUserAvatarMutationVariables,
+  UpdateUserStatusMutation,
+  UpdateUserStatusMutationVariables,
+} from "api/types/graphql";
 import {
   UPDATE_REALM_USER_AVATAR,
   UPDATE_REALM_USER_STATUS,
@@ -80,7 +80,7 @@ const RealmProfile: React.FC<React.PropsWithChildren<unknown>> = () => {
     data: sessionData,
     error: sessionError,
     loading: sessionLoading,
-  } = useQuery<GetSessions, GetSessionsVariables>(GET_SESSIONS, {
+  } = useQuery<GetSessionsQuery, GetSessionsQueryVariables>(GET_SESSIONS, {
     variables: {
       userId: user?.id!,
     },
@@ -88,26 +88,29 @@ const RealmProfile: React.FC<React.PropsWithChildren<unknown>> = () => {
   });
 
   const [updateAvatar] = useMutation<
-    UpdateUserAvatar,
-    UpdateUserAvatarVariables
+    UpdateUserAvatarMutation,
+    UpdateUserAvatarMutationVariables
   >(UPDATE_USER_AVATAR);
   const [updateRealmAvatar] = useMutation<
-    UpdateRealmUserAvatar,
-    UpdateRealmUserAvatarVariables
+    UpdateRealmUserAvatarMutation,
+    UpdateRealmUserAvatarMutationVariables
   >(UPDATE_REALM_USER_AVATAR);
   const [updateStatus, { loading: updateStatusLoading }] = useMutation<
-    UpdateUserStatus,
-    UpdateUserStatusVariables
+    UpdateUserStatusMutation,
+    UpdateUserStatusMutationVariables
   >(UPDATE_USER_STATUS);
   const [updateRealmStatus, { loading: updateRealmStatusLoading }] =
-    useMutation<UpdateRealmUserStatus, UpdateRealmUserStatusVariables>(
-      UPDATE_REALM_USER_STATUS
-    );
+    useMutation<
+      UpdateRealmUserStatusMutation,
+      UpdateRealmUserStatusMutationVariables
+    >(UPDATE_REALM_USER_STATUS);
 
   const [
     deleteSession,
     { error: deleteSessionError, loading: deleteSessionLoading },
-  ] = useMutation<DeleteSession, DeleteSessionVariables>(DELETE_SESSION);
+  ] = useMutation<DeleteSessionMutation, DeleteSessionMutationVariables>(
+    DELETE_SESSION
+  );
 
   const handleUploadDialogOpen = () => {
     setUploadDialogOpen(true);

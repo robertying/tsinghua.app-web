@@ -8,7 +8,10 @@ import {
 } from "pages/api/auth/token";
 import { verify } from "lib/jwt";
 import { graphQLClient } from "lib/client";
-import { GetSession, GetSessionVariables } from "api/types";
+import {
+  GetSessionMutation,
+  GetSessionMutationVariables,
+} from "api/types/graphql";
 import { GET_SESSION } from "api/session";
 
 export const authenticate = async (
@@ -26,8 +29,8 @@ export const authenticate = async (
       const { id, sessionId } = await verify(refreshToken, "refresh");
 
       const sessionData = await graphQLClient.request<
-        GetSession,
-        GetSessionVariables
+        GetSessionMutation,
+        GetSessionMutationVariables
       >(GET_SESSION, { id: sessionId, activeAt: new Date().toISOString() });
       if (
         !sessionData.update_session_by_pk ||

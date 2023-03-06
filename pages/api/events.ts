@@ -1,36 +1,39 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { graphQLClient } from "lib/client";
 import { MessageNotification, ThreadNotification } from "lib/notification";
-import {
-  AddNotification,
-  AddNotificationVariables,
-  GetMessage,
-  GetMessageVariables,
-  GetPost,
-  GetPostVariables,
-} from "api/types";
 import { ADD_NOTIFICATION } from "api/notification";
 import { GET_POST } from "api/post";
 import { GET_MESSAGE } from "api/message";
+import {
+  AddNotificationMutation,
+  AddNotificationMutationVariables,
+  GetMessageQuery,
+  GetMessageQueryVariables,
+  GetPostQuery,
+  GetPostQueryVariables,
+} from "api/types/graphql";
 
 const addNotification = async (userId: uuid, payload: string) =>
-  graphQLClient.request<AddNotification, AddNotificationVariables>(
-    ADD_NOTIFICATION,
-    {
-      userId,
-      payload,
-    }
-  );
+  graphQLClient.request<
+    AddNotificationMutation,
+    AddNotificationMutationVariables
+  >(ADD_NOTIFICATION, {
+    userId,
+    payload,
+  });
 
 const getPost = async (id: number) =>
-  graphQLClient.request<GetPost, GetPostVariables>(GET_POST, {
+  graphQLClient.request<GetPostQuery, GetPostQueryVariables>(GET_POST, {
     id,
   });
 
 const getMessage = async (id: uuid) =>
-  graphQLClient.request<GetMessage, GetMessageVariables>(GET_MESSAGE, {
-    id,
-  });
+  graphQLClient.request<GetMessageQuery, GetMessageQueryVariables>(
+    GET_MESSAGE,
+    {
+      id,
+    }
+  );
 
 export default async function handleEvents(
   req: NextApiRequest,

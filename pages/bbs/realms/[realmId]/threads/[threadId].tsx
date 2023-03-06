@@ -46,27 +46,26 @@ import {
   GET_THREAD_REACTIONS,
 } from "api/reaction";
 import {
-  AddPost,
-  AddPostReaction,
-  AddPostReactionVariables,
-  AddPostVariables,
-  AddThreadReaction,
-  AddThreadReactionVariables,
-  DeletePostReaction,
-  DeletePostReactionVariables,
-  DeleteThreadReaction,
-  DeleteThreadReactionVariables,
-  GetThread,
-  GetThreadVariables,
-  GetThreadReactions,
-  GetThreadReactionsVariables,
-  reaction_emoji_enum,
-  UpdatePost,
-  UpdatePostVariables,
-  UpdateThread,
-  UpdateThreadVariables,
-  GetThread_thread_by_pk_posts,
-} from "api/types";
+  AddPostMutation,
+  AddPostMutationVariables,
+  AddPostReactionMutation,
+  AddPostReactionMutationVariables,
+  AddThreadReactionMutation,
+  AddThreadReactionMutationVariables,
+  DeletePostReactionMutation,
+  DeletePostReactionMutationVariables,
+  DeleteThreadReactionMutation,
+  DeleteThreadReactionMutationVariables,
+  GetThreadQuery,
+  GetThreadQueryVariables,
+  GetThreadReactionsQuery,
+  GetThreadReactionsQueryVariables,
+  ReactionEmojiEnum,
+  UpdatePostMutation,
+  UpdatePostMutationVariables,
+  UpdateThreadMutation,
+  UpdateThreadMutationVariables,
+} from "api/types/graphql";
 
 const Thread: React.FC<React.PropsWithChildren<unknown>> = () => {
   const toast = useToast();
@@ -101,7 +100,7 @@ const Thread: React.FC<React.PropsWithChildren<unknown>> = () => {
     error: threadError,
     loading: threadLoading,
     refetch: refetchThread,
-  } = useQuery<GetThread, GetThreadVariables>(GET_THREAD, {
+  } = useQuery<GetThreadQuery, GetThreadQueryVariables>(GET_THREAD, {
     variables: {
       id: parseInt(threadId, 10),
     },
@@ -109,7 +108,7 @@ const Thread: React.FC<React.PropsWithChildren<unknown>> = () => {
   const thread = threadData?.thread_by_pk!;
 
   const { data: threadReactionData, refetch: refetchThreadReactions } =
-    useQuery<GetThreadReactions, GetThreadReactionsVariables>(
+    useQuery<GetThreadReactionsQuery, GetThreadReactionsQueryVariables>(
       GET_THREAD_REACTIONS,
       {
         variables: {
@@ -124,27 +123,29 @@ const Thread: React.FC<React.PropsWithChildren<unknown>> = () => {
   const [
     updateThread,
     { error: updateThreadError, loading: updateThreadLoading },
-  ] = useMutation<UpdateThread, UpdateThreadVariables>(UPDATE_THREAD);
+  ] = useMutation<UpdateThreadMutation, UpdateThreadMutationVariables>(
+    UPDATE_THREAD
+  );
   const [addPost, { error: addPostError, loading: addPostLoading }] =
-    useMutation<AddPost, AddPostVariables>(ADD_POST);
+    useMutation<AddPostMutation, AddPostMutationVariables>(ADD_POST);
   const [updatePost, { error: updatePostError, loading: updatePostLoading }] =
-    useMutation<UpdatePost, UpdatePostVariables>(UPDATE_POST);
+    useMutation<UpdatePostMutation, UpdatePostMutationVariables>(UPDATE_POST);
 
   const [addThreadReaction] = useMutation<
-    AddThreadReaction,
-    AddThreadReactionVariables
+    AddThreadReactionMutation,
+    AddThreadReactionMutationVariables
   >(ADD_THREAD_REACTION);
   const [deleteThreadReaction] = useMutation<
-    DeleteThreadReaction,
-    DeleteThreadReactionVariables
+    DeleteThreadReactionMutation,
+    DeleteThreadReactionMutationVariables
   >(DELETE_THREAD_REACTION);
   const [addPostReaction] = useMutation<
-    AddPostReaction,
-    AddPostReactionVariables
+    AddPostReactionMutation,
+    AddPostReactionMutationVariables
   >(ADD_POST_REACTION);
   const [deletePostReaction] = useMutation<
-    DeletePostReaction,
-    DeletePostReactionVariables
+    DeletePostReactionMutation,
+    DeletePostReactionMutationVariables
   >(DELETE_POST_REACTION);
 
   const handleThreadDialogOpen = () => {
@@ -311,7 +312,7 @@ const Thread: React.FC<React.PropsWithChildren<unknown>> = () => {
 
   const handleReaction = async (
     target: "thread" | "post",
-    name: reaction_emoji_enum,
+    name: ReactionEmojiEnum,
     action: "add" | "delete",
     postId?: number | null
   ) => {
@@ -362,8 +363,10 @@ const Thread: React.FC<React.PropsWithChildren<unknown>> = () => {
     handleThreadDialogOpen();
   };
 
-  const handleEditPost = async (post: GetThread_thread_by_pk_posts) => {
-    setEditingPostId(post.id);
+  const handleEditPost = async (
+    post: NonNullable<GetThreadQuery["thread_by_pk"]>["posts"][0]
+  ) => {
+    setEditingPostId(post.id!);
     setContent(post.content ?? "");
     handlePostDialogOpen();
   };

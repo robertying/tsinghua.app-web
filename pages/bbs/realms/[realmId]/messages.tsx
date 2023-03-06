@@ -26,23 +26,24 @@ import uniqBy from "lodash/uniqBy";
 import { ADD_MESSAGE, GET_MESSAGES, GET_MESSAGE_CONTACTS } from "api/message";
 import { GET_REALM_USER_DETAILS } from "api/user";
 import {
-  AddMessage,
-  AddMessageVariables,
-  GetMessageContacts,
-  GetMessageContactsVariables,
-  GetMessageContacts_message_from_user,
-  GetMessages,
-  GetMessagesVariables,
-  GetRealmUserDetails,
-  GetRealmUserDetailsVariables,
-  GetRealmUserDetails_realm_user_union,
-} from "api/types";
+  AddMessageMutation,
+  AddMessageMutationVariables,
+  GetMessageContactsQuery,
+  GetMessageContactsQueryVariables,
+  GetMessagesQuery,
+  GetMessagesQueryVariables,
+  GetRealmUserDetailsQuery,
+  GetRealmUserDetailsQueryVariables,
+} from "api/types/graphql";
 import MyAvatar from "components/Avatar";
 import MessageBubble from "components/MessageBubble";
 import { useToast } from "components/Snackbar";
 import { useUser } from "lib/session";
 
-const getContactList = (userId?: string, contactData?: GetMessageContacts) => {
+const getContactList = (
+  userId?: string,
+  contactData?: GetMessageContactsQuery
+) => {
   return userId && contactData
     ? uniqBy(
         contactData.message.map((m) => {
@@ -76,8 +77,8 @@ const RealmMessages: React.FC<React.PropsWithChildren<unknown>> = () => {
   const [selectedContactIndex, setSelectedContactIndex] = useState(0);
   const [selectedContact, setSelectedContact] = useState<
     | (
-        | GetRealmUserDetails_realm_user_union
-        | GetMessageContacts_message_from_user
+        | GetRealmUserDetailsQuery["realm_user_union"][0]
+        | GetMessageContactsQuery["message"][0]["from_user"]
       )
     | undefined
   >(undefined);
@@ -88,7 +89,7 @@ const RealmMessages: React.FC<React.PropsWithChildren<unknown>> = () => {
     error: contactError,
     loading: contactLoading,
     refetch: refetchContacts,
-  } = useQuery<GetMessageContacts, GetMessageContactsVariables>(
+  } = useQuery<GetMessageContactsQuery, GetMessageContactsQueryVariables>(
     GET_MESSAGE_CONTACTS,
     {
       variables: {
@@ -104,8 +105,8 @@ const RealmMessages: React.FC<React.PropsWithChildren<unknown>> = () => {
   );
 
   const { data: realmUserData, loading: realmUserLoading } = useQuery<
-    GetRealmUserDetails,
-    GetRealmUserDetailsVariables
+    GetRealmUserDetailsQuery,
+    GetRealmUserDetailsQueryVariables
   >(GET_REALM_USER_DETAILS, {
     variables: {
       realmId: parseInt(realmId!, 10),
@@ -119,7 +120,7 @@ const RealmMessages: React.FC<React.PropsWithChildren<unknown>> = () => {
     error: messageError,
     loading: messageLoading,
     refetch: refetchMessages,
-  } = useQuery<GetMessages, GetMessagesVariables>(GET_MESSAGES, {
+  } = useQuery<GetMessagesQuery, GetMessagesQueryVariables>(GET_MESSAGES, {
     variables: {
       realmId: parseInt(realmId!, 10),
       userId1: user?.id!,
@@ -136,7 +137,7 @@ const RealmMessages: React.FC<React.PropsWithChildren<unknown>> = () => {
       error: addMessageError,
       loading: addMessageLoading,
     },
-  ] = useMutation<AddMessage, AddMessageVariables>(ADD_MESSAGE);
+  ] = useMutation<AddMessageMutation, AddMessageMutationVariables>(ADD_MESSAGE);
 
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);

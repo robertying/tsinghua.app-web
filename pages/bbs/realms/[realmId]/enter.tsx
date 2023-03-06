@@ -15,7 +15,10 @@ import NProgress from "nprogress";
 import axios, { AxiosError } from "axios";
 import { clearSession, useAuthRoute, useUser } from "lib/session";
 import { GET_REALM_DETAILS } from "api/realm";
-import { GetRealmDetails, GetRealmDetailsVariables } from "api/types";
+import {
+  GetRealmDetailsQuery,
+  GetRealmDetailsQueryVariables,
+} from "api/types/graphql";
 import NotFound from "pages/404";
 import { useToast } from "components/Snackbar";
 import Splash from "components/Splash";
@@ -34,8 +37,8 @@ const RealmEnter: React.FC<React.PropsWithChildren<unknown>> = () => {
   const [loading, setLoading] = useState(false);
 
   const { data: realmData, loading: realmLoading } = useQuery<
-    GetRealmDetails,
-    GetRealmDetailsVariables
+    GetRealmDetailsQuery,
+    GetRealmDetailsQueryVariables
   >(GET_REALM_DETAILS, {
     variables: {
       id: parseInt(realmId!, 10),

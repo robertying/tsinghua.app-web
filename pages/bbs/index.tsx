@@ -18,19 +18,18 @@ import dayjs from "dayjs";
 import sampleSize from "lodash/sampleSize";
 import { initializeApollo } from "lib/client";
 import {
-  GetHottestThreads,
-  GetHottestThreads_thread,
-  GetNewestThreads,
-  GetNewestThreads_thread,
-  GetPublicRealms,
-  GetPublicRealms_realm_public,
-} from "api/types";
+  GetHottestThreadsQuery,
+  GetNewestThreadsQuery,
+  GetPublicRealmsQuery,
+} from "api/types/graphql";
 import { GET_HOTTEST_THREADS, GET_NEWEST_THREADS } from "api/thread";
 import { GET_PUBLIC_REALMS } from "api/realm";
 import Realm from "./realms/[realmId]";
 
 const ExploreThreadCard: React.FC<
-  React.PropsWithChildren<GetHottestThreads_thread | GetNewestThreads_thread>
+  React.PropsWithChildren<
+    GetHottestThreadsQuery["thread"][0] | GetNewestThreadsQuery["thread"][0]
+  >
 > = (props) => {
   return (
     <Card>
@@ -96,7 +95,7 @@ const ExploreThreadCard: React.FC<
 };
 
 const ExploreRealmCard: React.FC<
-  React.PropsWithChildren<GetPublicRealms_realm_public>
+  React.PropsWithChildren<GetPublicRealmsQuery["realm_public"][0]>
 > = (props) => {
   return (
     <Card>
@@ -248,9 +247,9 @@ const CarouselContainer: React.FC<React.PropsWithChildren<unknown>> = ({
 };
 
 interface ThursdayHomeProps {
-  hottestThreads: GetHottestThreads_thread[];
-  newestThreads: GetNewestThreads_thread[];
-  randomRealms: GetPublicRealms_realm_public[];
+  hottestThreads: GetHottestThreadsQuery["thread"];
+  newestThreads: GetNewestThreadsQuery["thread"];
+  randomRealms: GetPublicRealmsQuery["realm_public"];
 }
 
 const ThursdayHome: React.FC<React.PropsWithChildren<ThursdayHomeProps>> = ({
@@ -320,24 +319,24 @@ export default ThursdayHome;
 export const getStaticProps: GetStaticProps<ThursdayHomeProps> = async () => {
   const client = initializeApollo();
 
-  let hottestThreads: GetHottestThreads_thread[] = [];
-  let newestThreads: GetNewestThreads_thread[] = [];
-  let randomRealms: GetPublicRealms_realm_public[] = [];
+  let hottestThreads: GetHottestThreadsQuery["thread"] = [];
+  let newestThreads: GetNewestThreadsQuery["thread"] = [];
+  let randomRealms: GetPublicRealmsQuery["realm_public"] = [];
 
   try {
-    const response = await client.query<GetHottestThreads>({
+    const response = await client.query<GetHottestThreadsQuery>({
       query: GET_HOTTEST_THREADS,
     });
     hottestThreads = response.data.thread;
   } catch {}
   try {
-    const response = await client.query<GetNewestThreads>({
+    const response = await client.query<GetNewestThreadsQuery>({
       query: GET_NEWEST_THREADS,
     });
     newestThreads = response.data.thread;
   } catch {}
   try {
-    const response = await client.query<GetPublicRealms>({
+    const response = await client.query<GetPublicRealmsQuery>({
       query: GET_PUBLIC_REALMS,
     });
     randomRealms = sampleSize(response.data.realm_public, 3);
