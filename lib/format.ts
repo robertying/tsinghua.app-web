@@ -1,4 +1,4 @@
-import UaParser from "ua-parser-js";
+import { UAParser } from "ua-parser-js";
 
 export const getSemesterTextFromId = (
   semesterId: string,
@@ -23,7 +23,7 @@ export const getSemesterTextFromId = (
 };
 
 export const getDeviceDescription = (ua: string) => {
-  const parsed = new UaParser(ua);
+  const parsed = new UAParser(ua);
 
   return (
     `${parsed.getBrowser().name} ${parsed.getBrowser().version}, ${
