@@ -26,4 +26,5 @@ export const sendOtpEmail = async (to: string, otp: string) => {
       </div>
       `,
   });
+  console.log(`Sent OTP email to ${to}`);
 };
