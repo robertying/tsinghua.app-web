@@ -1,137 +1,150 @@
 /* eslint-disable */
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T
+> = { [_ in K]?: never };
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends " $fragmentName" | "__typename" ? T[P] : never;
+    };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  timestamptz: string;
-  uuid: string;
+  ID: { input: string | number; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
+  timestamptz: { input: string; output: string };
+  uuid: { input: string; output: string };
 };
 
 /** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
 export type BooleanComparisonExp = {
-  _eq?: InputMaybe<Scalars['Boolean']>;
-  _gt?: InputMaybe<Scalars['Boolean']>;
-  _gte?: InputMaybe<Scalars['Boolean']>;
-  _in?: InputMaybe<Array<Scalars['Boolean']>>;
-  _is_null?: InputMaybe<Scalars['Boolean']>;
-  _lt?: InputMaybe<Scalars['Boolean']>;
-  _lte?: InputMaybe<Scalars['Boolean']>;
-  _neq?: InputMaybe<Scalars['Boolean']>;
-  _nin?: InputMaybe<Array<Scalars['Boolean']>>;
+  _eq?: InputMaybe<Scalars["Boolean"]["input"]>;
+  _gt?: InputMaybe<Scalars["Boolean"]["input"]>;
+  _gte?: InputMaybe<Scalars["Boolean"]["input"]>;
+  _in?: InputMaybe<Array<Scalars["Boolean"]["input"]>>;
+  _is_null?: InputMaybe<Scalars["Boolean"]["input"]>;
+  _lt?: InputMaybe<Scalars["Boolean"]["input"]>;
+  _lte?: InputMaybe<Scalars["Boolean"]["input"]>;
+  _neq?: InputMaybe<Scalars["Boolean"]["input"]>;
+  _nin?: InputMaybe<Array<Scalars["Boolean"]["input"]>>;
 };
 
 /** Boolean expression to compare columns of type "Float". All fields are combined with logical 'AND'. */
 export type FloatComparisonExp = {
-  _eq?: InputMaybe<Scalars['Float']>;
-  _gt?: InputMaybe<Scalars['Float']>;
-  _gte?: InputMaybe<Scalars['Float']>;
-  _in?: InputMaybe<Array<Scalars['Float']>>;
-  _is_null?: InputMaybe<Scalars['Boolean']>;
-  _lt?: InputMaybe<Scalars['Float']>;
-  _lte?: InputMaybe<Scalars['Float']>;
-  _neq?: InputMaybe<Scalars['Float']>;
-  _nin?: InputMaybe<Array<Scalars['Float']>>;
+  _eq?: InputMaybe<Scalars["Float"]["input"]>;
+  _gt?: InputMaybe<Scalars["Float"]["input"]>;
+  _gte?: InputMaybe<Scalars["Float"]["input"]>;
+  _in?: InputMaybe<Array<Scalars["Float"]["input"]>>;
+  _is_null?: InputMaybe<Scalars["Boolean"]["input"]>;
+  _lt?: InputMaybe<Scalars["Float"]["input"]>;
+  _lte?: InputMaybe<Scalars["Float"]["input"]>;
+  _neq?: InputMaybe<Scalars["Float"]["input"]>;
+  _nin?: InputMaybe<Array<Scalars["Float"]["input"]>>;
 };
 
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type IntComparisonExp = {
-  _eq?: InputMaybe<Scalars['Int']>;
-  _gt?: InputMaybe<Scalars['Int']>;
-  _gte?: InputMaybe<Scalars['Int']>;
-  _in?: InputMaybe<Array<Scalars['Int']>>;
-  _is_null?: InputMaybe<Scalars['Boolean']>;
-  _lt?: InputMaybe<Scalars['Int']>;
-  _lte?: InputMaybe<Scalars['Int']>;
-  _neq?: InputMaybe<Scalars['Int']>;
-  _nin?: InputMaybe<Array<Scalars['Int']>>;
+  _eq?: InputMaybe<Scalars["Int"]["input"]>;
+  _gt?: InputMaybe<Scalars["Int"]["input"]>;
+  _gte?: InputMaybe<Scalars["Int"]["input"]>;
+  _in?: InputMaybe<Array<Scalars["Int"]["input"]>>;
+  _is_null?: InputMaybe<Scalars["Boolean"]["input"]>;
+  _lt?: InputMaybe<Scalars["Int"]["input"]>;
+  _lte?: InputMaybe<Scalars["Int"]["input"]>;
+  _neq?: InputMaybe<Scalars["Int"]["input"]>;
+  _nin?: InputMaybe<Array<Scalars["Int"]["input"]>>;
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
 export type StringComparisonExp = {
-  _eq?: InputMaybe<Scalars['String']>;
-  _gt?: InputMaybe<Scalars['String']>;
-  _gte?: InputMaybe<Scalars['String']>;
+  _eq?: InputMaybe<Scalars["String"]["input"]>;
+  _gt?: InputMaybe<Scalars["String"]["input"]>;
+  _gte?: InputMaybe<Scalars["String"]["input"]>;
   /** does the column match the given case-insensitive pattern */
-  _ilike?: InputMaybe<Scalars['String']>;
-  _in?: InputMaybe<Array<Scalars['String']>>;
+  _ilike?: InputMaybe<Scalars["String"]["input"]>;
+  _in?: InputMaybe<Array<Scalars["String"]["input"]>>;
   /** does the column match the given POSIX regular expression, case insensitive */
-  _iregex?: InputMaybe<Scalars['String']>;
-  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _iregex?: InputMaybe<Scalars["String"]["input"]>;
+  _is_null?: InputMaybe<Scalars["Boolean"]["input"]>;
   /** does the column match the given pattern */
-  _like?: InputMaybe<Scalars['String']>;
-  _lt?: InputMaybe<Scalars['String']>;
-  _lte?: InputMaybe<Scalars['String']>;
-  _neq?: InputMaybe<Scalars['String']>;
+  _like?: InputMaybe<Scalars["String"]["input"]>;
+  _lt?: InputMaybe<Scalars["String"]["input"]>;
+  _lte?: InputMaybe<Scalars["String"]["input"]>;
+  _neq?: InputMaybe<Scalars["String"]["input"]>;
   /** does the column NOT match the given case-insensitive pattern */
-  _nilike?: InputMaybe<Scalars['String']>;
-  _nin?: InputMaybe<Array<Scalars['String']>>;
+  _nilike?: InputMaybe<Scalars["String"]["input"]>;
+  _nin?: InputMaybe<Array<Scalars["String"]["input"]>>;
   /** does the column NOT match the given POSIX regular expression, case insensitive */
-  _niregex?: InputMaybe<Scalars['String']>;
+  _niregex?: InputMaybe<Scalars["String"]["input"]>;
   /** does the column NOT match the given pattern */
-  _nlike?: InputMaybe<Scalars['String']>;
+  _nlike?: InputMaybe<Scalars["String"]["input"]>;
   /** does the column NOT match the given POSIX regular expression, case sensitive */
-  _nregex?: InputMaybe<Scalars['String']>;
+  _nregex?: InputMaybe<Scalars["String"]["input"]>;
   /** does the column NOT match the given SQL regular expression */
-  _nsimilar?: InputMaybe<Scalars['String']>;
+  _nsimilar?: InputMaybe<Scalars["String"]["input"]>;
   /** does the column match the given POSIX regular expression, case sensitive */
-  _regex?: InputMaybe<Scalars['String']>;
+  _regex?: InputMaybe<Scalars["String"]["input"]>;
   /** does the column match the given SQL regular expression */
-  _similar?: InputMaybe<Scalars['String']>;
+  _similar?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 /** columns and relationships of "course" */
 export type Course = {
-  __typename?: 'course';
+  __typename?: "course";
   /** An array relationship */
   course_reviews: Array<CourseReview>;
   /** An aggregate relationship */
   course_reviews_aggregate: CourseReviewAggregate;
-  created_at: Scalars['timestamptz'];
-  englishName: Scalars['String'];
-  id: Scalars['String'];
-  index: Scalars['Int'];
-  name: Scalars['String'];
-  number: Scalars['String'];
-  semester_id: Scalars['String'];
+  created_at: Scalars["timestamptz"]["output"];
+  englishName: Scalars["String"]["output"];
+  id: Scalars["String"]["output"];
+  index: Scalars["Int"]["output"];
+  name: Scalars["String"]["output"];
+  number: Scalars["String"]["output"];
+  semester_id: Scalars["String"]["output"];
   /** An object relationship */
   teacher: Teacher;
-  teacher_id: Scalars['String'];
-  time_location: Scalars['String'];
-  updated_at: Scalars['timestamptz'];
+  teacher_id: Scalars["String"]["output"];
+  time_location: Scalars["String"]["output"];
+  updated_at: Scalars["timestamptz"]["output"];
 };
-
 
 /** columns and relationships of "course" */
 export type CourseCourseReviewsArgs = {
   distinct_on?: InputMaybe<Array<CourseReviewSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<CourseReviewOrderBy>>;
   where?: InputMaybe<CourseReviewBoolExp>;
 };
 
-
 /** columns and relationships of "course" */
 export type CourseCourseReviewsAggregateArgs = {
   distinct_on?: InputMaybe<Array<CourseReviewSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<CourseReviewOrderBy>>;
   where?: InputMaybe<CourseReviewBoolExp>;
 };
 
 /** aggregated selection of "course" */
 export type CourseAggregate = {
-  __typename?: 'course_aggregate';
+  __typename?: "course_aggregate";
   aggregate?: Maybe<CourseAggregateFields>;
   nodes: Array<Course>;
 };
@@ -142,16 +155,16 @@ export type CourseAggregateBoolExp = {
 
 export type CourseAggregateBoolExpCount = {
   arguments?: InputMaybe<Array<CourseSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
   filter?: InputMaybe<CourseBoolExp>;
   predicate: IntComparisonExp;
 };
 
 /** aggregate fields of "course" */
 export type CourseAggregateFields = {
-  __typename?: 'course_aggregate_fields';
+  __typename?: "course_aggregate_fields";
   avg?: Maybe<CourseAvgFields>;
-  count: Scalars['Int'];
+  count: Scalars["Int"]["output"];
   max?: Maybe<CourseMaxFields>;
   min?: Maybe<CourseMinFields>;
   stddev?: Maybe<CourseStddevFields>;
@@ -163,11 +176,10 @@ export type CourseAggregateFields = {
   variance?: Maybe<CourseVarianceFields>;
 };
 
-
 /** aggregate fields of "course" */
 export type CourseAggregateFieldsCountArgs = {
   columns?: InputMaybe<Array<CourseSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** order by aggregate values of table "course" */
@@ -194,8 +206,8 @@ export type CourseArrRelInsertInput = {
 
 /** aggregate avg on columns */
 export type CourseAvgFields = {
-  __typename?: 'course_avg_fields';
-  index?: Maybe<Scalars['Float']>;
+  __typename?: "course_avg_fields";
+  index?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by avg() on columns of table "course" */
@@ -226,43 +238,43 @@ export type CourseBoolExp = {
 /** unique or primary key constraints on table "course" */
 export enum CourseConstraint {
   /** unique or primary key constraint on columns "id" */
-  CoursePkey = 'course_pkey'
+  CoursePkey = "course_pkey",
 }
 
 /** input type for incrementing numeric columns in table "course" */
 export type CourseIncInput = {
-  index?: InputMaybe<Scalars['Int']>;
+  index?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 /** input type for inserting data into table "course" */
 export type CourseInsertInput = {
   course_reviews?: InputMaybe<CourseReviewArrRelInsertInput>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  englishName?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['String']>;
-  index?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
-  number?: InputMaybe<Scalars['String']>;
-  semester_id?: InputMaybe<Scalars['String']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  englishName?: InputMaybe<Scalars["String"]["input"]>;
+  id?: InputMaybe<Scalars["String"]["input"]>;
+  index?: InputMaybe<Scalars["Int"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  number?: InputMaybe<Scalars["String"]["input"]>;
+  semester_id?: InputMaybe<Scalars["String"]["input"]>;
   teacher?: InputMaybe<TeacherObjRelInsertInput>;
-  teacher_id?: InputMaybe<Scalars['String']>;
-  time_location?: InputMaybe<Scalars['String']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  teacher_id?: InputMaybe<Scalars["String"]["input"]>;
+  time_location?: InputMaybe<Scalars["String"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
 };
 
 /** aggregate max on columns */
 export type CourseMaxFields = {
-  __typename?: 'course_max_fields';
-  created_at?: Maybe<Scalars['timestamptz']>;
-  englishName?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  index?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['String']>;
-  number?: Maybe<Scalars['String']>;
-  semester_id?: Maybe<Scalars['String']>;
-  teacher_id?: Maybe<Scalars['String']>;
-  time_location?: Maybe<Scalars['String']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
+  __typename?: "course_max_fields";
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  englishName?: Maybe<Scalars["String"]["output"]>;
+  id?: Maybe<Scalars["String"]["output"]>;
+  index?: Maybe<Scalars["Int"]["output"]>;
+  name?: Maybe<Scalars["String"]["output"]>;
+  number?: Maybe<Scalars["String"]["output"]>;
+  semester_id?: Maybe<Scalars["String"]["output"]>;
+  teacher_id?: Maybe<Scalars["String"]["output"]>;
+  time_location?: Maybe<Scalars["String"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
 };
 
 /** order by max() on columns of table "course" */
@@ -281,17 +293,17 @@ export type CourseMaxOrderBy = {
 
 /** aggregate min on columns */
 export type CourseMinFields = {
-  __typename?: 'course_min_fields';
-  created_at?: Maybe<Scalars['timestamptz']>;
-  englishName?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  index?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['String']>;
-  number?: Maybe<Scalars['String']>;
-  semester_id?: Maybe<Scalars['String']>;
-  teacher_id?: Maybe<Scalars['String']>;
-  time_location?: Maybe<Scalars['String']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
+  __typename?: "course_min_fields";
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  englishName?: Maybe<Scalars["String"]["output"]>;
+  id?: Maybe<Scalars["String"]["output"]>;
+  index?: Maybe<Scalars["Int"]["output"]>;
+  name?: Maybe<Scalars["String"]["output"]>;
+  number?: Maybe<Scalars["String"]["output"]>;
+  semester_id?: Maybe<Scalars["String"]["output"]>;
+  teacher_id?: Maybe<Scalars["String"]["output"]>;
+  time_location?: Maybe<Scalars["String"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
 };
 
 /** order by min() on columns of table "course" */
@@ -310,9 +322,9 @@ export type CourseMinOrderBy = {
 
 /** response of any mutation on the table "course" */
 export type CourseMutationResponse = {
-  __typename?: 'course_mutation_response';
+  __typename?: "course_mutation_response";
   /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
+  affected_rows: Scalars["Int"]["output"];
   /** data from the rows affected by the mutation */
   returning: Array<Course>;
 };
@@ -349,28 +361,28 @@ export type CourseOrderBy = {
 
 /** primary key columns input for table: course */
 export type CoursePkColumnsInput = {
-  id: Scalars['String'];
+  id: Scalars["String"]["input"];
 };
 
 /** columns and relationships of "course_review" */
 export type CourseReview = {
-  __typename?: 'course_review';
-  content: Scalars['String'];
+  __typename?: "course_review";
+  content: Scalars["String"]["output"];
   /** An object relationship */
   course: Course;
-  course_id: Scalars['String'];
-  created_at: Scalars['timestamptz'];
-  id: Scalars['Int'];
-  rating: Scalars['Float'];
-  updated_at: Scalars['timestamptz'];
+  course_id: Scalars["String"]["output"];
+  created_at: Scalars["timestamptz"]["output"];
+  id: Scalars["Int"]["output"];
+  rating: Scalars["Float"]["output"];
+  updated_at: Scalars["timestamptz"]["output"];
   /** An object relationship */
   user?: Maybe<UserPublic>;
-  user_id: Scalars['uuid'];
+  user_id: Scalars["uuid"]["output"];
 };
 
 /** aggregated selection of "course_review" */
 export type CourseReviewAggregate = {
-  __typename?: 'course_review_aggregate';
+  __typename?: "course_review_aggregate";
   aggregate?: Maybe<CourseReviewAggregateFields>;
   nodes: Array<CourseReview>;
 };
@@ -381,16 +393,16 @@ export type CourseReviewAggregateBoolExp = {
 
 export type CourseReviewAggregateBoolExpCount = {
   arguments?: InputMaybe<Array<CourseReviewSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
   filter?: InputMaybe<CourseReviewBoolExp>;
   predicate: IntComparisonExp;
 };
 
 /** aggregate fields of "course_review" */
 export type CourseReviewAggregateFields = {
-  __typename?: 'course_review_aggregate_fields';
+  __typename?: "course_review_aggregate_fields";
   avg?: Maybe<CourseReviewAvgFields>;
-  count: Scalars['Int'];
+  count: Scalars["Int"]["output"];
   max?: Maybe<CourseReviewMaxFields>;
   min?: Maybe<CourseReviewMinFields>;
   stddev?: Maybe<CourseReviewStddevFields>;
@@ -402,11 +414,10 @@ export type CourseReviewAggregateFields = {
   variance?: Maybe<CourseReviewVarianceFields>;
 };
 
-
 /** aggregate fields of "course_review" */
 export type CourseReviewAggregateFieldsCountArgs = {
   columns?: InputMaybe<Array<CourseReviewSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** order by aggregate values of table "course_review" */
@@ -433,9 +444,9 @@ export type CourseReviewArrRelInsertInput = {
 
 /** aggregate avg on columns */
 export type CourseReviewAvgFields = {
-  __typename?: 'course_review_avg_fields';
-  id?: Maybe<Scalars['Float']>;
-  rating?: Maybe<Scalars['Float']>;
+  __typename?: "course_review_avg_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  rating?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by avg() on columns of table "course_review" */
@@ -463,40 +474,40 @@ export type CourseReviewBoolExp = {
 /** unique or primary key constraints on table "course_review" */
 export enum CourseReviewConstraint {
   /** unique or primary key constraint on columns "id" */
-  CourseReviewIdKey = 'course_review_id_key',
+  CourseReviewIdKey = "course_review_id_key",
   /** unique or primary key constraint on columns "user_id", "course_id" */
-  CourseReviewPkey = 'course_review_pkey'
+  CourseReviewPkey = "course_review_pkey",
 }
 
 /** input type for incrementing numeric columns in table "course_review" */
 export type CourseReviewIncInput = {
-  id?: InputMaybe<Scalars['Int']>;
-  rating?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  rating?: InputMaybe<Scalars["Float"]["input"]>;
 };
 
 /** input type for inserting data into table "course_review" */
 export type CourseReviewInsertInput = {
-  content?: InputMaybe<Scalars['String']>;
+  content?: InputMaybe<Scalars["String"]["input"]>;
   course?: InputMaybe<CourseObjRelInsertInput>;
-  course_id?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['Int']>;
-  rating?: InputMaybe<Scalars['Float']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  course_id?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  rating?: InputMaybe<Scalars["Float"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
   user?: InputMaybe<UserPublicObjRelInsertInput>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate max on columns */
 export type CourseReviewMaxFields = {
-  __typename?: 'course_review_max_fields';
-  content?: Maybe<Scalars['String']>;
-  course_id?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  id?: Maybe<Scalars['Int']>;
-  rating?: Maybe<Scalars['Float']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
-  user_id?: Maybe<Scalars['uuid']>;
+  __typename?: "course_review_max_fields";
+  content?: Maybe<Scalars["String"]["output"]>;
+  course_id?: Maybe<Scalars["String"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["Int"]["output"]>;
+  rating?: Maybe<Scalars["Float"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
 };
 
 /** order by max() on columns of table "course_review" */
@@ -512,14 +523,14 @@ export type CourseReviewMaxOrderBy = {
 
 /** aggregate min on columns */
 export type CourseReviewMinFields = {
-  __typename?: 'course_review_min_fields';
-  content?: Maybe<Scalars['String']>;
-  course_id?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  id?: Maybe<Scalars['Int']>;
-  rating?: Maybe<Scalars['Float']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
-  user_id?: Maybe<Scalars['uuid']>;
+  __typename?: "course_review_min_fields";
+  content?: Maybe<Scalars["String"]["output"]>;
+  course_id?: Maybe<Scalars["String"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["Int"]["output"]>;
+  rating?: Maybe<Scalars["Float"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
 };
 
 /** order by min() on columns of table "course_review" */
@@ -535,9 +546,9 @@ export type CourseReviewMinOrderBy = {
 
 /** response of any mutation on the table "course_review" */
 export type CourseReviewMutationResponse = {
-  __typename?: 'course_review_mutation_response';
+  __typename?: "course_review_mutation_response";
   /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
+  affected_rows: Scalars["Int"]["output"];
   /** data from the rows affected by the mutation */
   returning: Array<CourseReview>;
 };
@@ -564,44 +575,44 @@ export type CourseReviewOrderBy = {
 
 /** primary key columns input for table: course_review */
 export type CourseReviewPkColumnsInput = {
-  course_id: Scalars['String'];
-  user_id: Scalars['uuid'];
+  course_id: Scalars["String"]["input"];
+  user_id: Scalars["uuid"]["input"];
 };
 
 /** select columns of table "course_review" */
 export enum CourseReviewSelectColumn {
   /** column name */
-  Content = 'content',
+  Content = "content",
   /** column name */
-  CourseId = 'course_id',
+  CourseId = "course_id",
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  Rating = 'rating',
+  Rating = "rating",
   /** column name */
-  UpdatedAt = 'updated_at',
+  UpdatedAt = "updated_at",
   /** column name */
-  UserId = 'user_id'
+  UserId = "user_id",
 }
 
 /** input type for updating data in table "course_review" */
 export type CourseReviewSetInput = {
-  content?: InputMaybe<Scalars['String']>;
-  course_id?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['Int']>;
-  rating?: InputMaybe<Scalars['Float']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  content?: InputMaybe<Scalars["String"]["input"]>;
+  course_id?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  rating?: InputMaybe<Scalars["Float"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate stddev on columns */
 export type CourseReviewStddevFields = {
-  __typename?: 'course_review_stddev_fields';
-  id?: Maybe<Scalars['Float']>;
-  rating?: Maybe<Scalars['Float']>;
+  __typename?: "course_review_stddev_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  rating?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev() on columns of table "course_review" */
@@ -612,9 +623,9 @@ export type CourseReviewStddevOrderBy = {
 
 /** aggregate stddev_pop on columns */
 export type CourseReviewStddevPopFields = {
-  __typename?: 'course_review_stddev_pop_fields';
-  id?: Maybe<Scalars['Float']>;
-  rating?: Maybe<Scalars['Float']>;
+  __typename?: "course_review_stddev_pop_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  rating?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev_pop() on columns of table "course_review" */
@@ -625,9 +636,9 @@ export type CourseReviewStddevPopOrderBy = {
 
 /** aggregate stddev_samp on columns */
 export type CourseReviewStddevSampFields = {
-  __typename?: 'course_review_stddev_samp_fields';
-  id?: Maybe<Scalars['Float']>;
-  rating?: Maybe<Scalars['Float']>;
+  __typename?: "course_review_stddev_samp_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  rating?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev_samp() on columns of table "course_review" */
@@ -646,20 +657,20 @@ export type CourseReviewStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type CourseReviewStreamCursorValueInput = {
-  content?: InputMaybe<Scalars['String']>;
-  course_id?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['Int']>;
-  rating?: InputMaybe<Scalars['Float']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  content?: InputMaybe<Scalars["String"]["input"]>;
+  course_id?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  rating?: InputMaybe<Scalars["Float"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate sum on columns */
 export type CourseReviewSumFields = {
-  __typename?: 'course_review_sum_fields';
-  id?: Maybe<Scalars['Int']>;
-  rating?: Maybe<Scalars['Float']>;
+  __typename?: "course_review_sum_fields";
+  id?: Maybe<Scalars["Int"]["output"]>;
+  rating?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by sum() on columns of table "course_review" */
@@ -671,19 +682,19 @@ export type CourseReviewSumOrderBy = {
 /** update columns of table "course_review" */
 export enum CourseReviewUpdateColumn {
   /** column name */
-  Content = 'content',
+  Content = "content",
   /** column name */
-  CourseId = 'course_id',
+  CourseId = "course_id",
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  Rating = 'rating',
+  Rating = "rating",
   /** column name */
-  UpdatedAt = 'updated_at',
+  UpdatedAt = "updated_at",
   /** column name */
-  UserId = 'user_id'
+  UserId = "user_id",
 }
 
 export type CourseReviewUpdates = {
@@ -697,9 +708,9 @@ export type CourseReviewUpdates = {
 
 /** aggregate var_pop on columns */
 export type CourseReviewVarPopFields = {
-  __typename?: 'course_review_var_pop_fields';
-  id?: Maybe<Scalars['Float']>;
-  rating?: Maybe<Scalars['Float']>;
+  __typename?: "course_review_var_pop_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  rating?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by var_pop() on columns of table "course_review" */
@@ -710,9 +721,9 @@ export type CourseReviewVarPopOrderBy = {
 
 /** aggregate var_samp on columns */
 export type CourseReviewVarSampFields = {
-  __typename?: 'course_review_var_samp_fields';
-  id?: Maybe<Scalars['Float']>;
-  rating?: Maybe<Scalars['Float']>;
+  __typename?: "course_review_var_samp_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  rating?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by var_samp() on columns of table "course_review" */
@@ -723,9 +734,9 @@ export type CourseReviewVarSampOrderBy = {
 
 /** aggregate variance on columns */
 export type CourseReviewVarianceFields = {
-  __typename?: 'course_review_variance_fields';
-  id?: Maybe<Scalars['Float']>;
-  rating?: Maybe<Scalars['Float']>;
+  __typename?: "course_review_variance_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  rating?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by variance() on columns of table "course_review" */
@@ -737,45 +748,45 @@ export type CourseReviewVarianceOrderBy = {
 /** select columns of table "course" */
 export enum CourseSelectColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  EnglishName = 'englishName',
+  EnglishName = "englishName",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  Index = 'index',
+  Index = "index",
   /** column name */
-  Name = 'name',
+  Name = "name",
   /** column name */
-  Number = 'number',
+  Number = "number",
   /** column name */
-  SemesterId = 'semester_id',
+  SemesterId = "semester_id",
   /** column name */
-  TeacherId = 'teacher_id',
+  TeacherId = "teacher_id",
   /** column name */
-  TimeLocation = 'time_location',
+  TimeLocation = "time_location",
   /** column name */
-  UpdatedAt = 'updated_at'
+  UpdatedAt = "updated_at",
 }
 
 /** input type for updating data in table "course" */
 export type CourseSetInput = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  englishName?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['String']>;
-  index?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
-  number?: InputMaybe<Scalars['String']>;
-  semester_id?: InputMaybe<Scalars['String']>;
-  teacher_id?: InputMaybe<Scalars['String']>;
-  time_location?: InputMaybe<Scalars['String']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  englishName?: InputMaybe<Scalars["String"]["input"]>;
+  id?: InputMaybe<Scalars["String"]["input"]>;
+  index?: InputMaybe<Scalars["Int"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  number?: InputMaybe<Scalars["String"]["input"]>;
+  semester_id?: InputMaybe<Scalars["String"]["input"]>;
+  teacher_id?: InputMaybe<Scalars["String"]["input"]>;
+  time_location?: InputMaybe<Scalars["String"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
 };
 
 /** aggregate stddev on columns */
 export type CourseStddevFields = {
-  __typename?: 'course_stddev_fields';
-  index?: Maybe<Scalars['Float']>;
+  __typename?: "course_stddev_fields";
+  index?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev() on columns of table "course" */
@@ -785,8 +796,8 @@ export type CourseStddevOrderBy = {
 
 /** aggregate stddev_pop on columns */
 export type CourseStddevPopFields = {
-  __typename?: 'course_stddev_pop_fields';
-  index?: Maybe<Scalars['Float']>;
+  __typename?: "course_stddev_pop_fields";
+  index?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev_pop() on columns of table "course" */
@@ -796,8 +807,8 @@ export type CourseStddevPopOrderBy = {
 
 /** aggregate stddev_samp on columns */
 export type CourseStddevSampFields = {
-  __typename?: 'course_stddev_samp_fields';
-  index?: Maybe<Scalars['Float']>;
+  __typename?: "course_stddev_samp_fields";
+  index?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev_samp() on columns of table "course" */
@@ -815,22 +826,22 @@ export type CourseStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type CourseStreamCursorValueInput = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  englishName?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['String']>;
-  index?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
-  number?: InputMaybe<Scalars['String']>;
-  semester_id?: InputMaybe<Scalars['String']>;
-  teacher_id?: InputMaybe<Scalars['String']>;
-  time_location?: InputMaybe<Scalars['String']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  englishName?: InputMaybe<Scalars["String"]["input"]>;
+  id?: InputMaybe<Scalars["String"]["input"]>;
+  index?: InputMaybe<Scalars["Int"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  number?: InputMaybe<Scalars["String"]["input"]>;
+  semester_id?: InputMaybe<Scalars["String"]["input"]>;
+  teacher_id?: InputMaybe<Scalars["String"]["input"]>;
+  time_location?: InputMaybe<Scalars["String"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
 };
 
 /** aggregate sum on columns */
 export type CourseSumFields = {
-  __typename?: 'course_sum_fields';
-  index?: Maybe<Scalars['Int']>;
+  __typename?: "course_sum_fields";
+  index?: Maybe<Scalars["Int"]["output"]>;
 };
 
 /** order by sum() on columns of table "course" */
@@ -841,25 +852,25 @@ export type CourseSumOrderBy = {
 /** update columns of table "course" */
 export enum CourseUpdateColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  EnglishName = 'englishName',
+  EnglishName = "englishName",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  Index = 'index',
+  Index = "index",
   /** column name */
-  Name = 'name',
+  Name = "name",
   /** column name */
-  Number = 'number',
+  Number = "number",
   /** column name */
-  SemesterId = 'semester_id',
+  SemesterId = "semester_id",
   /** column name */
-  TeacherId = 'teacher_id',
+  TeacherId = "teacher_id",
   /** column name */
-  TimeLocation = 'time_location',
+  TimeLocation = "time_location",
   /** column name */
-  UpdatedAt = 'updated_at'
+  UpdatedAt = "updated_at",
 }
 
 export type CourseUpdates = {
@@ -873,8 +884,8 @@ export type CourseUpdates = {
 
 /** aggregate var_pop on columns */
 export type CourseVarPopFields = {
-  __typename?: 'course_var_pop_fields';
-  index?: Maybe<Scalars['Float']>;
+  __typename?: "course_var_pop_fields";
+  index?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by var_pop() on columns of table "course" */
@@ -884,8 +895,8 @@ export type CourseVarPopOrderBy = {
 
 /** aggregate var_samp on columns */
 export type CourseVarSampFields = {
-  __typename?: 'course_var_samp_fields';
-  index?: Maybe<Scalars['Float']>;
+  __typename?: "course_var_samp_fields";
+  index?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by var_samp() on columns of table "course" */
@@ -895,8 +906,8 @@ export type CourseVarSampOrderBy = {
 
 /** aggregate variance on columns */
 export type CourseVarianceFields = {
-  __typename?: 'course_variance_fields';
-  index?: Maybe<Scalars['Float']>;
+  __typename?: "course_variance_fields";
+  index?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by variance() on columns of table "course" */
@@ -907,38 +918,38 @@ export type CourseVarianceOrderBy = {
 /** ordering argument of a cursor */
 export enum CursorOrdering {
   /** ascending ordering of the cursor */
-  Asc = 'ASC',
+  Asc = "ASC",
   /** descending ordering of the cursor */
-  Desc = 'DESC'
+  Desc = "DESC",
 }
 
 /** columns and relationships of "message" */
 export type Message = {
-  __typename?: 'message';
-  created_at: Scalars['timestamptz'];
+  __typename?: "message";
+  created_at: Scalars["timestamptz"]["output"];
   /** An object relationship */
   from_user?: Maybe<RealmUserUnion>;
-  from_user_id: Scalars['uuid'];
-  id: Scalars['uuid'];
-  realm_id: Scalars['Int'];
-  text: Scalars['String'];
+  from_user_id: Scalars["uuid"]["output"];
+  id: Scalars["uuid"]["output"];
+  realm_id: Scalars["Int"]["output"];
+  text: Scalars["String"]["output"];
   /** An object relationship */
   to_user?: Maybe<RealmUserUnion>;
-  to_user_id: Scalars['uuid'];
+  to_user_id: Scalars["uuid"]["output"];
 };
 
 /** aggregated selection of "message" */
 export type MessageAggregate = {
-  __typename?: 'message_aggregate';
+  __typename?: "message_aggregate";
   aggregate?: Maybe<MessageAggregateFields>;
   nodes: Array<Message>;
 };
 
 /** aggregate fields of "message" */
 export type MessageAggregateFields = {
-  __typename?: 'message_aggregate_fields';
+  __typename?: "message_aggregate_fields";
   avg?: Maybe<MessageAvgFields>;
-  count: Scalars['Int'];
+  count: Scalars["Int"]["output"];
   max?: Maybe<MessageMaxFields>;
   min?: Maybe<MessageMinFields>;
   stddev?: Maybe<MessageStddevFields>;
@@ -950,17 +961,16 @@ export type MessageAggregateFields = {
   variance?: Maybe<MessageVarianceFields>;
 };
 
-
 /** aggregate fields of "message" */
 export type MessageAggregateFieldsCountArgs = {
   columns?: InputMaybe<Array<MessageSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** aggregate avg on columns */
 export type MessageAvgFields = {
-  __typename?: 'message_avg_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "message_avg_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** Boolean expression to filter rows from the table "message". All fields are combined with a logical 'AND'. */
@@ -981,53 +991,53 @@ export type MessageBoolExp = {
 /** unique or primary key constraints on table "message" */
 export enum MessageConstraint {
   /** unique or primary key constraint on columns "id" */
-  MessagePkey = 'message_pkey'
+  MessagePkey = "message_pkey",
 }
 
 /** input type for incrementing numeric columns in table "message" */
 export type MessageIncInput = {
-  realm_id?: InputMaybe<Scalars['Int']>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 /** input type for inserting data into table "message" */
 export type MessageInsertInput = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
   from_user?: InputMaybe<RealmUserUnionObjRelInsertInput>;
-  from_user_id?: InputMaybe<Scalars['uuid']>;
-  id?: InputMaybe<Scalars['uuid']>;
-  realm_id?: InputMaybe<Scalars['Int']>;
-  text?: InputMaybe<Scalars['String']>;
+  from_user_id?: InputMaybe<Scalars["uuid"]["input"]>;
+  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
+  text?: InputMaybe<Scalars["String"]["input"]>;
   to_user?: InputMaybe<RealmUserUnionObjRelInsertInput>;
-  to_user_id?: InputMaybe<Scalars['uuid']>;
+  to_user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate max on columns */
 export type MessageMaxFields = {
-  __typename?: 'message_max_fields';
-  created_at?: Maybe<Scalars['timestamptz']>;
-  from_user_id?: Maybe<Scalars['uuid']>;
-  id?: Maybe<Scalars['uuid']>;
-  realm_id?: Maybe<Scalars['Int']>;
-  text?: Maybe<Scalars['String']>;
-  to_user_id?: Maybe<Scalars['uuid']>;
+  __typename?: "message_max_fields";
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  from_user_id?: Maybe<Scalars["uuid"]["output"]>;
+  id?: Maybe<Scalars["uuid"]["output"]>;
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
+  text?: Maybe<Scalars["String"]["output"]>;
+  to_user_id?: Maybe<Scalars["uuid"]["output"]>;
 };
 
 /** aggregate min on columns */
 export type MessageMinFields = {
-  __typename?: 'message_min_fields';
-  created_at?: Maybe<Scalars['timestamptz']>;
-  from_user_id?: Maybe<Scalars['uuid']>;
-  id?: Maybe<Scalars['uuid']>;
-  realm_id?: Maybe<Scalars['Int']>;
-  text?: Maybe<Scalars['String']>;
-  to_user_id?: Maybe<Scalars['uuid']>;
+  __typename?: "message_min_fields";
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  from_user_id?: Maybe<Scalars["uuid"]["output"]>;
+  id?: Maybe<Scalars["uuid"]["output"]>;
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
+  text?: Maybe<Scalars["String"]["output"]>;
+  to_user_id?: Maybe<Scalars["uuid"]["output"]>;
 };
 
 /** response of any mutation on the table "message" */
 export type MessageMutationResponse = {
-  __typename?: 'message_mutation_response';
+  __typename?: "message_mutation_response";
   /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
+  affected_rows: Scalars["Int"]["output"];
   /** data from the rows affected by the mutation */
   returning: Array<Message>;
 };
@@ -1053,51 +1063,51 @@ export type MessageOrderBy = {
 
 /** primary key columns input for table: message */
 export type MessagePkColumnsInput = {
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 };
 
 /** select columns of table "message" */
 export enum MessageSelectColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  FromUserId = 'from_user_id',
+  FromUserId = "from_user_id",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  RealmId = 'realm_id',
+  RealmId = "realm_id",
   /** column name */
-  Text = 'text',
+  Text = "text",
   /** column name */
-  ToUserId = 'to_user_id'
+  ToUserId = "to_user_id",
 }
 
 /** input type for updating data in table "message" */
 export type MessageSetInput = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  from_user_id?: InputMaybe<Scalars['uuid']>;
-  id?: InputMaybe<Scalars['uuid']>;
-  realm_id?: InputMaybe<Scalars['Int']>;
-  text?: InputMaybe<Scalars['String']>;
-  to_user_id?: InputMaybe<Scalars['uuid']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  from_user_id?: InputMaybe<Scalars["uuid"]["input"]>;
+  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
+  text?: InputMaybe<Scalars["String"]["input"]>;
+  to_user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate stddev on columns */
 export type MessageStddevFields = {
-  __typename?: 'message_stddev_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "message_stddev_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate stddev_pop on columns */
 export type MessageStddevPopFields = {
-  __typename?: 'message_stddev_pop_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "message_stddev_pop_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate stddev_samp on columns */
 export type MessageStddevSampFields = {
-  __typename?: 'message_stddev_samp_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "message_stddev_samp_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** Streaming cursor of the table "message" */
@@ -1110,34 +1120,34 @@ export type MessageStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type MessageStreamCursorValueInput = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  from_user_id?: InputMaybe<Scalars['uuid']>;
-  id?: InputMaybe<Scalars['uuid']>;
-  realm_id?: InputMaybe<Scalars['Int']>;
-  text?: InputMaybe<Scalars['String']>;
-  to_user_id?: InputMaybe<Scalars['uuid']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  from_user_id?: InputMaybe<Scalars["uuid"]["input"]>;
+  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
+  text?: InputMaybe<Scalars["String"]["input"]>;
+  to_user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate sum on columns */
 export type MessageSumFields = {
-  __typename?: 'message_sum_fields';
-  realm_id?: Maybe<Scalars['Int']>;
+  __typename?: "message_sum_fields";
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
 };
 
 /** update columns of table "message" */
 export enum MessageUpdateColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  FromUserId = 'from_user_id',
+  FromUserId = "from_user_id",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  RealmId = 'realm_id',
+  RealmId = "realm_id",
   /** column name */
-  Text = 'text',
+  Text = "text",
   /** column name */
-  ToUserId = 'to_user_id'
+  ToUserId = "to_user_id",
 }
 
 export type MessageUpdates = {
@@ -1151,25 +1161,25 @@ export type MessageUpdates = {
 
 /** aggregate var_pop on columns */
 export type MessageVarPopFields = {
-  __typename?: 'message_var_pop_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "message_var_pop_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate var_samp on columns */
 export type MessageVarSampFields = {
-  __typename?: 'message_var_samp_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "message_var_samp_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate variance on columns */
 export type MessageVarianceFields = {
-  __typename?: 'message_variance_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "message_variance_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** mutation root */
 export type MutationRoot = {
-  __typename?: 'mutation_root';
+  __typename?: "mutation_root";
   /** delete data from the table: "course" */
   delete_course?: Maybe<CourseMutationResponse>;
   /** delete single row from the table: "course" */
@@ -1343,7 +1353,9 @@ export type MutationRoot = {
   /** update single row of the table: "reaction_emoji" */
   update_reaction_emoji_by_pk?: Maybe<ReactionEmoji>;
   /** update multiples rows of table: "reaction_emoji" */
-  update_reaction_emoji_many?: Maybe<Array<Maybe<ReactionEmojiMutationResponse>>>;
+  update_reaction_emoji_many?: Maybe<
+    Array<Maybe<ReactionEmojiMutationResponse>>
+  >;
   /** update data of the table: "realm" */
   update_realm?: Maybe<RealmMutationResponse>;
   /** update single row of the table: "realm" */
@@ -1383,7 +1395,9 @@ export type MutationRoot = {
   /** update single row of the table: "thread_reaction" */
   update_thread_reaction_by_pk?: Maybe<ThreadReaction>;
   /** update multiples rows of table: "thread_reaction" */
-  update_thread_reaction_many?: Maybe<Array<Maybe<ThreadReactionMutationResponse>>>;
+  update_thread_reaction_many?: Maybe<
+    Array<Maybe<ThreadReactionMutationResponse>>
+  >;
   /** update data of the table: "topic" */
   update_topic?: Maybe<TopicMutationResponse>;
   /** update single row of the table: "topic" */
@@ -1402,205 +1416,172 @@ export type MutationRoot = {
   update_user_public_many?: Maybe<Array<Maybe<UserPublicMutationResponse>>>;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteCourseArgs = {
   where: CourseBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteCourseByPkArgs = {
-  id: Scalars['String'];
+  id: Scalars["String"]["input"];
 };
-
 
 /** mutation root */
 export type MutationRootDeleteCourseReviewArgs = {
   where: CourseReviewBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteCourseReviewByPkArgs = {
-  course_id: Scalars['String'];
-  user_id: Scalars['uuid'];
+  course_id: Scalars["String"]["input"];
+  user_id: Scalars["uuid"]["input"];
 };
-
 
 /** mutation root */
 export type MutationRootDeleteMessageArgs = {
   where: MessageBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteMessageByPkArgs = {
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 };
-
 
 /** mutation root */
 export type MutationRootDeleteNotificationArgs = {
   where: NotificationBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteNotificationByPkArgs = {
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 };
-
 
 /** mutation root */
 export type MutationRootDeletePostArgs = {
   where: PostBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeletePostByPkArgs = {
-  id: Scalars['Int'];
+  id: Scalars["Int"]["input"];
 };
-
 
 /** mutation root */
 export type MutationRootDeletePostReactionArgs = {
   where: PostReactionBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeletePostReactionByPkArgs = {
   name: ReactionEmojiEnum;
-  post_id: Scalars['Int'];
-  user_id: Scalars['uuid'];
+  post_id: Scalars["Int"]["input"];
+  user_id: Scalars["uuid"]["input"];
 };
-
 
 /** mutation root */
 export type MutationRootDeleteReactionEmojiArgs = {
   where: ReactionEmojiBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteReactionEmojiByPkArgs = {
-  name: Scalars['String'];
+  name: Scalars["String"]["input"];
 };
-
 
 /** mutation root */
 export type MutationRootDeleteRealmArgs = {
   where: RealmBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteRealmByPkArgs = {
-  id: Scalars['Int'];
+  id: Scalars["Int"]["input"];
 };
-
 
 /** mutation root */
 export type MutationRootDeleteRealmPublicArgs = {
   where: RealmPublicBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteRealmUserArgs = {
   where: RealmUserBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteRealmUserByPkArgs = {
-  realm_id: Scalars['Int'];
-  user_id: Scalars['uuid'];
+  realm_id: Scalars["Int"]["input"];
+  user_id: Scalars["uuid"]["input"];
 };
-
 
 /** mutation root */
 export type MutationRootDeleteSessionArgs = {
   where: SessionBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteSessionByPkArgs = {
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 };
-
 
 /** mutation root */
 export type MutationRootDeleteTeacherArgs = {
   where: TeacherBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteTeacherByPkArgs = {
-  id: Scalars['String'];
+  id: Scalars["String"]["input"];
 };
-
 
 /** mutation root */
 export type MutationRootDeleteThreadArgs = {
   where: ThreadBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteThreadByPkArgs = {
-  id: Scalars['Int'];
+  id: Scalars["Int"]["input"];
 };
-
 
 /** mutation root */
 export type MutationRootDeleteThreadReactionArgs = {
   where: ThreadReactionBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteThreadReactionByPkArgs = {
   name: ReactionEmojiEnum;
-  thread_id: Scalars['Int'];
-  user_id: Scalars['uuid'];
+  thread_id: Scalars["Int"]["input"];
+  user_id: Scalars["uuid"]["input"];
 };
-
 
 /** mutation root */
 export type MutationRootDeleteTopicArgs = {
   where: TopicBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteTopicByPkArgs = {
-  name: Scalars['String'];
-  realm_id: Scalars['Int'];
+  name: Scalars["String"]["input"];
+  realm_id: Scalars["Int"]["input"];
 };
-
 
 /** mutation root */
 export type MutationRootDeleteUserArgs = {
   where: UserBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootDeleteUserByPkArgs = {
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 };
-
 
 /** mutation root */
 export type MutationRootDeleteUserPublicArgs = {
   where: UserPublicBoolExp;
 };
-
 
 /** mutation root */
 export type MutationRootInsertCourseArgs = {
@@ -1608,13 +1589,11 @@ export type MutationRootInsertCourseArgs = {
   on_conflict?: InputMaybe<CourseOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertCourseOneArgs = {
   object: CourseInsertInput;
   on_conflict?: InputMaybe<CourseOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertCourseReviewArgs = {
@@ -1622,13 +1601,11 @@ export type MutationRootInsertCourseReviewArgs = {
   on_conflict?: InputMaybe<CourseReviewOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertCourseReviewOneArgs = {
   object: CourseReviewInsertInput;
   on_conflict?: InputMaybe<CourseReviewOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertMessageArgs = {
@@ -1636,13 +1613,11 @@ export type MutationRootInsertMessageArgs = {
   on_conflict?: InputMaybe<MessageOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertMessageOneArgs = {
   object: MessageInsertInput;
   on_conflict?: InputMaybe<MessageOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertNotificationArgs = {
@@ -1650,13 +1625,11 @@ export type MutationRootInsertNotificationArgs = {
   on_conflict?: InputMaybe<NotificationOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertNotificationOneArgs = {
   object: NotificationInsertInput;
   on_conflict?: InputMaybe<NotificationOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertPostArgs = {
@@ -1664,13 +1637,11 @@ export type MutationRootInsertPostArgs = {
   on_conflict?: InputMaybe<PostOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertPostOneArgs = {
   object: PostInsertInput;
   on_conflict?: InputMaybe<PostOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertPostReactionArgs = {
@@ -1678,13 +1649,11 @@ export type MutationRootInsertPostReactionArgs = {
   on_conflict?: InputMaybe<PostReactionOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertPostReactionOneArgs = {
   object: PostReactionInsertInput;
   on_conflict?: InputMaybe<PostReactionOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertReactionEmojiArgs = {
@@ -1692,13 +1661,11 @@ export type MutationRootInsertReactionEmojiArgs = {
   on_conflict?: InputMaybe<ReactionEmojiOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertReactionEmojiOneArgs = {
   object: ReactionEmojiInsertInput;
   on_conflict?: InputMaybe<ReactionEmojiOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertRealmArgs = {
@@ -1706,25 +1673,21 @@ export type MutationRootInsertRealmArgs = {
   on_conflict?: InputMaybe<RealmOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertRealmOneArgs = {
   object: RealmInsertInput;
   on_conflict?: InputMaybe<RealmOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertRealmPublicArgs = {
   objects: Array<RealmPublicInsertInput>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertRealmPublicOneArgs = {
   object: RealmPublicInsertInput;
 };
-
 
 /** mutation root */
 export type MutationRootInsertRealmUserArgs = {
@@ -1732,13 +1695,11 @@ export type MutationRootInsertRealmUserArgs = {
   on_conflict?: InputMaybe<RealmUserOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertRealmUserOneArgs = {
   object: RealmUserInsertInput;
   on_conflict?: InputMaybe<RealmUserOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertSessionArgs = {
@@ -1746,13 +1707,11 @@ export type MutationRootInsertSessionArgs = {
   on_conflict?: InputMaybe<SessionOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertSessionOneArgs = {
   object: SessionInsertInput;
   on_conflict?: InputMaybe<SessionOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertTeacherArgs = {
@@ -1760,13 +1719,11 @@ export type MutationRootInsertTeacherArgs = {
   on_conflict?: InputMaybe<TeacherOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertTeacherOneArgs = {
   object: TeacherInsertInput;
   on_conflict?: InputMaybe<TeacherOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertThreadArgs = {
@@ -1774,13 +1731,11 @@ export type MutationRootInsertThreadArgs = {
   on_conflict?: InputMaybe<ThreadOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertThreadOneArgs = {
   object: ThreadInsertInput;
   on_conflict?: InputMaybe<ThreadOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertThreadReactionArgs = {
@@ -1788,13 +1743,11 @@ export type MutationRootInsertThreadReactionArgs = {
   on_conflict?: InputMaybe<ThreadReactionOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertThreadReactionOneArgs = {
   object: ThreadReactionInsertInput;
   on_conflict?: InputMaybe<ThreadReactionOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertTopicArgs = {
@@ -1802,13 +1755,11 @@ export type MutationRootInsertTopicArgs = {
   on_conflict?: InputMaybe<TopicOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertTopicOneArgs = {
   object: TopicInsertInput;
   on_conflict?: InputMaybe<TopicOnConflict>;
 };
-
 
 /** mutation root */
 export type MutationRootInsertUserArgs = {
@@ -1816,25 +1767,21 @@ export type MutationRootInsertUserArgs = {
   on_conflict?: InputMaybe<UserOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertUserOneArgs = {
   object: UserInsertInput;
   on_conflict?: InputMaybe<UserOnConflict>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertUserPublicArgs = {
   objects: Array<UserPublicInsertInput>;
 };
 
-
 /** mutation root */
 export type MutationRootInsertUserPublicOneArgs = {
   object: UserPublicInsertInput;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateCourseArgs = {
@@ -1843,7 +1790,6 @@ export type MutationRootUpdateCourseArgs = {
   where: CourseBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateCourseByPkArgs = {
   _inc?: InputMaybe<CourseIncInput>;
@@ -1851,12 +1797,10 @@ export type MutationRootUpdateCourseByPkArgs = {
   pk_columns: CoursePkColumnsInput;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateCourseManyArgs = {
   updates: Array<CourseUpdates>;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateCourseReviewArgs = {
@@ -1865,7 +1809,6 @@ export type MutationRootUpdateCourseReviewArgs = {
   where: CourseReviewBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateCourseReviewByPkArgs = {
   _inc?: InputMaybe<CourseReviewIncInput>;
@@ -1873,12 +1816,10 @@ export type MutationRootUpdateCourseReviewByPkArgs = {
   pk_columns: CourseReviewPkColumnsInput;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateCourseReviewManyArgs = {
   updates: Array<CourseReviewUpdates>;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateMessageArgs = {
@@ -1887,7 +1828,6 @@ export type MutationRootUpdateMessageArgs = {
   where: MessageBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateMessageByPkArgs = {
   _inc?: InputMaybe<MessageIncInput>;
@@ -1895,12 +1835,10 @@ export type MutationRootUpdateMessageByPkArgs = {
   pk_columns: MessagePkColumnsInput;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateMessageManyArgs = {
   updates: Array<MessageUpdates>;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateNotificationArgs = {
@@ -1908,19 +1846,16 @@ export type MutationRootUpdateNotificationArgs = {
   where: NotificationBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateNotificationByPkArgs = {
   _set?: InputMaybe<NotificationSetInput>;
   pk_columns: NotificationPkColumnsInput;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateNotificationManyArgs = {
   updates: Array<NotificationUpdates>;
 };
-
 
 /** mutation root */
 export type MutationRootUpdatePostArgs = {
@@ -1929,7 +1864,6 @@ export type MutationRootUpdatePostArgs = {
   where: PostBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdatePostByPkArgs = {
   _inc?: InputMaybe<PostIncInput>;
@@ -1937,12 +1871,10 @@ export type MutationRootUpdatePostByPkArgs = {
   pk_columns: PostPkColumnsInput;
 };
 
-
 /** mutation root */
 export type MutationRootUpdatePostManyArgs = {
   updates: Array<PostUpdates>;
 };
-
 
 /** mutation root */
 export type MutationRootUpdatePostReactionArgs = {
@@ -1951,7 +1883,6 @@ export type MutationRootUpdatePostReactionArgs = {
   where: PostReactionBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdatePostReactionByPkArgs = {
   _inc?: InputMaybe<PostReactionIncInput>;
@@ -1959,12 +1890,10 @@ export type MutationRootUpdatePostReactionByPkArgs = {
   pk_columns: PostReactionPkColumnsInput;
 };
 
-
 /** mutation root */
 export type MutationRootUpdatePostReactionManyArgs = {
   updates: Array<PostReactionUpdates>;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateReactionEmojiArgs = {
@@ -1972,19 +1901,16 @@ export type MutationRootUpdateReactionEmojiArgs = {
   where: ReactionEmojiBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateReactionEmojiByPkArgs = {
   _set?: InputMaybe<ReactionEmojiSetInput>;
   pk_columns: ReactionEmojiPkColumnsInput;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateReactionEmojiManyArgs = {
   updates: Array<ReactionEmojiUpdates>;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateRealmArgs = {
@@ -1993,7 +1919,6 @@ export type MutationRootUpdateRealmArgs = {
   where: RealmBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateRealmByPkArgs = {
   _inc?: InputMaybe<RealmIncInput>;
@@ -2001,12 +1926,10 @@ export type MutationRootUpdateRealmByPkArgs = {
   pk_columns: RealmPkColumnsInput;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateRealmManyArgs = {
   updates: Array<RealmUpdates>;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateRealmPublicArgs = {
@@ -2015,12 +1938,10 @@ export type MutationRootUpdateRealmPublicArgs = {
   where: RealmPublicBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateRealmPublicManyArgs = {
   updates: Array<RealmPublicUpdates>;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateRealmUserArgs = {
@@ -2029,7 +1950,6 @@ export type MutationRootUpdateRealmUserArgs = {
   where: RealmUserBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateRealmUserByPkArgs = {
   _inc?: InputMaybe<RealmUserIncInput>;
@@ -2037,12 +1957,10 @@ export type MutationRootUpdateRealmUserByPkArgs = {
   pk_columns: RealmUserPkColumnsInput;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateRealmUserManyArgs = {
   updates: Array<RealmUserUpdates>;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateSessionArgs = {
@@ -2050,19 +1968,16 @@ export type MutationRootUpdateSessionArgs = {
   where: SessionBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateSessionByPkArgs = {
   _set?: InputMaybe<SessionSetInput>;
   pk_columns: SessionPkColumnsInput;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateSessionManyArgs = {
   updates: Array<SessionUpdates>;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateTeacherArgs = {
@@ -2070,19 +1985,16 @@ export type MutationRootUpdateTeacherArgs = {
   where: TeacherBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateTeacherByPkArgs = {
   _set?: InputMaybe<TeacherSetInput>;
   pk_columns: TeacherPkColumnsInput;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateTeacherManyArgs = {
   updates: Array<TeacherUpdates>;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateThreadArgs = {
@@ -2091,7 +2003,6 @@ export type MutationRootUpdateThreadArgs = {
   where: ThreadBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateThreadByPkArgs = {
   _inc?: InputMaybe<ThreadIncInput>;
@@ -2099,12 +2010,10 @@ export type MutationRootUpdateThreadByPkArgs = {
   pk_columns: ThreadPkColumnsInput;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateThreadManyArgs = {
   updates: Array<ThreadUpdates>;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateThreadReactionArgs = {
@@ -2113,7 +2022,6 @@ export type MutationRootUpdateThreadReactionArgs = {
   where: ThreadReactionBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateThreadReactionByPkArgs = {
   _inc?: InputMaybe<ThreadReactionIncInput>;
@@ -2121,12 +2029,10 @@ export type MutationRootUpdateThreadReactionByPkArgs = {
   pk_columns: ThreadReactionPkColumnsInput;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateThreadReactionManyArgs = {
   updates: Array<ThreadReactionUpdates>;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateTopicArgs = {
@@ -2135,7 +2041,6 @@ export type MutationRootUpdateTopicArgs = {
   where: TopicBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateTopicByPkArgs = {
   _inc?: InputMaybe<TopicIncInput>;
@@ -2143,12 +2048,10 @@ export type MutationRootUpdateTopicByPkArgs = {
   pk_columns: TopicPkColumnsInput;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateTopicManyArgs = {
   updates: Array<TopicUpdates>;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateUserArgs = {
@@ -2156,26 +2059,22 @@ export type MutationRootUpdateUserArgs = {
   where: UserBoolExp;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateUserByPkArgs = {
   _set?: InputMaybe<UserSetInput>;
   pk_columns: UserPkColumnsInput;
 };
 
-
 /** mutation root */
 export type MutationRootUpdateUserManyArgs = {
   updates: Array<UserUpdates>;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateUserPublicArgs = {
   _set?: InputMaybe<UserPublicSetInput>;
   where: UserPublicBoolExp;
 };
-
 
 /** mutation root */
 export type MutationRootUpdateUserPublicManyArgs = {
@@ -2184,34 +2083,33 @@ export type MutationRootUpdateUserPublicManyArgs = {
 
 /** columns and relationships of "notification" */
 export type Notification = {
-  __typename?: 'notification';
-  created_at: Scalars['timestamptz'];
-  id: Scalars['uuid'];
-  payload: Scalars['String'];
-  read: Scalars['Boolean'];
-  user_id: Scalars['uuid'];
+  __typename?: "notification";
+  created_at: Scalars["timestamptz"]["output"];
+  id: Scalars["uuid"]["output"];
+  payload: Scalars["String"]["output"];
+  read: Scalars["Boolean"]["output"];
+  user_id: Scalars["uuid"]["output"];
 };
 
 /** aggregated selection of "notification" */
 export type NotificationAggregate = {
-  __typename?: 'notification_aggregate';
+  __typename?: "notification_aggregate";
   aggregate?: Maybe<NotificationAggregateFields>;
   nodes: Array<Notification>;
 };
 
 /** aggregate fields of "notification" */
 export type NotificationAggregateFields = {
-  __typename?: 'notification_aggregate_fields';
-  count: Scalars['Int'];
+  __typename?: "notification_aggregate_fields";
+  count: Scalars["Int"]["output"];
   max?: Maybe<NotificationMaxFields>;
   min?: Maybe<NotificationMinFields>;
 };
 
-
 /** aggregate fields of "notification" */
 export type NotificationAggregateFieldsCountArgs = {
   columns?: InputMaybe<Array<NotificationSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** Boolean expression to filter rows from the table "notification". All fields are combined with a logical 'AND'. */
@@ -2229,41 +2127,41 @@ export type NotificationBoolExp = {
 /** unique or primary key constraints on table "notification" */
 export enum NotificationConstraint {
   /** unique or primary key constraint on columns "id" */
-  NotificationPkey = 'notification_pkey'
+  NotificationPkey = "notification_pkey",
 }
 
 /** input type for inserting data into table "notification" */
 export type NotificationInsertInput = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['uuid']>;
-  payload?: InputMaybe<Scalars['String']>;
-  read?: InputMaybe<Scalars['Boolean']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  payload?: InputMaybe<Scalars["String"]["input"]>;
+  read?: InputMaybe<Scalars["Boolean"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate max on columns */
 export type NotificationMaxFields = {
-  __typename?: 'notification_max_fields';
-  created_at?: Maybe<Scalars['timestamptz']>;
-  id?: Maybe<Scalars['uuid']>;
-  payload?: Maybe<Scalars['String']>;
-  user_id?: Maybe<Scalars['uuid']>;
+  __typename?: "notification_max_fields";
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["uuid"]["output"]>;
+  payload?: Maybe<Scalars["String"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
 };
 
 /** aggregate min on columns */
 export type NotificationMinFields = {
-  __typename?: 'notification_min_fields';
-  created_at?: Maybe<Scalars['timestamptz']>;
-  id?: Maybe<Scalars['uuid']>;
-  payload?: Maybe<Scalars['String']>;
-  user_id?: Maybe<Scalars['uuid']>;
+  __typename?: "notification_min_fields";
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["uuid"]["output"]>;
+  payload?: Maybe<Scalars["String"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
 };
 
 /** response of any mutation on the table "notification" */
 export type NotificationMutationResponse = {
-  __typename?: 'notification_mutation_response';
+  __typename?: "notification_mutation_response";
   /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
+  affected_rows: Scalars["Int"]["output"];
   /** data from the rows affected by the mutation */
   returning: Array<Notification>;
 };
@@ -2286,30 +2184,30 @@ export type NotificationOrderBy = {
 
 /** primary key columns input for table: notification */
 export type NotificationPkColumnsInput = {
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 };
 
 /** select columns of table "notification" */
 export enum NotificationSelectColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  Payload = 'payload',
+  Payload = "payload",
   /** column name */
-  Read = 'read',
+  Read = "read",
   /** column name */
-  UserId = 'user_id'
+  UserId = "user_id",
 }
 
 /** input type for updating data in table "notification" */
 export type NotificationSetInput = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['uuid']>;
-  payload?: InputMaybe<Scalars['String']>;
-  read?: InputMaybe<Scalars['Boolean']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  payload?: InputMaybe<Scalars["String"]["input"]>;
+  read?: InputMaybe<Scalars["Boolean"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** Streaming cursor of the table "notification" */
@@ -2322,25 +2220,25 @@ export type NotificationStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type NotificationStreamCursorValueInput = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['uuid']>;
-  payload?: InputMaybe<Scalars['String']>;
-  read?: InputMaybe<Scalars['Boolean']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  payload?: InputMaybe<Scalars["String"]["input"]>;
+  read?: InputMaybe<Scalars["Boolean"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** update columns of table "notification" */
 export enum NotificationUpdateColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  Payload = 'payload',
+  Payload = "payload",
   /** column name */
-  Read = 'read',
+  Read = "read",
   /** column name */
-  UserId = 'user_id'
+  UserId = "user_id",
 }
 
 export type NotificationUpdates = {
@@ -2353,44 +2251,44 @@ export type NotificationUpdates = {
 /** column ordering options */
 export enum OrderBy {
   /** in ascending order, nulls last */
-  Asc = 'asc',
+  Asc = "asc",
   /** in ascending order, nulls first */
-  AscNullsFirst = 'asc_nulls_first',
+  AscNullsFirst = "asc_nulls_first",
   /** in ascending order, nulls last */
-  AscNullsLast = 'asc_nulls_last',
+  AscNullsLast = "asc_nulls_last",
   /** in descending order, nulls first */
-  Desc = 'desc',
+  Desc = "desc",
   /** in descending order, nulls first */
-  DescNullsFirst = 'desc_nulls_first',
+  DescNullsFirst = "desc_nulls_first",
   /** in descending order, nulls last */
-  DescNullsLast = 'desc_nulls_last'
+  DescNullsLast = "desc_nulls_last",
 }
 
 /** columns and relationships of "post" */
 export type Post = {
-  __typename?: 'post';
-  content: Scalars['String'];
-  created_at: Scalars['timestamptz'];
-  id: Scalars['Int'];
+  __typename?: "post";
+  content: Scalars["String"]["output"];
+  created_at: Scalars["timestamptz"]["output"];
+  id: Scalars["Int"]["output"];
   /** An object relationship */
   thread: Thread;
-  thread_id: Scalars['Int'];
-  updated_at: Scalars['timestamptz'];
-  user_id: Scalars['uuid'];
+  thread_id: Scalars["Int"]["output"];
+  updated_at: Scalars["timestamptz"]["output"];
+  user_id: Scalars["uuid"]["output"];
 };
 
 /** aggregated selection of "post" */
 export type PostAggregate = {
-  __typename?: 'post_aggregate';
+  __typename?: "post_aggregate";
   aggregate?: Maybe<PostAggregateFields>;
   nodes: Array<Post>;
 };
 
 /** aggregate fields of "post" */
 export type PostAggregateFields = {
-  __typename?: 'post_aggregate_fields';
+  __typename?: "post_aggregate_fields";
   avg?: Maybe<PostAvgFields>;
-  count: Scalars['Int'];
+  count: Scalars["Int"]["output"];
   max?: Maybe<PostMaxFields>;
   min?: Maybe<PostMinFields>;
   stddev?: Maybe<PostStddevFields>;
@@ -2402,18 +2300,17 @@ export type PostAggregateFields = {
   variance?: Maybe<PostVarianceFields>;
 };
 
-
 /** aggregate fields of "post" */
 export type PostAggregateFieldsCountArgs = {
   columns?: InputMaybe<Array<PostSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** aggregate avg on columns */
 export type PostAvgFields = {
-  __typename?: 'post_avg_fields';
-  id?: Maybe<Scalars['Float']>;
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "post_avg_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** Boolean expression to filter rows from the table "post". All fields are combined with a logical 'AND'. */
@@ -2433,53 +2330,53 @@ export type PostBoolExp = {
 /** unique or primary key constraints on table "post" */
 export enum PostConstraint {
   /** unique or primary key constraint on columns "id" */
-  PostPkey = 'post_pkey'
+  PostPkey = "post_pkey",
 }
 
 /** input type for incrementing numeric columns in table "post" */
 export type PostIncInput = {
-  id?: InputMaybe<Scalars['Int']>;
-  thread_id?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  thread_id?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 /** input type for inserting data into table "post" */
 export type PostInsertInput = {
-  content?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['Int']>;
+  content?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
   thread?: InputMaybe<ThreadObjRelInsertInput>;
-  thread_id?: InputMaybe<Scalars['Int']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  thread_id?: InputMaybe<Scalars["Int"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate max on columns */
 export type PostMaxFields = {
-  __typename?: 'post_max_fields';
-  content?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  id?: Maybe<Scalars['Int']>;
-  thread_id?: Maybe<Scalars['Int']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
-  user_id?: Maybe<Scalars['uuid']>;
+  __typename?: "post_max_fields";
+  content?: Maybe<Scalars["String"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["Int"]["output"]>;
+  thread_id?: Maybe<Scalars["Int"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
 };
 
 /** aggregate min on columns */
 export type PostMinFields = {
-  __typename?: 'post_min_fields';
-  content?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  id?: Maybe<Scalars['Int']>;
-  thread_id?: Maybe<Scalars['Int']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
-  user_id?: Maybe<Scalars['uuid']>;
+  __typename?: "post_min_fields";
+  content?: Maybe<Scalars["String"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["Int"]["output"]>;
+  thread_id?: Maybe<Scalars["Int"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
 };
 
 /** response of any mutation on the table "post" */
 export type PostMutationResponse = {
-  __typename?: 'post_mutation_response';
+  __typename?: "post_mutation_response";
   /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
+  affected_rows: Scalars["Int"]["output"];
   /** data from the rows affected by the mutation */
   returning: Array<Post>;
 };
@@ -2511,23 +2408,23 @@ export type PostOrderBy = {
 
 /** primary key columns input for table: post */
 export type PostPkColumnsInput = {
-  id: Scalars['Int'];
+  id: Scalars["Int"]["input"];
 };
 
 /** columns and relationships of "post_reaction" */
 export type PostReaction = {
-  __typename?: 'post_reaction';
-  created_at: Scalars['timestamptz'];
+  __typename?: "post_reaction";
+  created_at: Scalars["timestamptz"]["output"];
   name: ReactionEmojiEnum;
   /** An object relationship */
   post: Post;
-  post_id: Scalars['Int'];
-  user_id: Scalars['uuid'];
+  post_id: Scalars["Int"]["output"];
+  user_id: Scalars["uuid"]["output"];
 };
 
 /** aggregated selection of "post_reaction" */
 export type PostReactionAggregate = {
-  __typename?: 'post_reaction_aggregate';
+  __typename?: "post_reaction_aggregate";
   aggregate?: Maybe<PostReactionAggregateFields>;
   nodes: Array<PostReaction>;
 };
@@ -2538,16 +2435,16 @@ export type PostReactionAggregateBoolExp = {
 
 export type PostReactionAggregateBoolExpCount = {
   arguments?: InputMaybe<Array<PostReactionSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
   filter?: InputMaybe<PostReactionBoolExp>;
   predicate: IntComparisonExp;
 };
 
 /** aggregate fields of "post_reaction" */
 export type PostReactionAggregateFields = {
-  __typename?: 'post_reaction_aggregate_fields';
+  __typename?: "post_reaction_aggregate_fields";
   avg?: Maybe<PostReactionAvgFields>;
-  count: Scalars['Int'];
+  count: Scalars["Int"]["output"];
   max?: Maybe<PostReactionMaxFields>;
   min?: Maybe<PostReactionMinFields>;
   stddev?: Maybe<PostReactionStddevFields>;
@@ -2559,11 +2456,10 @@ export type PostReactionAggregateFields = {
   variance?: Maybe<PostReactionVarianceFields>;
 };
 
-
 /** aggregate fields of "post_reaction" */
 export type PostReactionAggregateFieldsCountArgs = {
   columns?: InputMaybe<Array<PostReactionSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** order by aggregate values of table "post_reaction" */
@@ -2590,8 +2486,8 @@ export type PostReactionArrRelInsertInput = {
 
 /** aggregate avg on columns */
 export type PostReactionAvgFields = {
-  __typename?: 'post_reaction_avg_fields';
-  post_id?: Maybe<Scalars['Float']>;
+  __typename?: "post_reaction_avg_fields";
+  post_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by avg() on columns of table "post_reaction" */
@@ -2614,29 +2510,29 @@ export type PostReactionBoolExp = {
 /** unique or primary key constraints on table "post_reaction" */
 export enum PostReactionConstraint {
   /** unique or primary key constraint on columns "name", "user_id", "post_id" */
-  PostReactionPkey = 'post_reaction_pkey'
+  PostReactionPkey = "post_reaction_pkey",
 }
 
 /** input type for incrementing numeric columns in table "post_reaction" */
 export type PostReactionIncInput = {
-  post_id?: InputMaybe<Scalars['Int']>;
+  post_id?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 /** input type for inserting data into table "post_reaction" */
 export type PostReactionInsertInput = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
   name?: InputMaybe<ReactionEmojiEnum>;
   post?: InputMaybe<PostObjRelInsertInput>;
-  post_id?: InputMaybe<Scalars['Int']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  post_id?: InputMaybe<Scalars["Int"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate max on columns */
 export type PostReactionMaxFields = {
-  __typename?: 'post_reaction_max_fields';
-  created_at?: Maybe<Scalars['timestamptz']>;
-  post_id?: Maybe<Scalars['Int']>;
-  user_id?: Maybe<Scalars['uuid']>;
+  __typename?: "post_reaction_max_fields";
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  post_id?: Maybe<Scalars["Int"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
 };
 
 /** order by max() on columns of table "post_reaction" */
@@ -2648,10 +2544,10 @@ export type PostReactionMaxOrderBy = {
 
 /** aggregate min on columns */
 export type PostReactionMinFields = {
-  __typename?: 'post_reaction_min_fields';
-  created_at?: Maybe<Scalars['timestamptz']>;
-  post_id?: Maybe<Scalars['Int']>;
-  user_id?: Maybe<Scalars['uuid']>;
+  __typename?: "post_reaction_min_fields";
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  post_id?: Maybe<Scalars["Int"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
 };
 
 /** order by min() on columns of table "post_reaction" */
@@ -2663,9 +2559,9 @@ export type PostReactionMinOrderBy = {
 
 /** response of any mutation on the table "post_reaction" */
 export type PostReactionMutationResponse = {
-  __typename?: 'post_reaction_mutation_response';
+  __typename?: "post_reaction_mutation_response";
   /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
+  affected_rows: Scalars["Int"]["output"];
   /** data from the rows affected by the mutation */
   returning: Array<PostReaction>;
 };
@@ -2689,34 +2585,34 @@ export type PostReactionOrderBy = {
 /** primary key columns input for table: post_reaction */
 export type PostReactionPkColumnsInput = {
   name: ReactionEmojiEnum;
-  post_id: Scalars['Int'];
-  user_id: Scalars['uuid'];
+  post_id: Scalars["Int"]["input"];
+  user_id: Scalars["uuid"]["input"];
 };
 
 /** select columns of table "post_reaction" */
 export enum PostReactionSelectColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Name = 'name',
+  Name = "name",
   /** column name */
-  PostId = 'post_id',
+  PostId = "post_id",
   /** column name */
-  UserId = 'user_id'
+  UserId = "user_id",
 }
 
 /** input type for updating data in table "post_reaction" */
 export type PostReactionSetInput = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
   name?: InputMaybe<ReactionEmojiEnum>;
-  post_id?: InputMaybe<Scalars['Int']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  post_id?: InputMaybe<Scalars["Int"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate stddev on columns */
 export type PostReactionStddevFields = {
-  __typename?: 'post_reaction_stddev_fields';
-  post_id?: Maybe<Scalars['Float']>;
+  __typename?: "post_reaction_stddev_fields";
+  post_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev() on columns of table "post_reaction" */
@@ -2726,8 +2622,8 @@ export type PostReactionStddevOrderBy = {
 
 /** aggregate stddev_pop on columns */
 export type PostReactionStddevPopFields = {
-  __typename?: 'post_reaction_stddev_pop_fields';
-  post_id?: Maybe<Scalars['Float']>;
+  __typename?: "post_reaction_stddev_pop_fields";
+  post_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev_pop() on columns of table "post_reaction" */
@@ -2737,8 +2633,8 @@ export type PostReactionStddevPopOrderBy = {
 
 /** aggregate stddev_samp on columns */
 export type PostReactionStddevSampFields = {
-  __typename?: 'post_reaction_stddev_samp_fields';
-  post_id?: Maybe<Scalars['Float']>;
+  __typename?: "post_reaction_stddev_samp_fields";
+  post_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev_samp() on columns of table "post_reaction" */
@@ -2756,16 +2652,16 @@ export type PostReactionStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type PostReactionStreamCursorValueInput = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
   name?: InputMaybe<ReactionEmojiEnum>;
-  post_id?: InputMaybe<Scalars['Int']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  post_id?: InputMaybe<Scalars["Int"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate sum on columns */
 export type PostReactionSumFields = {
-  __typename?: 'post_reaction_sum_fields';
-  post_id?: Maybe<Scalars['Int']>;
+  __typename?: "post_reaction_sum_fields";
+  post_id?: Maybe<Scalars["Int"]["output"]>;
 };
 
 /** order by sum() on columns of table "post_reaction" */
@@ -2776,13 +2672,13 @@ export type PostReactionSumOrderBy = {
 /** update columns of table "post_reaction" */
 export enum PostReactionUpdateColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Name = 'name',
+  Name = "name",
   /** column name */
-  PostId = 'post_id',
+  PostId = "post_id",
   /** column name */
-  UserId = 'user_id'
+  UserId = "user_id",
 }
 
 export type PostReactionUpdates = {
@@ -2796,8 +2692,8 @@ export type PostReactionUpdates = {
 
 /** aggregate var_pop on columns */
 export type PostReactionVarPopFields = {
-  __typename?: 'post_reaction_var_pop_fields';
-  post_id?: Maybe<Scalars['Float']>;
+  __typename?: "post_reaction_var_pop_fields";
+  post_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by var_pop() on columns of table "post_reaction" */
@@ -2807,8 +2703,8 @@ export type PostReactionVarPopOrderBy = {
 
 /** aggregate var_samp on columns */
 export type PostReactionVarSampFields = {
-  __typename?: 'post_reaction_var_samp_fields';
-  post_id?: Maybe<Scalars['Float']>;
+  __typename?: "post_reaction_var_samp_fields";
+  post_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by var_samp() on columns of table "post_reaction" */
@@ -2818,8 +2714,8 @@ export type PostReactionVarSampOrderBy = {
 
 /** aggregate variance on columns */
 export type PostReactionVarianceFields = {
-  __typename?: 'post_reaction_variance_fields';
-  post_id?: Maybe<Scalars['Float']>;
+  __typename?: "post_reaction_variance_fields";
+  post_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by variance() on columns of table "post_reaction" */
@@ -2830,48 +2726,48 @@ export type PostReactionVarianceOrderBy = {
 /** select columns of table "post" */
 export enum PostSelectColumn {
   /** column name */
-  Content = 'content',
+  Content = "content",
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  ThreadId = 'thread_id',
+  ThreadId = "thread_id",
   /** column name */
-  UpdatedAt = 'updated_at',
+  UpdatedAt = "updated_at",
   /** column name */
-  UserId = 'user_id'
+  UserId = "user_id",
 }
 
 /** input type for updating data in table "post" */
 export type PostSetInput = {
-  content?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['Int']>;
-  thread_id?: InputMaybe<Scalars['Int']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  content?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  thread_id?: InputMaybe<Scalars["Int"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate stddev on columns */
 export type PostStddevFields = {
-  __typename?: 'post_stddev_fields';
-  id?: Maybe<Scalars['Float']>;
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "post_stddev_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate stddev_pop on columns */
 export type PostStddevPopFields = {
-  __typename?: 'post_stddev_pop_fields';
-  id?: Maybe<Scalars['Float']>;
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "post_stddev_pop_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate stddev_samp on columns */
 export type PostStddevSampFields = {
-  __typename?: 'post_stddev_samp_fields';
-  id?: Maybe<Scalars['Float']>;
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "post_stddev_samp_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** Streaming cursor of the table "post" */
@@ -2884,35 +2780,35 @@ export type PostStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type PostStreamCursorValueInput = {
-  content?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['Int']>;
-  thread_id?: InputMaybe<Scalars['Int']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  content?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  thread_id?: InputMaybe<Scalars["Int"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate sum on columns */
 export type PostSumFields = {
-  __typename?: 'post_sum_fields';
-  id?: Maybe<Scalars['Int']>;
-  thread_id?: Maybe<Scalars['Int']>;
+  __typename?: "post_sum_fields";
+  id?: Maybe<Scalars["Int"]["output"]>;
+  thread_id?: Maybe<Scalars["Int"]["output"]>;
 };
 
 /** update columns of table "post" */
 export enum PostUpdateColumn {
   /** column name */
-  Content = 'content',
+  Content = "content",
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  ThreadId = 'thread_id',
+  ThreadId = "thread_id",
   /** column name */
-  UpdatedAt = 'updated_at',
+  UpdatedAt = "updated_at",
   /** column name */
-  UserId = 'user_id'
+  UserId = "user_id",
 }
 
 export type PostUpdates = {
@@ -2926,27 +2822,27 @@ export type PostUpdates = {
 
 /** aggregate var_pop on columns */
 export type PostVarPopFields = {
-  __typename?: 'post_var_pop_fields';
-  id?: Maybe<Scalars['Float']>;
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "post_var_pop_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate var_samp on columns */
 export type PostVarSampFields = {
-  __typename?: 'post_var_samp_fields';
-  id?: Maybe<Scalars['Float']>;
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "post_var_samp_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate variance on columns */
 export type PostVarianceFields = {
-  __typename?: 'post_variance_fields';
-  id?: Maybe<Scalars['Float']>;
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "post_variance_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type QueryRoot = {
-  __typename?: 'query_root';
+  __typename?: "query_root";
   /** fetch data from the table: "course" */
   course: Array<Course>;
   /** fetch aggregated fields from the table: "course" */
@@ -3055,457 +2951,403 @@ export type QueryRoot = {
   user_public_aggregate: UserPublicAggregate;
 };
 
-
 export type QueryRootCourseArgs = {
   distinct_on?: InputMaybe<Array<CourseSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<CourseOrderBy>>;
   where?: InputMaybe<CourseBoolExp>;
 };
-
 
 export type QueryRootCourseAggregateArgs = {
   distinct_on?: InputMaybe<Array<CourseSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<CourseOrderBy>>;
   where?: InputMaybe<CourseBoolExp>;
 };
 
-
 export type QueryRootCourseByPkArgs = {
-  id: Scalars['String'];
+  id: Scalars["String"]["input"];
 };
-
 
 export type QueryRootCourseReviewArgs = {
   distinct_on?: InputMaybe<Array<CourseReviewSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<CourseReviewOrderBy>>;
   where?: InputMaybe<CourseReviewBoolExp>;
 };
-
 
 export type QueryRootCourseReviewAggregateArgs = {
   distinct_on?: InputMaybe<Array<CourseReviewSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<CourseReviewOrderBy>>;
   where?: InputMaybe<CourseReviewBoolExp>;
 };
 
-
 export type QueryRootCourseReviewByPkArgs = {
-  course_id: Scalars['String'];
-  user_id: Scalars['uuid'];
+  course_id: Scalars["String"]["input"];
+  user_id: Scalars["uuid"]["input"];
 };
-
 
 export type QueryRootMessageArgs = {
   distinct_on?: InputMaybe<Array<MessageSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<MessageOrderBy>>;
   where?: InputMaybe<MessageBoolExp>;
 };
-
 
 export type QueryRootMessageAggregateArgs = {
   distinct_on?: InputMaybe<Array<MessageSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<MessageOrderBy>>;
   where?: InputMaybe<MessageBoolExp>;
 };
 
-
 export type QueryRootMessageByPkArgs = {
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 };
-
 
 export type QueryRootNotificationArgs = {
   distinct_on?: InputMaybe<Array<NotificationSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<NotificationOrderBy>>;
   where?: InputMaybe<NotificationBoolExp>;
 };
-
 
 export type QueryRootNotificationAggregateArgs = {
   distinct_on?: InputMaybe<Array<NotificationSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<NotificationOrderBy>>;
   where?: InputMaybe<NotificationBoolExp>;
 };
 
-
 export type QueryRootNotificationByPkArgs = {
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 };
-
 
 export type QueryRootPostArgs = {
   distinct_on?: InputMaybe<Array<PostSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<PostOrderBy>>;
   where?: InputMaybe<PostBoolExp>;
 };
-
 
 export type QueryRootPostAggregateArgs = {
   distinct_on?: InputMaybe<Array<PostSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<PostOrderBy>>;
   where?: InputMaybe<PostBoolExp>;
 };
 
-
 export type QueryRootPostByPkArgs = {
-  id: Scalars['Int'];
+  id: Scalars["Int"]["input"];
 };
-
 
 export type QueryRootPostReactionArgs = {
   distinct_on?: InputMaybe<Array<PostReactionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<PostReactionOrderBy>>;
   where?: InputMaybe<PostReactionBoolExp>;
 };
-
 
 export type QueryRootPostReactionAggregateArgs = {
   distinct_on?: InputMaybe<Array<PostReactionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<PostReactionOrderBy>>;
   where?: InputMaybe<PostReactionBoolExp>;
 };
 
-
 export type QueryRootPostReactionByPkArgs = {
   name: ReactionEmojiEnum;
-  post_id: Scalars['Int'];
-  user_id: Scalars['uuid'];
+  post_id: Scalars["Int"]["input"];
+  user_id: Scalars["uuid"]["input"];
 };
-
 
 export type QueryRootReactionEmojiArgs = {
   distinct_on?: InputMaybe<Array<ReactionEmojiSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<ReactionEmojiOrderBy>>;
   where?: InputMaybe<ReactionEmojiBoolExp>;
 };
-
 
 export type QueryRootReactionEmojiAggregateArgs = {
   distinct_on?: InputMaybe<Array<ReactionEmojiSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<ReactionEmojiOrderBy>>;
   where?: InputMaybe<ReactionEmojiBoolExp>;
 };
 
-
 export type QueryRootReactionEmojiByPkArgs = {
-  name: Scalars['String'];
+  name: Scalars["String"]["input"];
 };
-
 
 export type QueryRootRealmArgs = {
   distinct_on?: InputMaybe<Array<RealmSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmOrderBy>>;
   where?: InputMaybe<RealmBoolExp>;
 };
-
 
 export type QueryRootRealmAggregateArgs = {
   distinct_on?: InputMaybe<Array<RealmSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmOrderBy>>;
   where?: InputMaybe<RealmBoolExp>;
 };
 
-
 export type QueryRootRealmByPkArgs = {
-  id: Scalars['Int'];
+  id: Scalars["Int"]["input"];
 };
-
 
 export type QueryRootRealmPostArgs = {
   distinct_on?: InputMaybe<Array<RealmPostSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmPostOrderBy>>;
   where?: InputMaybe<RealmPostBoolExp>;
 };
-
 
 export type QueryRootRealmPostAggregateArgs = {
   distinct_on?: InputMaybe<Array<RealmPostSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmPostOrderBy>>;
   where?: InputMaybe<RealmPostBoolExp>;
 };
 
-
 export type QueryRootRealmPublicArgs = {
   distinct_on?: InputMaybe<Array<RealmPublicSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmPublicOrderBy>>;
   where?: InputMaybe<RealmPublicBoolExp>;
 };
-
 
 export type QueryRootRealmPublicAggregateArgs = {
   distinct_on?: InputMaybe<Array<RealmPublicSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmPublicOrderBy>>;
   where?: InputMaybe<RealmPublicBoolExp>;
 };
 
-
 export type QueryRootRealmUserArgs = {
   distinct_on?: InputMaybe<Array<RealmUserSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmUserOrderBy>>;
   where?: InputMaybe<RealmUserBoolExp>;
 };
-
 
 export type QueryRootRealmUserAggregateArgs = {
   distinct_on?: InputMaybe<Array<RealmUserSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmUserOrderBy>>;
   where?: InputMaybe<RealmUserBoolExp>;
 };
 
-
 export type QueryRootRealmUserByPkArgs = {
-  realm_id: Scalars['Int'];
-  user_id: Scalars['uuid'];
+  realm_id: Scalars["Int"]["input"];
+  user_id: Scalars["uuid"]["input"];
 };
-
 
 export type QueryRootRealmUserUnionArgs = {
   distinct_on?: InputMaybe<Array<RealmUserUnionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmUserUnionOrderBy>>;
   where?: InputMaybe<RealmUserUnionBoolExp>;
 };
-
 
 export type QueryRootRealmUserUnionAggregateArgs = {
   distinct_on?: InputMaybe<Array<RealmUserUnionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmUserUnionOrderBy>>;
   where?: InputMaybe<RealmUserUnionBoolExp>;
 };
 
-
 export type QueryRootSessionArgs = {
   distinct_on?: InputMaybe<Array<SessionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<SessionOrderBy>>;
   where?: InputMaybe<SessionBoolExp>;
 };
-
 
 export type QueryRootSessionAggregateArgs = {
   distinct_on?: InputMaybe<Array<SessionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<SessionOrderBy>>;
   where?: InputMaybe<SessionBoolExp>;
 };
 
-
 export type QueryRootSessionByPkArgs = {
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 };
-
 
 export type QueryRootTeacherArgs = {
   distinct_on?: InputMaybe<Array<TeacherSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<TeacherOrderBy>>;
   where?: InputMaybe<TeacherBoolExp>;
 };
-
 
 export type QueryRootTeacherAggregateArgs = {
   distinct_on?: InputMaybe<Array<TeacherSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<TeacherOrderBy>>;
   where?: InputMaybe<TeacherBoolExp>;
 };
 
-
 export type QueryRootTeacherByPkArgs = {
-  id: Scalars['String'];
+  id: Scalars["String"]["input"];
 };
-
 
 export type QueryRootThreadArgs = {
   distinct_on?: InputMaybe<Array<ThreadSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<ThreadOrderBy>>;
   where?: InputMaybe<ThreadBoolExp>;
 };
-
 
 export type QueryRootThreadAggregateArgs = {
   distinct_on?: InputMaybe<Array<ThreadSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<ThreadOrderBy>>;
   where?: InputMaybe<ThreadBoolExp>;
 };
 
-
 export type QueryRootThreadByPkArgs = {
-  id: Scalars['Int'];
+  id: Scalars["Int"]["input"];
 };
-
 
 export type QueryRootThreadReactionArgs = {
   distinct_on?: InputMaybe<Array<ThreadReactionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<ThreadReactionOrderBy>>;
   where?: InputMaybe<ThreadReactionBoolExp>;
 };
-
 
 export type QueryRootThreadReactionAggregateArgs = {
   distinct_on?: InputMaybe<Array<ThreadReactionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<ThreadReactionOrderBy>>;
   where?: InputMaybe<ThreadReactionBoolExp>;
 };
 
-
 export type QueryRootThreadReactionByPkArgs = {
   name: ReactionEmojiEnum;
-  thread_id: Scalars['Int'];
-  user_id: Scalars['uuid'];
+  thread_id: Scalars["Int"]["input"];
+  user_id: Scalars["uuid"]["input"];
 };
-
 
 export type QueryRootTopicArgs = {
   distinct_on?: InputMaybe<Array<TopicSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<TopicOrderBy>>;
   where?: InputMaybe<TopicBoolExp>;
 };
-
 
 export type QueryRootTopicAggregateArgs = {
   distinct_on?: InputMaybe<Array<TopicSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<TopicOrderBy>>;
   where?: InputMaybe<TopicBoolExp>;
 };
 
-
 export type QueryRootTopicByPkArgs = {
-  name: Scalars['String'];
-  realm_id: Scalars['Int'];
+  name: Scalars["String"]["input"];
+  realm_id: Scalars["Int"]["input"];
 };
-
 
 export type QueryRootUserArgs = {
   distinct_on?: InputMaybe<Array<UserSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<UserOrderBy>>;
   where?: InputMaybe<UserBoolExp>;
 };
-
 
 export type QueryRootUserAggregateArgs = {
   distinct_on?: InputMaybe<Array<UserSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<UserOrderBy>>;
   where?: InputMaybe<UserBoolExp>;
 };
 
-
 export type QueryRootUserByPkArgs = {
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 };
-
 
 export type QueryRootUserPublicArgs = {
   distinct_on?: InputMaybe<Array<UserPublicSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<UserPublicOrderBy>>;
   where?: InputMaybe<UserPublicBoolExp>;
 };
 
-
 export type QueryRootUserPublicAggregateArgs = {
   distinct_on?: InputMaybe<Array<UserPublicSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<UserPublicOrderBy>>;
   where?: InputMaybe<UserPublicBoolExp>;
 };
 
 /** columns and relationships of "reaction_emoji" */
 export type ReactionEmoji = {
-  __typename?: 'reaction_emoji';
-  comment?: Maybe<Scalars['String']>;
-  name: Scalars['String'];
+  __typename?: "reaction_emoji";
+  comment?: Maybe<Scalars["String"]["output"]>;
+  name: Scalars["String"]["output"];
 };
 
 /** aggregated selection of "reaction_emoji" */
 export type ReactionEmojiAggregate = {
-  __typename?: 'reaction_emoji_aggregate';
+  __typename?: "reaction_emoji_aggregate";
   aggregate?: Maybe<ReactionEmojiAggregateFields>;
   nodes: Array<ReactionEmoji>;
 };
 
 /** aggregate fields of "reaction_emoji" */
 export type ReactionEmojiAggregateFields = {
-  __typename?: 'reaction_emoji_aggregate_fields';
-  count: Scalars['Int'];
+  __typename?: "reaction_emoji_aggregate_fields";
+  count: Scalars["Int"]["output"];
   max?: Maybe<ReactionEmojiMaxFields>;
   min?: Maybe<ReactionEmojiMinFields>;
 };
 
-
 /** aggregate fields of "reaction_emoji" */
 export type ReactionEmojiAggregateFieldsCountArgs = {
   columns?: InputMaybe<Array<ReactionEmojiSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** Boolean expression to filter rows from the table "reaction_emoji". All fields are combined with a logical 'AND'. */
@@ -3520,54 +3362,54 @@ export type ReactionEmojiBoolExp = {
 /** unique or primary key constraints on table "reaction_emoji" */
 export enum ReactionEmojiConstraint {
   /** unique or primary key constraint on columns "name" */
-  ReactionEmojiPkey = 'reaction_emoji_pkey'
+  ReactionEmojiPkey = "reaction_emoji_pkey",
 }
 
 export enum ReactionEmojiEnum {
-  ConfusedFace = 'confused_face',
-  Eyes = 'eyes',
-  GrinningFaceWithSmilingEyes = 'grinning_face_with_smiling_eyes',
-  PartyPopper = 'party_popper',
-  RedHeart = 'red_heart',
-  Rocket = 'rocket',
-  ThumbsDown = 'thumbs_down',
-  ThumbsUp = 'thumbs_up'
+  ConfusedFace = "confused_face",
+  Eyes = "eyes",
+  GrinningFaceWithSmilingEyes = "grinning_face_with_smiling_eyes",
+  PartyPopper = "party_popper",
+  RedHeart = "red_heart",
+  Rocket = "rocket",
+  ThumbsDown = "thumbs_down",
+  ThumbsUp = "thumbs_up",
 }
 
 /** Boolean expression to compare columns of type "reaction_emoji_enum". All fields are combined with logical 'AND'. */
 export type ReactionEmojiEnumComparisonExp = {
   _eq?: InputMaybe<ReactionEmojiEnum>;
   _in?: InputMaybe<Array<ReactionEmojiEnum>>;
-  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _is_null?: InputMaybe<Scalars["Boolean"]["input"]>;
   _neq?: InputMaybe<ReactionEmojiEnum>;
   _nin?: InputMaybe<Array<ReactionEmojiEnum>>;
 };
 
 /** input type for inserting data into table "reaction_emoji" */
 export type ReactionEmojiInsertInput = {
-  comment?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
+  comment?: InputMaybe<Scalars["String"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 /** aggregate max on columns */
 export type ReactionEmojiMaxFields = {
-  __typename?: 'reaction_emoji_max_fields';
-  comment?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
+  __typename?: "reaction_emoji_max_fields";
+  comment?: Maybe<Scalars["String"]["output"]>;
+  name?: Maybe<Scalars["String"]["output"]>;
 };
 
 /** aggregate min on columns */
 export type ReactionEmojiMinFields = {
-  __typename?: 'reaction_emoji_min_fields';
-  comment?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
+  __typename?: "reaction_emoji_min_fields";
+  comment?: Maybe<Scalars["String"]["output"]>;
+  name?: Maybe<Scalars["String"]["output"]>;
 };
 
 /** response of any mutation on the table "reaction_emoji" */
 export type ReactionEmojiMutationResponse = {
-  __typename?: 'reaction_emoji_mutation_response';
+  __typename?: "reaction_emoji_mutation_response";
   /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
+  affected_rows: Scalars["Int"]["output"];
   /** data from the rows affected by the mutation */
   returning: Array<ReactionEmoji>;
 };
@@ -3587,21 +3429,21 @@ export type ReactionEmojiOrderBy = {
 
 /** primary key columns input for table: reaction_emoji */
 export type ReactionEmojiPkColumnsInput = {
-  name: Scalars['String'];
+  name: Scalars["String"]["input"];
 };
 
 /** select columns of table "reaction_emoji" */
 export enum ReactionEmojiSelectColumn {
   /** column name */
-  Comment = 'comment',
+  Comment = "comment",
   /** column name */
-  Name = 'name'
+  Name = "name",
 }
 
 /** input type for updating data in table "reaction_emoji" */
 export type ReactionEmojiSetInput = {
-  comment?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
+  comment?: InputMaybe<Scalars["String"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 /** Streaming cursor of the table "reaction_emoji" */
@@ -3614,16 +3456,16 @@ export type ReactionEmojiStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type ReactionEmojiStreamCursorValueInput = {
-  comment?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
+  comment?: InputMaybe<Scalars["String"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 /** update columns of table "reaction_emoji" */
 export enum ReactionEmojiUpdateColumn {
   /** column name */
-  Comment = 'comment',
+  Comment = "comment",
   /** column name */
-  Name = 'name'
+  Name = "name",
 }
 
 export type ReactionEmojiUpdates = {
@@ -3635,53 +3477,51 @@ export type ReactionEmojiUpdates = {
 
 /** columns and relationships of "realm" */
 export type Realm = {
-  __typename?: 'realm';
-  admin_id: Scalars['uuid'];
-  created_at?: Maybe<Scalars['timestamptz']>;
-  description: Scalars['String'];
-  id: Scalars['Int'];
-  invitation_code?: Maybe<Scalars['String']>;
-  name: Scalars['String'];
-  private: Scalars['Boolean'];
+  __typename?: "realm";
+  admin_id: Scalars["uuid"]["output"];
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  description: Scalars["String"]["output"];
+  id: Scalars["Int"]["output"];
+  invitation_code?: Maybe<Scalars["String"]["output"]>;
+  name: Scalars["String"]["output"];
+  private: Scalars["Boolean"]["output"];
   /** An array relationship */
   topics: Array<Topic>;
   /** An aggregate relationship */
   topics_aggregate: TopicAggregate;
-  updated_at?: Maybe<Scalars['timestamptz']>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
 };
-
 
 /** columns and relationships of "realm" */
 export type RealmTopicsArgs = {
   distinct_on?: InputMaybe<Array<TopicSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<TopicOrderBy>>;
   where?: InputMaybe<TopicBoolExp>;
 };
 
-
 /** columns and relationships of "realm" */
 export type RealmTopicsAggregateArgs = {
   distinct_on?: InputMaybe<Array<TopicSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<TopicOrderBy>>;
   where?: InputMaybe<TopicBoolExp>;
 };
 
 /** aggregated selection of "realm" */
 export type RealmAggregate = {
-  __typename?: 'realm_aggregate';
+  __typename?: "realm_aggregate";
   aggregate?: Maybe<RealmAggregateFields>;
   nodes: Array<Realm>;
 };
 
 /** aggregate fields of "realm" */
 export type RealmAggregateFields = {
-  __typename?: 'realm_aggregate_fields';
+  __typename?: "realm_aggregate_fields";
   avg?: Maybe<RealmAvgFields>;
-  count: Scalars['Int'];
+  count: Scalars["Int"]["output"];
   max?: Maybe<RealmMaxFields>;
   min?: Maybe<RealmMinFields>;
   stddev?: Maybe<RealmStddevFields>;
@@ -3693,17 +3533,16 @@ export type RealmAggregateFields = {
   variance?: Maybe<RealmVarianceFields>;
 };
 
-
 /** aggregate fields of "realm" */
 export type RealmAggregateFieldsCountArgs = {
   columns?: InputMaybe<Array<RealmSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** aggregate avg on columns */
 export type RealmAvgFields = {
-  __typename?: 'realm_avg_fields';
-  id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_avg_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** Boolean expression to filter rows from the table "realm". All fields are combined with a logical 'AND'. */
@@ -3726,58 +3565,58 @@ export type RealmBoolExp = {
 /** unique or primary key constraints on table "realm" */
 export enum RealmConstraint {
   /** unique or primary key constraint on columns "name" */
-  RealmNameKey = 'realm_name_key',
+  RealmNameKey = "realm_name_key",
   /** unique or primary key constraint on columns "id" */
-  RealmPkey = 'realm_pkey'
+  RealmPkey = "realm_pkey",
 }
 
 /** input type for incrementing numeric columns in table "realm" */
 export type RealmIncInput = {
-  id?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 /** input type for inserting data into table "realm" */
 export type RealmInsertInput = {
-  admin_id?: InputMaybe<Scalars['uuid']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['Int']>;
-  invitation_code?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  private?: InputMaybe<Scalars['Boolean']>;
+  admin_id?: InputMaybe<Scalars["uuid"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  description?: InputMaybe<Scalars["String"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  invitation_code?: InputMaybe<Scalars["String"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  private?: InputMaybe<Scalars["Boolean"]["input"]>;
   topics?: InputMaybe<TopicArrRelInsertInput>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
 };
 
 /** aggregate max on columns */
 export type RealmMaxFields = {
-  __typename?: 'realm_max_fields';
-  admin_id?: Maybe<Scalars['uuid']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-  invitation_code?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
+  __typename?: "realm_max_fields";
+  admin_id?: Maybe<Scalars["uuid"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  description?: Maybe<Scalars["String"]["output"]>;
+  id?: Maybe<Scalars["Int"]["output"]>;
+  invitation_code?: Maybe<Scalars["String"]["output"]>;
+  name?: Maybe<Scalars["String"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
 };
 
 /** aggregate min on columns */
 export type RealmMinFields = {
-  __typename?: 'realm_min_fields';
-  admin_id?: Maybe<Scalars['uuid']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-  invitation_code?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
+  __typename?: "realm_min_fields";
+  admin_id?: Maybe<Scalars["uuid"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  description?: Maybe<Scalars["String"]["output"]>;
+  id?: Maybe<Scalars["Int"]["output"]>;
+  invitation_code?: Maybe<Scalars["String"]["output"]>;
+  name?: Maybe<Scalars["String"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
 };
 
 /** response of any mutation on the table "realm" */
 export type RealmMutationResponse = {
-  __typename?: 'realm_mutation_response';
+  __typename?: "realm_mutation_response";
   /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
+  affected_rows: Scalars["Int"]["output"];
   /** data from the rows affected by the mutation */
   returning: Array<Realm>;
 };
@@ -3804,54 +3643,52 @@ export type RealmOrderBy = {
 
 /** primary key columns input for table: realm */
 export type RealmPkColumnsInput = {
-  id: Scalars['Int'];
+  id: Scalars["Int"]["input"];
 };
 
 /** columns and relationships of "realm_post" */
 export type RealmPost = {
-  __typename?: 'realm_post';
-  content?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  id?: Maybe<Scalars['Int']>;
+  __typename?: "realm_post";
+  content?: Maybe<Scalars["String"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["Int"]["output"]>;
   /** An array relationship */
   reactions: Array<PostReaction>;
   /** An aggregate relationship */
   reactions_aggregate: PostReactionAggregate;
   /** An object relationship */
   realm?: Maybe<RealmPublic>;
-  realm_id?: Maybe<Scalars['Int']>;
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
   /** An object relationship */
   thread?: Maybe<Thread>;
-  thread_id?: Maybe<Scalars['Int']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
+  thread_id?: Maybe<Scalars["Int"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
   /** An object relationship */
   user?: Maybe<RealmUserUnion>;
-  user_id?: Maybe<Scalars['uuid']>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
 };
-
 
 /** columns and relationships of "realm_post" */
 export type RealmPostReactionsArgs = {
   distinct_on?: InputMaybe<Array<PostReactionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<PostReactionOrderBy>>;
   where?: InputMaybe<PostReactionBoolExp>;
 };
 
-
 /** columns and relationships of "realm_post" */
 export type RealmPostReactionsAggregateArgs = {
   distinct_on?: InputMaybe<Array<PostReactionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<PostReactionOrderBy>>;
   where?: InputMaybe<PostReactionBoolExp>;
 };
 
 /** aggregated selection of "realm_post" */
 export type RealmPostAggregate = {
-  __typename?: 'realm_post_aggregate';
+  __typename?: "realm_post_aggregate";
   aggregate?: Maybe<RealmPostAggregateFields>;
   nodes: Array<RealmPost>;
 };
@@ -3862,16 +3699,16 @@ export type RealmPostAggregateBoolExp = {
 
 export type RealmPostAggregateBoolExpCount = {
   arguments?: InputMaybe<Array<RealmPostSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
   filter?: InputMaybe<RealmPostBoolExp>;
   predicate: IntComparisonExp;
 };
 
 /** aggregate fields of "realm_post" */
 export type RealmPostAggregateFields = {
-  __typename?: 'realm_post_aggregate_fields';
+  __typename?: "realm_post_aggregate_fields";
   avg?: Maybe<RealmPostAvgFields>;
-  count: Scalars['Int'];
+  count: Scalars["Int"]["output"];
   max?: Maybe<RealmPostMaxFields>;
   min?: Maybe<RealmPostMinFields>;
   stddev?: Maybe<RealmPostStddevFields>;
@@ -3883,11 +3720,10 @@ export type RealmPostAggregateFields = {
   variance?: Maybe<RealmPostVarianceFields>;
 };
 
-
 /** aggregate fields of "realm_post" */
 export type RealmPostAggregateFieldsCountArgs = {
   columns?: InputMaybe<Array<RealmPostSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** order by aggregate values of table "realm_post" */
@@ -3912,10 +3748,10 @@ export type RealmPostArrRelInsertInput = {
 
 /** aggregate avg on columns */
 export type RealmPostAvgFields = {
-  __typename?: 'realm_post_avg_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_post_avg_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by avg() on columns of table "realm_post" */
@@ -3946,29 +3782,29 @@ export type RealmPostBoolExp = {
 
 /** input type for inserting data into table "realm_post" */
 export type RealmPostInsertInput = {
-  content?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['Int']>;
+  content?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
   reactions?: InputMaybe<PostReactionArrRelInsertInput>;
   realm?: InputMaybe<RealmPublicObjRelInsertInput>;
-  realm_id?: InputMaybe<Scalars['Int']>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
   thread?: InputMaybe<ThreadObjRelInsertInput>;
-  thread_id?: InputMaybe<Scalars['Int']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  thread_id?: InputMaybe<Scalars["Int"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
   user?: InputMaybe<RealmUserUnionObjRelInsertInput>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate max on columns */
 export type RealmPostMaxFields = {
-  __typename?: 'realm_post_max_fields';
-  content?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  id?: Maybe<Scalars['Int']>;
-  realm_id?: Maybe<Scalars['Int']>;
-  thread_id?: Maybe<Scalars['Int']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
-  user_id?: Maybe<Scalars['uuid']>;
+  __typename?: "realm_post_max_fields";
+  content?: Maybe<Scalars["String"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["Int"]["output"]>;
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
+  thread_id?: Maybe<Scalars["Int"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
 };
 
 /** order by max() on columns of table "realm_post" */
@@ -3984,14 +3820,14 @@ export type RealmPostMaxOrderBy = {
 
 /** aggregate min on columns */
 export type RealmPostMinFields = {
-  __typename?: 'realm_post_min_fields';
-  content?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  id?: Maybe<Scalars['Int']>;
-  realm_id?: Maybe<Scalars['Int']>;
-  thread_id?: Maybe<Scalars['Int']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
-  user_id?: Maybe<Scalars['uuid']>;
+  __typename?: "realm_post_min_fields";
+  content?: Maybe<Scalars["String"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["Int"]["output"]>;
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
+  thread_id?: Maybe<Scalars["Int"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
 };
 
 /** order by min() on columns of table "realm_post" */
@@ -4023,27 +3859,27 @@ export type RealmPostOrderBy = {
 /** select columns of table "realm_post" */
 export enum RealmPostSelectColumn {
   /** column name */
-  Content = 'content',
+  Content = "content",
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  RealmId = 'realm_id',
+  RealmId = "realm_id",
   /** column name */
-  ThreadId = 'thread_id',
+  ThreadId = "thread_id",
   /** column name */
-  UpdatedAt = 'updated_at',
+  UpdatedAt = "updated_at",
   /** column name */
-  UserId = 'user_id'
+  UserId = "user_id",
 }
 
 /** aggregate stddev on columns */
 export type RealmPostStddevFields = {
-  __typename?: 'realm_post_stddev_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_post_stddev_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev() on columns of table "realm_post" */
@@ -4055,10 +3891,10 @@ export type RealmPostStddevOrderBy = {
 
 /** aggregate stddev_pop on columns */
 export type RealmPostStddevPopFields = {
-  __typename?: 'realm_post_stddev_pop_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_post_stddev_pop_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev_pop() on columns of table "realm_post" */
@@ -4070,10 +3906,10 @@ export type RealmPostStddevPopOrderBy = {
 
 /** aggregate stddev_samp on columns */
 export type RealmPostStddevSampFields = {
-  __typename?: 'realm_post_stddev_samp_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_post_stddev_samp_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev_samp() on columns of table "realm_post" */
@@ -4093,21 +3929,21 @@ export type RealmPostStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type RealmPostStreamCursorValueInput = {
-  content?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['Int']>;
-  realm_id?: InputMaybe<Scalars['Int']>;
-  thread_id?: InputMaybe<Scalars['Int']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  content?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
+  thread_id?: InputMaybe<Scalars["Int"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate sum on columns */
 export type RealmPostSumFields = {
-  __typename?: 'realm_post_sum_fields';
-  id?: Maybe<Scalars['Int']>;
-  realm_id?: Maybe<Scalars['Int']>;
-  thread_id?: Maybe<Scalars['Int']>;
+  __typename?: "realm_post_sum_fields";
+  id?: Maybe<Scalars["Int"]["output"]>;
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
+  thread_id?: Maybe<Scalars["Int"]["output"]>;
 };
 
 /** order by sum() on columns of table "realm_post" */
@@ -4119,10 +3955,10 @@ export type RealmPostSumOrderBy = {
 
 /** aggregate var_pop on columns */
 export type RealmPostVarPopFields = {
-  __typename?: 'realm_post_var_pop_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_post_var_pop_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by var_pop() on columns of table "realm_post" */
@@ -4134,10 +3970,10 @@ export type RealmPostVarPopOrderBy = {
 
 /** aggregate var_samp on columns */
 export type RealmPostVarSampFields = {
-  __typename?: 'realm_post_var_samp_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_post_var_samp_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by var_samp() on columns of table "realm_post" */
@@ -4149,10 +3985,10 @@ export type RealmPostVarSampOrderBy = {
 
 /** aggregate variance on columns */
 export type RealmPostVarianceFields = {
-  __typename?: 'realm_post_variance_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_post_variance_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by variance() on columns of table "realm_post" */
@@ -4164,12 +4000,12 @@ export type RealmPostVarianceOrderBy = {
 
 /** columns and relationships of "realm_public" */
 export type RealmPublic = {
-  __typename?: 'realm_public';
-  admin_id?: Maybe<Scalars['uuid']>;
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['String']>;
-  private?: Maybe<Scalars['Boolean']>;
+  __typename?: "realm_public";
+  admin_id?: Maybe<Scalars["uuid"]["output"]>;
+  description?: Maybe<Scalars["String"]["output"]>;
+  id?: Maybe<Scalars["Int"]["output"]>;
+  name?: Maybe<Scalars["String"]["output"]>;
+  private?: Maybe<Scalars["Boolean"]["output"]>;
   /** An array relationship */
   threads: Array<Thread>;
   /** An aggregate relationship */
@@ -4184,78 +4020,72 @@ export type RealmPublic = {
   users_aggregate: RealmUserUnionAggregate;
 };
 
-
 /** columns and relationships of "realm_public" */
 export type RealmPublicThreadsArgs = {
   distinct_on?: InputMaybe<Array<ThreadSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<ThreadOrderBy>>;
   where?: InputMaybe<ThreadBoolExp>;
 };
-
 
 /** columns and relationships of "realm_public" */
 export type RealmPublicThreadsAggregateArgs = {
   distinct_on?: InputMaybe<Array<ThreadSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<ThreadOrderBy>>;
   where?: InputMaybe<ThreadBoolExp>;
 };
 
-
 /** columns and relationships of "realm_public" */
 export type RealmPublicTopicsArgs = {
   distinct_on?: InputMaybe<Array<TopicSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<TopicOrderBy>>;
   where?: InputMaybe<TopicBoolExp>;
 };
-
 
 /** columns and relationships of "realm_public" */
 export type RealmPublicTopicsAggregateArgs = {
   distinct_on?: InputMaybe<Array<TopicSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<TopicOrderBy>>;
   where?: InputMaybe<TopicBoolExp>;
 };
 
-
 /** columns and relationships of "realm_public" */
 export type RealmPublicUsersArgs = {
   distinct_on?: InputMaybe<Array<RealmUserUnionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmUserUnionOrderBy>>;
   where?: InputMaybe<RealmUserUnionBoolExp>;
 };
 
-
 /** columns and relationships of "realm_public" */
 export type RealmPublicUsersAggregateArgs = {
   distinct_on?: InputMaybe<Array<RealmUserUnionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmUserUnionOrderBy>>;
   where?: InputMaybe<RealmUserUnionBoolExp>;
 };
 
 /** aggregated selection of "realm_public" */
 export type RealmPublicAggregate = {
-  __typename?: 'realm_public_aggregate';
+  __typename?: "realm_public_aggregate";
   aggregate?: Maybe<RealmPublicAggregateFields>;
   nodes: Array<RealmPublic>;
 };
 
 /** aggregate fields of "realm_public" */
 export type RealmPublicAggregateFields = {
-  __typename?: 'realm_public_aggregate_fields';
+  __typename?: "realm_public_aggregate_fields";
   avg?: Maybe<RealmPublicAvgFields>;
-  count: Scalars['Int'];
+  count: Scalars["Int"]["output"];
   max?: Maybe<RealmPublicMaxFields>;
   min?: Maybe<RealmPublicMinFields>;
   stddev?: Maybe<RealmPublicStddevFields>;
@@ -4267,17 +4097,16 @@ export type RealmPublicAggregateFields = {
   variance?: Maybe<RealmPublicVarianceFields>;
 };
 
-
 /** aggregate fields of "realm_public" */
 export type RealmPublicAggregateFieldsCountArgs = {
   columns?: InputMaybe<Array<RealmPublicSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** aggregate avg on columns */
 export type RealmPublicAvgFields = {
-  __typename?: 'realm_public_avg_fields';
-  id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_public_avg_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** Boolean expression to filter rows from the table "realm_public". All fields are combined with a logical 'AND'. */
@@ -4300,16 +4129,16 @@ export type RealmPublicBoolExp = {
 
 /** input type for incrementing numeric columns in table "realm_public" */
 export type RealmPublicIncInput = {
-  id?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 /** input type for inserting data into table "realm_public" */
 export type RealmPublicInsertInput = {
-  admin_id?: InputMaybe<Scalars['uuid']>;
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
-  private?: InputMaybe<Scalars['Boolean']>;
+  admin_id?: InputMaybe<Scalars["uuid"]["input"]>;
+  description?: InputMaybe<Scalars["String"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  private?: InputMaybe<Scalars["Boolean"]["input"]>;
   threads?: InputMaybe<ThreadArrRelInsertInput>;
   topics?: InputMaybe<TopicArrRelInsertInput>;
   users?: InputMaybe<RealmUserUnionArrRelInsertInput>;
@@ -4317,27 +4146,27 @@ export type RealmPublicInsertInput = {
 
 /** aggregate max on columns */
 export type RealmPublicMaxFields = {
-  __typename?: 'realm_public_max_fields';
-  admin_id?: Maybe<Scalars['uuid']>;
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['String']>;
+  __typename?: "realm_public_max_fields";
+  admin_id?: Maybe<Scalars["uuid"]["output"]>;
+  description?: Maybe<Scalars["String"]["output"]>;
+  id?: Maybe<Scalars["Int"]["output"]>;
+  name?: Maybe<Scalars["String"]["output"]>;
 };
 
 /** aggregate min on columns */
 export type RealmPublicMinFields = {
-  __typename?: 'realm_public_min_fields';
-  admin_id?: Maybe<Scalars['uuid']>;
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['String']>;
+  __typename?: "realm_public_min_fields";
+  admin_id?: Maybe<Scalars["uuid"]["output"]>;
+  description?: Maybe<Scalars["String"]["output"]>;
+  id?: Maybe<Scalars["Int"]["output"]>;
+  name?: Maybe<Scalars["String"]["output"]>;
 };
 
 /** response of any mutation on the table "realm_public" */
 export type RealmPublicMutationResponse = {
-  __typename?: 'realm_public_mutation_response';
+  __typename?: "realm_public_mutation_response";
   /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
+  affected_rows: Scalars["Int"]["output"];
   /** data from the rows affected by the mutation */
   returning: Array<RealmPublic>;
 };
@@ -4362,42 +4191,42 @@ export type RealmPublicOrderBy = {
 /** select columns of table "realm_public" */
 export enum RealmPublicSelectColumn {
   /** column name */
-  AdminId = 'admin_id',
+  AdminId = "admin_id",
   /** column name */
-  Description = 'description',
+  Description = "description",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  Name = 'name',
+  Name = "name",
   /** column name */
-  Private = 'private'
+  Private = "private",
 }
 
 /** input type for updating data in table "realm_public" */
 export type RealmPublicSetInput = {
-  admin_id?: InputMaybe<Scalars['uuid']>;
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
-  private?: InputMaybe<Scalars['Boolean']>;
+  admin_id?: InputMaybe<Scalars["uuid"]["input"]>;
+  description?: InputMaybe<Scalars["String"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  private?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** aggregate stddev on columns */
 export type RealmPublicStddevFields = {
-  __typename?: 'realm_public_stddev_fields';
-  id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_public_stddev_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate stddev_pop on columns */
 export type RealmPublicStddevPopFields = {
-  __typename?: 'realm_public_stddev_pop_fields';
-  id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_public_stddev_pop_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate stddev_samp on columns */
 export type RealmPublicStddevSampFields = {
-  __typename?: 'realm_public_stddev_samp_fields';
-  id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_public_stddev_samp_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** Streaming cursor of the table "realm_public" */
@@ -4410,17 +4239,17 @@ export type RealmPublicStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type RealmPublicStreamCursorValueInput = {
-  admin_id?: InputMaybe<Scalars['uuid']>;
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
-  private?: InputMaybe<Scalars['Boolean']>;
+  admin_id?: InputMaybe<Scalars["uuid"]["input"]>;
+  description?: InputMaybe<Scalars["String"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  private?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** aggregate sum on columns */
 export type RealmPublicSumFields = {
-  __typename?: 'realm_public_sum_fields';
-  id?: Maybe<Scalars['Int']>;
+  __typename?: "realm_public_sum_fields";
+  id?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type RealmPublicUpdates = {
@@ -4434,70 +4263,70 @@ export type RealmPublicUpdates = {
 
 /** aggregate var_pop on columns */
 export type RealmPublicVarPopFields = {
-  __typename?: 'realm_public_var_pop_fields';
-  id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_public_var_pop_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate var_samp on columns */
 export type RealmPublicVarSampFields = {
-  __typename?: 'realm_public_var_samp_fields';
-  id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_public_var_samp_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate variance on columns */
 export type RealmPublicVarianceFields = {
-  __typename?: 'realm_public_variance_fields';
-  id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_public_variance_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** select columns of table "realm" */
 export enum RealmSelectColumn {
   /** column name */
-  AdminId = 'admin_id',
+  AdminId = "admin_id",
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Description = 'description',
+  Description = "description",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  InvitationCode = 'invitation_code',
+  InvitationCode = "invitation_code",
   /** column name */
-  Name = 'name',
+  Name = "name",
   /** column name */
-  Private = 'private',
+  Private = "private",
   /** column name */
-  UpdatedAt = 'updated_at'
+  UpdatedAt = "updated_at",
 }
 
 /** input type for updating data in table "realm" */
 export type RealmSetInput = {
-  admin_id?: InputMaybe<Scalars['uuid']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['Int']>;
-  invitation_code?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  private?: InputMaybe<Scalars['Boolean']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  admin_id?: InputMaybe<Scalars["uuid"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  description?: InputMaybe<Scalars["String"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  invitation_code?: InputMaybe<Scalars["String"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  private?: InputMaybe<Scalars["Boolean"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
 };
 
 /** aggregate stddev on columns */
 export type RealmStddevFields = {
-  __typename?: 'realm_stddev_fields';
-  id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_stddev_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate stddev_pop on columns */
 export type RealmStddevPopFields = {
-  __typename?: 'realm_stddev_pop_fields';
-  id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_stddev_pop_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate stddev_samp on columns */
 export type RealmStddevSampFields = {
-  __typename?: 'realm_stddev_samp_fields';
-  id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_stddev_samp_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** Streaming cursor of the table "realm" */
@@ -4510,40 +4339,40 @@ export type RealmStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type RealmStreamCursorValueInput = {
-  admin_id?: InputMaybe<Scalars['uuid']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['Int']>;
-  invitation_code?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  private?: InputMaybe<Scalars['Boolean']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  admin_id?: InputMaybe<Scalars["uuid"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  description?: InputMaybe<Scalars["String"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  invitation_code?: InputMaybe<Scalars["String"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  private?: InputMaybe<Scalars["Boolean"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
 };
 
 /** aggregate sum on columns */
 export type RealmSumFields = {
-  __typename?: 'realm_sum_fields';
-  id?: Maybe<Scalars['Int']>;
+  __typename?: "realm_sum_fields";
+  id?: Maybe<Scalars["Int"]["output"]>;
 };
 
 /** update columns of table "realm" */
 export enum RealmUpdateColumn {
   /** column name */
-  AdminId = 'admin_id',
+  AdminId = "admin_id",
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Description = 'description',
+  Description = "description",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  InvitationCode = 'invitation_code',
+  InvitationCode = "invitation_code",
   /** column name */
-  Name = 'name',
+  Name = "name",
   /** column name */
-  Private = 'private',
+  Private = "private",
   /** column name */
-  UpdatedAt = 'updated_at'
+  UpdatedAt = "updated_at",
 }
 
 export type RealmUpdates = {
@@ -4557,28 +4386,28 @@ export type RealmUpdates = {
 
 /** columns and relationships of "realm_user" */
 export type RealmUser = {
-  __typename?: 'realm_user';
-  avatar_url?: Maybe<Scalars['String']>;
-  created_at: Scalars['timestamptz'];
-  realm_id: Scalars['Int'];
-  status?: Maybe<Scalars['String']>;
-  updated_at: Scalars['timestamptz'];
-  user_id: Scalars['uuid'];
-  username: Scalars['String'];
+  __typename?: "realm_user";
+  avatar_url?: Maybe<Scalars["String"]["output"]>;
+  created_at: Scalars["timestamptz"]["output"];
+  realm_id: Scalars["Int"]["output"];
+  status?: Maybe<Scalars["String"]["output"]>;
+  updated_at: Scalars["timestamptz"]["output"];
+  user_id: Scalars["uuid"]["output"];
+  username: Scalars["String"]["output"];
 };
 
 /** aggregated selection of "realm_user" */
 export type RealmUserAggregate = {
-  __typename?: 'realm_user_aggregate';
+  __typename?: "realm_user_aggregate";
   aggregate?: Maybe<RealmUserAggregateFields>;
   nodes: Array<RealmUser>;
 };
 
 /** aggregate fields of "realm_user" */
 export type RealmUserAggregateFields = {
-  __typename?: 'realm_user_aggregate_fields';
+  __typename?: "realm_user_aggregate_fields";
   avg?: Maybe<RealmUserAvgFields>;
-  count: Scalars['Int'];
+  count: Scalars["Int"]["output"];
   max?: Maybe<RealmUserMaxFields>;
   min?: Maybe<RealmUserMinFields>;
   stddev?: Maybe<RealmUserStddevFields>;
@@ -4590,17 +4419,16 @@ export type RealmUserAggregateFields = {
   variance?: Maybe<RealmUserVarianceFields>;
 };
 
-
 /** aggregate fields of "realm_user" */
 export type RealmUserAggregateFieldsCountArgs = {
   columns?: InputMaybe<Array<RealmUserSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** aggregate avg on columns */
 export type RealmUserAvgFields = {
-  __typename?: 'realm_user_avg_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_user_avg_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** Boolean expression to filter rows from the table "realm_user". All fields are combined with a logical 'AND'. */
@@ -4620,56 +4448,56 @@ export type RealmUserBoolExp = {
 /** unique or primary key constraints on table "realm_user" */
 export enum RealmUserConstraint {
   /** unique or primary key constraint on columns "realm_id", "user_id" */
-  RealmUserPkey = 'realm_user_pkey',
+  RealmUserPkey = "realm_user_pkey",
   /** unique or primary key constraint on columns "username" */
-  RealmUserUsernameKey = 'realm_user_username_key'
+  RealmUserUsernameKey = "realm_user_username_key",
 }
 
 /** input type for incrementing numeric columns in table "realm_user" */
 export type RealmUserIncInput = {
-  realm_id?: InputMaybe<Scalars['Int']>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 /** input type for inserting data into table "realm_user" */
 export type RealmUserInsertInput = {
-  avatar_url?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  realm_id?: InputMaybe<Scalars['Int']>;
-  status?: InputMaybe<Scalars['String']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
-  username?: InputMaybe<Scalars['String']>;
+  avatar_url?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
+  status?: InputMaybe<Scalars["String"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
+  username?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 /** aggregate max on columns */
 export type RealmUserMaxFields = {
-  __typename?: 'realm_user_max_fields';
-  avatar_url?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  realm_id?: Maybe<Scalars['Int']>;
-  status?: Maybe<Scalars['String']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
-  user_id?: Maybe<Scalars['uuid']>;
-  username?: Maybe<Scalars['String']>;
+  __typename?: "realm_user_max_fields";
+  avatar_url?: Maybe<Scalars["String"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
+  status?: Maybe<Scalars["String"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
+  username?: Maybe<Scalars["String"]["output"]>;
 };
 
 /** aggregate min on columns */
 export type RealmUserMinFields = {
-  __typename?: 'realm_user_min_fields';
-  avatar_url?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  realm_id?: Maybe<Scalars['Int']>;
-  status?: Maybe<Scalars['String']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
-  user_id?: Maybe<Scalars['uuid']>;
-  username?: Maybe<Scalars['String']>;
+  __typename?: "realm_user_min_fields";
+  avatar_url?: Maybe<Scalars["String"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
+  status?: Maybe<Scalars["String"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
+  username?: Maybe<Scalars["String"]["output"]>;
 };
 
 /** response of any mutation on the table "realm_user" */
 export type RealmUserMutationResponse = {
-  __typename?: 'realm_user_mutation_response';
+  __typename?: "realm_user_mutation_response";
   /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
+  affected_rows: Scalars["Int"]["output"];
   /** data from the rows affected by the mutation */
   returning: Array<RealmUser>;
 };
@@ -4694,55 +4522,55 @@ export type RealmUserOrderBy = {
 
 /** primary key columns input for table: realm_user */
 export type RealmUserPkColumnsInput = {
-  realm_id: Scalars['Int'];
-  user_id: Scalars['uuid'];
+  realm_id: Scalars["Int"]["input"];
+  user_id: Scalars["uuid"]["input"];
 };
 
 /** select columns of table "realm_user" */
 export enum RealmUserSelectColumn {
   /** column name */
-  AvatarUrl = 'avatar_url',
+  AvatarUrl = "avatar_url",
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  RealmId = 'realm_id',
+  RealmId = "realm_id",
   /** column name */
-  Status = 'status',
+  Status = "status",
   /** column name */
-  UpdatedAt = 'updated_at',
+  UpdatedAt = "updated_at",
   /** column name */
-  UserId = 'user_id',
+  UserId = "user_id",
   /** column name */
-  Username = 'username'
+  Username = "username",
 }
 
 /** input type for updating data in table "realm_user" */
 export type RealmUserSetInput = {
-  avatar_url?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  realm_id?: InputMaybe<Scalars['Int']>;
-  status?: InputMaybe<Scalars['String']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
-  username?: InputMaybe<Scalars['String']>;
+  avatar_url?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
+  status?: InputMaybe<Scalars["String"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
+  username?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 /** aggregate stddev on columns */
 export type RealmUserStddevFields = {
-  __typename?: 'realm_user_stddev_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_user_stddev_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate stddev_pop on columns */
 export type RealmUserStddevPopFields = {
-  __typename?: 'realm_user_stddev_pop_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_user_stddev_pop_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate stddev_samp on columns */
 export type RealmUserStddevSampFields = {
-  __typename?: 'realm_user_stddev_samp_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_user_stddev_samp_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** Streaming cursor of the table "realm_user" */
@@ -4755,37 +4583,37 @@ export type RealmUserStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type RealmUserStreamCursorValueInput = {
-  avatar_url?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  realm_id?: InputMaybe<Scalars['Int']>;
-  status?: InputMaybe<Scalars['String']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
-  username?: InputMaybe<Scalars['String']>;
+  avatar_url?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
+  status?: InputMaybe<Scalars["String"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
+  username?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 /** aggregate sum on columns */
 export type RealmUserSumFields = {
-  __typename?: 'realm_user_sum_fields';
-  realm_id?: Maybe<Scalars['Int']>;
+  __typename?: "realm_user_sum_fields";
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
 };
 
 /** columns and relationships of "realm_user_union" */
 export type RealmUserUnion = {
-  __typename?: 'realm_user_union';
-  avatar_url?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
+  __typename?: "realm_user_union";
+  avatar_url?: Maybe<Scalars["String"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
   /** An object relationship */
   realm?: Maybe<RealmPublic>;
-  realm_id?: Maybe<Scalars['Int']>;
-  status?: Maybe<Scalars['String']>;
-  user_id?: Maybe<Scalars['uuid']>;
-  username?: Maybe<Scalars['String']>;
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
+  status?: Maybe<Scalars["String"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
+  username?: Maybe<Scalars["String"]["output"]>;
 };
 
 /** aggregated selection of "realm_user_union" */
 export type RealmUserUnionAggregate = {
-  __typename?: 'realm_user_union_aggregate';
+  __typename?: "realm_user_union_aggregate";
   aggregate?: Maybe<RealmUserUnionAggregateFields>;
   nodes: Array<RealmUserUnion>;
 };
@@ -4796,16 +4624,16 @@ export type RealmUserUnionAggregateBoolExp = {
 
 export type RealmUserUnionAggregateBoolExpCount = {
   arguments?: InputMaybe<Array<RealmUserUnionSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
   filter?: InputMaybe<RealmUserUnionBoolExp>;
   predicate: IntComparisonExp;
 };
 
 /** aggregate fields of "realm_user_union" */
 export type RealmUserUnionAggregateFields = {
-  __typename?: 'realm_user_union_aggregate_fields';
+  __typename?: "realm_user_union_aggregate_fields";
   avg?: Maybe<RealmUserUnionAvgFields>;
-  count: Scalars['Int'];
+  count: Scalars["Int"]["output"];
   max?: Maybe<RealmUserUnionMaxFields>;
   min?: Maybe<RealmUserUnionMinFields>;
   stddev?: Maybe<RealmUserUnionStddevFields>;
@@ -4817,11 +4645,10 @@ export type RealmUserUnionAggregateFields = {
   variance?: Maybe<RealmUserUnionVarianceFields>;
 };
 
-
 /** aggregate fields of "realm_user_union" */
 export type RealmUserUnionAggregateFieldsCountArgs = {
   columns?: InputMaybe<Array<RealmUserUnionSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** order by aggregate values of table "realm_user_union" */
@@ -4846,8 +4673,8 @@ export type RealmUserUnionArrRelInsertInput = {
 
 /** aggregate avg on columns */
 export type RealmUserUnionAvgFields = {
-  __typename?: 'realm_user_union_avg_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_user_union_avg_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by avg() on columns of table "realm_user_union" */
@@ -4871,24 +4698,24 @@ export type RealmUserUnionBoolExp = {
 
 /** input type for inserting data into table "realm_user_union" */
 export type RealmUserUnionInsertInput = {
-  avatar_url?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
+  avatar_url?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
   realm?: InputMaybe<RealmPublicObjRelInsertInput>;
-  realm_id?: InputMaybe<Scalars['Int']>;
-  status?: InputMaybe<Scalars['String']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
-  username?: InputMaybe<Scalars['String']>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
+  status?: InputMaybe<Scalars["String"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
+  username?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 /** aggregate max on columns */
 export type RealmUserUnionMaxFields = {
-  __typename?: 'realm_user_union_max_fields';
-  avatar_url?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  realm_id?: Maybe<Scalars['Int']>;
-  status?: Maybe<Scalars['String']>;
-  user_id?: Maybe<Scalars['uuid']>;
-  username?: Maybe<Scalars['String']>;
+  __typename?: "realm_user_union_max_fields";
+  avatar_url?: Maybe<Scalars["String"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
+  status?: Maybe<Scalars["String"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
+  username?: Maybe<Scalars["String"]["output"]>;
 };
 
 /** order by max() on columns of table "realm_user_union" */
@@ -4903,13 +4730,13 @@ export type RealmUserUnionMaxOrderBy = {
 
 /** aggregate min on columns */
 export type RealmUserUnionMinFields = {
-  __typename?: 'realm_user_union_min_fields';
-  avatar_url?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  realm_id?: Maybe<Scalars['Int']>;
-  status?: Maybe<Scalars['String']>;
-  user_id?: Maybe<Scalars['uuid']>;
-  username?: Maybe<Scalars['String']>;
+  __typename?: "realm_user_union_min_fields";
+  avatar_url?: Maybe<Scalars["String"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
+  status?: Maybe<Scalars["String"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
+  username?: Maybe<Scalars["String"]["output"]>;
 };
 
 /** order by min() on columns of table "realm_user_union" */
@@ -4941,23 +4768,23 @@ export type RealmUserUnionOrderBy = {
 /** select columns of table "realm_user_union" */
 export enum RealmUserUnionSelectColumn {
   /** column name */
-  AvatarUrl = 'avatar_url',
+  AvatarUrl = "avatar_url",
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  RealmId = 'realm_id',
+  RealmId = "realm_id",
   /** column name */
-  Status = 'status',
+  Status = "status",
   /** column name */
-  UserId = 'user_id',
+  UserId = "user_id",
   /** column name */
-  Username = 'username'
+  Username = "username",
 }
 
 /** aggregate stddev on columns */
 export type RealmUserUnionStddevFields = {
-  __typename?: 'realm_user_union_stddev_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_user_union_stddev_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev() on columns of table "realm_user_union" */
@@ -4967,8 +4794,8 @@ export type RealmUserUnionStddevOrderBy = {
 
 /** aggregate stddev_pop on columns */
 export type RealmUserUnionStddevPopFields = {
-  __typename?: 'realm_user_union_stddev_pop_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_user_union_stddev_pop_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev_pop() on columns of table "realm_user_union" */
@@ -4978,8 +4805,8 @@ export type RealmUserUnionStddevPopOrderBy = {
 
 /** aggregate stddev_samp on columns */
 export type RealmUserUnionStddevSampFields = {
-  __typename?: 'realm_user_union_stddev_samp_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_user_union_stddev_samp_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev_samp() on columns of table "realm_user_union" */
@@ -4997,18 +4824,18 @@ export type RealmUserUnionStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type RealmUserUnionStreamCursorValueInput = {
-  avatar_url?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  realm_id?: InputMaybe<Scalars['Int']>;
-  status?: InputMaybe<Scalars['String']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
-  username?: InputMaybe<Scalars['String']>;
+  avatar_url?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
+  status?: InputMaybe<Scalars["String"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
+  username?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 /** aggregate sum on columns */
 export type RealmUserUnionSumFields = {
-  __typename?: 'realm_user_union_sum_fields';
-  realm_id?: Maybe<Scalars['Int']>;
+  __typename?: "realm_user_union_sum_fields";
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
 };
 
 /** order by sum() on columns of table "realm_user_union" */
@@ -5018,8 +4845,8 @@ export type RealmUserUnionSumOrderBy = {
 
 /** aggregate var_pop on columns */
 export type RealmUserUnionVarPopFields = {
-  __typename?: 'realm_user_union_var_pop_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_user_union_var_pop_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by var_pop() on columns of table "realm_user_union" */
@@ -5029,8 +4856,8 @@ export type RealmUserUnionVarPopOrderBy = {
 
 /** aggregate var_samp on columns */
 export type RealmUserUnionVarSampFields = {
-  __typename?: 'realm_user_union_var_samp_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_user_union_var_samp_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by var_samp() on columns of table "realm_user_union" */
@@ -5040,8 +4867,8 @@ export type RealmUserUnionVarSampOrderBy = {
 
 /** aggregate variance on columns */
 export type RealmUserUnionVarianceFields = {
-  __typename?: 'realm_user_union_variance_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_user_union_variance_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by variance() on columns of table "realm_user_union" */
@@ -5052,19 +4879,19 @@ export type RealmUserUnionVarianceOrderBy = {
 /** update columns of table "realm_user" */
 export enum RealmUserUpdateColumn {
   /** column name */
-  AvatarUrl = 'avatar_url',
+  AvatarUrl = "avatar_url",
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  RealmId = 'realm_id',
+  RealmId = "realm_id",
   /** column name */
-  Status = 'status',
+  Status = "status",
   /** column name */
-  UpdatedAt = 'updated_at',
+  UpdatedAt = "updated_at",
   /** column name */
-  UserId = 'user_id',
+  UserId = "user_id",
   /** column name */
-  Username = 'username'
+  Username = "username",
 }
 
 export type RealmUserUpdates = {
@@ -5078,70 +4905,69 @@ export type RealmUserUpdates = {
 
 /** aggregate var_pop on columns */
 export type RealmUserVarPopFields = {
-  __typename?: 'realm_user_var_pop_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_user_var_pop_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate var_samp on columns */
 export type RealmUserVarSampFields = {
-  __typename?: 'realm_user_var_samp_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_user_var_samp_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate variance on columns */
 export type RealmUserVarianceFields = {
-  __typename?: 'realm_user_variance_fields';
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_user_variance_fields";
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate var_pop on columns */
 export type RealmVarPopFields = {
-  __typename?: 'realm_var_pop_fields';
-  id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_var_pop_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate var_samp on columns */
 export type RealmVarSampFields = {
-  __typename?: 'realm_var_samp_fields';
-  id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_var_samp_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** aggregate variance on columns */
 export type RealmVarianceFields = {
-  __typename?: 'realm_variance_fields';
-  id?: Maybe<Scalars['Float']>;
+  __typename?: "realm_variance_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** columns and relationships of "session" */
 export type Session = {
-  __typename?: 'session';
-  active_at: Scalars['timestamptz'];
-  created_at: Scalars['timestamptz'];
-  description: Scalars['String'];
-  id: Scalars['uuid'];
-  user_id: Scalars['uuid'];
+  __typename?: "session";
+  active_at: Scalars["timestamptz"]["output"];
+  created_at: Scalars["timestamptz"]["output"];
+  description: Scalars["String"]["output"];
+  id: Scalars["uuid"]["output"];
+  user_id: Scalars["uuid"]["output"];
 };
 
 /** aggregated selection of "session" */
 export type SessionAggregate = {
-  __typename?: 'session_aggregate';
+  __typename?: "session_aggregate";
   aggregate?: Maybe<SessionAggregateFields>;
   nodes: Array<Session>;
 };
 
 /** aggregate fields of "session" */
 export type SessionAggregateFields = {
-  __typename?: 'session_aggregate_fields';
-  count: Scalars['Int'];
+  __typename?: "session_aggregate_fields";
+  count: Scalars["Int"]["output"];
   max?: Maybe<SessionMaxFields>;
   min?: Maybe<SessionMinFields>;
 };
 
-
 /** aggregate fields of "session" */
 export type SessionAggregateFieldsCountArgs = {
   columns?: InputMaybe<Array<SessionSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** Boolean expression to filter rows from the table "session". All fields are combined with a logical 'AND'. */
@@ -5159,43 +4985,43 @@ export type SessionBoolExp = {
 /** unique or primary key constraints on table "session" */
 export enum SessionConstraint {
   /** unique or primary key constraint on columns "id" */
-  SessionPkey = 'session_pkey'
+  SessionPkey = "session_pkey",
 }
 
 /** input type for inserting data into table "session" */
 export type SessionInsertInput = {
-  active_at?: InputMaybe<Scalars['timestamptz']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['uuid']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  active_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  description?: InputMaybe<Scalars["String"]["input"]>;
+  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate max on columns */
 export type SessionMaxFields = {
-  __typename?: 'session_max_fields';
-  active_at?: Maybe<Scalars['timestamptz']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['uuid']>;
-  user_id?: Maybe<Scalars['uuid']>;
+  __typename?: "session_max_fields";
+  active_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  description?: Maybe<Scalars["String"]["output"]>;
+  id?: Maybe<Scalars["uuid"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
 };
 
 /** aggregate min on columns */
 export type SessionMinFields = {
-  __typename?: 'session_min_fields';
-  active_at?: Maybe<Scalars['timestamptz']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['uuid']>;
-  user_id?: Maybe<Scalars['uuid']>;
+  __typename?: "session_min_fields";
+  active_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  description?: Maybe<Scalars["String"]["output"]>;
+  id?: Maybe<Scalars["uuid"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
 };
 
 /** response of any mutation on the table "session" */
 export type SessionMutationResponse = {
-  __typename?: 'session_mutation_response';
+  __typename?: "session_mutation_response";
   /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
+  affected_rows: Scalars["Int"]["output"];
   /** data from the rows affected by the mutation */
   returning: Array<Session>;
 };
@@ -5218,30 +5044,30 @@ export type SessionOrderBy = {
 
 /** primary key columns input for table: session */
 export type SessionPkColumnsInput = {
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 };
 
 /** select columns of table "session" */
 export enum SessionSelectColumn {
   /** column name */
-  ActiveAt = 'active_at',
+  ActiveAt = "active_at",
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Description = 'description',
+  Description = "description",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  UserId = 'user_id'
+  UserId = "user_id",
 }
 
 /** input type for updating data in table "session" */
 export type SessionSetInput = {
-  active_at?: InputMaybe<Scalars['timestamptz']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['uuid']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  active_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  description?: InputMaybe<Scalars["String"]["input"]>;
+  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** Streaming cursor of the table "session" */
@@ -5254,25 +5080,25 @@ export type SessionStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type SessionStreamCursorValueInput = {
-  active_at?: InputMaybe<Scalars['timestamptz']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['uuid']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  active_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  description?: InputMaybe<Scalars["String"]["input"]>;
+  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** update columns of table "session" */
 export enum SessionUpdateColumn {
   /** column name */
-  ActiveAt = 'active_at',
+  ActiveAt = "active_at",
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Description = 'description',
+  Description = "description",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  UserId = 'user_id'
+  UserId = "user_id",
 }
 
 export type SessionUpdates = {
@@ -5283,7 +5109,7 @@ export type SessionUpdates = {
 };
 
 export type SubscriptionRoot = {
-  __typename?: 'subscription_root';
+  __typename?: "subscription_root";
   /** fetch data from the table: "course" */
   course: Array<Course>;
   /** fetch aggregated fields from the table: "course" */
@@ -5430,616 +5256,541 @@ export type SubscriptionRoot = {
   user_stream: Array<User>;
 };
 
-
 export type SubscriptionRootCourseArgs = {
   distinct_on?: InputMaybe<Array<CourseSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<CourseOrderBy>>;
   where?: InputMaybe<CourseBoolExp>;
 };
-
 
 export type SubscriptionRootCourseAggregateArgs = {
   distinct_on?: InputMaybe<Array<CourseSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<CourseOrderBy>>;
   where?: InputMaybe<CourseBoolExp>;
 };
 
-
 export type SubscriptionRootCourseByPkArgs = {
-  id: Scalars['String'];
+  id: Scalars["String"]["input"];
 };
-
 
 export type SubscriptionRootCourseReviewArgs = {
   distinct_on?: InputMaybe<Array<CourseReviewSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<CourseReviewOrderBy>>;
   where?: InputMaybe<CourseReviewBoolExp>;
 };
-
 
 export type SubscriptionRootCourseReviewAggregateArgs = {
   distinct_on?: InputMaybe<Array<CourseReviewSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<CourseReviewOrderBy>>;
   where?: InputMaybe<CourseReviewBoolExp>;
 };
 
-
 export type SubscriptionRootCourseReviewByPkArgs = {
-  course_id: Scalars['String'];
-  user_id: Scalars['uuid'];
+  course_id: Scalars["String"]["input"];
+  user_id: Scalars["uuid"]["input"];
 };
 
-
 export type SubscriptionRootCourseReviewStreamArgs = {
-  batch_size: Scalars['Int'];
+  batch_size: Scalars["Int"]["input"];
   cursor: Array<InputMaybe<CourseReviewStreamCursorInput>>;
   where?: InputMaybe<CourseReviewBoolExp>;
 };
 
-
 export type SubscriptionRootCourseStreamArgs = {
-  batch_size: Scalars['Int'];
+  batch_size: Scalars["Int"]["input"];
   cursor: Array<InputMaybe<CourseStreamCursorInput>>;
   where?: InputMaybe<CourseBoolExp>;
 };
 
-
 export type SubscriptionRootMessageArgs = {
   distinct_on?: InputMaybe<Array<MessageSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<MessageOrderBy>>;
   where?: InputMaybe<MessageBoolExp>;
 };
-
 
 export type SubscriptionRootMessageAggregateArgs = {
   distinct_on?: InputMaybe<Array<MessageSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<MessageOrderBy>>;
   where?: InputMaybe<MessageBoolExp>;
 };
 
-
 export type SubscriptionRootMessageByPkArgs = {
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 };
 
-
 export type SubscriptionRootMessageStreamArgs = {
-  batch_size: Scalars['Int'];
+  batch_size: Scalars["Int"]["input"];
   cursor: Array<InputMaybe<MessageStreamCursorInput>>;
   where?: InputMaybe<MessageBoolExp>;
 };
 
-
 export type SubscriptionRootNotificationArgs = {
   distinct_on?: InputMaybe<Array<NotificationSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<NotificationOrderBy>>;
   where?: InputMaybe<NotificationBoolExp>;
 };
-
 
 export type SubscriptionRootNotificationAggregateArgs = {
   distinct_on?: InputMaybe<Array<NotificationSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<NotificationOrderBy>>;
   where?: InputMaybe<NotificationBoolExp>;
 };
 
-
 export type SubscriptionRootNotificationByPkArgs = {
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 };
 
-
 export type SubscriptionRootNotificationStreamArgs = {
-  batch_size: Scalars['Int'];
+  batch_size: Scalars["Int"]["input"];
   cursor: Array<InputMaybe<NotificationStreamCursorInput>>;
   where?: InputMaybe<NotificationBoolExp>;
 };
 
-
 export type SubscriptionRootPostArgs = {
   distinct_on?: InputMaybe<Array<PostSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<PostOrderBy>>;
   where?: InputMaybe<PostBoolExp>;
 };
-
 
 export type SubscriptionRootPostAggregateArgs = {
   distinct_on?: InputMaybe<Array<PostSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<PostOrderBy>>;
   where?: InputMaybe<PostBoolExp>;
 };
 
-
 export type SubscriptionRootPostByPkArgs = {
-  id: Scalars['Int'];
+  id: Scalars["Int"]["input"];
 };
-
 
 export type SubscriptionRootPostReactionArgs = {
   distinct_on?: InputMaybe<Array<PostReactionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<PostReactionOrderBy>>;
   where?: InputMaybe<PostReactionBoolExp>;
 };
-
 
 export type SubscriptionRootPostReactionAggregateArgs = {
   distinct_on?: InputMaybe<Array<PostReactionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<PostReactionOrderBy>>;
   where?: InputMaybe<PostReactionBoolExp>;
 };
 
-
 export type SubscriptionRootPostReactionByPkArgs = {
   name: ReactionEmojiEnum;
-  post_id: Scalars['Int'];
-  user_id: Scalars['uuid'];
+  post_id: Scalars["Int"]["input"];
+  user_id: Scalars["uuid"]["input"];
 };
 
-
 export type SubscriptionRootPostReactionStreamArgs = {
-  batch_size: Scalars['Int'];
+  batch_size: Scalars["Int"]["input"];
   cursor: Array<InputMaybe<PostReactionStreamCursorInput>>;
   where?: InputMaybe<PostReactionBoolExp>;
 };
 
-
 export type SubscriptionRootPostStreamArgs = {
-  batch_size: Scalars['Int'];
+  batch_size: Scalars["Int"]["input"];
   cursor: Array<InputMaybe<PostStreamCursorInput>>;
   where?: InputMaybe<PostBoolExp>;
 };
 
-
 export type SubscriptionRootReactionEmojiArgs = {
   distinct_on?: InputMaybe<Array<ReactionEmojiSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<ReactionEmojiOrderBy>>;
   where?: InputMaybe<ReactionEmojiBoolExp>;
 };
-
 
 export type SubscriptionRootReactionEmojiAggregateArgs = {
   distinct_on?: InputMaybe<Array<ReactionEmojiSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<ReactionEmojiOrderBy>>;
   where?: InputMaybe<ReactionEmojiBoolExp>;
 };
 
-
 export type SubscriptionRootReactionEmojiByPkArgs = {
-  name: Scalars['String'];
+  name: Scalars["String"]["input"];
 };
 
-
 export type SubscriptionRootReactionEmojiStreamArgs = {
-  batch_size: Scalars['Int'];
+  batch_size: Scalars["Int"]["input"];
   cursor: Array<InputMaybe<ReactionEmojiStreamCursorInput>>;
   where?: InputMaybe<ReactionEmojiBoolExp>;
 };
 
-
 export type SubscriptionRootRealmArgs = {
   distinct_on?: InputMaybe<Array<RealmSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmOrderBy>>;
   where?: InputMaybe<RealmBoolExp>;
 };
-
 
 export type SubscriptionRootRealmAggregateArgs = {
   distinct_on?: InputMaybe<Array<RealmSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmOrderBy>>;
   where?: InputMaybe<RealmBoolExp>;
 };
 
-
 export type SubscriptionRootRealmByPkArgs = {
-  id: Scalars['Int'];
+  id: Scalars["Int"]["input"];
 };
-
 
 export type SubscriptionRootRealmPostArgs = {
   distinct_on?: InputMaybe<Array<RealmPostSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmPostOrderBy>>;
   where?: InputMaybe<RealmPostBoolExp>;
 };
-
 
 export type SubscriptionRootRealmPostAggregateArgs = {
   distinct_on?: InputMaybe<Array<RealmPostSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmPostOrderBy>>;
   where?: InputMaybe<RealmPostBoolExp>;
 };
 
-
 export type SubscriptionRootRealmPostStreamArgs = {
-  batch_size: Scalars['Int'];
+  batch_size: Scalars["Int"]["input"];
   cursor: Array<InputMaybe<RealmPostStreamCursorInput>>;
   where?: InputMaybe<RealmPostBoolExp>;
 };
 
-
 export type SubscriptionRootRealmPublicArgs = {
   distinct_on?: InputMaybe<Array<RealmPublicSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmPublicOrderBy>>;
   where?: InputMaybe<RealmPublicBoolExp>;
 };
-
 
 export type SubscriptionRootRealmPublicAggregateArgs = {
   distinct_on?: InputMaybe<Array<RealmPublicSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmPublicOrderBy>>;
   where?: InputMaybe<RealmPublicBoolExp>;
 };
 
-
 export type SubscriptionRootRealmPublicStreamArgs = {
-  batch_size: Scalars['Int'];
+  batch_size: Scalars["Int"]["input"];
   cursor: Array<InputMaybe<RealmPublicStreamCursorInput>>;
   where?: InputMaybe<RealmPublicBoolExp>;
 };
 
-
 export type SubscriptionRootRealmStreamArgs = {
-  batch_size: Scalars['Int'];
+  batch_size: Scalars["Int"]["input"];
   cursor: Array<InputMaybe<RealmStreamCursorInput>>;
   where?: InputMaybe<RealmBoolExp>;
 };
 
-
 export type SubscriptionRootRealmUserArgs = {
   distinct_on?: InputMaybe<Array<RealmUserSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmUserOrderBy>>;
   where?: InputMaybe<RealmUserBoolExp>;
 };
-
 
 export type SubscriptionRootRealmUserAggregateArgs = {
   distinct_on?: InputMaybe<Array<RealmUserSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmUserOrderBy>>;
   where?: InputMaybe<RealmUserBoolExp>;
 };
 
-
 export type SubscriptionRootRealmUserByPkArgs = {
-  realm_id: Scalars['Int'];
-  user_id: Scalars['uuid'];
+  realm_id: Scalars["Int"]["input"];
+  user_id: Scalars["uuid"]["input"];
 };
 
-
 export type SubscriptionRootRealmUserStreamArgs = {
-  batch_size: Scalars['Int'];
+  batch_size: Scalars["Int"]["input"];
   cursor: Array<InputMaybe<RealmUserStreamCursorInput>>;
   where?: InputMaybe<RealmUserBoolExp>;
 };
 
-
 export type SubscriptionRootRealmUserUnionArgs = {
   distinct_on?: InputMaybe<Array<RealmUserUnionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmUserUnionOrderBy>>;
   where?: InputMaybe<RealmUserUnionBoolExp>;
 };
-
 
 export type SubscriptionRootRealmUserUnionAggregateArgs = {
   distinct_on?: InputMaybe<Array<RealmUserUnionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmUserUnionOrderBy>>;
   where?: InputMaybe<RealmUserUnionBoolExp>;
 };
 
-
 export type SubscriptionRootRealmUserUnionStreamArgs = {
-  batch_size: Scalars['Int'];
+  batch_size: Scalars["Int"]["input"];
   cursor: Array<InputMaybe<RealmUserUnionStreamCursorInput>>;
   where?: InputMaybe<RealmUserUnionBoolExp>;
 };
 
-
 export type SubscriptionRootSessionArgs = {
   distinct_on?: InputMaybe<Array<SessionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<SessionOrderBy>>;
   where?: InputMaybe<SessionBoolExp>;
 };
-
 
 export type SubscriptionRootSessionAggregateArgs = {
   distinct_on?: InputMaybe<Array<SessionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<SessionOrderBy>>;
   where?: InputMaybe<SessionBoolExp>;
 };
 
-
 export type SubscriptionRootSessionByPkArgs = {
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 };
 
-
 export type SubscriptionRootSessionStreamArgs = {
-  batch_size: Scalars['Int'];
+  batch_size: Scalars["Int"]["input"];
   cursor: Array<InputMaybe<SessionStreamCursorInput>>;
   where?: InputMaybe<SessionBoolExp>;
 };
 
-
 export type SubscriptionRootTeacherArgs = {
   distinct_on?: InputMaybe<Array<TeacherSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<TeacherOrderBy>>;
   where?: InputMaybe<TeacherBoolExp>;
 };
-
 
 export type SubscriptionRootTeacherAggregateArgs = {
   distinct_on?: InputMaybe<Array<TeacherSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<TeacherOrderBy>>;
   where?: InputMaybe<TeacherBoolExp>;
 };
 
-
 export type SubscriptionRootTeacherByPkArgs = {
-  id: Scalars['String'];
+  id: Scalars["String"]["input"];
 };
 
-
 export type SubscriptionRootTeacherStreamArgs = {
-  batch_size: Scalars['Int'];
+  batch_size: Scalars["Int"]["input"];
   cursor: Array<InputMaybe<TeacherStreamCursorInput>>;
   where?: InputMaybe<TeacherBoolExp>;
 };
 
-
 export type SubscriptionRootThreadArgs = {
   distinct_on?: InputMaybe<Array<ThreadSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<ThreadOrderBy>>;
   where?: InputMaybe<ThreadBoolExp>;
 };
-
 
 export type SubscriptionRootThreadAggregateArgs = {
   distinct_on?: InputMaybe<Array<ThreadSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<ThreadOrderBy>>;
   where?: InputMaybe<ThreadBoolExp>;
 };
 
-
 export type SubscriptionRootThreadByPkArgs = {
-  id: Scalars['Int'];
+  id: Scalars["Int"]["input"];
 };
-
 
 export type SubscriptionRootThreadReactionArgs = {
   distinct_on?: InputMaybe<Array<ThreadReactionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<ThreadReactionOrderBy>>;
   where?: InputMaybe<ThreadReactionBoolExp>;
 };
-
 
 export type SubscriptionRootThreadReactionAggregateArgs = {
   distinct_on?: InputMaybe<Array<ThreadReactionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<ThreadReactionOrderBy>>;
   where?: InputMaybe<ThreadReactionBoolExp>;
 };
 
-
 export type SubscriptionRootThreadReactionByPkArgs = {
   name: ReactionEmojiEnum;
-  thread_id: Scalars['Int'];
-  user_id: Scalars['uuid'];
+  thread_id: Scalars["Int"]["input"];
+  user_id: Scalars["uuid"]["input"];
 };
 
-
 export type SubscriptionRootThreadReactionStreamArgs = {
-  batch_size: Scalars['Int'];
+  batch_size: Scalars["Int"]["input"];
   cursor: Array<InputMaybe<ThreadReactionStreamCursorInput>>;
   where?: InputMaybe<ThreadReactionBoolExp>;
 };
 
-
 export type SubscriptionRootThreadStreamArgs = {
-  batch_size: Scalars['Int'];
+  batch_size: Scalars["Int"]["input"];
   cursor: Array<InputMaybe<ThreadStreamCursorInput>>;
   where?: InputMaybe<ThreadBoolExp>;
 };
 
-
 export type SubscriptionRootTopicArgs = {
   distinct_on?: InputMaybe<Array<TopicSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<TopicOrderBy>>;
   where?: InputMaybe<TopicBoolExp>;
 };
-
 
 export type SubscriptionRootTopicAggregateArgs = {
   distinct_on?: InputMaybe<Array<TopicSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<TopicOrderBy>>;
   where?: InputMaybe<TopicBoolExp>;
 };
 
-
 export type SubscriptionRootTopicByPkArgs = {
-  name: Scalars['String'];
-  realm_id: Scalars['Int'];
+  name: Scalars["String"]["input"];
+  realm_id: Scalars["Int"]["input"];
 };
 
-
 export type SubscriptionRootTopicStreamArgs = {
-  batch_size: Scalars['Int'];
+  batch_size: Scalars["Int"]["input"];
   cursor: Array<InputMaybe<TopicStreamCursorInput>>;
   where?: InputMaybe<TopicBoolExp>;
 };
 
-
 export type SubscriptionRootUserArgs = {
   distinct_on?: InputMaybe<Array<UserSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<UserOrderBy>>;
   where?: InputMaybe<UserBoolExp>;
 };
-
 
 export type SubscriptionRootUserAggregateArgs = {
   distinct_on?: InputMaybe<Array<UserSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<UserOrderBy>>;
   where?: InputMaybe<UserBoolExp>;
 };
 
-
 export type SubscriptionRootUserByPkArgs = {
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 };
-
 
 export type SubscriptionRootUserPublicArgs = {
   distinct_on?: InputMaybe<Array<UserPublicSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<UserPublicOrderBy>>;
   where?: InputMaybe<UserPublicBoolExp>;
 };
-
 
 export type SubscriptionRootUserPublicAggregateArgs = {
   distinct_on?: InputMaybe<Array<UserPublicSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<UserPublicOrderBy>>;
   where?: InputMaybe<UserPublicBoolExp>;
 };
 
-
 export type SubscriptionRootUserPublicStreamArgs = {
-  batch_size: Scalars['Int'];
+  batch_size: Scalars["Int"]["input"];
   cursor: Array<InputMaybe<UserPublicStreamCursorInput>>;
   where?: InputMaybe<UserPublicBoolExp>;
 };
 
-
 export type SubscriptionRootUserStreamArgs = {
-  batch_size: Scalars['Int'];
+  batch_size: Scalars["Int"]["input"];
   cursor: Array<InputMaybe<UserStreamCursorInput>>;
   where?: InputMaybe<UserBoolExp>;
 };
 
 /** columns and relationships of "teacher" */
 export type Teacher = {
-  __typename?: 'teacher';
+  __typename?: "teacher";
   /** An array relationship */
   courses: Array<Course>;
   /** An aggregate relationship */
   courses_aggregate: CourseAggregate;
-  created_at: Scalars['timestamptz'];
-  id: Scalars['String'];
-  name: Scalars['String'];
-  updated_at: Scalars['timestamptz'];
+  created_at: Scalars["timestamptz"]["output"];
+  id: Scalars["String"]["output"];
+  name: Scalars["String"]["output"];
+  updated_at: Scalars["timestamptz"]["output"];
 };
-
 
 /** columns and relationships of "teacher" */
 export type TeacherCoursesArgs = {
   distinct_on?: InputMaybe<Array<CourseSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<CourseOrderBy>>;
   where?: InputMaybe<CourseBoolExp>;
 };
 
-
 /** columns and relationships of "teacher" */
 export type TeacherCoursesAggregateArgs = {
   distinct_on?: InputMaybe<Array<CourseSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<CourseOrderBy>>;
   where?: InputMaybe<CourseBoolExp>;
 };
 
 /** aggregated selection of "teacher" */
 export type TeacherAggregate = {
-  __typename?: 'teacher_aggregate';
+  __typename?: "teacher_aggregate";
   aggregate?: Maybe<TeacherAggregateFields>;
   nodes: Array<Teacher>;
 };
 
 /** aggregate fields of "teacher" */
 export type TeacherAggregateFields = {
-  __typename?: 'teacher_aggregate_fields';
-  count: Scalars['Int'];
+  __typename?: "teacher_aggregate_fields";
+  count: Scalars["Int"]["output"];
   max?: Maybe<TeacherMaxFields>;
   min?: Maybe<TeacherMinFields>;
 };
 
-
 /** aggregate fields of "teacher" */
 export type TeacherAggregateFieldsCountArgs = {
   columns?: InputMaybe<Array<TeacherSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** Boolean expression to filter rows from the table "teacher". All fields are combined with a logical 'AND'. */
@@ -6058,41 +5809,41 @@ export type TeacherBoolExp = {
 /** unique or primary key constraints on table "teacher" */
 export enum TeacherConstraint {
   /** unique or primary key constraint on columns "id" */
-  TeacherPkey = 'teacher_pkey'
+  TeacherPkey = "teacher_pkey",
 }
 
 /** input type for inserting data into table "teacher" */
 export type TeacherInsertInput = {
   courses?: InputMaybe<CourseArrRelInsertInput>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["String"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
 };
 
 /** aggregate max on columns */
 export type TeacherMaxFields = {
-  __typename?: 'teacher_max_fields';
-  created_at?: Maybe<Scalars['timestamptz']>;
-  id?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
+  __typename?: "teacher_max_fields";
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["String"]["output"]>;
+  name?: Maybe<Scalars["String"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
 };
 
 /** aggregate min on columns */
 export type TeacherMinFields = {
-  __typename?: 'teacher_min_fields';
-  created_at?: Maybe<Scalars['timestamptz']>;
-  id?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
+  __typename?: "teacher_min_fields";
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["String"]["output"]>;
+  name?: Maybe<Scalars["String"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
 };
 
 /** response of any mutation on the table "teacher" */
 export type TeacherMutationResponse = {
-  __typename?: 'teacher_mutation_response';
+  __typename?: "teacher_mutation_response";
   /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
+  affected_rows: Scalars["Int"]["output"];
   /** data from the rows affected by the mutation */
   returning: Array<Teacher>;
 };
@@ -6122,27 +5873,27 @@ export type TeacherOrderBy = {
 
 /** primary key columns input for table: teacher */
 export type TeacherPkColumnsInput = {
-  id: Scalars['String'];
+  id: Scalars["String"]["input"];
 };
 
 /** select columns of table "teacher" */
 export enum TeacherSelectColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  Name = 'name',
+  Name = "name",
   /** column name */
-  UpdatedAt = 'updated_at'
+  UpdatedAt = "updated_at",
 }
 
 /** input type for updating data in table "teacher" */
 export type TeacherSetInput = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["String"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
 };
 
 /** Streaming cursor of the table "teacher" */
@@ -6155,22 +5906,22 @@ export type TeacherStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type TeacherStreamCursorValueInput = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["String"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
 };
 
 /** update columns of table "teacher" */
 export enum TeacherUpdateColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  Name = 'name',
+  Name = "name",
   /** column name */
-  UpdatedAt = 'updated_at'
+  UpdatedAt = "updated_at",
 }
 
 export type TeacherUpdates = {
@@ -6182,10 +5933,10 @@ export type TeacherUpdates = {
 
 /** columns and relationships of "thread" */
 export type Thread = {
-  __typename?: 'thread';
-  content: Scalars['String'];
-  created_at: Scalars['timestamptz'];
-  id: Scalars['Int'];
+  __typename?: "thread";
+  content: Scalars["String"]["output"];
+  created_at: Scalars["timestamptz"]["output"];
+  id: Scalars["Int"]["output"];
   /** An array relationship */
   posts: Array<RealmPost>;
   /** An aggregate relationship */
@@ -6196,60 +5947,56 @@ export type Thread = {
   reactions_aggregate: ThreadReactionAggregate;
   /** An object relationship */
   realm?: Maybe<RealmPublic>;
-  realm_id: Scalars['Int'];
-  title: Scalars['String'];
+  realm_id: Scalars["Int"]["output"];
+  title: Scalars["String"]["output"];
   /** An object relationship */
   topic?: Maybe<Topic>;
-  topic_id?: Maybe<Scalars['Int']>;
-  updated_at: Scalars['timestamptz'];
+  topic_id?: Maybe<Scalars["Int"]["output"]>;
+  updated_at: Scalars["timestamptz"]["output"];
   /** An object relationship */
   user?: Maybe<RealmUserUnion>;
-  user_id: Scalars['uuid'];
+  user_id: Scalars["uuid"]["output"];
 };
-
 
 /** columns and relationships of "thread" */
 export type ThreadPostsArgs = {
   distinct_on?: InputMaybe<Array<RealmPostSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmPostOrderBy>>;
   where?: InputMaybe<RealmPostBoolExp>;
 };
-
 
 /** columns and relationships of "thread" */
 export type ThreadPostsAggregateArgs = {
   distinct_on?: InputMaybe<Array<RealmPostSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmPostOrderBy>>;
   where?: InputMaybe<RealmPostBoolExp>;
 };
 
-
 /** columns and relationships of "thread" */
 export type ThreadReactionsArgs = {
   distinct_on?: InputMaybe<Array<ThreadReactionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<ThreadReactionOrderBy>>;
   where?: InputMaybe<ThreadReactionBoolExp>;
 };
 
-
 /** columns and relationships of "thread" */
 export type ThreadReactionsAggregateArgs = {
   distinct_on?: InputMaybe<Array<ThreadReactionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<ThreadReactionOrderBy>>;
   where?: InputMaybe<ThreadReactionBoolExp>;
 };
 
 /** aggregated selection of "thread" */
 export type ThreadAggregate = {
-  __typename?: 'thread_aggregate';
+  __typename?: "thread_aggregate";
   aggregate?: Maybe<ThreadAggregateFields>;
   nodes: Array<Thread>;
 };
@@ -6260,16 +6007,16 @@ export type ThreadAggregateBoolExp = {
 
 export type ThreadAggregateBoolExpCount = {
   arguments?: InputMaybe<Array<ThreadSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
   filter?: InputMaybe<ThreadBoolExp>;
   predicate: IntComparisonExp;
 };
 
 /** aggregate fields of "thread" */
 export type ThreadAggregateFields = {
-  __typename?: 'thread_aggregate_fields';
+  __typename?: "thread_aggregate_fields";
   avg?: Maybe<ThreadAvgFields>;
-  count: Scalars['Int'];
+  count: Scalars["Int"]["output"];
   max?: Maybe<ThreadMaxFields>;
   min?: Maybe<ThreadMinFields>;
   stddev?: Maybe<ThreadStddevFields>;
@@ -6281,11 +6028,10 @@ export type ThreadAggregateFields = {
   variance?: Maybe<ThreadVarianceFields>;
 };
 
-
 /** aggregate fields of "thread" */
 export type ThreadAggregateFieldsCountArgs = {
   columns?: InputMaybe<Array<ThreadSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** order by aggregate values of table "thread" */
@@ -6312,10 +6058,10 @@ export type ThreadArrRelInsertInput = {
 
 /** aggregate avg on columns */
 export type ThreadAvgFields = {
-  __typename?: 'thread_avg_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
-  topic_id?: Maybe<Scalars['Float']>;
+  __typename?: "thread_avg_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
+  topic_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by avg() on columns of table "thread" */
@@ -6350,44 +6096,44 @@ export type ThreadBoolExp = {
 /** unique or primary key constraints on table "thread" */
 export enum ThreadConstraint {
   /** unique or primary key constraint on columns "id" */
-  ThreadPkey = 'thread_pkey'
+  ThreadPkey = "thread_pkey",
 }
 
 /** input type for incrementing numeric columns in table "thread" */
 export type ThreadIncInput = {
-  id?: InputMaybe<Scalars['Int']>;
-  realm_id?: InputMaybe<Scalars['Int']>;
-  topic_id?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
+  topic_id?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 /** input type for inserting data into table "thread" */
 export type ThreadInsertInput = {
-  content?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['Int']>;
+  content?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
   posts?: InputMaybe<RealmPostArrRelInsertInput>;
   reactions?: InputMaybe<ThreadReactionArrRelInsertInput>;
   realm?: InputMaybe<RealmPublicObjRelInsertInput>;
-  realm_id?: InputMaybe<Scalars['Int']>;
-  title?: InputMaybe<Scalars['String']>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
+  title?: InputMaybe<Scalars["String"]["input"]>;
   topic?: InputMaybe<TopicObjRelInsertInput>;
-  topic_id?: InputMaybe<Scalars['Int']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  topic_id?: InputMaybe<Scalars["Int"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
   user?: InputMaybe<RealmUserUnionObjRelInsertInput>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate max on columns */
 export type ThreadMaxFields = {
-  __typename?: 'thread_max_fields';
-  content?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  id?: Maybe<Scalars['Int']>;
-  realm_id?: Maybe<Scalars['Int']>;
-  title?: Maybe<Scalars['String']>;
-  topic_id?: Maybe<Scalars['Int']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
-  user_id?: Maybe<Scalars['uuid']>;
+  __typename?: "thread_max_fields";
+  content?: Maybe<Scalars["String"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["Int"]["output"]>;
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
+  title?: Maybe<Scalars["String"]["output"]>;
+  topic_id?: Maybe<Scalars["Int"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
 };
 
 /** order by max() on columns of table "thread" */
@@ -6404,15 +6150,15 @@ export type ThreadMaxOrderBy = {
 
 /** aggregate min on columns */
 export type ThreadMinFields = {
-  __typename?: 'thread_min_fields';
-  content?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  id?: Maybe<Scalars['Int']>;
-  realm_id?: Maybe<Scalars['Int']>;
-  title?: Maybe<Scalars['String']>;
-  topic_id?: Maybe<Scalars['Int']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
-  user_id?: Maybe<Scalars['uuid']>;
+  __typename?: "thread_min_fields";
+  content?: Maybe<Scalars["String"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["Int"]["output"]>;
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
+  title?: Maybe<Scalars["String"]["output"]>;
+  topic_id?: Maybe<Scalars["Int"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
 };
 
 /** order by min() on columns of table "thread" */
@@ -6429,9 +6175,9 @@ export type ThreadMinOrderBy = {
 
 /** response of any mutation on the table "thread" */
 export type ThreadMutationResponse = {
-  __typename?: 'thread_mutation_response';
+  __typename?: "thread_mutation_response";
   /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
+  affected_rows: Scalars["Int"]["output"];
   /** data from the rows affected by the mutation */
   returning: Array<Thread>;
 };
@@ -6469,23 +6215,23 @@ export type ThreadOrderBy = {
 
 /** primary key columns input for table: thread */
 export type ThreadPkColumnsInput = {
-  id: Scalars['Int'];
+  id: Scalars["Int"]["input"];
 };
 
 /** columns and relationships of "thread_reaction" */
 export type ThreadReaction = {
-  __typename?: 'thread_reaction';
-  created_at: Scalars['timestamptz'];
+  __typename?: "thread_reaction";
+  created_at: Scalars["timestamptz"]["output"];
   name: ReactionEmojiEnum;
   /** An object relationship */
   thread: Thread;
-  thread_id: Scalars['Int'];
-  user_id: Scalars['uuid'];
+  thread_id: Scalars["Int"]["output"];
+  user_id: Scalars["uuid"]["output"];
 };
 
 /** aggregated selection of "thread_reaction" */
 export type ThreadReactionAggregate = {
-  __typename?: 'thread_reaction_aggregate';
+  __typename?: "thread_reaction_aggregate";
   aggregate?: Maybe<ThreadReactionAggregateFields>;
   nodes: Array<ThreadReaction>;
 };
@@ -6496,16 +6242,16 @@ export type ThreadReactionAggregateBoolExp = {
 
 export type ThreadReactionAggregateBoolExpCount = {
   arguments?: InputMaybe<Array<ThreadReactionSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
   filter?: InputMaybe<ThreadReactionBoolExp>;
   predicate: IntComparisonExp;
 };
 
 /** aggregate fields of "thread_reaction" */
 export type ThreadReactionAggregateFields = {
-  __typename?: 'thread_reaction_aggregate_fields';
+  __typename?: "thread_reaction_aggregate_fields";
   avg?: Maybe<ThreadReactionAvgFields>;
-  count: Scalars['Int'];
+  count: Scalars["Int"]["output"];
   max?: Maybe<ThreadReactionMaxFields>;
   min?: Maybe<ThreadReactionMinFields>;
   stddev?: Maybe<ThreadReactionStddevFields>;
@@ -6517,11 +6263,10 @@ export type ThreadReactionAggregateFields = {
   variance?: Maybe<ThreadReactionVarianceFields>;
 };
 
-
 /** aggregate fields of "thread_reaction" */
 export type ThreadReactionAggregateFieldsCountArgs = {
   columns?: InputMaybe<Array<ThreadReactionSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** order by aggregate values of table "thread_reaction" */
@@ -6548,8 +6293,8 @@ export type ThreadReactionArrRelInsertInput = {
 
 /** aggregate avg on columns */
 export type ThreadReactionAvgFields = {
-  __typename?: 'thread_reaction_avg_fields';
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "thread_reaction_avg_fields";
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by avg() on columns of table "thread_reaction" */
@@ -6572,29 +6317,29 @@ export type ThreadReactionBoolExp = {
 /** unique or primary key constraints on table "thread_reaction" */
 export enum ThreadReactionConstraint {
   /** unique or primary key constraint on columns "name", "user_id", "thread_id" */
-  ThreadReactionPkey = 'thread_reaction_pkey'
+  ThreadReactionPkey = "thread_reaction_pkey",
 }
 
 /** input type for incrementing numeric columns in table "thread_reaction" */
 export type ThreadReactionIncInput = {
-  thread_id?: InputMaybe<Scalars['Int']>;
+  thread_id?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 /** input type for inserting data into table "thread_reaction" */
 export type ThreadReactionInsertInput = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
   name?: InputMaybe<ReactionEmojiEnum>;
   thread?: InputMaybe<ThreadObjRelInsertInput>;
-  thread_id?: InputMaybe<Scalars['Int']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  thread_id?: InputMaybe<Scalars["Int"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate max on columns */
 export type ThreadReactionMaxFields = {
-  __typename?: 'thread_reaction_max_fields';
-  created_at?: Maybe<Scalars['timestamptz']>;
-  thread_id?: Maybe<Scalars['Int']>;
-  user_id?: Maybe<Scalars['uuid']>;
+  __typename?: "thread_reaction_max_fields";
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  thread_id?: Maybe<Scalars["Int"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
 };
 
 /** order by max() on columns of table "thread_reaction" */
@@ -6606,10 +6351,10 @@ export type ThreadReactionMaxOrderBy = {
 
 /** aggregate min on columns */
 export type ThreadReactionMinFields = {
-  __typename?: 'thread_reaction_min_fields';
-  created_at?: Maybe<Scalars['timestamptz']>;
-  thread_id?: Maybe<Scalars['Int']>;
-  user_id?: Maybe<Scalars['uuid']>;
+  __typename?: "thread_reaction_min_fields";
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  thread_id?: Maybe<Scalars["Int"]["output"]>;
+  user_id?: Maybe<Scalars["uuid"]["output"]>;
 };
 
 /** order by min() on columns of table "thread_reaction" */
@@ -6621,9 +6366,9 @@ export type ThreadReactionMinOrderBy = {
 
 /** response of any mutation on the table "thread_reaction" */
 export type ThreadReactionMutationResponse = {
-  __typename?: 'thread_reaction_mutation_response';
+  __typename?: "thread_reaction_mutation_response";
   /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
+  affected_rows: Scalars["Int"]["output"];
   /** data from the rows affected by the mutation */
   returning: Array<ThreadReaction>;
 };
@@ -6647,34 +6392,34 @@ export type ThreadReactionOrderBy = {
 /** primary key columns input for table: thread_reaction */
 export type ThreadReactionPkColumnsInput = {
   name: ReactionEmojiEnum;
-  thread_id: Scalars['Int'];
-  user_id: Scalars['uuid'];
+  thread_id: Scalars["Int"]["input"];
+  user_id: Scalars["uuid"]["input"];
 };
 
 /** select columns of table "thread_reaction" */
 export enum ThreadReactionSelectColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Name = 'name',
+  Name = "name",
   /** column name */
-  ThreadId = 'thread_id',
+  ThreadId = "thread_id",
   /** column name */
-  UserId = 'user_id'
+  UserId = "user_id",
 }
 
 /** input type for updating data in table "thread_reaction" */
 export type ThreadReactionSetInput = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
   name?: InputMaybe<ReactionEmojiEnum>;
-  thread_id?: InputMaybe<Scalars['Int']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  thread_id?: InputMaybe<Scalars["Int"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate stddev on columns */
 export type ThreadReactionStddevFields = {
-  __typename?: 'thread_reaction_stddev_fields';
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "thread_reaction_stddev_fields";
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev() on columns of table "thread_reaction" */
@@ -6684,8 +6429,8 @@ export type ThreadReactionStddevOrderBy = {
 
 /** aggregate stddev_pop on columns */
 export type ThreadReactionStddevPopFields = {
-  __typename?: 'thread_reaction_stddev_pop_fields';
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "thread_reaction_stddev_pop_fields";
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev_pop() on columns of table "thread_reaction" */
@@ -6695,8 +6440,8 @@ export type ThreadReactionStddevPopOrderBy = {
 
 /** aggregate stddev_samp on columns */
 export type ThreadReactionStddevSampFields = {
-  __typename?: 'thread_reaction_stddev_samp_fields';
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "thread_reaction_stddev_samp_fields";
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev_samp() on columns of table "thread_reaction" */
@@ -6714,16 +6459,16 @@ export type ThreadReactionStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type ThreadReactionStreamCursorValueInput = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
   name?: InputMaybe<ReactionEmojiEnum>;
-  thread_id?: InputMaybe<Scalars['Int']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  thread_id?: InputMaybe<Scalars["Int"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate sum on columns */
 export type ThreadReactionSumFields = {
-  __typename?: 'thread_reaction_sum_fields';
-  thread_id?: Maybe<Scalars['Int']>;
+  __typename?: "thread_reaction_sum_fields";
+  thread_id?: Maybe<Scalars["Int"]["output"]>;
 };
 
 /** order by sum() on columns of table "thread_reaction" */
@@ -6734,13 +6479,13 @@ export type ThreadReactionSumOrderBy = {
 /** update columns of table "thread_reaction" */
 export enum ThreadReactionUpdateColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Name = 'name',
+  Name = "name",
   /** column name */
-  ThreadId = 'thread_id',
+  ThreadId = "thread_id",
   /** column name */
-  UserId = 'user_id'
+  UserId = "user_id",
 }
 
 export type ThreadReactionUpdates = {
@@ -6754,8 +6499,8 @@ export type ThreadReactionUpdates = {
 
 /** aggregate var_pop on columns */
 export type ThreadReactionVarPopFields = {
-  __typename?: 'thread_reaction_var_pop_fields';
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "thread_reaction_var_pop_fields";
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by var_pop() on columns of table "thread_reaction" */
@@ -6765,8 +6510,8 @@ export type ThreadReactionVarPopOrderBy = {
 
 /** aggregate var_samp on columns */
 export type ThreadReactionVarSampFields = {
-  __typename?: 'thread_reaction_var_samp_fields';
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "thread_reaction_var_samp_fields";
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by var_samp() on columns of table "thread_reaction" */
@@ -6776,8 +6521,8 @@ export type ThreadReactionVarSampOrderBy = {
 
 /** aggregate variance on columns */
 export type ThreadReactionVarianceFields = {
-  __typename?: 'thread_reaction_variance_fields';
-  thread_id?: Maybe<Scalars['Float']>;
+  __typename?: "thread_reaction_variance_fields";
+  thread_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by variance() on columns of table "thread_reaction" */
@@ -6788,41 +6533,41 @@ export type ThreadReactionVarianceOrderBy = {
 /** select columns of table "thread" */
 export enum ThreadSelectColumn {
   /** column name */
-  Content = 'content',
+  Content = "content",
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  RealmId = 'realm_id',
+  RealmId = "realm_id",
   /** column name */
-  Title = 'title',
+  Title = "title",
   /** column name */
-  TopicId = 'topic_id',
+  TopicId = "topic_id",
   /** column name */
-  UpdatedAt = 'updated_at',
+  UpdatedAt = "updated_at",
   /** column name */
-  UserId = 'user_id'
+  UserId = "user_id",
 }
 
 /** input type for updating data in table "thread" */
 export type ThreadSetInput = {
-  content?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['Int']>;
-  realm_id?: InputMaybe<Scalars['Int']>;
-  title?: InputMaybe<Scalars['String']>;
-  topic_id?: InputMaybe<Scalars['Int']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  content?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
+  title?: InputMaybe<Scalars["String"]["input"]>;
+  topic_id?: InputMaybe<Scalars["Int"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate stddev on columns */
 export type ThreadStddevFields = {
-  __typename?: 'thread_stddev_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
-  topic_id?: Maybe<Scalars['Float']>;
+  __typename?: "thread_stddev_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
+  topic_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev() on columns of table "thread" */
@@ -6834,10 +6579,10 @@ export type ThreadStddevOrderBy = {
 
 /** aggregate stddev_pop on columns */
 export type ThreadStddevPopFields = {
-  __typename?: 'thread_stddev_pop_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
-  topic_id?: Maybe<Scalars['Float']>;
+  __typename?: "thread_stddev_pop_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
+  topic_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev_pop() on columns of table "thread" */
@@ -6849,10 +6594,10 @@ export type ThreadStddevPopOrderBy = {
 
 /** aggregate stddev_samp on columns */
 export type ThreadStddevSampFields = {
-  __typename?: 'thread_stddev_samp_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
-  topic_id?: Maybe<Scalars['Float']>;
+  __typename?: "thread_stddev_samp_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
+  topic_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev_samp() on columns of table "thread" */
@@ -6872,22 +6617,22 @@ export type ThreadStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type ThreadStreamCursorValueInput = {
-  content?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['Int']>;
-  realm_id?: InputMaybe<Scalars['Int']>;
-  title?: InputMaybe<Scalars['String']>;
-  topic_id?: InputMaybe<Scalars['Int']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
-  user_id?: InputMaybe<Scalars['uuid']>;
+  content?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
+  title?: InputMaybe<Scalars["String"]["input"]>;
+  topic_id?: InputMaybe<Scalars["Int"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  user_id?: InputMaybe<Scalars["uuid"]["input"]>;
 };
 
 /** aggregate sum on columns */
 export type ThreadSumFields = {
-  __typename?: 'thread_sum_fields';
-  id?: Maybe<Scalars['Int']>;
-  realm_id?: Maybe<Scalars['Int']>;
-  topic_id?: Maybe<Scalars['Int']>;
+  __typename?: "thread_sum_fields";
+  id?: Maybe<Scalars["Int"]["output"]>;
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
+  topic_id?: Maybe<Scalars["Int"]["output"]>;
 };
 
 /** order by sum() on columns of table "thread" */
@@ -6900,21 +6645,21 @@ export type ThreadSumOrderBy = {
 /** update columns of table "thread" */
 export enum ThreadUpdateColumn {
   /** column name */
-  Content = 'content',
+  Content = "content",
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  RealmId = 'realm_id',
+  RealmId = "realm_id",
   /** column name */
-  Title = 'title',
+  Title = "title",
   /** column name */
-  TopicId = 'topic_id',
+  TopicId = "topic_id",
   /** column name */
-  UpdatedAt = 'updated_at',
+  UpdatedAt = "updated_at",
   /** column name */
-  UserId = 'user_id'
+  UserId = "user_id",
 }
 
 export type ThreadUpdates = {
@@ -6928,10 +6673,10 @@ export type ThreadUpdates = {
 
 /** aggregate var_pop on columns */
 export type ThreadVarPopFields = {
-  __typename?: 'thread_var_pop_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
-  topic_id?: Maybe<Scalars['Float']>;
+  __typename?: "thread_var_pop_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
+  topic_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by var_pop() on columns of table "thread" */
@@ -6943,10 +6688,10 @@ export type ThreadVarPopOrderBy = {
 
 /** aggregate var_samp on columns */
 export type ThreadVarSampFields = {
-  __typename?: 'thread_var_samp_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
-  topic_id?: Maybe<Scalars['Float']>;
+  __typename?: "thread_var_samp_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
+  topic_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by var_samp() on columns of table "thread" */
@@ -6958,10 +6703,10 @@ export type ThreadVarSampOrderBy = {
 
 /** aggregate variance on columns */
 export type ThreadVarianceFields = {
-  __typename?: 'thread_variance_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
-  topic_id?: Maybe<Scalars['Float']>;
+  __typename?: "thread_variance_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
+  topic_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by variance() on columns of table "thread" */
@@ -6973,32 +6718,32 @@ export type ThreadVarianceOrderBy = {
 
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
 export type TimestamptzComparisonExp = {
-  _eq?: InputMaybe<Scalars['timestamptz']>;
-  _gt?: InputMaybe<Scalars['timestamptz']>;
-  _gte?: InputMaybe<Scalars['timestamptz']>;
-  _in?: InputMaybe<Array<Scalars['timestamptz']>>;
-  _is_null?: InputMaybe<Scalars['Boolean']>;
-  _lt?: InputMaybe<Scalars['timestamptz']>;
-  _lte?: InputMaybe<Scalars['timestamptz']>;
-  _neq?: InputMaybe<Scalars['timestamptz']>;
-  _nin?: InputMaybe<Array<Scalars['timestamptz']>>;
+  _eq?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  _gt?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  _gte?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  _in?: InputMaybe<Array<Scalars["timestamptz"]["input"]>>;
+  _is_null?: InputMaybe<Scalars["Boolean"]["input"]>;
+  _lt?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  _lte?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  _neq?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  _nin?: InputMaybe<Array<Scalars["timestamptz"]["input"]>>;
 };
 
 /** columns and relationships of "topic" */
 export type Topic = {
-  __typename?: 'topic';
-  created_at: Scalars['timestamptz'];
-  id: Scalars['Int'];
-  name: Scalars['String'];
+  __typename?: "topic";
+  created_at: Scalars["timestamptz"]["output"];
+  id: Scalars["Int"]["output"];
+  name: Scalars["String"]["output"];
   /** An object relationship */
   realm?: Maybe<RealmPublic>;
-  realm_id: Scalars['Int'];
-  updated_at: Scalars['timestamptz'];
+  realm_id: Scalars["Int"]["output"];
+  updated_at: Scalars["timestamptz"]["output"];
 };
 
 /** aggregated selection of "topic" */
 export type TopicAggregate = {
-  __typename?: 'topic_aggregate';
+  __typename?: "topic_aggregate";
   aggregate?: Maybe<TopicAggregateFields>;
   nodes: Array<Topic>;
 };
@@ -7009,16 +6754,16 @@ export type TopicAggregateBoolExp = {
 
 export type TopicAggregateBoolExpCount = {
   arguments?: InputMaybe<Array<TopicSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
   filter?: InputMaybe<TopicBoolExp>;
   predicate: IntComparisonExp;
 };
 
 /** aggregate fields of "topic" */
 export type TopicAggregateFields = {
-  __typename?: 'topic_aggregate_fields';
+  __typename?: "topic_aggregate_fields";
   avg?: Maybe<TopicAvgFields>;
-  count: Scalars['Int'];
+  count: Scalars["Int"]["output"];
   max?: Maybe<TopicMaxFields>;
   min?: Maybe<TopicMinFields>;
   stddev?: Maybe<TopicStddevFields>;
@@ -7030,11 +6775,10 @@ export type TopicAggregateFields = {
   variance?: Maybe<TopicVarianceFields>;
 };
 
-
 /** aggregate fields of "topic" */
 export type TopicAggregateFieldsCountArgs = {
   columns?: InputMaybe<Array<TopicSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** order by aggregate values of table "topic" */
@@ -7061,9 +6805,9 @@ export type TopicArrRelInsertInput = {
 
 /** aggregate avg on columns */
 export type TopicAvgFields = {
-  __typename?: 'topic_avg_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "topic_avg_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by avg() on columns of table "topic" */
@@ -7088,35 +6832,35 @@ export type TopicBoolExp = {
 /** unique or primary key constraints on table "topic" */
 export enum TopicConstraint {
   /** unique or primary key constraint on columns "id" */
-  TopicIdKey = 'topic_id_key',
+  TopicIdKey = "topic_id_key",
   /** unique or primary key constraint on columns "realm_id", "name" */
-  TopicPkey = 'topic_pkey'
+  TopicPkey = "topic_pkey",
 }
 
 /** input type for incrementing numeric columns in table "topic" */
 export type TopicIncInput = {
-  id?: InputMaybe<Scalars['Int']>;
-  realm_id?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 /** input type for inserting data into table "topic" */
 export type TopicInsertInput = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
   realm?: InputMaybe<RealmPublicObjRelInsertInput>;
-  realm_id?: InputMaybe<Scalars['Int']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
 };
 
 /** aggregate max on columns */
 export type TopicMaxFields = {
-  __typename?: 'topic_max_fields';
-  created_at?: Maybe<Scalars['timestamptz']>;
-  id?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['String']>;
-  realm_id?: Maybe<Scalars['Int']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
+  __typename?: "topic_max_fields";
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["Int"]["output"]>;
+  name?: Maybe<Scalars["String"]["output"]>;
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
 };
 
 /** order by max() on columns of table "topic" */
@@ -7130,12 +6874,12 @@ export type TopicMaxOrderBy = {
 
 /** aggregate min on columns */
 export type TopicMinFields = {
-  __typename?: 'topic_min_fields';
-  created_at?: Maybe<Scalars['timestamptz']>;
-  id?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['String']>;
-  realm_id?: Maybe<Scalars['Int']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
+  __typename?: "topic_min_fields";
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["Int"]["output"]>;
+  name?: Maybe<Scalars["String"]["output"]>;
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
 };
 
 /** order by min() on columns of table "topic" */
@@ -7149,9 +6893,9 @@ export type TopicMinOrderBy = {
 
 /** response of any mutation on the table "topic" */
 export type TopicMutationResponse = {
-  __typename?: 'topic_mutation_response';
+  __typename?: "topic_mutation_response";
   /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
+  affected_rows: Scalars["Int"]["output"];
   /** data from the rows affected by the mutation */
   returning: Array<Topic>;
 };
@@ -7182,38 +6926,38 @@ export type TopicOrderBy = {
 
 /** primary key columns input for table: topic */
 export type TopicPkColumnsInput = {
-  name: Scalars['String'];
-  realm_id: Scalars['Int'];
+  name: Scalars["String"]["input"];
+  realm_id: Scalars["Int"]["input"];
 };
 
 /** select columns of table "topic" */
 export enum TopicSelectColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  Name = 'name',
+  Name = "name",
   /** column name */
-  RealmId = 'realm_id',
+  RealmId = "realm_id",
   /** column name */
-  UpdatedAt = 'updated_at'
+  UpdatedAt = "updated_at",
 }
 
 /** input type for updating data in table "topic" */
 export type TopicSetInput = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
-  realm_id?: InputMaybe<Scalars['Int']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
 };
 
 /** aggregate stddev on columns */
 export type TopicStddevFields = {
-  __typename?: 'topic_stddev_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "topic_stddev_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev() on columns of table "topic" */
@@ -7224,9 +6968,9 @@ export type TopicStddevOrderBy = {
 
 /** aggregate stddev_pop on columns */
 export type TopicStddevPopFields = {
-  __typename?: 'topic_stddev_pop_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "topic_stddev_pop_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev_pop() on columns of table "topic" */
@@ -7237,9 +6981,9 @@ export type TopicStddevPopOrderBy = {
 
 /** aggregate stddev_samp on columns */
 export type TopicStddevSampFields = {
-  __typename?: 'topic_stddev_samp_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "topic_stddev_samp_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by stddev_samp() on columns of table "topic" */
@@ -7258,18 +7002,18 @@ export type TopicStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type TopicStreamCursorValueInput = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
-  realm_id?: InputMaybe<Scalars['Int']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  realm_id?: InputMaybe<Scalars["Int"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
 };
 
 /** aggregate sum on columns */
 export type TopicSumFields = {
-  __typename?: 'topic_sum_fields';
-  id?: Maybe<Scalars['Int']>;
-  realm_id?: Maybe<Scalars['Int']>;
+  __typename?: "topic_sum_fields";
+  id?: Maybe<Scalars["Int"]["output"]>;
+  realm_id?: Maybe<Scalars["Int"]["output"]>;
 };
 
 /** order by sum() on columns of table "topic" */
@@ -7281,15 +7025,15 @@ export type TopicSumOrderBy = {
 /** update columns of table "topic" */
 export enum TopicUpdateColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  Name = 'name',
+  Name = "name",
   /** column name */
-  RealmId = 'realm_id',
+  RealmId = "realm_id",
   /** column name */
-  UpdatedAt = 'updated_at'
+  UpdatedAt = "updated_at",
 }
 
 export type TopicUpdates = {
@@ -7303,9 +7047,9 @@ export type TopicUpdates = {
 
 /** aggregate var_pop on columns */
 export type TopicVarPopFields = {
-  __typename?: 'topic_var_pop_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "topic_var_pop_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by var_pop() on columns of table "topic" */
@@ -7316,9 +7060,9 @@ export type TopicVarPopOrderBy = {
 
 /** aggregate var_samp on columns */
 export type TopicVarSampFields = {
-  __typename?: 'topic_var_samp_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "topic_var_samp_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by var_samp() on columns of table "topic" */
@@ -7329,9 +7073,9 @@ export type TopicVarSampOrderBy = {
 
 /** aggregate variance on columns */
 export type TopicVarianceFields = {
-  __typename?: 'topic_variance_fields';
-  id?: Maybe<Scalars['Float']>;
-  realm_id?: Maybe<Scalars['Float']>;
+  __typename?: "topic_variance_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+  realm_id?: Maybe<Scalars["Float"]["output"]>;
 };
 
 /** order by variance() on columns of table "topic" */
@@ -7342,62 +7086,59 @@ export type TopicVarianceOrderBy = {
 
 /** columns and relationships of "user" */
 export type User = {
-  __typename?: 'user';
-  avatar_url?: Maybe<Scalars['String']>;
-  created_at: Scalars['timestamptz'];
-  email: Scalars['String'];
-  id: Scalars['uuid'];
+  __typename?: "user";
+  avatar_url?: Maybe<Scalars["String"]["output"]>;
+  created_at: Scalars["timestamptz"]["output"];
+  email: Scalars["String"]["output"];
+  id: Scalars["uuid"]["output"];
   /** An array relationship */
   realm_users: Array<RealmUserUnion>;
   /** An aggregate relationship */
   realm_users_aggregate: RealmUserUnionAggregate;
-  role: Scalars['String'];
-  status?: Maybe<Scalars['String']>;
-  university_id: Scalars['String'];
-  updated_at: Scalars['timestamptz'];
-  username: Scalars['String'];
+  role: Scalars["String"]["output"];
+  status?: Maybe<Scalars["String"]["output"]>;
+  university_id: Scalars["String"]["output"];
+  updated_at: Scalars["timestamptz"]["output"];
+  username: Scalars["String"]["output"];
 };
-
 
 /** columns and relationships of "user" */
 export type UserRealmUsersArgs = {
   distinct_on?: InputMaybe<Array<RealmUserUnionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmUserUnionOrderBy>>;
   where?: InputMaybe<RealmUserUnionBoolExp>;
 };
 
-
 /** columns and relationships of "user" */
 export type UserRealmUsersAggregateArgs = {
   distinct_on?: InputMaybe<Array<RealmUserUnionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   order_by?: InputMaybe<Array<RealmUserUnionOrderBy>>;
   where?: InputMaybe<RealmUserUnionBoolExp>;
 };
 
 /** aggregated selection of "user" */
 export type UserAggregate = {
-  __typename?: 'user_aggregate';
+  __typename?: "user_aggregate";
   aggregate?: Maybe<UserAggregateFields>;
   nodes: Array<User>;
 };
 
 /** aggregate fields of "user" */
 export type UserAggregateFields = {
-  __typename?: 'user_aggregate_fields';
-  count: Scalars['Int'];
+  __typename?: "user_aggregate_fields";
+  count: Scalars["Int"]["output"];
   max?: Maybe<UserMaxFields>;
   min?: Maybe<UserMinFields>;
 };
 
-
 /** aggregate fields of "user" */
 export type UserAggregateFieldsCountArgs = {
   columns?: InputMaybe<Array<UserSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** Boolean expression to filter rows from the table "user". All fields are combined with a logical 'AND'. */
@@ -7421,64 +7162,64 @@ export type UserBoolExp = {
 /** unique or primary key constraints on table "user" */
 export enum UserConstraint {
   /** unique or primary key constraint on columns "id" */
-  UserIdKey = 'user_id_key',
+  UserIdKey = "user_id_key",
   /** unique or primary key constraint on columns "id" */
-  UserPkey = 'user_pkey',
+  UserPkey = "user_pkey",
   /** unique or primary key constraint on columns "university_id" */
-  UserUniversityIdKey = 'user_university_id_key',
+  UserUniversityIdKey = "user_university_id_key",
   /** unique or primary key constraint on columns "username" */
-  UserUsernameKey = 'user_username_key',
+  UserUsernameKey = "user_username_key",
   /** unique or primary key constraint on columns "email" */
-  UsersEmailKey = 'users_email_key'
+  UsersEmailKey = "users_email_key",
 }
 
 /** input type for inserting data into table "user" */
 export type UserInsertInput = {
-  avatar_url?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  email?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['uuid']>;
+  avatar_url?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  email?: InputMaybe<Scalars["String"]["input"]>;
+  id?: InputMaybe<Scalars["uuid"]["input"]>;
   realm_users?: InputMaybe<RealmUserUnionArrRelInsertInput>;
-  role?: InputMaybe<Scalars['String']>;
-  status?: InputMaybe<Scalars['String']>;
-  university_id?: InputMaybe<Scalars['String']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
-  username?: InputMaybe<Scalars['String']>;
+  role?: InputMaybe<Scalars["String"]["input"]>;
+  status?: InputMaybe<Scalars["String"]["input"]>;
+  university_id?: InputMaybe<Scalars["String"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  username?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 /** aggregate max on columns */
 export type UserMaxFields = {
-  __typename?: 'user_max_fields';
-  avatar_url?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  email?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['uuid']>;
-  role?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  university_id?: Maybe<Scalars['String']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
-  username?: Maybe<Scalars['String']>;
+  __typename?: "user_max_fields";
+  avatar_url?: Maybe<Scalars["String"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  email?: Maybe<Scalars["String"]["output"]>;
+  id?: Maybe<Scalars["uuid"]["output"]>;
+  role?: Maybe<Scalars["String"]["output"]>;
+  status?: Maybe<Scalars["String"]["output"]>;
+  university_id?: Maybe<Scalars["String"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  username?: Maybe<Scalars["String"]["output"]>;
 };
 
 /** aggregate min on columns */
 export type UserMinFields = {
-  __typename?: 'user_min_fields';
-  avatar_url?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  email?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['uuid']>;
-  role?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  university_id?: Maybe<Scalars['String']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
-  username?: Maybe<Scalars['String']>;
+  __typename?: "user_min_fields";
+  avatar_url?: Maybe<Scalars["String"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  email?: Maybe<Scalars["String"]["output"]>;
+  id?: Maybe<Scalars["uuid"]["output"]>;
+  role?: Maybe<Scalars["String"]["output"]>;
+  status?: Maybe<Scalars["String"]["output"]>;
+  university_id?: Maybe<Scalars["String"]["output"]>;
+  updated_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  username?: Maybe<Scalars["String"]["output"]>;
 };
 
 /** response of any mutation on the table "user" */
 export type UserMutationResponse = {
-  __typename?: 'user_mutation_response';
+  __typename?: "user_mutation_response";
   /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
+  affected_rows: Scalars["Int"]["output"];
   /** data from the rows affected by the mutation */
   returning: Array<User>;
 };
@@ -7506,39 +7247,38 @@ export type UserOrderBy = {
 
 /** primary key columns input for table: user */
 export type UserPkColumnsInput = {
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 };
 
 /** columns and relationships of "user_public" */
 export type UserPublic = {
-  __typename?: 'user_public';
-  avatar_url?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  id?: Maybe<Scalars['uuid']>;
-  status?: Maybe<Scalars['String']>;
-  username?: Maybe<Scalars['String']>;
+  __typename?: "user_public";
+  avatar_url?: Maybe<Scalars["String"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["uuid"]["output"]>;
+  status?: Maybe<Scalars["String"]["output"]>;
+  username?: Maybe<Scalars["String"]["output"]>;
 };
 
 /** aggregated selection of "user_public" */
 export type UserPublicAggregate = {
-  __typename?: 'user_public_aggregate';
+  __typename?: "user_public_aggregate";
   aggregate?: Maybe<UserPublicAggregateFields>;
   nodes: Array<UserPublic>;
 };
 
 /** aggregate fields of "user_public" */
 export type UserPublicAggregateFields = {
-  __typename?: 'user_public_aggregate_fields';
-  count: Scalars['Int'];
+  __typename?: "user_public_aggregate_fields";
+  count: Scalars["Int"]["output"];
   max?: Maybe<UserPublicMaxFields>;
   min?: Maybe<UserPublicMinFields>;
 };
 
-
 /** aggregate fields of "user_public" */
 export type UserPublicAggregateFieldsCountArgs = {
   columns?: InputMaybe<Array<UserPublicSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** Boolean expression to filter rows from the table "user_public". All fields are combined with a logical 'AND'. */
@@ -7555,38 +7295,38 @@ export type UserPublicBoolExp = {
 
 /** input type for inserting data into table "user_public" */
 export type UserPublicInsertInput = {
-  avatar_url?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['uuid']>;
-  status?: InputMaybe<Scalars['String']>;
-  username?: InputMaybe<Scalars['String']>;
+  avatar_url?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  status?: InputMaybe<Scalars["String"]["input"]>;
+  username?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 /** aggregate max on columns */
 export type UserPublicMaxFields = {
-  __typename?: 'user_public_max_fields';
-  avatar_url?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  id?: Maybe<Scalars['uuid']>;
-  status?: Maybe<Scalars['String']>;
-  username?: Maybe<Scalars['String']>;
+  __typename?: "user_public_max_fields";
+  avatar_url?: Maybe<Scalars["String"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["uuid"]["output"]>;
+  status?: Maybe<Scalars["String"]["output"]>;
+  username?: Maybe<Scalars["String"]["output"]>;
 };
 
 /** aggregate min on columns */
 export type UserPublicMinFields = {
-  __typename?: 'user_public_min_fields';
-  avatar_url?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['timestamptz']>;
-  id?: Maybe<Scalars['uuid']>;
-  status?: Maybe<Scalars['String']>;
-  username?: Maybe<Scalars['String']>;
+  __typename?: "user_public_min_fields";
+  avatar_url?: Maybe<Scalars["String"]["output"]>;
+  created_at?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["uuid"]["output"]>;
+  status?: Maybe<Scalars["String"]["output"]>;
+  username?: Maybe<Scalars["String"]["output"]>;
 };
 
 /** response of any mutation on the table "user_public" */
 export type UserPublicMutationResponse = {
-  __typename?: 'user_public_mutation_response';
+  __typename?: "user_public_mutation_response";
   /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
+  affected_rows: Scalars["Int"]["output"];
   /** data from the rows affected by the mutation */
   returning: Array<UserPublic>;
 };
@@ -7608,24 +7348,24 @@ export type UserPublicOrderBy = {
 /** select columns of table "user_public" */
 export enum UserPublicSelectColumn {
   /** column name */
-  AvatarUrl = 'avatar_url',
+  AvatarUrl = "avatar_url",
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  Status = 'status',
+  Status = "status",
   /** column name */
-  Username = 'username'
+  Username = "username",
 }
 
 /** input type for updating data in table "user_public" */
 export type UserPublicSetInput = {
-  avatar_url?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['uuid']>;
-  status?: InputMaybe<Scalars['String']>;
-  username?: InputMaybe<Scalars['String']>;
+  avatar_url?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  status?: InputMaybe<Scalars["String"]["input"]>;
+  username?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 /** Streaming cursor of the table "user_public" */
@@ -7638,11 +7378,11 @@ export type UserPublicStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type UserPublicStreamCursorValueInput = {
-  avatar_url?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['uuid']>;
-  status?: InputMaybe<Scalars['String']>;
-  username?: InputMaybe<Scalars['String']>;
+  avatar_url?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  status?: InputMaybe<Scalars["String"]["input"]>;
+  username?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type UserPublicUpdates = {
@@ -7655,36 +7395,36 @@ export type UserPublicUpdates = {
 /** select columns of table "user" */
 export enum UserSelectColumn {
   /** column name */
-  AvatarUrl = 'avatar_url',
+  AvatarUrl = "avatar_url",
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Email = 'email',
+  Email = "email",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  Role = 'role',
+  Role = "role",
   /** column name */
-  Status = 'status',
+  Status = "status",
   /** column name */
-  UniversityId = 'university_id',
+  UniversityId = "university_id",
   /** column name */
-  UpdatedAt = 'updated_at',
+  UpdatedAt = "updated_at",
   /** column name */
-  Username = 'username'
+  Username = "username",
 }
 
 /** input type for updating data in table "user" */
 export type UserSetInput = {
-  avatar_url?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  email?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['uuid']>;
-  role?: InputMaybe<Scalars['String']>;
-  status?: InputMaybe<Scalars['String']>;
-  university_id?: InputMaybe<Scalars['String']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
-  username?: InputMaybe<Scalars['String']>;
+  avatar_url?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  email?: InputMaybe<Scalars["String"]["input"]>;
+  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  role?: InputMaybe<Scalars["String"]["input"]>;
+  status?: InputMaybe<Scalars["String"]["input"]>;
+  university_id?: InputMaybe<Scalars["String"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  username?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 /** Streaming cursor of the table "user" */
@@ -7697,37 +7437,37 @@ export type UserStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type UserStreamCursorValueInput = {
-  avatar_url?: InputMaybe<Scalars['String']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  email?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['uuid']>;
-  role?: InputMaybe<Scalars['String']>;
-  status?: InputMaybe<Scalars['String']>;
-  university_id?: InputMaybe<Scalars['String']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
-  username?: InputMaybe<Scalars['String']>;
+  avatar_url?: InputMaybe<Scalars["String"]["input"]>;
+  created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  email?: InputMaybe<Scalars["String"]["input"]>;
+  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  role?: InputMaybe<Scalars["String"]["input"]>;
+  status?: InputMaybe<Scalars["String"]["input"]>;
+  university_id?: InputMaybe<Scalars["String"]["input"]>;
+  updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  username?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 /** update columns of table "user" */
 export enum UserUpdateColumn {
   /** column name */
-  AvatarUrl = 'avatar_url',
+  AvatarUrl = "avatar_url",
   /** column name */
-  CreatedAt = 'created_at',
+  CreatedAt = "created_at",
   /** column name */
-  Email = 'email',
+  Email = "email",
   /** column name */
-  Id = 'id',
+  Id = "id",
   /** column name */
-  Role = 'role',
+  Role = "role",
   /** column name */
-  Status = 'status',
+  Status = "status",
   /** column name */
-  UniversityId = 'university_id',
+  UniversityId = "university_id",
   /** column name */
-  UpdatedAt = 'updated_at',
+  UpdatedAt = "updated_at",
   /** column name */
-  Username = 'username'
+  Username = "username",
 }
 
 export type UserUpdates = {
@@ -7739,458 +7479,7963 @@ export type UserUpdates = {
 
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
 export type UuidComparisonExp = {
-  _eq?: InputMaybe<Scalars['uuid']>;
-  _gt?: InputMaybe<Scalars['uuid']>;
-  _gte?: InputMaybe<Scalars['uuid']>;
-  _in?: InputMaybe<Array<Scalars['uuid']>>;
-  _is_null?: InputMaybe<Scalars['Boolean']>;
-  _lt?: InputMaybe<Scalars['uuid']>;
-  _lte?: InputMaybe<Scalars['uuid']>;
-  _neq?: InputMaybe<Scalars['uuid']>;
-  _nin?: InputMaybe<Array<Scalars['uuid']>>;
+  _eq?: InputMaybe<Scalars["uuid"]["input"]>;
+  _gt?: InputMaybe<Scalars["uuid"]["input"]>;
+  _gte?: InputMaybe<Scalars["uuid"]["input"]>;
+  _in?: InputMaybe<Array<Scalars["uuid"]["input"]>>;
+  _is_null?: InputMaybe<Scalars["Boolean"]["input"]>;
+  _lt?: InputMaybe<Scalars["uuid"]["input"]>;
+  _lte?: InputMaybe<Scalars["uuid"]["input"]>;
+  _neq?: InputMaybe<Scalars["uuid"]["input"]>;
+  _nin?: InputMaybe<Array<Scalars["uuid"]["input"]>>;
 };
 
 export type GetCourseQueryVariables = Exact<{
-  id: Scalars['String'];
+  id: Scalars["String"]["input"];
 }>;
 
-
-export type GetCourseQuery = { __typename?: 'query_root', course_by_pk?: { __typename?: 'course', id: string, name: string, time_location: string, semester_id: string, number: string, index: number, teacher: { __typename?: 'teacher', id: string, name: string }, course_reviews_aggregate: { __typename?: 'course_review_aggregate', aggregate?: { __typename?: 'course_review_aggregate_fields', count: number, avg?: { __typename?: 'course_review_avg_fields', rating?: number | null } | null } | null } } | null };
+export type GetCourseQuery = {
+  __typename?: "query_root";
+  course_by_pk?: {
+    __typename?: "course";
+    id: string;
+    name: string;
+    time_location: string;
+    semester_id: string;
+    number: string;
+    index: number;
+    teacher: { __typename?: "teacher"; id: string; name: string };
+    course_reviews_aggregate: {
+      __typename?: "course_review_aggregate";
+      aggregate?: {
+        __typename?: "course_review_aggregate_fields";
+        count: number;
+        avg?: {
+          __typename?: "course_review_avg_fields";
+          rating?: number | null;
+        } | null;
+      } | null;
+    };
+  } | null;
+};
 
 export type GetCoursesQueryVariables = Exact<{
-  query: Scalars['String'];
+  query: Scalars["String"]["input"];
 }>;
 
-
-export type GetCoursesQuery = { __typename?: 'query_root', course: Array<{ __typename?: 'course', id: string, name: string, semester_id: string, teacher: { __typename?: 'teacher', id: string, name: string }, course_reviews_aggregate: { __typename?: 'course_review_aggregate', aggregate?: { __typename?: 'course_review_aggregate_fields', avg?: { __typename?: 'course_review_avg_fields', rating?: number | null } | null } | null } }> };
+export type GetCoursesQuery = {
+  __typename?: "query_root";
+  course: Array<{
+    __typename?: "course";
+    id: string;
+    name: string;
+    semester_id: string;
+    teacher: { __typename?: "teacher"; id: string; name: string };
+    course_reviews_aggregate: {
+      __typename?: "course_review_aggregate";
+      aggregate?: {
+        __typename?: "course_review_aggregate_fields";
+        avg?: {
+          __typename?: "course_review_avg_fields";
+          rating?: number | null;
+        } | null;
+      } | null;
+    };
+  }>;
+};
 
 export type GetCourseCountQueryVariables = Exact<{
-  semesterId: Scalars['String'];
+  semesterId: Scalars["String"]["input"];
 }>;
 
-
-export type GetCourseCountQuery = { __typename?: 'query_root', course_aggregate: { __typename?: 'course_aggregate', aggregate?: { __typename?: 'course_aggregate_fields', count: number } | null } };
+export type GetCourseCountQuery = {
+  __typename?: "query_root";
+  course_aggregate: {
+    __typename?: "course_aggregate";
+    aggregate?: {
+      __typename?: "course_aggregate_fields";
+      count: number;
+    } | null;
+  };
+};
 
 export type GetCourseReviewsQueryVariables = Exact<{
-  courseId: Scalars['String'];
-  userId: Scalars['uuid'];
+  courseId: Scalars["String"]["input"];
+  userId: Scalars["uuid"]["input"];
 }>;
 
-
-export type GetCourseReviewsQuery = { __typename?: 'query_root', my_course_review?: { __typename?: 'course_review', id: number, rating: number, content: string, created_at: string, updated_at: string, user?: { __typename?: 'user_public', id?: string | null, username?: string | null, avatar_url?: string | null } | null } | null, course_review: Array<{ __typename?: 'course_review', id: number, rating: number, content: string, created_at: string, updated_at: string, user?: { __typename?: 'user_public', id?: string | null, username?: string | null, avatar_url?: string | null } | null }> };
+export type GetCourseReviewsQuery = {
+  __typename?: "query_root";
+  my_course_review?: {
+    __typename?: "course_review";
+    id: number;
+    rating: number;
+    content: string;
+    created_at: string;
+    updated_at: string;
+    user?: {
+      __typename?: "user_public";
+      id?: string | null;
+      username?: string | null;
+      avatar_url?: string | null;
+    } | null;
+  } | null;
+  course_review: Array<{
+    __typename?: "course_review";
+    id: number;
+    rating: number;
+    content: string;
+    created_at: string;
+    updated_at: string;
+    user?: {
+      __typename?: "user_public";
+      id?: string | null;
+      username?: string | null;
+      avatar_url?: string | null;
+    } | null;
+  }>;
+};
 
 export type AddCourseReviewMutationVariables = Exact<{
-  userId: Scalars['uuid'];
-  courseId: Scalars['String'];
-  rating: Scalars['Float'];
-  content: Scalars['String'];
+  userId: Scalars["uuid"]["input"];
+  courseId: Scalars["String"]["input"];
+  rating: Scalars["Float"]["input"];
+  content: Scalars["String"]["input"];
 }>;
 
-
-export type AddCourseReviewMutation = { __typename?: 'mutation_root', insert_course_review_one?: { __typename?: 'course_review', id: number } | null };
+export type AddCourseReviewMutation = {
+  __typename?: "mutation_root";
+  insert_course_review_one?: {
+    __typename?: "course_review";
+    id: number;
+  } | null;
+};
 
 export type UpdateCourseReviewMutationVariables = Exact<{
-  userId: Scalars['uuid'];
-  courseId: Scalars['String'];
-  rating: Scalars['Float'];
-  content: Scalars['String'];
+  userId: Scalars["uuid"]["input"];
+  courseId: Scalars["String"]["input"];
+  rating: Scalars["Float"]["input"];
+  content: Scalars["String"]["input"];
 }>;
 
-
-export type UpdateCourseReviewMutation = { __typename?: 'mutation_root', update_course_review_by_pk?: { __typename?: 'course_review', id: number } | null };
+export type UpdateCourseReviewMutation = {
+  __typename?: "mutation_root";
+  update_course_review_by_pk?: {
+    __typename?: "course_review";
+    id: number;
+  } | null;
+};
 
 export type DeleteCourseReviewMutationVariables = Exact<{
-  userId: Scalars['uuid'];
-  courseId: Scalars['String'];
+  userId: Scalars["uuid"]["input"];
+  courseId: Scalars["String"]["input"];
 }>;
 
-
-export type DeleteCourseReviewMutation = { __typename?: 'mutation_root', delete_course_review_by_pk?: { __typename?: 'course_review', id: number } | null };
+export type DeleteCourseReviewMutation = {
+  __typename?: "mutation_root";
+  delete_course_review_by_pk?: {
+    __typename?: "course_review";
+    id: number;
+  } | null;
+};
 
 export type GetMessageContactsQueryVariables = Exact<{
-  realmId: Scalars['Int'];
-  userId: Scalars['uuid'];
+  realmId: Scalars["Int"]["input"];
+  userId: Scalars["uuid"]["input"];
 }>;
 
-
-export type GetMessageContactsQuery = { __typename?: 'query_root', message: Array<{ __typename?: 'message', id: string, from_user?: { __typename?: 'realm_user_union', realm_id?: number | null, user_id?: string | null, username?: string | null, avatar_url?: string | null, realm?: { __typename?: 'realm_public', id?: number | null, name?: string | null } | null } | null, to_user?: { __typename?: 'realm_user_union', realm_id?: number | null, user_id?: string | null, username?: string | null, avatar_url?: string | null, realm?: { __typename?: 'realm_public', id?: number | null, name?: string | null } | null } | null }> };
+export type GetMessageContactsQuery = {
+  __typename?: "query_root";
+  message: Array<{
+    __typename?: "message";
+    id: string;
+    from_user?: {
+      __typename?: "realm_user_union";
+      realm_id?: number | null;
+      user_id?: string | null;
+      username?: string | null;
+      avatar_url?: string | null;
+      realm?: {
+        __typename?: "realm_public";
+        id?: number | null;
+        name?: string | null;
+      } | null;
+    } | null;
+    to_user?: {
+      __typename?: "realm_user_union";
+      realm_id?: number | null;
+      user_id?: string | null;
+      username?: string | null;
+      avatar_url?: string | null;
+      realm?: {
+        __typename?: "realm_public";
+        id?: number | null;
+        name?: string | null;
+      } | null;
+    } | null;
+  }>;
+};
 
 export type GetMessageQueryVariables = Exact<{
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 }>;
 
-
-export type GetMessageQuery = { __typename?: 'query_root', message_by_pk?: { __typename?: 'message', id: string, from_user?: { __typename?: 'realm_user_union', realm_id?: number | null, user_id?: string | null, username?: string | null, realm?: { __typename?: 'realm_public', id?: number | null, name?: string | null } | null } | null, to_user?: { __typename?: 'realm_user_union', user_id?: string | null } | null } | null };
+export type GetMessageQuery = {
+  __typename?: "query_root";
+  message_by_pk?: {
+    __typename?: "message";
+    id: string;
+    from_user?: {
+      __typename?: "realm_user_union";
+      realm_id?: number | null;
+      user_id?: string | null;
+      username?: string | null;
+      realm?: {
+        __typename?: "realm_public";
+        id?: number | null;
+        name?: string | null;
+      } | null;
+    } | null;
+    to_user?: {
+      __typename?: "realm_user_union";
+      user_id?: string | null;
+    } | null;
+  } | null;
+};
 
 export type GetMessagesQueryVariables = Exact<{
-  realmId: Scalars['Int'];
-  userId1: Scalars['uuid'];
-  userId2: Scalars['uuid'];
+  realmId: Scalars["Int"]["input"];
+  userId1: Scalars["uuid"]["input"];
+  userId2: Scalars["uuid"]["input"];
 }>;
 
-
-export type GetMessagesQuery = { __typename?: 'query_root', message: Array<{ __typename?: 'message', id: string, from_user_id: string, to_user_id: string, text: string, created_at: string }> };
+export type GetMessagesQuery = {
+  __typename?: "query_root";
+  message: Array<{
+    __typename?: "message";
+    id: string;
+    from_user_id: string;
+    to_user_id: string;
+    text: string;
+    created_at: string;
+  }>;
+};
 
 export type AddMessageMutationVariables = Exact<{
-  realmId: Scalars['Int'];
-  fromUserId: Scalars['uuid'];
-  toUserId: Scalars['uuid'];
-  text: Scalars['String'];
+  realmId: Scalars["Int"]["input"];
+  fromUserId: Scalars["uuid"]["input"];
+  toUserId: Scalars["uuid"]["input"];
+  text: Scalars["String"]["input"];
 }>;
 
-
-export type AddMessageMutation = { __typename?: 'mutation_root', insert_message_one?: { __typename?: 'message', id: string } | null };
+export type AddMessageMutation = {
+  __typename?: "mutation_root";
+  insert_message_one?: { __typename?: "message"; id: string } | null;
+};
 
 export type GetNotificationsQueryVariables = Exact<{
-  userId: Scalars['uuid'];
+  userId: Scalars["uuid"]["input"];
 }>;
 
-
-export type GetNotificationsQuery = { __typename?: 'query_root', notification: Array<{ __typename?: 'notification', id: string, payload: string, read: boolean, created_at: string }> };
+export type GetNotificationsQuery = {
+  __typename?: "query_root";
+  notification: Array<{
+    __typename?: "notification";
+    id: string;
+    payload: string;
+    read: boolean;
+    created_at: string;
+  }>;
+};
 
 export type GetNewNotificationCountQueryVariables = Exact<{
-  userId: Scalars['uuid'];
+  userId: Scalars["uuid"]["input"];
 }>;
 
-
-export type GetNewNotificationCountQuery = { __typename?: 'query_root', notification_aggregate: { __typename?: 'notification_aggregate', aggregate?: { __typename?: 'notification_aggregate_fields', count: number } | null } };
+export type GetNewNotificationCountQuery = {
+  __typename?: "query_root";
+  notification_aggregate: {
+    __typename?: "notification_aggregate";
+    aggregate?: {
+      __typename?: "notification_aggregate_fields";
+      count: number;
+    } | null;
+  };
+};
 
 export type AddNotificationMutationVariables = Exact<{
-  userId: Scalars['uuid'];
-  payload: Scalars['String'];
+  userId: Scalars["uuid"]["input"];
+  payload: Scalars["String"]["input"];
 }>;
 
-
-export type AddNotificationMutation = { __typename?: 'mutation_root', insert_notification_one?: { __typename?: 'notification', id: string } | null };
+export type AddNotificationMutation = {
+  __typename?: "mutation_root";
+  insert_notification_one?: { __typename?: "notification"; id: string } | null;
+};
 
 export type MarkNotificationAsReadMutationVariables = Exact<{
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 }>;
 
-
-export type MarkNotificationAsReadMutation = { __typename?: 'mutation_root', update_notification_by_pk?: { __typename?: 'notification', id: string } | null };
+export type MarkNotificationAsReadMutation = {
+  __typename?: "mutation_root";
+  update_notification_by_pk?: {
+    __typename?: "notification";
+    id: string;
+  } | null;
+};
 
 export type GetPostQueryVariables = Exact<{
-  id: Scalars['Int'];
+  id: Scalars["Int"]["input"];
 }>;
 
-
-export type GetPostQuery = { __typename?: 'query_root', realm_post: Array<{ __typename?: 'realm_post', id?: number | null, user?: { __typename?: 'realm_user_union', realm_id?: number | null, user_id?: string | null, username?: string | null } | null, thread?: { __typename?: 'thread', id: number, title: string, realm?: { __typename?: 'realm_public', id?: number | null, name?: string | null } | null, user?: { __typename?: 'realm_user_union', realm_id?: number | null, user_id?: string | null } | null, topic?: { __typename?: 'topic', id: number, name: string } | null } | null }> };
+export type GetPostQuery = {
+  __typename?: "query_root";
+  realm_post: Array<{
+    __typename?: "realm_post";
+    id?: number | null;
+    user?: {
+      __typename?: "realm_user_union";
+      realm_id?: number | null;
+      user_id?: string | null;
+      username?: string | null;
+    } | null;
+    thread?: {
+      __typename?: "thread";
+      id: number;
+      title: string;
+      realm?: {
+        __typename?: "realm_public";
+        id?: number | null;
+        name?: string | null;
+      } | null;
+      user?: {
+        __typename?: "realm_user_union";
+        realm_id?: number | null;
+        user_id?: string | null;
+      } | null;
+      topic?: { __typename?: "topic"; id: number; name: string } | null;
+    } | null;
+  }>;
+};
 
 export type AddPostMutationVariables = Exact<{
-  userId: Scalars['uuid'];
-  threadId: Scalars['Int'];
-  content: Scalars['String'];
+  userId: Scalars["uuid"]["input"];
+  threadId: Scalars["Int"]["input"];
+  content: Scalars["String"]["input"];
 }>;
 
-
-export type AddPostMutation = { __typename?: 'mutation_root', insert_post_one?: { __typename?: 'post', id: number } | null };
+export type AddPostMutation = {
+  __typename?: "mutation_root";
+  insert_post_one?: { __typename?: "post"; id: number } | null;
+};
 
 export type UpdatePostMutationVariables = Exact<{
-  postId: Scalars['Int'];
-  content: Scalars['String'];
+  postId: Scalars["Int"]["input"];
+  content: Scalars["String"]["input"];
 }>;
 
-
-export type UpdatePostMutation = { __typename?: 'mutation_root', update_post_by_pk?: { __typename?: 'post', id: number } | null };
+export type UpdatePostMutation = {
+  __typename?: "mutation_root";
+  update_post_by_pk?: { __typename?: "post"; id: number } | null;
+};
 
 export type GetThreadReactionsQueryVariables = Exact<{
-  threadId: Scalars['Int'];
-  userId: Scalars['uuid'];
+  threadId: Scalars["Int"]["input"];
+  userId: Scalars["uuid"]["input"];
 }>;
 
-
-export type GetThreadReactionsQuery = { __typename?: 'query_root', thread_by_pk?: { __typename?: 'thread', id: number, my_reactions: Array<{ __typename?: 'thread_reaction', thread_id: number, user_id: string, name: ReactionEmojiEnum }>, confused_face_reactions: { __typename?: 'thread_reaction_aggregate', aggregate?: { __typename?: 'thread_reaction_aggregate_fields', count: number } | null }, eyes_reactions: { __typename?: 'thread_reaction_aggregate', aggregate?: { __typename?: 'thread_reaction_aggregate_fields', count: number } | null }, grinning_face_with_smiling_eyes_reactions: { __typename?: 'thread_reaction_aggregate', aggregate?: { __typename?: 'thread_reaction_aggregate_fields', count: number } | null }, party_popper_reactions: { __typename?: 'thread_reaction_aggregate', aggregate?: { __typename?: 'thread_reaction_aggregate_fields', count: number } | null }, red_heart_reactions: { __typename?: 'thread_reaction_aggregate', aggregate?: { __typename?: 'thread_reaction_aggregate_fields', count: number } | null }, rocket_reactions: { __typename?: 'thread_reaction_aggregate', aggregate?: { __typename?: 'thread_reaction_aggregate_fields', count: number } | null }, thumbs_down_reactions: { __typename?: 'thread_reaction_aggregate', aggregate?: { __typename?: 'thread_reaction_aggregate_fields', count: number } | null }, thumbs_up_reactions: { __typename?: 'thread_reaction_aggregate', aggregate?: { __typename?: 'thread_reaction_aggregate_fields', count: number } | null }, posts: Array<{ __typename?: 'realm_post', id?: number | null, my_reactions: Array<{ __typename?: 'post_reaction', post_id: number, user_id: string, name: ReactionEmojiEnum }>, confused_face_reactions: { __typename?: 'post_reaction_aggregate', aggregate?: { __typename?: 'post_reaction_aggregate_fields', count: number } | null }, eyes_reactions: { __typename?: 'post_reaction_aggregate', aggregate?: { __typename?: 'post_reaction_aggregate_fields', count: number } | null }, grinning_face_with_smiling_eyes_reactions: { __typename?: 'post_reaction_aggregate', aggregate?: { __typename?: 'post_reaction_aggregate_fields', count: number } | null }, party_popper_reactions: { __typename?: 'post_reaction_aggregate', aggregate?: { __typename?: 'post_reaction_aggregate_fields', count: number } | null }, red_heart_reactions: { __typename?: 'post_reaction_aggregate', aggregate?: { __typename?: 'post_reaction_aggregate_fields', count: number } | null }, rocket_reactions: { __typename?: 'post_reaction_aggregate', aggregate?: { __typename?: 'post_reaction_aggregate_fields', count: number } | null }, thumbs_down_reactions: { __typename?: 'post_reaction_aggregate', aggregate?: { __typename?: 'post_reaction_aggregate_fields', count: number } | null }, thumbs_up_reactions: { __typename?: 'post_reaction_aggregate', aggregate?: { __typename?: 'post_reaction_aggregate_fields', count: number } | null } }> } | null };
+export type GetThreadReactionsQuery = {
+  __typename?: "query_root";
+  thread_by_pk?: {
+    __typename?: "thread";
+    id: number;
+    my_reactions: Array<{
+      __typename?: "thread_reaction";
+      thread_id: number;
+      user_id: string;
+      name: ReactionEmojiEnum;
+    }>;
+    confused_face_reactions: {
+      __typename?: "thread_reaction_aggregate";
+      aggregate?: {
+        __typename?: "thread_reaction_aggregate_fields";
+        count: number;
+      } | null;
+    };
+    eyes_reactions: {
+      __typename?: "thread_reaction_aggregate";
+      aggregate?: {
+        __typename?: "thread_reaction_aggregate_fields";
+        count: number;
+      } | null;
+    };
+    grinning_face_with_smiling_eyes_reactions: {
+      __typename?: "thread_reaction_aggregate";
+      aggregate?: {
+        __typename?: "thread_reaction_aggregate_fields";
+        count: number;
+      } | null;
+    };
+    party_popper_reactions: {
+      __typename?: "thread_reaction_aggregate";
+      aggregate?: {
+        __typename?: "thread_reaction_aggregate_fields";
+        count: number;
+      } | null;
+    };
+    red_heart_reactions: {
+      __typename?: "thread_reaction_aggregate";
+      aggregate?: {
+        __typename?: "thread_reaction_aggregate_fields";
+        count: number;
+      } | null;
+    };
+    rocket_reactions: {
+      __typename?: "thread_reaction_aggregate";
+      aggregate?: {
+        __typename?: "thread_reaction_aggregate_fields";
+        count: number;
+      } | null;
+    };
+    thumbs_down_reactions: {
+      __typename?: "thread_reaction_aggregate";
+      aggregate?: {
+        __typename?: "thread_reaction_aggregate_fields";
+        count: number;
+      } | null;
+    };
+    thumbs_up_reactions: {
+      __typename?: "thread_reaction_aggregate";
+      aggregate?: {
+        __typename?: "thread_reaction_aggregate_fields";
+        count: number;
+      } | null;
+    };
+    posts: Array<{
+      __typename?: "realm_post";
+      id?: number | null;
+      my_reactions: Array<{
+        __typename?: "post_reaction";
+        post_id: number;
+        user_id: string;
+        name: ReactionEmojiEnum;
+      }>;
+      confused_face_reactions: {
+        __typename?: "post_reaction_aggregate";
+        aggregate?: {
+          __typename?: "post_reaction_aggregate_fields";
+          count: number;
+        } | null;
+      };
+      eyes_reactions: {
+        __typename?: "post_reaction_aggregate";
+        aggregate?: {
+          __typename?: "post_reaction_aggregate_fields";
+          count: number;
+        } | null;
+      };
+      grinning_face_with_smiling_eyes_reactions: {
+        __typename?: "post_reaction_aggregate";
+        aggregate?: {
+          __typename?: "post_reaction_aggregate_fields";
+          count: number;
+        } | null;
+      };
+      party_popper_reactions: {
+        __typename?: "post_reaction_aggregate";
+        aggregate?: {
+          __typename?: "post_reaction_aggregate_fields";
+          count: number;
+        } | null;
+      };
+      red_heart_reactions: {
+        __typename?: "post_reaction_aggregate";
+        aggregate?: {
+          __typename?: "post_reaction_aggregate_fields";
+          count: number;
+        } | null;
+      };
+      rocket_reactions: {
+        __typename?: "post_reaction_aggregate";
+        aggregate?: {
+          __typename?: "post_reaction_aggregate_fields";
+          count: number;
+        } | null;
+      };
+      thumbs_down_reactions: {
+        __typename?: "post_reaction_aggregate";
+        aggregate?: {
+          __typename?: "post_reaction_aggregate_fields";
+          count: number;
+        } | null;
+      };
+      thumbs_up_reactions: {
+        __typename?: "post_reaction_aggregate";
+        aggregate?: {
+          __typename?: "post_reaction_aggregate_fields";
+          count: number;
+        } | null;
+      };
+    }>;
+  } | null;
+};
 
 export type AddThreadReactionMutationVariables = Exact<{
   name: ReactionEmojiEnum;
-  threadId: Scalars['Int'];
-  userId: Scalars['uuid'];
+  threadId: Scalars["Int"]["input"];
+  userId: Scalars["uuid"]["input"];
 }>;
 
-
-export type AddThreadReactionMutation = { __typename?: 'mutation_root', insert_thread_reaction_one?: { __typename?: 'thread_reaction', user_id: string, thread_id: number, name: ReactionEmojiEnum } | null };
+export type AddThreadReactionMutation = {
+  __typename?: "mutation_root";
+  insert_thread_reaction_one?: {
+    __typename?: "thread_reaction";
+    user_id: string;
+    thread_id: number;
+    name: ReactionEmojiEnum;
+  } | null;
+};
 
 export type DeleteThreadReactionMutationVariables = Exact<{
   name: ReactionEmojiEnum;
-  threadId: Scalars['Int'];
-  userId: Scalars['uuid'];
+  threadId: Scalars["Int"]["input"];
+  userId: Scalars["uuid"]["input"];
 }>;
 
-
-export type DeleteThreadReactionMutation = { __typename?: 'mutation_root', delete_thread_reaction_by_pk?: { __typename?: 'thread_reaction', user_id: string, thread_id: number, name: ReactionEmojiEnum } | null };
+export type DeleteThreadReactionMutation = {
+  __typename?: "mutation_root";
+  delete_thread_reaction_by_pk?: {
+    __typename?: "thread_reaction";
+    user_id: string;
+    thread_id: number;
+    name: ReactionEmojiEnum;
+  } | null;
+};
 
 export type AddPostReactionMutationVariables = Exact<{
   name: ReactionEmojiEnum;
-  postId: Scalars['Int'];
-  userId: Scalars['uuid'];
+  postId: Scalars["Int"]["input"];
+  userId: Scalars["uuid"]["input"];
 }>;
 
-
-export type AddPostReactionMutation = { __typename?: 'mutation_root', insert_post_reaction_one?: { __typename?: 'post_reaction', user_id: string, post_id: number, name: ReactionEmojiEnum } | null };
+export type AddPostReactionMutation = {
+  __typename?: "mutation_root";
+  insert_post_reaction_one?: {
+    __typename?: "post_reaction";
+    user_id: string;
+    post_id: number;
+    name: ReactionEmojiEnum;
+  } | null;
+};
 
 export type DeletePostReactionMutationVariables = Exact<{
   name: ReactionEmojiEnum;
-  postId: Scalars['Int'];
-  userId: Scalars['uuid'];
+  postId: Scalars["Int"]["input"];
+  userId: Scalars["uuid"]["input"];
 }>;
 
-
-export type DeletePostReactionMutation = { __typename?: 'mutation_root', delete_post_reaction_by_pk?: { __typename?: 'post_reaction', user_id: string, post_id: number, name: ReactionEmojiEnum } | null };
+export type DeletePostReactionMutation = {
+  __typename?: "mutation_root";
+  delete_post_reaction_by_pk?: {
+    __typename?: "post_reaction";
+    user_id: string;
+    post_id: number;
+    name: ReactionEmojiEnum;
+  } | null;
+};
 
 export type GetRealmQueryVariables = Exact<{
-  id: Scalars['Int'];
+  id: Scalars["Int"]["input"];
 }>;
 
+export type GetRealmQuery = {
+  __typename?: "query_root";
+  realm_public: Array<{
+    __typename?: "realm_public";
+    id?: number | null;
+    name?: string | null;
+    description?: string | null;
+    private?: boolean | null;
+    topics: Array<{ __typename?: "topic"; id: number; name: string }>;
+    threads: Array<{
+      __typename?: "thread";
+      id: number;
+      realm_id: number;
+      title: string;
+      updated_at: string;
+      topic?: { __typename?: "topic"; id: number; name: string } | null;
+      user?: {
+        __typename?: "realm_user_union";
+        realm_id?: number | null;
+        user_id?: string | null;
+        username?: string | null;
+        avatar_url?: string | null;
+      } | null;
+      posts: Array<{
+        __typename?: "realm_post";
+        id?: number | null;
+        user?: {
+          __typename?: "realm_user_union";
+          realm_id?: number | null;
+          user_id?: string | null;
+          username?: string | null;
+          avatar_url?: string | null;
+        } | null;
+      }>;
+      posts_aggregate: {
+        __typename?: "realm_post_aggregate";
+        aggregate?: {
+          __typename?: "realm_post_aggregate_fields";
+          max?: {
+            __typename?: "realm_post_max_fields";
+            updated_at?: string | null;
+          } | null;
+        } | null;
+      };
+    }>;
+  }>;
+};
 
-export type GetRealmQuery = { __typename?: 'query_root', realm_public: Array<{ __typename?: 'realm_public', id?: number | null, name?: string | null, description?: string | null, private?: boolean | null, topics: Array<{ __typename?: 'topic', id: number, name: string }>, threads: Array<{ __typename?: 'thread', id: number, realm_id: number, title: string, updated_at: string, topic?: { __typename?: 'topic', id: number, name: string } | null, user?: { __typename?: 'realm_user_union', realm_id?: number | null, user_id?: string | null, username?: string | null, avatar_url?: string | null } | null, posts: Array<{ __typename?: 'realm_post', id?: number | null, user?: { __typename?: 'realm_user_union', realm_id?: number | null, user_id?: string | null, username?: string | null, avatar_url?: string | null } | null }>, posts_aggregate: { __typename?: 'realm_post_aggregate', aggregate?: { __typename?: 'realm_post_aggregate_fields', max?: { __typename?: 'realm_post_max_fields', updated_at?: string | null } | null } | null } }> }> };
+export type GetPublicRealmsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetPublicRealmsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetPublicRealmsQuery = { __typename?: 'query_root', realm_public: Array<{ __typename?: 'realm_public', id?: number | null, name?: string | null, description?: string | null, users_aggregate: { __typename?: 'realm_user_union_aggregate', aggregate?: { __typename?: 'realm_user_union_aggregate_fields', count: number } | null } }> };
+export type GetPublicRealmsQuery = {
+  __typename?: "query_root";
+  realm_public: Array<{
+    __typename?: "realm_public";
+    id?: number | null;
+    name?: string | null;
+    description?: string | null;
+    users_aggregate: {
+      __typename?: "realm_user_union_aggregate";
+      aggregate?: {
+        __typename?: "realm_user_union_aggregate_fields";
+        count: number;
+      } | null;
+    };
+  }>;
+};
 
 export type GetRealmDetailsQueryVariables = Exact<{
-  id: Scalars['Int'];
+  id: Scalars["Int"]["input"];
 }>;
 
-
-export type GetRealmDetailsQuery = { __typename?: 'query_root', realm_public: Array<{ __typename?: 'realm_public', id?: number | null, name?: string | null, description?: string | null, private?: boolean | null }> };
+export type GetRealmDetailsQuery = {
+  __typename?: "query_root";
+  realm_public: Array<{
+    __typename?: "realm_public";
+    id?: number | null;
+    name?: string | null;
+    description?: string | null;
+    private?: boolean | null;
+  }>;
+};
 
 export type GetRealmDetailsInvitationCodeQueryVariables = Exact<{
-  id: Scalars['Int'];
+  id: Scalars["Int"]["input"];
 }>;
 
-
-export type GetRealmDetailsInvitationCodeQuery = { __typename?: 'query_root', realm_by_pk?: { __typename?: 'realm', id: number, admin_id: string, name: string, description: string, private: boolean, invitation_code?: string | null, topics: Array<{ __typename?: 'topic', id: number, name: string }> } | null };
+export type GetRealmDetailsInvitationCodeQuery = {
+  __typename?: "query_root";
+  realm_by_pk?: {
+    __typename?: "realm";
+    id: number;
+    admin_id: string;
+    name: string;
+    description: string;
+    private: boolean;
+    invitation_code?: string | null;
+    topics: Array<{ __typename?: "topic"; id: number; name: string }>;
+  } | null;
+};
 
 export type AddRealmMutationVariables = Exact<{
-  adminId: Scalars['uuid'];
-  name: Scalars['String'];
-  description: Scalars['String'];
-  private: Scalars['Boolean'];
-  invitationCode?: InputMaybe<Scalars['String']>;
+  adminId: Scalars["uuid"]["input"];
+  name: Scalars["String"]["input"];
+  description: Scalars["String"]["input"];
+  private: Scalars["Boolean"]["input"];
+  invitationCode?: InputMaybe<Scalars["String"]["input"]>;
 }>;
 
-
-export type AddRealmMutation = { __typename?: 'mutation_root', insert_realm_one?: { __typename?: 'realm', id: number } | null };
+export type AddRealmMutation = {
+  __typename?: "mutation_root";
+  insert_realm_one?: { __typename?: "realm"; id: number } | null;
+};
 
 export type UpdateRealmMutationVariables = Exact<{
-  id: Scalars['Int'];
-  description: Scalars['String'];
-  private: Scalars['Boolean'];
-  invitationCode?: InputMaybe<Scalars['String']>;
+  id: Scalars["Int"]["input"];
+  description: Scalars["String"]["input"];
+  private: Scalars["Boolean"]["input"];
+  invitationCode?: InputMaybe<Scalars["String"]["input"]>;
   topics: Array<TopicInsertInput> | TopicInsertInput;
 }>;
 
-
-export type UpdateRealmMutation = { __typename?: 'mutation_root', update_realm_by_pk?: { __typename?: 'realm', id: number } | null, insert_topic?: { __typename?: 'topic_mutation_response', affected_rows: number } | null };
+export type UpdateRealmMutation = {
+  __typename?: "mutation_root";
+  update_realm_by_pk?: { __typename?: "realm"; id: number } | null;
+  insert_topic?: {
+    __typename?: "topic_mutation_response";
+    affected_rows: number;
+  } | null;
+};
 
 export type GetSessionMutationVariables = Exact<{
-  id: Scalars['uuid'];
-  activeAt: Scalars['timestamptz'];
+  id: Scalars["uuid"]["input"];
+  activeAt: Scalars["timestamptz"]["input"];
 }>;
 
-
-export type GetSessionMutation = { __typename?: 'mutation_root', update_session_by_pk?: { __typename?: 'session', id: string, user_id: string } | null };
+export type GetSessionMutation = {
+  __typename?: "mutation_root";
+  update_session_by_pk?: {
+    __typename?: "session";
+    id: string;
+    user_id: string;
+  } | null;
+};
 
 export type GetSessionsQueryVariables = Exact<{
-  userId: Scalars['uuid'];
+  userId: Scalars["uuid"]["input"];
 }>;
 
-
-export type GetSessionsQuery = { __typename?: 'query_root', session: Array<{ __typename?: 'session', id: string, description: string, created_at: string, active_at: string }> };
+export type GetSessionsQuery = {
+  __typename?: "query_root";
+  session: Array<{
+    __typename?: "session";
+    id: string;
+    description: string;
+    created_at: string;
+    active_at: string;
+  }>;
+};
 
 export type AddSessionMutationVariables = Exact<{
-  id: Scalars['uuid'];
-  userId: Scalars['uuid'];
-  description: Scalars['String'];
-  activeAt?: InputMaybe<Scalars['timestamptz']>;
+  id: Scalars["uuid"]["input"];
+  userId: Scalars["uuid"]["input"];
+  description: Scalars["String"]["input"];
+  activeAt?: InputMaybe<Scalars["timestamptz"]["input"]>;
 }>;
 
-
-export type AddSessionMutation = { __typename?: 'mutation_root', insert_session_one?: { __typename?: 'session', id: string } | null };
+export type AddSessionMutation = {
+  __typename?: "mutation_root";
+  insert_session_one?: { __typename?: "session"; id: string } | null;
+};
 
 export type DeleteSessionMutationVariables = Exact<{
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 }>;
 
-
-export type DeleteSessionMutation = { __typename?: 'mutation_root', delete_session_by_pk?: { __typename?: 'session', id: string } | null };
+export type DeleteSessionMutation = {
+  __typename?: "mutation_root";
+  delete_session_by_pk?: { __typename?: "session"; id: string } | null;
+};
 
 export type GetThreadQueryVariables = Exact<{
-  id: Scalars['Int'];
+  id: Scalars["Int"]["input"];
 }>;
 
+export type GetThreadQuery = {
+  __typename?: "query_root";
+  thread_by_pk?: {
+    __typename?: "thread";
+    id: number;
+    title: string;
+    content: string;
+    created_at: string;
+    updated_at: string;
+    realm?: {
+      __typename?: "realm_public";
+      id?: number | null;
+      name?: string | null;
+    } | null;
+    topic?: { __typename?: "topic"; id: number; name: string } | null;
+    user?: {
+      __typename?: "realm_user_union";
+      realm_id?: number | null;
+      user_id?: string | null;
+      username?: string | null;
+      status?: string | null;
+      avatar_url?: string | null;
+    } | null;
+    posts: Array<{
+      __typename?: "realm_post";
+      id?: number | null;
+      content?: string | null;
+      created_at?: string | null;
+      updated_at?: string | null;
+      user?: {
+        __typename?: "realm_user_union";
+        realm_id?: number | null;
+        user_id?: string | null;
+        username?: string | null;
+        status?: string | null;
+        avatar_url?: string | null;
+      } | null;
+    }>;
+  } | null;
+};
 
-export type GetThreadQuery = { __typename?: 'query_root', thread_by_pk?: { __typename?: 'thread', id: number, title: string, content: string, created_at: string, updated_at: string, realm?: { __typename?: 'realm_public', id?: number | null, name?: string | null } | null, topic?: { __typename?: 'topic', id: number, name: string } | null, user?: { __typename?: 'realm_user_union', realm_id?: number | null, user_id?: string | null, username?: string | null, status?: string | null, avatar_url?: string | null } | null, posts: Array<{ __typename?: 'realm_post', id?: number | null, content?: string | null, created_at?: string | null, updated_at?: string | null, user?: { __typename?: 'realm_user_union', realm_id?: number | null, user_id?: string | null, username?: string | null, status?: string | null, avatar_url?: string | null } | null }> } | null };
+export type GetHottestThreadsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetHottestThreadsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetHottestThreadsQuery = {
+  __typename?: "query_root";
+  thread: Array<{
+    __typename?: "thread";
+    id: number;
+    title: string;
+    created_at: string;
+    realm?: {
+      __typename?: "realm_public";
+      id?: number | null;
+      name?: string | null;
+    } | null;
+    posts_aggregate: {
+      __typename?: "realm_post_aggregate";
+      aggregate?: {
+        __typename?: "realm_post_aggregate_fields";
+        count: number;
+      } | null;
+    };
+    reactions_aggregate: {
+      __typename?: "thread_reaction_aggregate";
+      aggregate?: {
+        __typename?: "thread_reaction_aggregate_fields";
+        count: number;
+      } | null;
+    };
+  }>;
+};
 
+export type GetNewestThreadsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetHottestThreadsQuery = { __typename?: 'query_root', thread: Array<{ __typename?: 'thread', id: number, title: string, created_at: string, realm?: { __typename?: 'realm_public', id?: number | null, name?: string | null } | null, posts_aggregate: { __typename?: 'realm_post_aggregate', aggregate?: { __typename?: 'realm_post_aggregate_fields', count: number } | null }, reactions_aggregate: { __typename?: 'thread_reaction_aggregate', aggregate?: { __typename?: 'thread_reaction_aggregate_fields', count: number } | null } }> };
-
-export type GetNewestThreadsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetNewestThreadsQuery = { __typename?: 'query_root', thread: Array<{ __typename?: 'thread', id: number, title: string, created_at: string, realm?: { __typename?: 'realm_public', id?: number | null, name?: string | null } | null, posts_aggregate: { __typename?: 'realm_post_aggregate', aggregate?: { __typename?: 'realm_post_aggregate_fields', count: number } | null }, reactions_aggregate: { __typename?: 'thread_reaction_aggregate', aggregate?: { __typename?: 'thread_reaction_aggregate_fields', count: number } | null } }> };
+export type GetNewestThreadsQuery = {
+  __typename?: "query_root";
+  thread: Array<{
+    __typename?: "thread";
+    id: number;
+    title: string;
+    created_at: string;
+    realm?: {
+      __typename?: "realm_public";
+      id?: number | null;
+      name?: string | null;
+    } | null;
+    posts_aggregate: {
+      __typename?: "realm_post_aggregate";
+      aggregate?: {
+        __typename?: "realm_post_aggregate_fields";
+        count: number;
+      } | null;
+    };
+    reactions_aggregate: {
+      __typename?: "thread_reaction_aggregate";
+      aggregate?: {
+        __typename?: "thread_reaction_aggregate_fields";
+        count: number;
+      } | null;
+    };
+  }>;
+};
 
 export type AddThreadMutationVariables = Exact<{
-  realmId: Scalars['Int'];
-  userId: Scalars['uuid'];
-  topicId?: InputMaybe<Scalars['Int']>;
-  title: Scalars['String'];
-  content: Scalars['String'];
+  realmId: Scalars["Int"]["input"];
+  userId: Scalars["uuid"]["input"];
+  topicId?: InputMaybe<Scalars["Int"]["input"]>;
+  title: Scalars["String"]["input"];
+  content: Scalars["String"]["input"];
 }>;
 
-
-export type AddThreadMutation = { __typename?: 'mutation_root', insert_thread_one?: { __typename?: 'thread', id: number } | null };
+export type AddThreadMutation = {
+  __typename?: "mutation_root";
+  insert_thread_one?: { __typename?: "thread"; id: number } | null;
+};
 
 export type UpdateThreadMutationVariables = Exact<{
-  threadId: Scalars['Int'];
-  title: Scalars['String'];
-  content: Scalars['String'];
+  threadId: Scalars["Int"]["input"];
+  title: Scalars["String"]["input"];
+  content: Scalars["String"]["input"];
 }>;
 
-
-export type UpdateThreadMutation = { __typename?: 'mutation_root', update_thread_by_pk?: { __typename?: 'thread', id: number } | null };
+export type UpdateThreadMutation = {
+  __typename?: "mutation_root";
+  update_thread_by_pk?: { __typename?: "thread"; id: number } | null;
+};
 
 export type GetUserQueryVariables = Exact<{
-  realmId: Scalars['Int'];
-  userId: Scalars['uuid'];
+  realmId: Scalars["Int"]["input"];
+  userId: Scalars["uuid"]["input"];
 }>;
 
-
-export type GetUserQuery = { __typename?: 'query_root', user_by_pk?: { __typename?: 'user', id: string, university_id: string, email: string, role: string, created_at: string, realm_ids: Array<{ __typename?: 'realm_user_union', realm_id?: number | null, user_id?: string | null }>, realm_users: Array<{ __typename?: 'realm_user_union', realm_id?: number | null, user_id?: string | null, username?: string | null, status?: string | null, avatar_url?: string | null, created_at?: string | null, realm?: { __typename?: 'realm_public', id?: number | null, name?: string | null } | null }> } | null };
+export type GetUserQuery = {
+  __typename?: "query_root";
+  user_by_pk?: {
+    __typename?: "user";
+    id: string;
+    university_id: string;
+    email: string;
+    role: string;
+    created_at: string;
+    realm_ids: Array<{
+      __typename?: "realm_user_union";
+      realm_id?: number | null;
+      user_id?: string | null;
+    }>;
+    realm_users: Array<{
+      __typename?: "realm_user_union";
+      realm_id?: number | null;
+      user_id?: string | null;
+      username?: string | null;
+      status?: string | null;
+      avatar_url?: string | null;
+      created_at?: string | null;
+      realm?: {
+        __typename?: "realm_public";
+        id?: number | null;
+        name?: string | null;
+      } | null;
+    }>;
+  } | null;
+};
 
 export type GetUserRealmsQueryVariables = Exact<{
-  id: Scalars['uuid'];
+  id: Scalars["uuid"]["input"];
 }>;
 
-
-export type GetUserRealmsQuery = { __typename?: 'query_root', user_by_pk?: { __typename?: 'user', id: string, realm_users: Array<{ __typename?: 'realm_user_union', realm_id?: number | null, user_id?: string | null, realm?: { __typename?: 'realm_public', id?: number | null, name?: string | null } | null }> } | null };
+export type GetUserRealmsQuery = {
+  __typename?: "query_root";
+  user_by_pk?: {
+    __typename?: "user";
+    id: string;
+    realm_users: Array<{
+      __typename?: "realm_user_union";
+      realm_id?: number | null;
+      user_id?: string | null;
+      realm?: {
+        __typename?: "realm_public";
+        id?: number | null;
+        name?: string | null;
+      } | null;
+    }>;
+  } | null;
+};
 
 export type GetRealmUserDetailsQueryVariables = Exact<{
-  realmId: Scalars['Int'];
-  userId: Scalars['uuid'];
+  realmId: Scalars["Int"]["input"];
+  userId: Scalars["uuid"]["input"];
 }>;
 
-
-export type GetRealmUserDetailsQuery = { __typename?: 'query_root', realm_user_union: Array<{ __typename?: 'realm_user_union', realm_id?: number | null, user_id?: string | null, username?: string | null, status?: string | null, avatar_url?: string | null, realm?: { __typename?: 'realm_public', id?: number | null, name?: string | null } | null }> };
+export type GetRealmUserDetailsQuery = {
+  __typename?: "query_root";
+  realm_user_union: Array<{
+    __typename?: "realm_user_union";
+    realm_id?: number | null;
+    user_id?: string | null;
+    username?: string | null;
+    status?: string | null;
+    avatar_url?: string | null;
+    realm?: {
+      __typename?: "realm_public";
+      id?: number | null;
+      name?: string | null;
+    } | null;
+  }>;
+};
 
 export type AddOrUpdateUserMutationVariables = Exact<{
-  universityId: Scalars['String'];
-  email: Scalars['String'];
+  universityId: Scalars["String"]["input"];
+  email: Scalars["String"]["input"];
 }>;
 
-
-export type AddOrUpdateUserMutation = { __typename?: 'mutation_root', insert_user_one?: { __typename?: 'user', id: string, university_id: string, email: string } | null };
+export type AddOrUpdateUserMutation = {
+  __typename?: "mutation_root";
+  insert_user_one?: {
+    __typename?: "user";
+    id: string;
+    university_id: string;
+    email: string;
+  } | null;
+};
 
 export type UpdateUsernameMutationVariables = Exact<{
-  userId: Scalars['uuid'];
-  username: Scalars['String'];
+  userId: Scalars["uuid"]["input"];
+  username: Scalars["String"]["input"];
 }>;
 
-
-export type UpdateUsernameMutation = { __typename?: 'mutation_root', update_user_by_pk?: { __typename?: 'user', id: string, username: string } | null };
+export type UpdateUsernameMutation = {
+  __typename?: "mutation_root";
+  update_user_by_pk?: {
+    __typename?: "user";
+    id: string;
+    username: string;
+  } | null;
+};
 
 export type UpdateRealmUsernameMutationVariables = Exact<{
-  userId: Scalars['uuid'];
-  realmId: Scalars['Int'];
-  username: Scalars['String'];
+  userId: Scalars["uuid"]["input"];
+  realmId: Scalars["Int"]["input"];
+  username: Scalars["String"]["input"];
 }>;
 
-
-export type UpdateRealmUsernameMutation = { __typename?: 'mutation_root', insert_realm_user_one?: { __typename?: 'realm_user', user_id: string, realm_id: number, username: string } | null };
+export type UpdateRealmUsernameMutation = {
+  __typename?: "mutation_root";
+  insert_realm_user_one?: {
+    __typename?: "realm_user";
+    user_id: string;
+    realm_id: number;
+    username: string;
+  } | null;
+};
 
 export type UpdateUserAvatarMutationVariables = Exact<{
-  userId: Scalars['uuid'];
-  avatarUrl: Scalars['String'];
+  userId: Scalars["uuid"]["input"];
+  avatarUrl: Scalars["String"]["input"];
 }>;
 
-
-export type UpdateUserAvatarMutation = { __typename?: 'mutation_root', update_user_by_pk?: { __typename?: 'user', id: string, avatar_url?: string | null } | null };
+export type UpdateUserAvatarMutation = {
+  __typename?: "mutation_root";
+  update_user_by_pk?: {
+    __typename?: "user";
+    id: string;
+    avatar_url?: string | null;
+  } | null;
+};
 
 export type UpdateRealmUserAvatarMutationVariables = Exact<{
-  userId: Scalars['uuid'];
-  realmId: Scalars['Int'];
-  avatarUrl: Scalars['String'];
+  userId: Scalars["uuid"]["input"];
+  realmId: Scalars["Int"]["input"];
+  avatarUrl: Scalars["String"]["input"];
 }>;
 
-
-export type UpdateRealmUserAvatarMutation = { __typename?: 'mutation_root', insert_realm_user_one?: { __typename?: 'realm_user', user_id: string, realm_id: number, avatar_url?: string | null } | null };
+export type UpdateRealmUserAvatarMutation = {
+  __typename?: "mutation_root";
+  insert_realm_user_one?: {
+    __typename?: "realm_user";
+    user_id: string;
+    realm_id: number;
+    avatar_url?: string | null;
+  } | null;
+};
 
 export type UpdateUserStatusMutationVariables = Exact<{
-  userId: Scalars['uuid'];
-  status: Scalars['String'];
+  userId: Scalars["uuid"]["input"];
+  status: Scalars["String"]["input"];
 }>;
 
-
-export type UpdateUserStatusMutation = { __typename?: 'mutation_root', update_user_by_pk?: { __typename?: 'user', id: string, status?: string | null } | null };
+export type UpdateUserStatusMutation = {
+  __typename?: "mutation_root";
+  update_user_by_pk?: {
+    __typename?: "user";
+    id: string;
+    status?: string | null;
+  } | null;
+};
 
 export type UpdateRealmUserStatusMutationVariables = Exact<{
-  userId: Scalars['uuid'];
-  realmId: Scalars['Int'];
-  status: Scalars['String'];
+  userId: Scalars["uuid"]["input"];
+  realmId: Scalars["Int"]["input"];
+  status: Scalars["String"]["input"];
 }>;
 
-
-export type UpdateRealmUserStatusMutation = { __typename?: 'mutation_root', update_realm_user_by_pk?: { __typename?: 'realm_user', user_id: string, realm_id: number, status?: string | null } | null };
+export type UpdateRealmUserStatusMutation = {
+  __typename?: "mutation_root";
+  update_realm_user_by_pk?: {
+    __typename?: "realm_user";
+    user_id: string;
+    realm_id: number;
+    status?: string | null;
+  } | null;
+};
 
 export type GetRealmUserByUsernameQueryVariables = Exact<{
-  username: Scalars['String'];
+  username: Scalars["String"]["input"];
 }>;
 
+export type GetRealmUserByUsernameQuery = {
+  __typename?: "query_root";
+  realm_user_union: Array<{
+    __typename?: "realm_user_union";
+    username?: string | null;
+  }>;
+};
 
-export type GetRealmUserByUsernameQuery = { __typename?: 'query_root', realm_user_union: Array<{ __typename?: 'realm_user_union', username?: string | null }> };
-
-
-export const GetCourseDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCourse"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"course_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"teacher"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"time_location"}},{"kind":"Field","name":{"kind":"Name","value":"semester_id"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"index"}},{"kind":"Field","name":{"kind":"Name","value":"course_reviews_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"avg"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"rating"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetCourseQuery, GetCourseQueryVariables>;
-export const GetCoursesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCourses"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"course"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_or"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_ilike"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}]}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"teacher"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_ilike"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}]}}]}}]}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"semester_id"},"value":{"kind":"EnumValue","value":"desc"}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"updated_at"},"value":{"kind":"EnumValue","value":"desc"}}]}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"teacher"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"semester_id"}},{"kind":"Field","name":{"kind":"Name","value":"course_reviews_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"avg"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"rating"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetCoursesQuery, GetCoursesQueryVariables>;
-export const GetCourseCountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCourseCount"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"semesterId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"course_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"semester_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"semesterId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]} as unknown as DocumentNode<GetCourseCountQuery, GetCourseCountQueryVariables>;
-export const GetCourseReviewsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCourseReviews"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"courseId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"my_course_review"},"name":{"kind":"Name","value":"course_review_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"course_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"courseId"}}},{"kind":"Argument","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"avatar_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"rating"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}},{"kind":"Field","name":{"kind":"Name","value":"course_review"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"updated_at"},"value":{"kind":"EnumValue","value":"desc"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"course_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"courseId"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_neq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"avatar_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"rating"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}}]}}]} as unknown as DocumentNode<GetCourseReviewsQuery, GetCourseReviewsQueryVariables>;
-export const AddCourseReviewDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddCourseReview"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"courseId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"rating"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Float"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"content"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_course_review_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"course_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"courseId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"rating"},"value":{"kind":"Variable","name":{"kind":"Name","value":"rating"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"content"},"value":{"kind":"Variable","name":{"kind":"Name","value":"content"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<AddCourseReviewMutation, AddCourseReviewMutationVariables>;
-export const UpdateCourseReviewDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateCourseReview"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"courseId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"rating"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Float"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"content"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_course_review_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"course_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"courseId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"rating"},"value":{"kind":"Variable","name":{"kind":"Name","value":"rating"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"content"},"value":{"kind":"Variable","name":{"kind":"Name","value":"content"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdateCourseReviewMutation, UpdateCourseReviewMutationVariables>;
-export const DeleteCourseReviewDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteCourseReview"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"courseId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"delete_course_review_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"course_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"courseId"}}},{"kind":"Argument","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<DeleteCourseReviewMutation, DeleteCourseReviewMutationVariables>;
-export const GetMessageContactsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetMessageContacts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"realmId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"message"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"realm_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"realmId"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"_or"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"from_user_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"to_user_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"from_user_id"},"value":{"kind":"EnumValue","value":"asc"}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"to_user_id"},"value":{"kind":"EnumValue","value":"asc"}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"created_at"},"value":{"kind":"EnumValue","value":"desc"}}]}]}},{"kind":"Argument","name":{"kind":"Name","value":"distinct_on"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"from_user_id"},{"kind":"EnumValue","value":"to_user_id"}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"from_user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm_id"}},{"kind":"Field","name":{"kind":"Name","value":"realm"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"avatar_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"to_user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm_id"}},{"kind":"Field","name":{"kind":"Name","value":"realm"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"avatar_url"}}]}}]}}]}}]} as unknown as DocumentNode<GetMessageContactsQuery, GetMessageContactsQueryVariables>;
-export const GetMessageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetMessage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"message_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"from_user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"realm_id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}},{"kind":"Field","name":{"kind":"Name","value":"to_user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}}]}}]}}]} as unknown as DocumentNode<GetMessageQuery, GetMessageQueryVariables>;
-export const GetMessagesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetMessages"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"realmId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId1"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId2"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"message"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"realm_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"realmId"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"_or"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"from_user_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId1"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"to_user_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId2"}}}]}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"from_user_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId2"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"to_user_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId1"}}}]}}]}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"created_at"},"value":{"kind":"EnumValue","value":"desc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"from_user_id"}},{"kind":"Field","name":{"kind":"Name","value":"to_user_id"}},{"kind":"Field","name":{"kind":"Name","value":"text"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}}]}}]}}]} as unknown as DocumentNode<GetMessagesQuery, GetMessagesQueryVariables>;
-export const AddMessageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddMessage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"realmId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"fromUserId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"toUserId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"text"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_message_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"realm_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"realmId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"from_user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"fromUserId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"to_user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"toUserId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"text"},"value":{"kind":"Variable","name":{"kind":"Name","value":"text"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<AddMessageMutation, AddMessageMutationVariables>;
-export const GetNotificationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetNotifications"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"notification"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"created_at"},"value":{"kind":"EnumValue","value":"desc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"payload"}},{"kind":"Field","name":{"kind":"Name","value":"read"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}}]}}]}}]} as unknown as DocumentNode<GetNotificationsQuery, GetNotificationsQueryVariables>;
-export const GetNewNotificationCountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetNewNotificationCount"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"notification_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"read"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"BooleanValue","value":false}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]} as unknown as DocumentNode<GetNewNotificationCountQuery, GetNewNotificationCountQueryVariables>;
-export const AddNotificationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddNotification"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"payload"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_notification_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"payload"},"value":{"kind":"Variable","name":{"kind":"Name","value":"payload"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<AddNotificationMutation, AddNotificationMutationVariables>;
-export const MarkNotificationAsReadDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"MarkNotificationAsRead"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_notification_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"read"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<MarkNotificationAsReadMutation, MarkNotificationAsReadMutationVariables>;
-export const GetPostDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPost"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm_post"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm_id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}},{"kind":"Field","name":{"kind":"Name","value":"thread"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"realm"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm_id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"topic"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]} as unknown as DocumentNode<GetPostQuery, GetPostQueryVariables>;
-export const AddPostDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddPost"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"threadId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"content"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_post_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"thread_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"threadId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"content"},"value":{"kind":"Variable","name":{"kind":"Name","value":"content"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<AddPostMutation, AddPostMutationVariables>;
-export const UpdatePostDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdatePost"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"postId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"content"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_post_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"postId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"content"},"value":{"kind":"Variable","name":{"kind":"Name","value":"content"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdatePostMutation, UpdatePostMutationVariables>;
-export const GetThreadReactionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetThreadReactions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"threadId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"thread_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"threadId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"my_reactions"},"name":{"kind":"Name","value":"reactions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"thread_id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"confused_face_reactions"},"name":{"kind":"Name","value":"reactions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"EnumValue","value":"confused_face"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"eyes_reactions"},"name":{"kind":"Name","value":"reactions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"EnumValue","value":"eyes"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"grinning_face_with_smiling_eyes_reactions"},"name":{"kind":"Name","value":"reactions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"EnumValue","value":"grinning_face_with_smiling_eyes"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"party_popper_reactions"},"name":{"kind":"Name","value":"reactions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"EnumValue","value":"party_popper"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"red_heart_reactions"},"name":{"kind":"Name","value":"reactions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"EnumValue","value":"red_heart"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"rocket_reactions"},"name":{"kind":"Name","value":"reactions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"EnumValue","value":"rocket"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"thumbs_down_reactions"},"name":{"kind":"Name","value":"reactions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"EnumValue","value":"thumbs_down"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"thumbs_up_reactions"},"name":{"kind":"Name","value":"reactions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"EnumValue","value":"thumbs_up"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"posts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"created_at"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"my_reactions"},"name":{"kind":"Name","value":"reactions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"post_id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"confused_face_reactions"},"name":{"kind":"Name","value":"reactions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"EnumValue","value":"confused_face"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"eyes_reactions"},"name":{"kind":"Name","value":"reactions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"EnumValue","value":"eyes"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"grinning_face_with_smiling_eyes_reactions"},"name":{"kind":"Name","value":"reactions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"EnumValue","value":"grinning_face_with_smiling_eyes"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"party_popper_reactions"},"name":{"kind":"Name","value":"reactions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"EnumValue","value":"party_popper"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"red_heart_reactions"},"name":{"kind":"Name","value":"reactions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"EnumValue","value":"red_heart"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"rocket_reactions"},"name":{"kind":"Name","value":"reactions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"EnumValue","value":"rocket"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"thumbs_down_reactions"},"name":{"kind":"Name","value":"reactions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"EnumValue","value":"thumbs_down"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"thumbs_up_reactions"},"name":{"kind":"Name","value":"reactions_aggregate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"EnumValue","value":"thumbs_up"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetThreadReactionsQuery, GetThreadReactionsQueryVariables>;
-export const AddThreadReactionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddThreadReaction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"reaction_emoji_enum"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"threadId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_thread_reaction_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"thread_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"threadId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"on_conflict"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"constraint"},"value":{"kind":"EnumValue","value":"thread_reaction_pkey"}},{"kind":"ObjectField","name":{"kind":"Name","value":"update_columns"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"created_at"}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"thread_id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<AddThreadReactionMutation, AddThreadReactionMutationVariables>;
-export const DeleteThreadReactionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteThreadReaction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"reaction_emoji_enum"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"threadId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"delete_thread_reaction_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"Argument","name":{"kind":"Name","value":"thread_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"threadId"}}},{"kind":"Argument","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"thread_id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<DeleteThreadReactionMutation, DeleteThreadReactionMutationVariables>;
-export const AddPostReactionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddPostReaction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"reaction_emoji_enum"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"postId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_post_reaction_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"post_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"postId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"on_conflict"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"constraint"},"value":{"kind":"EnumValue","value":"post_reaction_pkey"}},{"kind":"ObjectField","name":{"kind":"Name","value":"update_columns"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"created_at"}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"post_id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<AddPostReactionMutation, AddPostReactionMutationVariables>;
-export const DeletePostReactionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeletePostReaction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"reaction_emoji_enum"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"postId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"delete_post_reaction_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"Argument","name":{"kind":"Name","value":"post_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"postId"}}},{"kind":"Argument","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"post_id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<DeletePostReactionMutation, DeletePostReactionMutationVariables>;
-export const GetRealmDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRealm"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm_public"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"private"}},{"kind":"Field","name":{"kind":"Name","value":"topics"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"created_at"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"threads"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"posts_aggregate"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"max"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"updated_at"},"value":{"kind":"EnumValue","value":"desc_nulls_last"}}]}}]}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"updated_at"},"value":{"kind":"EnumValue","value":"desc"}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"created_at"},"value":{"kind":"EnumValue","value":"desc"}}]}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"realm_id"}},{"kind":"Field","name":{"kind":"Name","value":"topic"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm_id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"avatar_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"posts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"EnumValue","value":"asc"}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"updated_at"},"value":{"kind":"EnumValue","value":"desc"}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"created_at"},"value":{"kind":"EnumValue","value":"desc"}}]}]}},{"kind":"Argument","name":{"kind":"Name","value":"distinct_on"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"id"}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"4"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm_id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"avatar_url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"posts_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"max"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}}]}}]}}]} as unknown as DocumentNode<GetRealmQuery, GetRealmQueryVariables>;
-export const GetPublicRealmsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPublicRealms"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm_public"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"private"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"BooleanValue","value":false}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_neq"},"value":{"kind":"IntValue","value":"1"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"users_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetPublicRealmsQuery, GetPublicRealmsQueryVariables>;
-export const GetRealmDetailsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRealmDetails"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm_public"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"private"}}]}}]}}]} as unknown as DocumentNode<GetRealmDetailsQuery, GetRealmDetailsQueryVariables>;
-export const GetRealmDetailsInvitationCodeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRealmDetailsInvitationCode"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"admin_id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"private"}},{"kind":"Field","name":{"kind":"Name","value":"invitation_code"}},{"kind":"Field","name":{"kind":"Name","value":"topics"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<GetRealmDetailsInvitationCodeQuery, GetRealmDetailsInvitationCodeQueryVariables>;
-export const AddRealmDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddRealm"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"adminId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"description"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"private"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"invitationCode"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_realm_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"admin_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"adminId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"description"},"value":{"kind":"Variable","name":{"kind":"Name","value":"description"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"private"},"value":{"kind":"Variable","name":{"kind":"Name","value":"private"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"invitation_code"},"value":{"kind":"Variable","name":{"kind":"Name","value":"invitationCode"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<AddRealmMutation, AddRealmMutationVariables>;
-export const UpdateRealmDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateRealm"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"description"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"private"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"invitationCode"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"topics"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"topic_insert_input"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_realm_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"description"},"value":{"kind":"Variable","name":{"kind":"Name","value":"description"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"private"},"value":{"kind":"Variable","name":{"kind":"Name","value":"private"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"invitation_code"},"value":{"kind":"Variable","name":{"kind":"Name","value":"invitationCode"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"insert_topic"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"Variable","name":{"kind":"Name","value":"topics"}}},{"kind":"Argument","name":{"kind":"Name","value":"on_conflict"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"constraint"},"value":{"kind":"EnumValue","value":"topic_pkey"}},{"kind":"ObjectField","name":{"kind":"Name","value":"update_columns"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"name"}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affected_rows"}}]}}]}}]} as unknown as DocumentNode<UpdateRealmMutation, UpdateRealmMutationVariables>;
-export const GetSessionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"GetSession"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"activeAt"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"timestamptz"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_session_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"active_at"},"value":{"kind":"Variable","name":{"kind":"Name","value":"activeAt"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}}]}}]} as unknown as DocumentNode<GetSessionMutation, GetSessionMutationVariables>;
-export const GetSessionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSessions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"session"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"active_at"},"value":{"kind":"EnumValue","value":"desc"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"active_at"}}]}}]}}]} as unknown as DocumentNode<GetSessionsQuery, GetSessionsQueryVariables>;
-export const AddSessionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddSession"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"description"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"activeAt"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"timestamptz"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_session_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"description"},"value":{"kind":"Variable","name":{"kind":"Name","value":"description"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"active_at"},"value":{"kind":"Variable","name":{"kind":"Name","value":"activeAt"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"on_conflict"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"constraint"},"value":{"kind":"EnumValue","value":"session_pkey"}},{"kind":"ObjectField","name":{"kind":"Name","value":"update_columns"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"description"},{"kind":"EnumValue","value":"active_at"}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<AddSessionMutation, AddSessionMutationVariables>;
-export const DeleteSessionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteSession"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"delete_session_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<DeleteSessionMutation, DeleteSessionMutationVariables>;
-export const GetThreadDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetThread"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"thread_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"realm"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"topic"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm_id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"avatar_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"posts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"created_at"},"value":{"kind":"EnumValue","value":"asc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm_id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"avatar_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}}]}}]}}]} as unknown as DocumentNode<GetThreadQuery, GetThreadQueryVariables>;
-export const GetHottestThreadsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHottestThreads"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"thread"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"realm"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"private"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"BooleanValue","value":false}}]}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"posts_aggregate"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"count"},"value":{"kind":"EnumValue","value":"desc"}}]}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"reactions_aggregate"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"count"},"value":{"kind":"EnumValue","value":"desc"}}]}}]}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"3"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"realm"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"posts_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"reactions_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}}]}}]}}]} as unknown as DocumentNode<GetHottestThreadsQuery, GetHottestThreadsQueryVariables>;
-export const GetNewestThreadsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetNewestThreads"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"thread"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"realm"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"private"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"BooleanValue","value":false}}]}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"created_at"},"value":{"kind":"EnumValue","value":"desc"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"3"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"realm"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"posts_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"reactions_aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aggregate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}}]}}]}}]} as unknown as DocumentNode<GetNewestThreadsQuery, GetNewestThreadsQueryVariables>;
-export const AddThreadDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddThread"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"realmId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"topicId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"title"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"content"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_thread_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"realm_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"realmId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"topic_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"topicId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"title"},"value":{"kind":"Variable","name":{"kind":"Name","value":"title"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"content"},"value":{"kind":"Variable","name":{"kind":"Name","value":"content"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<AddThreadMutation, AddThreadMutationVariables>;
-export const UpdateThreadDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateThread"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"threadId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"title"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"content"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_thread_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"threadId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"title"},"value":{"kind":"Variable","name":{"kind":"Name","value":"title"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"content"},"value":{"kind":"Variable","name":{"kind":"Name","value":"content"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdateThreadMutation, UpdateThreadMutationVariables>;
-export const GetUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"realmId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"university_id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","alias":{"kind":"Name","value":"realm_ids"},"name":{"kind":"Name","value":"realm_users"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm_id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"realm_users"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"realm_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"realmId"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm_id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"realm"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"avatar_url"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}}]}}]}}]}}]} as unknown as DocumentNode<GetUserQuery, GetUserQueryVariables>;
-export const GetUserRealmsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserRealms"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"realm_users"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm_id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"realm"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetUserRealmsQuery, GetUserRealmsQueryVariables>;
-export const GetRealmUserDetailsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRealmUserDetails"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"realmId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm_user_union"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"realm_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"realmId"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm_id"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"realm"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"avatar_url"}}]}}]}}]} as unknown as DocumentNode<GetRealmUserDetailsQuery, GetRealmUserDetailsQueryVariables>;
-export const AddOrUpdateUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddOrUpdateUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"universityId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_user_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"university_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"universityId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"username"},"value":{"kind":"Variable","name":{"kind":"Name","value":"universityId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"on_conflict"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"constraint"},"value":{"kind":"EnumValue","value":"user_university_id_key"}},{"kind":"ObjectField","name":{"kind":"Name","value":"update_columns"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"email"}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"university_id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]} as unknown as DocumentNode<AddOrUpdateUserMutation, AddOrUpdateUserMutationVariables>;
-export const UpdateUsernameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUsername"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"username"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_user_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"username"},"value":{"kind":"Variable","name":{"kind":"Name","value":"username"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]} as unknown as DocumentNode<UpdateUsernameMutation, UpdateUsernameMutationVariables>;
-export const UpdateRealmUsernameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateRealmUsername"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"realmId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"username"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_realm_user_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"realm_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"realmId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"username"},"value":{"kind":"Variable","name":{"kind":"Name","value":"username"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"on_conflict"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"constraint"},"value":{"kind":"EnumValue","value":"realm_user_pkey"}},{"kind":"ObjectField","name":{"kind":"Name","value":"update_columns"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"username"}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"realm_id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]} as unknown as DocumentNode<UpdateRealmUsernameMutation, UpdateRealmUsernameMutationVariables>;
-export const UpdateUserAvatarDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserAvatar"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"avatarUrl"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_user_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"avatar_url"},"value":{"kind":"Variable","name":{"kind":"Name","value":"avatarUrl"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"avatar_url"}}]}}]}}]} as unknown as DocumentNode<UpdateUserAvatarMutation, UpdateUserAvatarMutationVariables>;
-export const UpdateRealmUserAvatarDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateRealmUserAvatar"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"realmId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"avatarUrl"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_realm_user_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"realm_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"realmId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"avatar_url"},"value":{"kind":"Variable","name":{"kind":"Name","value":"avatarUrl"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"on_conflict"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"constraint"},"value":{"kind":"EnumValue","value":"realm_user_pkey"}},{"kind":"ObjectField","name":{"kind":"Name","value":"update_columns"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"avatar_url"}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"realm_id"}},{"kind":"Field","name":{"kind":"Name","value":"avatar_url"}}]}}]}}]} as unknown as DocumentNode<UpdateRealmUserAvatarMutation, UpdateRealmUserAvatarMutationVariables>;
-export const UpdateUserStatusDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserStatus"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"status"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_user_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"status"},"value":{"kind":"Variable","name":{"kind":"Name","value":"status"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<UpdateUserStatusMutation, UpdateUserStatusMutationVariables>;
-export const UpdateRealmUserStatusDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateRealmUserStatus"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"realmId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"status"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_realm_user_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"realm_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"realmId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"status"},"value":{"kind":"Variable","name":{"kind":"Name","value":"status"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"realm_id"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<UpdateRealmUserStatusMutation, UpdateRealmUserStatusMutationVariables>;
-export const GetRealmUserByUsernameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRealmUserByUsername"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"username"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"realm_user_union"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"username"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"username"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]} as unknown as DocumentNode<GetRealmUserByUsernameQuery, GetRealmUserByUsernameQueryVariables>;
+export const GetCourseDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetCourse" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "course_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "teacher" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "time_location" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "semester_id" } },
+                { kind: "Field", name: { kind: "Name", value: "number" } },
+                { kind: "Field", name: { kind: "Name", value: "index" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "course_reviews_aggregate" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "aggregate" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "count" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "avg" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "rating" },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetCourseQuery, GetCourseQueryVariables>;
+export const GetCoursesDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetCourses" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "query" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "course" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "_or" },
+                      value: {
+                        kind: "ListValue",
+                        values: [
+                          {
+                            kind: "ObjectValue",
+                            fields: [
+                              {
+                                kind: "ObjectField",
+                                name: { kind: "Name", value: "name" },
+                                value: {
+                                  kind: "ObjectValue",
+                                  fields: [
+                                    {
+                                      kind: "ObjectField",
+                                      name: { kind: "Name", value: "_ilike" },
+                                      value: {
+                                        kind: "Variable",
+                                        name: { kind: "Name", value: "query" },
+                                      },
+                                    },
+                                  ],
+                                },
+                              },
+                            ],
+                          },
+                          {
+                            kind: "ObjectValue",
+                            fields: [
+                              {
+                                kind: "ObjectField",
+                                name: { kind: "Name", value: "teacher" },
+                                value: {
+                                  kind: "ObjectValue",
+                                  fields: [
+                                    {
+                                      kind: "ObjectField",
+                                      name: { kind: "Name", value: "name" },
+                                      value: {
+                                        kind: "ObjectValue",
+                                        fields: [
+                                          {
+                                            kind: "ObjectField",
+                                            name: {
+                                              kind: "Name",
+                                              value: "_ilike",
+                                            },
+                                            value: {
+                                              kind: "Variable",
+                                              name: {
+                                                kind: "Name",
+                                                value: "query",
+                                              },
+                                            },
+                                          },
+                                        ],
+                                      },
+                                    },
+                                  ],
+                                },
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "order_by" },
+                value: {
+                  kind: "ListValue",
+                  values: [
+                    {
+                      kind: "ObjectValue",
+                      fields: [
+                        {
+                          kind: "ObjectField",
+                          name: { kind: "Name", value: "semester_id" },
+                          value: { kind: "EnumValue", value: "desc" },
+                        },
+                      ],
+                    },
+                    {
+                      kind: "ObjectValue",
+                      fields: [
+                        {
+                          kind: "ObjectField",
+                          name: { kind: "Name", value: "updated_at" },
+                          value: { kind: "EnumValue", value: "desc" },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "teacher" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "semester_id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "course_reviews_aggregate" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "aggregate" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "avg" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "rating" },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetCoursesQuery, GetCoursesQueryVariables>;
+export const GetCourseCountDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetCourseCount" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "semesterId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "course_aggregate" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "semester_id" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "_eq" },
+                            value: {
+                              kind: "Variable",
+                              name: { kind: "Name", value: "semesterId" },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "aggregate" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "count" } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetCourseCountQuery, GetCourseCountQueryVariables>;
+export const GetCourseReviewsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetCourseReviews" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "courseId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            alias: { kind: "Name", value: "my_course_review" },
+            name: { kind: "Name", value: "course_review_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "course_id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "courseId" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "user_id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "userId" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "user" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "username" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "avatar_url" },
+                      },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "rating" } },
+                { kind: "Field", name: { kind: "Name", value: "content" } },
+                { kind: "Field", name: { kind: "Name", value: "created_at" } },
+                { kind: "Field", name: { kind: "Name", value: "updated_at" } },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "course_review" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "order_by" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "updated_at" },
+                      value: { kind: "EnumValue", value: "desc" },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "course_id" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "_eq" },
+                            value: {
+                              kind: "Variable",
+                              name: { kind: "Name", value: "courseId" },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "user_id" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "_neq" },
+                            value: {
+                              kind: "Variable",
+                              name: { kind: "Name", value: "userId" },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "user" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "username" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "avatar_url" },
+                      },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "rating" } },
+                { kind: "Field", name: { kind: "Name", value: "content" } },
+                { kind: "Field", name: { kind: "Name", value: "created_at" } },
+                { kind: "Field", name: { kind: "Name", value: "updated_at" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetCourseReviewsQuery,
+  GetCourseReviewsQueryVariables
+>;
+export const AddCourseReviewDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "AddCourseReview" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "courseId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "rating" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Float" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "content" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "insert_course_review_one" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "object" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "user_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "userId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "course_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "courseId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "rating" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "rating" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "content" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "content" },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  AddCourseReviewMutation,
+  AddCourseReviewMutationVariables
+>;
+export const UpdateCourseReviewDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "UpdateCourseReview" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "courseId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "rating" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Float" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "content" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "update_course_review_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "pk_columns" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "course_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "courseId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "user_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "userId" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "_set" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "rating" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "rating" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "content" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "content" },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  UpdateCourseReviewMutation,
+  UpdateCourseReviewMutationVariables
+>;
+export const DeleteCourseReviewDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "DeleteCourseReview" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "courseId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "delete_course_review_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "course_id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "courseId" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "user_id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "userId" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  DeleteCourseReviewMutation,
+  DeleteCourseReviewMutationVariables
+>;
+export const GetMessageContactsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetMessageContacts" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "realmId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "message" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "realm_id" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "_eq" },
+                            value: {
+                              kind: "Variable",
+                              name: { kind: "Name", value: "realmId" },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "_or" },
+                      value: {
+                        kind: "ListValue",
+                        values: [
+                          {
+                            kind: "ObjectValue",
+                            fields: [
+                              {
+                                kind: "ObjectField",
+                                name: { kind: "Name", value: "from_user_id" },
+                                value: {
+                                  kind: "ObjectValue",
+                                  fields: [
+                                    {
+                                      kind: "ObjectField",
+                                      name: { kind: "Name", value: "_eq" },
+                                      value: {
+                                        kind: "Variable",
+                                        name: { kind: "Name", value: "userId" },
+                                      },
+                                    },
+                                  ],
+                                },
+                              },
+                            ],
+                          },
+                          {
+                            kind: "ObjectValue",
+                            fields: [
+                              {
+                                kind: "ObjectField",
+                                name: { kind: "Name", value: "to_user_id" },
+                                value: {
+                                  kind: "ObjectValue",
+                                  fields: [
+                                    {
+                                      kind: "ObjectField",
+                                      name: { kind: "Name", value: "_eq" },
+                                      value: {
+                                        kind: "Variable",
+                                        name: { kind: "Name", value: "userId" },
+                                      },
+                                    },
+                                  ],
+                                },
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "order_by" },
+                value: {
+                  kind: "ListValue",
+                  values: [
+                    {
+                      kind: "ObjectValue",
+                      fields: [
+                        {
+                          kind: "ObjectField",
+                          name: { kind: "Name", value: "from_user_id" },
+                          value: { kind: "EnumValue", value: "asc" },
+                        },
+                      ],
+                    },
+                    {
+                      kind: "ObjectValue",
+                      fields: [
+                        {
+                          kind: "ObjectField",
+                          name: { kind: "Name", value: "to_user_id" },
+                          value: { kind: "EnumValue", value: "asc" },
+                        },
+                      ],
+                    },
+                    {
+                      kind: "ObjectValue",
+                      fields: [
+                        {
+                          kind: "ObjectField",
+                          name: { kind: "Name", value: "created_at" },
+                          value: { kind: "EnumValue", value: "desc" },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "distinct_on" },
+                value: {
+                  kind: "ListValue",
+                  values: [
+                    { kind: "EnumValue", value: "from_user_id" },
+                    { kind: "EnumValue", value: "to_user_id" },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "from_user" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "realm_id" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "realm" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "name" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "user_id" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "username" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "avatar_url" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "to_user" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "realm_id" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "realm" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "name" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "user_id" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "username" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "avatar_url" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetMessageContactsQuery,
+  GetMessageContactsQueryVariables
+>;
+export const GetMessageDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetMessage" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "message_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "from_user" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "realm" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "name" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "realm_id" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "user_id" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "username" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "to_user" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "user_id" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetMessageQuery, GetMessageQueryVariables>;
+export const GetMessagesDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetMessages" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "realmId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId1" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId2" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "message" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "realm_id" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "_eq" },
+                            value: {
+                              kind: "Variable",
+                              name: { kind: "Name", value: "realmId" },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "_or" },
+                      value: {
+                        kind: "ListValue",
+                        values: [
+                          {
+                            kind: "ObjectValue",
+                            fields: [
+                              {
+                                kind: "ObjectField",
+                                name: { kind: "Name", value: "from_user_id" },
+                                value: {
+                                  kind: "ObjectValue",
+                                  fields: [
+                                    {
+                                      kind: "ObjectField",
+                                      name: { kind: "Name", value: "_eq" },
+                                      value: {
+                                        kind: "Variable",
+                                        name: {
+                                          kind: "Name",
+                                          value: "userId1",
+                                        },
+                                      },
+                                    },
+                                  ],
+                                },
+                              },
+                              {
+                                kind: "ObjectField",
+                                name: { kind: "Name", value: "to_user_id" },
+                                value: {
+                                  kind: "ObjectValue",
+                                  fields: [
+                                    {
+                                      kind: "ObjectField",
+                                      name: { kind: "Name", value: "_eq" },
+                                      value: {
+                                        kind: "Variable",
+                                        name: {
+                                          kind: "Name",
+                                          value: "userId2",
+                                        },
+                                      },
+                                    },
+                                  ],
+                                },
+                              },
+                            ],
+                          },
+                          {
+                            kind: "ObjectValue",
+                            fields: [
+                              {
+                                kind: "ObjectField",
+                                name: { kind: "Name", value: "from_user_id" },
+                                value: {
+                                  kind: "ObjectValue",
+                                  fields: [
+                                    {
+                                      kind: "ObjectField",
+                                      name: { kind: "Name", value: "_eq" },
+                                      value: {
+                                        kind: "Variable",
+                                        name: {
+                                          kind: "Name",
+                                          value: "userId2",
+                                        },
+                                      },
+                                    },
+                                  ],
+                                },
+                              },
+                              {
+                                kind: "ObjectField",
+                                name: { kind: "Name", value: "to_user_id" },
+                                value: {
+                                  kind: "ObjectValue",
+                                  fields: [
+                                    {
+                                      kind: "ObjectField",
+                                      name: { kind: "Name", value: "_eq" },
+                                      value: {
+                                        kind: "Variable",
+                                        name: {
+                                          kind: "Name",
+                                          value: "userId1",
+                                        },
+                                      },
+                                    },
+                                  ],
+                                },
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "order_by" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "created_at" },
+                      value: { kind: "EnumValue", value: "desc" },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "from_user_id" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "to_user_id" } },
+                { kind: "Field", name: { kind: "Name", value: "text" } },
+                { kind: "Field", name: { kind: "Name", value: "created_at" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetMessagesQuery, GetMessagesQueryVariables>;
+export const AddMessageDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "AddMessage" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "realmId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "fromUserId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "toUserId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "text" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "insert_message_one" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "object" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "realm_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "realmId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "from_user_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "fromUserId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "to_user_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "toUserId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "text" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "text" },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<AddMessageMutation, AddMessageMutationVariables>;
+export const GetNotificationsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetNotifications" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "notification" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "user_id" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "_eq" },
+                            value: {
+                              kind: "Variable",
+                              name: { kind: "Name", value: "userId" },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "order_by" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "created_at" },
+                      value: { kind: "EnumValue", value: "desc" },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "payload" } },
+                { kind: "Field", name: { kind: "Name", value: "read" } },
+                { kind: "Field", name: { kind: "Name", value: "created_at" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetNotificationsQuery,
+  GetNotificationsQueryVariables
+>;
+export const GetNewNotificationCountDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetNewNotificationCount" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "notification_aggregate" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "user_id" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "_eq" },
+                            value: {
+                              kind: "Variable",
+                              name: { kind: "Name", value: "userId" },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "read" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "_eq" },
+                            value: { kind: "BooleanValue", value: false },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "aggregate" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "count" } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetNewNotificationCountQuery,
+  GetNewNotificationCountQueryVariables
+>;
+export const AddNotificationDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "AddNotification" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "payload" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "insert_notification_one" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "object" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "user_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "userId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "payload" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "payload" },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  AddNotificationMutation,
+  AddNotificationMutationVariables
+>;
+export const MarkNotificationAsReadDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "MarkNotificationAsRead" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "update_notification_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "pk_columns" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "id" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "_set" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "read" },
+                      value: { kind: "BooleanValue", value: true },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  MarkNotificationAsReadMutation,
+  MarkNotificationAsReadMutationVariables
+>;
+export const GetPostDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetPost" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "realm_post" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "id" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "_eq" },
+                            value: {
+                              kind: "Variable",
+                              name: { kind: "Name", value: "id" },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "limit" },
+                value: { kind: "IntValue", value: "1" },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "user" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "realm_id" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "user_id" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "username" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "thread" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "realm" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "name" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "user" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "realm_id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "user_id" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "topic" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "name" },
+                            },
+                          ],
+                        },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "title" } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetPostQuery, GetPostQueryVariables>;
+export const AddPostDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "AddPost" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "threadId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "content" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "insert_post_one" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "object" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "user_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "userId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "thread_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "threadId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "content" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "content" },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<AddPostMutation, AddPostMutationVariables>;
+export const UpdatePostDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "UpdatePost" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "postId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "content" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "update_post_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "pk_columns" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "postId" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "_set" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "content" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "content" },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<UpdatePostMutation, UpdatePostMutationVariables>;
+export const GetThreadReactionsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetThreadReactions" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "threadId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "thread_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "threadId" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  alias: { kind: "Name", value: "my_reactions" },
+                  name: { kind: "Name", value: "reactions" },
+                  arguments: [
+                    {
+                      kind: "Argument",
+                      name: { kind: "Name", value: "where" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "user_id" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "_eq" },
+                                  value: {
+                                    kind: "Variable",
+                                    name: { kind: "Name", value: "userId" },
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "thread_id" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "user_id" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  alias: { kind: "Name", value: "confused_face_reactions" },
+                  name: { kind: "Name", value: "reactions_aggregate" },
+                  arguments: [
+                    {
+                      kind: "Argument",
+                      name: { kind: "Name", value: "where" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "name" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "_eq" },
+                                  value: {
+                                    kind: "EnumValue",
+                                    value: "confused_face",
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "aggregate" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "count" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  alias: { kind: "Name", value: "eyes_reactions" },
+                  name: { kind: "Name", value: "reactions_aggregate" },
+                  arguments: [
+                    {
+                      kind: "Argument",
+                      name: { kind: "Name", value: "where" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "name" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "_eq" },
+                                  value: { kind: "EnumValue", value: "eyes" },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "aggregate" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "count" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  alias: {
+                    kind: "Name",
+                    value: "grinning_face_with_smiling_eyes_reactions",
+                  },
+                  name: { kind: "Name", value: "reactions_aggregate" },
+                  arguments: [
+                    {
+                      kind: "Argument",
+                      name: { kind: "Name", value: "where" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "name" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "_eq" },
+                                  value: {
+                                    kind: "EnumValue",
+                                    value: "grinning_face_with_smiling_eyes",
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "aggregate" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "count" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  alias: { kind: "Name", value: "party_popper_reactions" },
+                  name: { kind: "Name", value: "reactions_aggregate" },
+                  arguments: [
+                    {
+                      kind: "Argument",
+                      name: { kind: "Name", value: "where" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "name" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "_eq" },
+                                  value: {
+                                    kind: "EnumValue",
+                                    value: "party_popper",
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "aggregate" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "count" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  alias: { kind: "Name", value: "red_heart_reactions" },
+                  name: { kind: "Name", value: "reactions_aggregate" },
+                  arguments: [
+                    {
+                      kind: "Argument",
+                      name: { kind: "Name", value: "where" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "name" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "_eq" },
+                                  value: {
+                                    kind: "EnumValue",
+                                    value: "red_heart",
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "aggregate" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "count" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  alias: { kind: "Name", value: "rocket_reactions" },
+                  name: { kind: "Name", value: "reactions_aggregate" },
+                  arguments: [
+                    {
+                      kind: "Argument",
+                      name: { kind: "Name", value: "where" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "name" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "_eq" },
+                                  value: { kind: "EnumValue", value: "rocket" },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "aggregate" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "count" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  alias: { kind: "Name", value: "thumbs_down_reactions" },
+                  name: { kind: "Name", value: "reactions_aggregate" },
+                  arguments: [
+                    {
+                      kind: "Argument",
+                      name: { kind: "Name", value: "where" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "name" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "_eq" },
+                                  value: {
+                                    kind: "EnumValue",
+                                    value: "thumbs_down",
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "aggregate" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "count" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  alias: { kind: "Name", value: "thumbs_up_reactions" },
+                  name: { kind: "Name", value: "reactions_aggregate" },
+                  arguments: [
+                    {
+                      kind: "Argument",
+                      name: { kind: "Name", value: "where" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "name" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "_eq" },
+                                  value: {
+                                    kind: "EnumValue",
+                                    value: "thumbs_up",
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "aggregate" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "count" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "posts" },
+                  arguments: [
+                    {
+                      kind: "Argument",
+                      name: { kind: "Name", value: "order_by" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "created_at" },
+                            value: { kind: "EnumValue", value: "asc" },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        alias: { kind: "Name", value: "my_reactions" },
+                        name: { kind: "Name", value: "reactions" },
+                        arguments: [
+                          {
+                            kind: "Argument",
+                            name: { kind: "Name", value: "where" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "user_id" },
+                                  value: {
+                                    kind: "ObjectValue",
+                                    fields: [
+                                      {
+                                        kind: "ObjectField",
+                                        name: { kind: "Name", value: "_eq" },
+                                        value: {
+                                          kind: "Variable",
+                                          name: {
+                                            kind: "Name",
+                                            value: "userId",
+                                          },
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "post_id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "user_id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "name" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        alias: {
+                          kind: "Name",
+                          value: "confused_face_reactions",
+                        },
+                        name: { kind: "Name", value: "reactions_aggregate" },
+                        arguments: [
+                          {
+                            kind: "Argument",
+                            name: { kind: "Name", value: "where" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "name" },
+                                  value: {
+                                    kind: "ObjectValue",
+                                    fields: [
+                                      {
+                                        kind: "ObjectField",
+                                        name: { kind: "Name", value: "_eq" },
+                                        value: {
+                                          kind: "EnumValue",
+                                          value: "confused_face",
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "aggregate" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "count" },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        alias: { kind: "Name", value: "eyes_reactions" },
+                        name: { kind: "Name", value: "reactions_aggregate" },
+                        arguments: [
+                          {
+                            kind: "Argument",
+                            name: { kind: "Name", value: "where" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "name" },
+                                  value: {
+                                    kind: "ObjectValue",
+                                    fields: [
+                                      {
+                                        kind: "ObjectField",
+                                        name: { kind: "Name", value: "_eq" },
+                                        value: {
+                                          kind: "EnumValue",
+                                          value: "eyes",
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "aggregate" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "count" },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        alias: {
+                          kind: "Name",
+                          value: "grinning_face_with_smiling_eyes_reactions",
+                        },
+                        name: { kind: "Name", value: "reactions_aggregate" },
+                        arguments: [
+                          {
+                            kind: "Argument",
+                            name: { kind: "Name", value: "where" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "name" },
+                                  value: {
+                                    kind: "ObjectValue",
+                                    fields: [
+                                      {
+                                        kind: "ObjectField",
+                                        name: { kind: "Name", value: "_eq" },
+                                        value: {
+                                          kind: "EnumValue",
+                                          value:
+                                            "grinning_face_with_smiling_eyes",
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "aggregate" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "count" },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        alias: {
+                          kind: "Name",
+                          value: "party_popper_reactions",
+                        },
+                        name: { kind: "Name", value: "reactions_aggregate" },
+                        arguments: [
+                          {
+                            kind: "Argument",
+                            name: { kind: "Name", value: "where" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "name" },
+                                  value: {
+                                    kind: "ObjectValue",
+                                    fields: [
+                                      {
+                                        kind: "ObjectField",
+                                        name: { kind: "Name", value: "_eq" },
+                                        value: {
+                                          kind: "EnumValue",
+                                          value: "party_popper",
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "aggregate" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "count" },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        alias: { kind: "Name", value: "red_heart_reactions" },
+                        name: { kind: "Name", value: "reactions_aggregate" },
+                        arguments: [
+                          {
+                            kind: "Argument",
+                            name: { kind: "Name", value: "where" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "name" },
+                                  value: {
+                                    kind: "ObjectValue",
+                                    fields: [
+                                      {
+                                        kind: "ObjectField",
+                                        name: { kind: "Name", value: "_eq" },
+                                        value: {
+                                          kind: "EnumValue",
+                                          value: "red_heart",
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "aggregate" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "count" },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        alias: { kind: "Name", value: "rocket_reactions" },
+                        name: { kind: "Name", value: "reactions_aggregate" },
+                        arguments: [
+                          {
+                            kind: "Argument",
+                            name: { kind: "Name", value: "where" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "name" },
+                                  value: {
+                                    kind: "ObjectValue",
+                                    fields: [
+                                      {
+                                        kind: "ObjectField",
+                                        name: { kind: "Name", value: "_eq" },
+                                        value: {
+                                          kind: "EnumValue",
+                                          value: "rocket",
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "aggregate" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "count" },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        alias: { kind: "Name", value: "thumbs_down_reactions" },
+                        name: { kind: "Name", value: "reactions_aggregate" },
+                        arguments: [
+                          {
+                            kind: "Argument",
+                            name: { kind: "Name", value: "where" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "name" },
+                                  value: {
+                                    kind: "ObjectValue",
+                                    fields: [
+                                      {
+                                        kind: "ObjectField",
+                                        name: { kind: "Name", value: "_eq" },
+                                        value: {
+                                          kind: "EnumValue",
+                                          value: "thumbs_down",
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "aggregate" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "count" },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        alias: { kind: "Name", value: "thumbs_up_reactions" },
+                        name: { kind: "Name", value: "reactions_aggregate" },
+                        arguments: [
+                          {
+                            kind: "Argument",
+                            name: { kind: "Name", value: "where" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "name" },
+                                  value: {
+                                    kind: "ObjectValue",
+                                    fields: [
+                                      {
+                                        kind: "ObjectField",
+                                        name: { kind: "Name", value: "_eq" },
+                                        value: {
+                                          kind: "EnumValue",
+                                          value: "thumbs_up",
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "aggregate" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "count" },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetThreadReactionsQuery,
+  GetThreadReactionsQueryVariables
+>;
+export const AddThreadReactionDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "AddThreadReaction" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "name" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "reaction_emoji_enum" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "threadId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "insert_thread_reaction_one" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "object" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "name" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "name" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "thread_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "threadId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "user_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "userId" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "on_conflict" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "constraint" },
+                      value: {
+                        kind: "EnumValue",
+                        value: "thread_reaction_pkey",
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "update_columns" },
+                      value: {
+                        kind: "ListValue",
+                        values: [{ kind: "EnumValue", value: "created_at" }],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "user_id" } },
+                { kind: "Field", name: { kind: "Name", value: "thread_id" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  AddThreadReactionMutation,
+  AddThreadReactionMutationVariables
+>;
+export const DeleteThreadReactionDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "DeleteThreadReaction" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "name" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "reaction_emoji_enum" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "threadId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "delete_thread_reaction_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "name" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "name" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "thread_id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "threadId" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "user_id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "userId" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "user_id" } },
+                { kind: "Field", name: { kind: "Name", value: "thread_id" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  DeleteThreadReactionMutation,
+  DeleteThreadReactionMutationVariables
+>;
+export const AddPostReactionDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "AddPostReaction" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "name" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "reaction_emoji_enum" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "postId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "insert_post_reaction_one" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "object" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "name" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "name" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "post_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "postId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "user_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "userId" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "on_conflict" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "constraint" },
+                      value: { kind: "EnumValue", value: "post_reaction_pkey" },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "update_columns" },
+                      value: {
+                        kind: "ListValue",
+                        values: [{ kind: "EnumValue", value: "created_at" }],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "user_id" } },
+                { kind: "Field", name: { kind: "Name", value: "post_id" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  AddPostReactionMutation,
+  AddPostReactionMutationVariables
+>;
+export const DeletePostReactionDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "DeletePostReaction" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "name" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "reaction_emoji_enum" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "postId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "delete_post_reaction_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "name" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "name" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "post_id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "postId" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "user_id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "userId" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "user_id" } },
+                { kind: "Field", name: { kind: "Name", value: "post_id" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  DeletePostReactionMutation,
+  DeletePostReactionMutationVariables
+>;
+export const GetRealmDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetRealm" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "realm_public" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "id" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "_eq" },
+                            value: {
+                              kind: "Variable",
+                              name: { kind: "Name", value: "id" },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "limit" },
+                value: { kind: "IntValue", value: "1" },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                { kind: "Field", name: { kind: "Name", value: "description" } },
+                { kind: "Field", name: { kind: "Name", value: "private" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "topics" },
+                  arguments: [
+                    {
+                      kind: "Argument",
+                      name: { kind: "Name", value: "order_by" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "created_at" },
+                            value: { kind: "EnumValue", value: "asc" },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "threads" },
+                  arguments: [
+                    {
+                      kind: "Argument",
+                      name: { kind: "Name", value: "order_by" },
+                      value: {
+                        kind: "ListValue",
+                        values: [
+                          {
+                            kind: "ObjectValue",
+                            fields: [
+                              {
+                                kind: "ObjectField",
+                                name: {
+                                  kind: "Name",
+                                  value: "posts_aggregate",
+                                },
+                                value: {
+                                  kind: "ObjectValue",
+                                  fields: [
+                                    {
+                                      kind: "ObjectField",
+                                      name: { kind: "Name", value: "max" },
+                                      value: {
+                                        kind: "ObjectValue",
+                                        fields: [
+                                          {
+                                            kind: "ObjectField",
+                                            name: {
+                                              kind: "Name",
+                                              value: "updated_at",
+                                            },
+                                            value: {
+                                              kind: "EnumValue",
+                                              value: "desc_nulls_last",
+                                            },
+                                          },
+                                        ],
+                                      },
+                                    },
+                                  ],
+                                },
+                              },
+                            ],
+                          },
+                          {
+                            kind: "ObjectValue",
+                            fields: [
+                              {
+                                kind: "ObjectField",
+                                name: { kind: "Name", value: "updated_at" },
+                                value: { kind: "EnumValue", value: "desc" },
+                              },
+                            ],
+                          },
+                          {
+                            kind: "ObjectValue",
+                            fields: [
+                              {
+                                kind: "ObjectField",
+                                name: { kind: "Name", value: "created_at" },
+                                value: { kind: "EnumValue", value: "desc" },
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "realm_id" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "topic" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "name" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "user" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "realm_id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "user_id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "username" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "avatar_url" },
+                            },
+                          ],
+                        },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "title" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "posts" },
+                        arguments: [
+                          {
+                            kind: "Argument",
+                            name: { kind: "Name", value: "order_by" },
+                            value: {
+                              kind: "ListValue",
+                              values: [
+                                {
+                                  kind: "ObjectValue",
+                                  fields: [
+                                    {
+                                      kind: "ObjectField",
+                                      name: { kind: "Name", value: "id" },
+                                      value: {
+                                        kind: "EnumValue",
+                                        value: "asc",
+                                      },
+                                    },
+                                  ],
+                                },
+                                {
+                                  kind: "ObjectValue",
+                                  fields: [
+                                    {
+                                      kind: "ObjectField",
+                                      name: {
+                                        kind: "Name",
+                                        value: "updated_at",
+                                      },
+                                      value: {
+                                        kind: "EnumValue",
+                                        value: "desc",
+                                      },
+                                    },
+                                  ],
+                                },
+                                {
+                                  kind: "ObjectValue",
+                                  fields: [
+                                    {
+                                      kind: "ObjectField",
+                                      name: {
+                                        kind: "Name",
+                                        value: "created_at",
+                                      },
+                                      value: {
+                                        kind: "EnumValue",
+                                        value: "desc",
+                                      },
+                                    },
+                                  ],
+                                },
+                              ],
+                            },
+                          },
+                          {
+                            kind: "Argument",
+                            name: { kind: "Name", value: "distinct_on" },
+                            value: {
+                              kind: "ListValue",
+                              values: [{ kind: "EnumValue", value: "id" }],
+                            },
+                          },
+                          {
+                            kind: "Argument",
+                            name: { kind: "Name", value: "limit" },
+                            value: { kind: "IntValue", value: "4" },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "user" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "realm_id" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "user_id" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "username" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "avatar_url" },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "posts_aggregate" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "aggregate" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "max" },
+                                    selectionSet: {
+                                      kind: "SelectionSet",
+                                      selections: [
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "updated_at",
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "updated_at" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetRealmQuery, GetRealmQueryVariables>;
+export const GetPublicRealmsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetPublicRealms" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "realm_public" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "private" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "_eq" },
+                            value: { kind: "BooleanValue", value: false },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "id" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "_neq" },
+                            value: { kind: "IntValue", value: "1" },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                { kind: "Field", name: { kind: "Name", value: "description" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "users_aggregate" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "aggregate" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "count" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetPublicRealmsQuery,
+  GetPublicRealmsQueryVariables
+>;
+export const GetRealmDetailsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetRealmDetails" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "realm_public" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "id" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "_eq" },
+                            value: {
+                              kind: "Variable",
+                              name: { kind: "Name", value: "id" },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "limit" },
+                value: { kind: "IntValue", value: "1" },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                { kind: "Field", name: { kind: "Name", value: "description" } },
+                { kind: "Field", name: { kind: "Name", value: "private" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetRealmDetailsQuery,
+  GetRealmDetailsQueryVariables
+>;
+export const GetRealmDetailsInvitationCodeDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetRealmDetailsInvitationCode" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "realm_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "admin_id" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                { kind: "Field", name: { kind: "Name", value: "description" } },
+                { kind: "Field", name: { kind: "Name", value: "private" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "invitation_code" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "topics" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetRealmDetailsInvitationCodeQuery,
+  GetRealmDetailsInvitationCodeQueryVariables
+>;
+export const AddRealmDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "AddRealm" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "adminId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "name" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "description" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "private" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "Boolean" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "invitationCode" },
+          },
+          type: { kind: "NamedType", name: { kind: "Name", value: "String" } },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "insert_realm_one" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "object" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "admin_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "adminId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "name" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "name" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "description" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "description" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "private" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "private" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "invitation_code" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "invitationCode" },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<AddRealmMutation, AddRealmMutationVariables>;
+export const UpdateRealmDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "UpdateRealm" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "description" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "private" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "Boolean" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "invitationCode" },
+          },
+          type: { kind: "NamedType", name: { kind: "Name", value: "String" } },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "topics" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "ListType",
+              type: {
+                kind: "NonNullType",
+                type: {
+                  kind: "NamedType",
+                  name: { kind: "Name", value: "topic_insert_input" },
+                },
+              },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "update_realm_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "pk_columns" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "id" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "_set" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "description" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "description" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "private" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "private" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "invitation_code" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "invitationCode" },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "insert_topic" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "objects" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "topics" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "on_conflict" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "constraint" },
+                      value: { kind: "EnumValue", value: "topic_pkey" },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "update_columns" },
+                      value: {
+                        kind: "ListValue",
+                        values: [{ kind: "EnumValue", value: "name" }],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "affected_rows" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<UpdateRealmMutation, UpdateRealmMutationVariables>;
+export const GetSessionDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "GetSession" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "activeAt" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "timestamptz" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "update_session_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "pk_columns" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "id" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "_set" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "active_at" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "activeAt" },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "user_id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetSessionMutation, GetSessionMutationVariables>;
+export const GetSessionsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetSessions" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "session" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "order_by" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "active_at" },
+                      value: { kind: "EnumValue", value: "desc" },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "user_id" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "_eq" },
+                            value: {
+                              kind: "Variable",
+                              name: { kind: "Name", value: "userId" },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "description" } },
+                { kind: "Field", name: { kind: "Name", value: "created_at" } },
+                { kind: "Field", name: { kind: "Name", value: "active_at" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetSessionsQuery, GetSessionsQueryVariables>;
+export const AddSessionDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "AddSession" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "description" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "activeAt" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "timestamptz" },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "insert_session_one" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "object" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "id" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "user_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "userId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "description" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "description" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "active_at" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "activeAt" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "on_conflict" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "constraint" },
+                      value: { kind: "EnumValue", value: "session_pkey" },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "update_columns" },
+                      value: {
+                        kind: "ListValue",
+                        values: [
+                          { kind: "EnumValue", value: "description" },
+                          { kind: "EnumValue", value: "active_at" },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<AddSessionMutation, AddSessionMutationVariables>;
+export const DeleteSessionDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "DeleteSession" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "delete_session_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  DeleteSessionMutation,
+  DeleteSessionMutationVariables
+>;
+export const GetThreadDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetThread" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "thread_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "realm" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "topic" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "title" } },
+                { kind: "Field", name: { kind: "Name", value: "content" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "user" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "realm_id" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "user_id" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "username" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "status" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "avatar_url" },
+                      },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "created_at" } },
+                { kind: "Field", name: { kind: "Name", value: "updated_at" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "posts" },
+                  arguments: [
+                    {
+                      kind: "Argument",
+                      name: { kind: "Name", value: "order_by" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "created_at" },
+                            value: { kind: "EnumValue", value: "asc" },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "user" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "realm_id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "user_id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "username" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "status" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "avatar_url" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "content" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "created_at" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "updated_at" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetThreadQuery, GetThreadQueryVariables>;
+export const GetHottestThreadsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetHottestThreads" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "thread" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "realm" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "private" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "_eq" },
+                                  value: { kind: "BooleanValue", value: false },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "order_by" },
+                value: {
+                  kind: "ListValue",
+                  values: [
+                    {
+                      kind: "ObjectValue",
+                      fields: [
+                        {
+                          kind: "ObjectField",
+                          name: { kind: "Name", value: "posts_aggregate" },
+                          value: {
+                            kind: "ObjectValue",
+                            fields: [
+                              {
+                                kind: "ObjectField",
+                                name: { kind: "Name", value: "count" },
+                                value: { kind: "EnumValue", value: "desc" },
+                              },
+                            ],
+                          },
+                        },
+                      ],
+                    },
+                    {
+                      kind: "ObjectValue",
+                      fields: [
+                        {
+                          kind: "ObjectField",
+                          name: { kind: "Name", value: "reactions_aggregate" },
+                          value: {
+                            kind: "ObjectValue",
+                            fields: [
+                              {
+                                kind: "ObjectField",
+                                name: { kind: "Name", value: "count" },
+                                value: { kind: "EnumValue", value: "desc" },
+                              },
+                            ],
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "limit" },
+                value: { kind: "IntValue", value: "3" },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "realm" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "title" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "posts_aggregate" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "aggregate" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "count" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "reactions_aggregate" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "aggregate" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "count" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "created_at" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetHottestThreadsQuery,
+  GetHottestThreadsQueryVariables
+>;
+export const GetNewestThreadsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetNewestThreads" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "thread" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "realm" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "private" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "_eq" },
+                                  value: { kind: "BooleanValue", value: false },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "order_by" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "created_at" },
+                      value: { kind: "EnumValue", value: "desc" },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "limit" },
+                value: { kind: "IntValue", value: "3" },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "realm" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "title" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "posts_aggregate" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "aggregate" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "count" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "reactions_aggregate" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "aggregate" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "count" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "created_at" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetNewestThreadsQuery,
+  GetNewestThreadsQueryVariables
+>;
+export const AddThreadDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "AddThread" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "realmId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "topicId" },
+          },
+          type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "title" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "content" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "insert_thread_one" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "object" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "realm_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "realmId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "user_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "userId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "topic_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "topicId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "title" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "title" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "content" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "content" },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<AddThreadMutation, AddThreadMutationVariables>;
+export const UpdateThreadDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "UpdateThread" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "threadId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "title" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "content" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "update_thread_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "pk_columns" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "threadId" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "_set" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "title" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "title" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "content" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "content" },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  UpdateThreadMutation,
+  UpdateThreadMutationVariables
+>;
+export const GetUserDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetUser" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "realmId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "user_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "userId" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "university_id" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "email" } },
+                { kind: "Field", name: { kind: "Name", value: "role" } },
+                { kind: "Field", name: { kind: "Name", value: "created_at" } },
+                {
+                  kind: "Field",
+                  alias: { kind: "Name", value: "realm_ids" },
+                  name: { kind: "Name", value: "realm_users" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "realm_id" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "user_id" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "realm_users" },
+                  arguments: [
+                    {
+                      kind: "Argument",
+                      name: { kind: "Name", value: "where" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "realm_id" },
+                            value: {
+                              kind: "ObjectValue",
+                              fields: [
+                                {
+                                  kind: "ObjectField",
+                                  name: { kind: "Name", value: "_eq" },
+                                  value: {
+                                    kind: "Variable",
+                                    name: { kind: "Name", value: "realmId" },
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: "Argument",
+                      name: { kind: "Name", value: "limit" },
+                      value: { kind: "IntValue", value: "1" },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "realm_id" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "user_id" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "realm" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "name" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "username" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "status" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "avatar_url" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "created_at" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetUserQuery, GetUserQueryVariables>;
+export const GetUserRealmsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetUserRealms" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "user_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "realm_users" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "realm_id" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "user_id" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "realm" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "name" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetUserRealmsQuery, GetUserRealmsQueryVariables>;
+export const GetRealmUserDetailsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetRealmUserDetails" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "realmId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "realm_user_union" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "realm_id" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "_eq" },
+                            value: {
+                              kind: "Variable",
+                              name: { kind: "Name", value: "realmId" },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "user_id" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "_eq" },
+                            value: {
+                              kind: "Variable",
+                              name: { kind: "Name", value: "userId" },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "realm_id" } },
+                { kind: "Field", name: { kind: "Name", value: "user_id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "realm" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "username" } },
+                { kind: "Field", name: { kind: "Name", value: "status" } },
+                { kind: "Field", name: { kind: "Name", value: "avatar_url" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetRealmUserDetailsQuery,
+  GetRealmUserDetailsQueryVariables
+>;
+export const AddOrUpdateUserDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "AddOrUpdateUser" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "universityId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "email" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "insert_user_one" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "object" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "university_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "universityId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "email" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "email" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "username" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "universityId" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "on_conflict" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "constraint" },
+                      value: {
+                        kind: "EnumValue",
+                        value: "user_university_id_key",
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "update_columns" },
+                      value: {
+                        kind: "ListValue",
+                        values: [{ kind: "EnumValue", value: "email" }],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "university_id" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "email" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  AddOrUpdateUserMutation,
+  AddOrUpdateUserMutationVariables
+>;
+export const UpdateUsernameDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "UpdateUsername" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "username" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "update_user_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "pk_columns" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "userId" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "_set" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "username" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "username" },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "username" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  UpdateUsernameMutation,
+  UpdateUsernameMutationVariables
+>;
+export const UpdateRealmUsernameDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "UpdateRealmUsername" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "realmId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "username" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "insert_realm_user_one" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "object" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "user_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "userId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "realm_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "realmId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "username" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "username" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "on_conflict" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "constraint" },
+                      value: { kind: "EnumValue", value: "realm_user_pkey" },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "update_columns" },
+                      value: {
+                        kind: "ListValue",
+                        values: [{ kind: "EnumValue", value: "username" }],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "user_id" } },
+                { kind: "Field", name: { kind: "Name", value: "realm_id" } },
+                { kind: "Field", name: { kind: "Name", value: "username" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  UpdateRealmUsernameMutation,
+  UpdateRealmUsernameMutationVariables
+>;
+export const UpdateUserAvatarDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "UpdateUserAvatar" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "avatarUrl" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "update_user_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "pk_columns" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "userId" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "_set" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "avatar_url" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "avatarUrl" },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "avatar_url" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  UpdateUserAvatarMutation,
+  UpdateUserAvatarMutationVariables
+>;
+export const UpdateRealmUserAvatarDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "UpdateRealmUserAvatar" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "realmId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "avatarUrl" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "insert_realm_user_one" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "object" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "user_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "userId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "realm_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "realmId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "avatar_url" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "avatarUrl" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "on_conflict" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "constraint" },
+                      value: { kind: "EnumValue", value: "realm_user_pkey" },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "update_columns" },
+                      value: {
+                        kind: "ListValue",
+                        values: [{ kind: "EnumValue", value: "avatar_url" }],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "user_id" } },
+                { kind: "Field", name: { kind: "Name", value: "realm_id" } },
+                { kind: "Field", name: { kind: "Name", value: "avatar_url" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  UpdateRealmUserAvatarMutation,
+  UpdateRealmUserAvatarMutationVariables
+>;
+export const UpdateUserStatusDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "UpdateUserStatus" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "status" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "update_user_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "pk_columns" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "userId" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "_set" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "status" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "status" },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "status" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  UpdateUserStatusMutation,
+  UpdateUserStatusMutationVariables
+>;
+export const UpdateRealmUserStatusDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "UpdateRealmUserStatus" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "uuid" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "realmId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "status" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "update_realm_user_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "pk_columns" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "user_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "userId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "realm_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "realmId" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "_set" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "status" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "status" },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "user_id" } },
+                { kind: "Field", name: { kind: "Name", value: "realm_id" } },
+                { kind: "Field", name: { kind: "Name", value: "status" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  UpdateRealmUserStatusMutation,
+  UpdateRealmUserStatusMutationVariables
+>;
+export const GetRealmUserByUsernameDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetRealmUserByUsername" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "username" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "realm_user_union" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "username" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "_eq" },
+                            value: {
+                              kind: "Variable",
+                              name: { kind: "Name", value: "username" },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "limit" },
+                value: { kind: "IntValue", value: "1" },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "username" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetRealmUserByUsernameQuery,
+  GetRealmUserByUsernameQueryVariables
+>;

@@ -26,6 +26,20 @@ const nextConfig = {
       transform: "@mui/icons-material/{{member}}",
     },
   },
+  async redirects() {
+    return [
+      {
+        source: "/learn",
+        destination: "/learnX",
+        permanent: true,
+      },
+      {
+        source: "/course",
+        destination: "/courses",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default withBundleAnalyzer(nextConfig);
