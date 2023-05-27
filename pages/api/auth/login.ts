@@ -35,7 +35,7 @@ export default async function handleLogin(
     if (
       !(
         result.success &&
-        result.hostname === process.env.HOSTNAME &&
+        result.hostname === process.env.DOMAIN &&
         result.action === "login" &&
         result.score >= 0.5
       )
