@@ -24,6 +24,7 @@ COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED 1
 RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN pnpm codegen
 RUN pnpm build
 
 FROM base AS runner

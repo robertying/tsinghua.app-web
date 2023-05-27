@@ -39,6 +39,8 @@ jobs:
             nextjs-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
         run: pnpm install --frozen-lockfile
+      - name: Codegen
+        run: pnpm codegen
       - name: Lint
         run: pnpm lint
       - name: Type Check
