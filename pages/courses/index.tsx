@@ -11,7 +11,7 @@ import {
 } from "api/types/graphql";
 import { GET_COURSE_COUNT } from "api/course";
 
-const CURRENT_SEMESTER_ID = "2022-2023-2";
+const CURRENT_SEMESTER_ID = "2022-2023-3";
 
 interface CourseHomeProps {
   courseCount?: number | null;
