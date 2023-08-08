@@ -10,6 +10,7 @@ const nextConfig = {
   compiler: {
     emotion: true,
   },
+  swcMinify: false,
   output: "standalone",
   compress: false,
   modularizeImports: {
@@ -36,9 +37,6 @@ const nextConfig = {
         permanent: true,
       },
     ];
-  },
-  experimental: {
-    esmExternals: false,
   },
 };
 

@@ -15,7 +15,7 @@ import sanitize from "rehype-sanitize";
 import rehype2react from "rehype-react";
 import MyImage from "components/Image";
 import { isRelativeUrl } from "./validate";
-import { defaultSchema } from "hast-util-sanitize/lib/schema";
+import { defaultSchema } from "hast-util-sanitize";
 
 export const markdownToHtml = async (markdownString: string) => {
   const file = await unified()
