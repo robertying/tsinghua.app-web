@@ -73,7 +73,7 @@ export const CourseHome: React.FC<React.PropsWithChildren<CourseHomeProps>> = ({
       <Typography sx={{ textAlign: "center" }} variant="h4" component="h2">
         课程信息共享计划
       </Typography>
-      {courseCount && (
+      {courseCount ? (
         <Typography sx={{ mt: 5, textAlign: "center" }} variant="caption">
           已收录本学期（{getSemesterTextFromId(CURRENT_SEMESTER_ID)}）课程{" "}
           <Typography sx={{ fontWeight: "bold" }} variant="caption">
@@ -81,7 +81,7 @@ export const CourseHome: React.FC<React.PropsWithChildren<CourseHomeProps>> = ({
           </Typography>{" "}
           门。
         </Typography>
-      )}
+      ) : null}
       <Container
         sx={{ display: "flex", alignItems: "stretch", mt: courseCount ? 3 : 4 }}
         maxWidth="sm"
