@@ -15,7 +15,7 @@ import sanitize from "rehype-sanitize";
 import rehype2react from "rehype-react";
 import MyImage from "components/Image";
 import { isRelativeUrl } from "./validate";
-import { defaultSchema } from "hast-util-sanitize";
+import { defaultSchema, Schema } from "hast-util-sanitize";
 
 export const markdownToHtml = async (markdownString: string) => {
   const file = await unified()
@@ -30,7 +30,7 @@ export const markdownToHtml = async (markdownString: string) => {
   return file.toString();
 };
 
-const katexSanitizeSchema = merge(defaultSchema, {
+const katexSanitizeSchema: Schema = merge(defaultSchema, {
   tagNames: [
     "math",
     "annotation",
@@ -61,7 +61,7 @@ const katexSanitizeSchema = merge(defaultSchema, {
     "mglyph",
   ],
   attributes: {
-    div: [["className", "math", "math-display"]] as any,
+    div: [["className", "math", "math-display"]],
     span: ["className", "style", "aria-hidden"],
     math: ["xmlns", "display"],
     annotation: ["encoding"],
@@ -112,7 +112,7 @@ export const markdownToReact = async (
     .use(raw)
     .use(katex as any)
     .use(rehype2react, getRehypeToReactOptions(preview))
-    .use(sanitize, katexSanitizeSchema)
+    .use(sanitize, katexSanitizeSchema as any)
     .process(markdownString);
 
   return file.result as React.ReactElement;
